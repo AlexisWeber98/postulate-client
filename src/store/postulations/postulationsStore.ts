@@ -1,54 +1,73 @@
-import { create } from 'zustand';
-import { Postulation, PostulationState } from '../../types/interface/postulations/postulation';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import {
+  Postulation,
+  PostulationState,
+} from "../../types/interface/postulations/postulation";
 
+<<<<<<< HEAD
 const usePostulationsStore = create<PostulationState>((set, get) => ({
   postulations: [],
   loading: false,
+=======
+export const usePostulationsStore = create<PostulationState>()(
+  persist(
+    (set, get) => ({
+      postulations: [],
+>>>>>>> 41d4925 (RF: delete duplicate directories)
 
-  addPostulation: (newPostulation) => {
-    const id = crypto.randomUUID();
-    const now = new Date().toISOString();
-    const postulation: Postulation = {
-      ...newPostulation,
-      id,
-      createdAt: now,
-      updatedAt: now
-    };
+      addPostulation: (newPostulation) => {
+        const timestamp = new Date().toISOString();
+        const id = crypto.randomUUID();
 
-    set(state => ({
-      postulations: [...state.postulations, postulation]
-    }));
+        const postulation: Postulation = {
+          ...newPostulation,
+          id,
+          createdAt: timestamp,
+          updatedAt: timestamp,
+        };
 
-    return id;
-  },
+        set((state) => ({
+          postulations: [postulation, ...state.postulations],
+        }));
 
-  updatePostulation: (id, updatedFields) => {
-    set(state => ({
-      postulations: state.postulations.map(postulation =>
-        postulation.id === id
-          ? { ...postulation, ...updatedFields, updatedAt: new Date().toISOString() }
-          : postulation
-      )
-    }));
-  },
+        return id;
+      },
 
-  deletePostulation: (id) => {
-    set(state => ({
-      postulations: state.postulations.filter(postulation => postulation.id !== id)
-    }));
-  },
+      updatePostulation: (id, updatedFields) => {
+        set((state) => ({
+          postulations: state.postulations.map((app) =>
+            app.id === id
+              ? {
+                  ...app,
+                  ...updatedFields,
+                  updatedAt: new Date().toISOString(),
+                }
+              : app,
+          ),
+        }));
+      },
 
-  getPostulation: (id) => {
-    return get().postulations.find(postulation => postulation.id === id);
-  },
+      deletePostulation: (id) => {
+        set((state) => ({
+          postulations: state.postulations.filter((app) => app.id !== id),
+        }));
+      },
 
-  checkDuplicate: (company, position) => {
-    return get().postulations.some(
-      postulation =>
-        postulation.company.toLowerCase() === company.toLowerCase() &&
-        postulation.position.toLowerCase() === position.toLowerCase()
-    );
-  }
-}));
+      getPostulation: (id) => {
+        return get().postulations.find((app) => app.id === id);
+      },
 
-export { usePostulationsStore };
+      checkDuplicate: (company, position) => {
+        return get().postulations.some(
+          (app) =>
+            app.company.toLowerCase() === company.toLowerCase() &&
+            app.position.toLowerCase() === position.toLowerCase(),
+        );
+      },
+    }),
+    {
+      name: "job-potulations-storage",
+    },
+  ),
+);
