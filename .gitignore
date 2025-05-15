@@ -16,5 +16,5 @@ dist
 *.njsproj
 *.sln
 *.sw?
-bun.lockb
+bun.lock
 package-lock.json
