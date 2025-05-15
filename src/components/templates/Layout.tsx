@@ -14,14 +14,14 @@ const LoadingIndicator: React.FC = () => (
 
 const Layout: React.FC = () => {
   return (
-    <div style={{ minHeight: '100vh', background: APP_COLORS.lightGray, fontFamily: 'Inter, sans-serif' }}>
+    <div className="flex flex-col min-h-screen" style={{ background: APP_COLORS.lightGray, fontFamily: 'Inter, sans-serif' }}>
       <Navbar />
-      <main className="container mx-auto px-4 py-6 mt-4 sm:px-6 lg:px-8 flex-grow">
+      <main className="flex-grow container mx-auto px-4 py-6 mt-4 sm:px-6 lg:px-8">
         <Suspense fallback={<LoadingIndicator />}>
           <Outlet />
         </Suspense>
       </main>
-      <footer style={{ background: APP_COLORS.white }} className="shadow-inner py-4 mt-auto">
+      <footer style={{ background: APP_COLORS.white }} className="shadow-inner py-4">
         <div className="container mx-auto px-4 text-center text-gray-500 text-sm">
           © {new Date().getFullYear()} Postulate - Gestor de Postulaciones Laborales
         </div>
