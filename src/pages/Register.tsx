@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
     import { Briefcase, User, Mail, AlertCircle, BookUser } from 'lucide-react';
 import { useAuthStore } from '../store/auth/authStore';
 import { APP_COLORS } from '../styles/colors';
-import { PasswordToggle } from '../components/ui/password-toggle';
+import { PasswordToggle } from '../components/ui/PasswordToggle';
 
 const Register: React.FC = () => {
   const { signUp, loading } = useAuthStore();
