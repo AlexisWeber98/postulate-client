@@ -3,11 +3,14 @@ import Navbar from '../components/organisms/Navbar';
 import Footer from '../components/organisms/Footer';
 import { APP_COLORS } from '../styles/colors';
 import { CheckCircle2, BarChart2, Search } from 'lucide-react';
+import HeroSectionContainer from '../features/landing/components/HeroSection.container';
 
 const Landing: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
+
+      <HeroSectionContainer />
 
       <main className="bg-white py-16 flex-grow">
         <div className="container mx-auto px-6">

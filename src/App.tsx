@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import EditProfile from './pages/EditProfile';
 import { useAuthStore } from './store';
+import { LanguageProvider } from './context/LanguageContext';
+import { AuthLayout } from './features/auth/AuthLayout';
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading } = useAuthStore();
@@ -46,11 +48,14 @@ function App() {
   }, [user]);
 
   return (
+    <LanguageProvider>
       <Router>
         <Routes>
           <Route path="/landing" element={user ? <Navigate to="/" replace /> : <Landing />} />
-          <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
-          <Route path="/register" element={user ? <Navigate to="/" replace /> : <Register />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
+            <Route path="/register" element={user ? <Navigate to="/" replace /> : <Register />} />
+          </Route>
           <Route path="/" element={
             <PrivateRoute>
               <Layout />
@@ -64,6 +69,7 @@ function App() {
           <Route path="*" element={<Navigate to={user ? "/" : "/landing"} replace />} />
         </Routes>
       </Router>
+    </LanguageProvider>
   );
 }
 

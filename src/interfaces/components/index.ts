@@ -22,3 +22,5 @@ export type {
 export * from './atoms/ButtonProps.interface';
 export * from './molecules/CardProps.interface';
 export * from './organisms/ApplicationCardProps.interface';
+
+export { type NavbarProps } from './organisms';
