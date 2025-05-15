@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { usePostulationsStore } from '../../../store';
 import { Postulation } from '../../../types/interface/postulations/postulation';
 import ApplicationCardUI from './ApplicationCard.ui';
+import ApplicationDetailModalUI from './components/ApplicationDetailModal.ui';
 
 interface ApplicationCardProps {
   application: Postulation;
@@ -14,6 +15,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const { id, date } = application;
   const formattedDate = new Date(date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
   const handleEdit = () => {
     navigate(`/edit/${id}`);
@@ -31,6 +33,9 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
     deletePostulation(id);
     closeDeleteModal();
   };
+
+  const openDetailModal = () => setIsDetailModalOpen(true);
+  const closeDetailModal = () => setIsDetailModalOpen(false);
 
   const getInitials = (companyName: string) => {
     return companyName.split(' ').map(word => word[0]).join('').toUpperCase().substring(0, 2);
@@ -50,17 +55,26 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   };
 
   return (
-    <ApplicationCardUI
-      application={application}
-      formattedDate={formattedDate}
-      getInitials={getInitials}
-      getStatusLabel={getStatusLabel}
-      handleEdit={handleEdit}
-      openDeleteModal={openDeleteModal}
-      closeDeleteModal={closeDeleteModal}
-      confirmDelete={confirmDelete}
-      isDeleteModalOpen={isDeleteModalOpen}
-    />
+    <>
+      <div onClick={openDetailModal} style={{ cursor: 'pointer' }}>
+        <ApplicationCardUI
+          application={application}
+          formattedDate={formattedDate}
+          getInitials={getInitials}
+          getStatusLabel={getStatusLabel}
+          handleEdit={handleEdit}
+          openDeleteModal={openDeleteModal}
+          closeDeleteModal={closeDeleteModal}
+          confirmDelete={confirmDelete}
+          isDeleteModalOpen={isDeleteModalOpen}
+        />
+      </div>
+      <ApplicationDetailModalUI
+        application={application}
+        isOpen={isDetailModalOpen}
+        onClose={closeDetailModal}
+      />
+    </>
   );
 };
 
