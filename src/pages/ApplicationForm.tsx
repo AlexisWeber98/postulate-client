@@ -1,22 +1,26 @@
-import  { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { usePostulationsStore } from '../store';
-import { PostulationStatus  , STATUS_LABELS} from '../types/index';
-import Modal from '../components/molecules/Modal';
-import { Save, AlertCircle } from 'lucide-react';
-import { ValidationHelpers, DateHelpers } from '../lib/helpers';
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { usePostulationsStore } from "../store";
+import { PostulationStatus, STATUS_LABELS } from "../types/index";
+import Modal from "../components/molecules/Modal";
+import { Save, AlertCircle } from "lucide-react";
+import { ValidationHelpers, DateHelpers } from "../lib/helpers";
 
 const ApplicationForm: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addPostulation, updatePostulation, getPostulation, checkDuplicate } = usePostulationsStore();
+  const { addPostulation, updatePostulation, getPostulation, checkDuplicate } =
+    usePostulationsStore();
 
-  const [company, setCompany] = useState('');
-  const [position, setPosition] = useState('');
-  const [status, setStatus] = useState<PostulationStatus>('applied');
-  const [date, setDate] = useState('');
-  const [url, setUrl] = useState('');
-  const [notes, setNotes] = useState('');
+  const [company, setCompany] = useState("");
+  const [position, setPosition] = useState("");
+  const [status, setStatus] = useState<PostulationStatus>("applied");
+  const [date, setDate] = useState("");
+  const [url, setUrl] = useState("");
+  const [sendCv, setSendCv] = useState(true);
+  const [sendEmail, setSendEmail] = useState(true);
+  const [notes, setNotes] = useState("");
+  const [recruiterContact, setRecruiterContact] = useState("");
 
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -36,11 +40,11 @@ const ApplicationForm: React.FC = () => {
         setCompany(postulation.company);
         setPosition(postulation.position);
         setStatus(postulation.status);
-        setDate(postulation.date.split('T')[0]);
-          setUrl(postulation.url || '');
-        setNotes(postulation.notes || '');
+        setDate(postulation.date.split("T")[0]);
+        setUrl(postulation.url || "");
+        setNotes(postulation.notes || "");
       } else {
-        navigate('/');
+        navigate("/");
       }
     }
   }, [id, getPostulation, navigate]);
@@ -49,19 +53,19 @@ const ApplicationForm: React.FC = () => {
     const newErrors: Record<string, string> = {};
 
     if (!ValidationHelpers.hasContent(company)) {
-      newErrors.company = 'La empresa es requerida';
+      newErrors.company = "La empresa es requerida";
     }
 
     if (!ValidationHelpers.hasContent(position)) {
-      newErrors.position = 'El puesto es requerido';
+      newErrors.position = "El puesto es requerido";
     }
 
     if (!date) {
-      newErrors.date = 'La fecha es requerida';
+      newErrors.date = "La fecha es requerida";
     }
 
     if (url && !ValidationHelpers.isValidUrl(url)) {
-      newErrors.url = 'La URL debe ser válida';
+      newErrors.url = "La URL debe ser válida";
     }
 
     setErrors(newErrors);
@@ -88,7 +92,10 @@ const ApplicationForm: React.FC = () => {
         status,
         date,
         url,
-        notes
+        notes,
+        sendCv,
+        sendEmail,
+        recruiterContact,
       });
     } else {
       addPostulation({
@@ -97,11 +104,14 @@ const ApplicationForm: React.FC = () => {
         status,
         date,
         url,
-        notes
+        notes,
+        sendCv,
+        sendEmail,
+        recruiterContact,
       });
     }
 
-    navigate('/');
+    navigate("/");
   };
 
   const handleContinueAnyway = () => {
@@ -113,20 +123,23 @@ const ApplicationForm: React.FC = () => {
       status,
       date,
       url,
-      notes
+      notes,
     });
 
-    navigate('/');
+    navigate("/");
   };
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-200px)]">
       <div className="max-w-3xl mx-auto w-full">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">
-          {id ? 'Editar Postulación' : 'Nueva Postulación'}
+        <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+          {id ? "Editar Postulación" : "Nueva Postulación"}
         </h1>
 
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6 mb-8">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-md rounded-lg p-6 mb-8"
+        >
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
               <label
@@ -141,7 +154,7 @@ const ApplicationForm: React.FC = () => {
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
                 className={`block w-full px-3 py-2 border ${
-                  errors.company ? 'border-red-300' : 'border-gray-300'
+                  errors.company ? "border-red-300" : "border-gray-300"
                 } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                 placeholder="Nombre de la empresa"
               />
@@ -163,7 +176,7 @@ const ApplicationForm: React.FC = () => {
                 value={position}
                 onChange={(e) => setPosition(e.target.value)}
                 className={`block w-full px-3 py-2 border ${
-                  errors.position ? 'border-red-300' : 'border-gray-300'
+                  errors.position ? "border-red-300" : "border-gray-300"
                 } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                 placeholder="Título del puesto"
               />
@@ -206,7 +219,7 @@ const ApplicationForm: React.FC = () => {
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 className={`block w-full px-3 py-2 border ${
-                  errors.date ? 'border-red-300' : 'border-gray-300'
+                  errors.date ? "border-red-300" : "border-gray-300"
                 } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
               />
               {errors.date && (
@@ -227,7 +240,7 @@ const ApplicationForm: React.FC = () => {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 className={`block w-full px-3 py-2 border ${
-                  errors.url ? 'border-red-300' : 'border-gray-300'
+                  errors.url ? "border-red-300" : "border-gray-300"
                 } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                 placeholder="https://ejemplo.com/trabajo"
               />
@@ -252,6 +265,61 @@ const ApplicationForm: React.FC = () => {
                 placeholder="Añade cualquier información relevante sobre esta postulación"
               />
             </div>
+
+            <div className="col-span-2">
+              <label
+                htmlFor="recruiterContact"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Contacto del reclutador o empresa
+              </label>
+              <input
+                type="text"
+                id="recruiterContact"
+                value={recruiterContact}
+                onChange={(e) => setRecruiterContact(e.target.value)}
+                placeholder="Ejemplo: email@empresa.com o +54 9 11 1234 5678"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm  px-3 py-2"
+              />
+              <p className="mt-1 text-sm text-gray-500 p-2">
+                * Fundamental para hacer el seguimiento, luego de un tiempo
+                prudencial, se recomienda contactar para seguir el estado del
+                proceso
+              </p>
+            </div>
+
+            <div>
+              <label htmlFor="sendCv" className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="sendCv"
+                  checked={sendCv}
+                  onChange={(e) => setSendCv(e.target.checked)}
+                  className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <span className="text-sm font-medium text-gray-700">
+                  Envié CV
+                </span>
+              </label>
+            </div>
+
+            <div>
+              <label
+                htmlFor="sendEmail"
+                className="flex items-center space-x-2"
+              >
+                <input
+                  type="checkbox"
+                  id="sendEmail"
+                  checked={sendEmail}
+                  onChange={(e) => setSendEmail(e.target.checked)}
+                  className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <span className="text-sm font-medium text-gray-700">
+                  Envié Email
+                </span>
+              </label>
+            </div>
           </div>
 
           <div className="flex justify-end mt-6">
@@ -260,7 +328,7 @@ const ApplicationForm: React.FC = () => {
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               <Save className="h-4 w-4 mr-2" />
-              {id ? 'Actualizar postulación' : 'Guardar postulación'}
+              {id ? "Actualizar postulación" : "Guardar postulación"}
             </button>
           </div>
         </form>
@@ -277,8 +345,8 @@ const ApplicationForm: React.FC = () => {
           </div>
           <div className="ml-3">
             <p className="text-sm text-gray-700">
-              Ya existe una postulación para <strong>{position}</strong> en <strong>{company}</strong>.
-              ¿Deseas continuar de todos modos?
+              Ya existe una postulación para <strong>{position}</strong> en{" "}
+              <strong>{company}</strong>. ¿Deseas continuar de todos modos?
             </p>
             <div className="mt-4 flex justify-end space-x-3">
               <button
