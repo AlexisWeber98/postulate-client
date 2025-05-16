@@ -23,7 +23,16 @@ export const heroTexts = {
     'landing.cta.title': '¿Listo para dejar de improvisar en tu búsqueda laboral?',
     'landing.cta.description': 'Crea tu cuenta gratuita y empezá hoy con Postulate.\nTu próximo trabajo te está esperando. Nosotros te ayudamos a encontrarlo.',
     'landing.cta.button': 'Crear cuenta gratuita',
-    'footer.copyright': '© {year} Postulate - Gestor de Postulaciones Laborales'
+    'footer.copyright': '© {year} Postulate - Gestor de Postulaciones Laborales',
+    'benefits.title': 'Beneficios concretos / Comparativa',
+    'benefits.before.title': 'Sin Postulate',
+    'benefits.before.point1': '📎 Planillas desordenadas',
+    'benefits.before.point2': '🤯 No sabés en qué estado están tus postulaciones',
+    'benefits.before.point3': '⏳ Perdés tiempo buscando mails',
+    'benefits.after.title': 'Con Postulate',
+    'benefits.after.point1': '📋 Todo centralizado',
+    'benefits.after.point2': '✅ Seguimiento visual claro',
+    'benefits.after.point3': '🔍 Filtros para encontrar todo rápido'
   },
   en: {
     'hero.bringing': 'BRINGING',
@@ -49,6 +58,15 @@ export const heroTexts = {
     'landing.cta.title': 'Ready to stop improvising in your job search?',
     'landing.cta.description': 'Create your free account and start today with Postulate.\nYour next job is waiting for you. We help you find it.',
     'landing.cta.button': 'Create free account',
-    'footer.copyright': '© {year} Postulate - Job Application Manager'
+    'footer.copyright': '© {year} Postulate - Job Application Manager',
+    'benefits.title': 'Concrete Benefits / Comparison',
+    'benefits.before.title': 'Without Postulate',
+    'benefits.before.point1': '📎 Disorganized spreadsheets',
+    'benefits.before.point2': '🤯 You don\'t know the status of your applications',
+    'benefits.before.point3': '⏳ Wasting time searching through emails',
+    'benefits.after.title': 'With Postulate',
+    'benefits.after.point1': '📋 Everything centralized',
+    'benefits.after.point2': '✅ Clear visual tracking',
+    'benefits.after.point3': '🔍 Filters to find everything quickly'
   }
 };
