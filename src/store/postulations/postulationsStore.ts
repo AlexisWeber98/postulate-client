@@ -3,6 +3,7 @@ import { Postulation, PostulationState } from '../../types/interface/postulation
 
 const usePostulationsStore = create<PostulationState>((set, get) => ({
   postulations: [],
+  loading: false,
 
   addPostulation: (newPostulation) => {
     const id = crypto.randomUUID();

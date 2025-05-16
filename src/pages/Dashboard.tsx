@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { usePostulationsStore, useAuthStore } from '../store';
 import ApplicationCard from '../components/organisms/ApplicationCard';
 import SearchAndFilter from '../components/organisms/SearchAndFilter';
@@ -7,34 +7,27 @@ import { Postulation, PostulationStatus } from '../types/interface/postulations/
 import { AlertCircle, PlusCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { APP_COLORS } from '../styles/colors';
+import { useErrorHandler } from '../hooks/useErrorHandler';
+import ActionModal from '../components/molecules/ActionModal';
+import LoadingSpinner from '../components/atoms/LoadingSpinner';
 
 const Dashboard: React.FC = () => {
-  const { postulations } = usePostulationsStore();
+  const { postulations, loading } = usePostulationsStore();
   const { user } = useAuthStore();
   const [searchTerm, setSearchTerm] = useState('');
-      const [statusFilter, setStatusFilter] = useState<PostulationStatus | 'all'>('all');
+  const [statusFilter, setStatusFilter] = useState<PostulationStatus | 'all'>('all');
   const [companyFilter, setCompanyFilter] = useState('');
   const [positionFilter, setPositionFilter] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  // Estado para errores
-  const [error, setError] = useState<string | null>(null);
-
-  // Simulate loading state - reducido a 300ms para una mejor experiencia
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const { error, handleError } = useErrorHandler({
+    defaultMessage: 'Ocurrió un error al cargar los datos. Por favor, recarga la página.'
+  });
 
   // Manejadores de filtro seguros
   const handleSetCompanyFilter = (value: string) => {
     try {
       setCompanyFilter(value);
     } catch (error) {
-      console.error("Error al configurar el filtro de empresa:", error);
-      setError("Ocurrió un error con los filtros. Por favor, recarga la página.");
+      handleError(error as Error, 'Error al configurar el filtro de empresa');
       // Restablecer el filtro en caso de error
       setCompanyFilter('');
     }
@@ -44,10 +37,7 @@ const Dashboard: React.FC = () => {
     try {
       setPositionFilter(value);
     } catch (error) {
-      console.error("Error al configurar el filtro de puesto:", error);
-      setError("Ocurrió un error con los filtros. Por favor, recarga la página.");
-      // Restablecer el filtro en caso de error
-      setPositionFilter('');
+      handleError(error as Error, 'Error al configurar el filtro de puesto');
     }
   };
 
@@ -57,7 +47,7 @@ const Dashboard: React.FC = () => {
       const uniqueCompanies = new Set(postulations.map((app: Postulation) => app.company));
       return Array.from(uniqueCompanies).sort();
     } catch (error) {
-      console.error("Error al obtener empresas únicas:", error);
+      handleError(error as Error, 'Error al obtener empresas únicas');
       return [];
     }
   }, [postulations]);
@@ -67,7 +57,7 @@ const Dashboard: React.FC = () => {
       const uniquePositions = new Set(postulations.map((app: Postulation) => app.position));
       return Array.from(uniquePositions).sort();
     } catch (error) {
-      console.error("Error al obtener puestos únicos:", error);
+      handleError(error as Error, 'Error al obtener puestos únicos');
       return [];
     }
   }, [postulations]);
@@ -94,44 +84,27 @@ const Dashboard: React.FC = () => {
         return searchMatch && statusMatch && companyMatch && positionMatch;
       });
     } catch (error) {
-      console.error("Error al filtrar aplicaciones:", error);
-      setError("Ocurrió un error al filtrar. Por favor, recarga la página.");
+      handleError(error as Error, 'Error al filtrar aplicaciones');
       return [];
     }
   }, [postulations, searchTerm, statusFilter, companyFilter, positionFilter]);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500 mx-auto mb-3"></div>
-          <p className="text-gray-600">Cargando dashboard...</p>
-        </div>
-      </div>
-    );
+  if (loading) {
+    return <LoadingSpinner fullScreen />;
   }
 
-  // Si hay un error, mostrar mensaje de error
   if (error) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-xl shadow-sm max-w-2xl">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <AlertCircle className="h-6 w-6 text-red-400" />
-            </div>
-            <div className="ml-4">
-              <p className="text-base text-red-700">{error}</p>
-              <button
-                onClick={() => window.location.reload()}
-                className="mt-3 px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
-              >
-                Recargar página
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ActionModal
+        isOpen={true}
+        onClose={() => window.location.reload()}
+        title="Error"
+        message={error}
+        onConfirm={() => window.location.reload()}
+        confirmText="Recargar página"
+        variant="danger"
+        icon={<AlertCircle className="h-6 w-6" />}
+      />
     );
   }
 

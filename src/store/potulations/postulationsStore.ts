@@ -7,6 +7,7 @@ export const usePostulationsStore = create<PostulationState>()(
   persist(
     (set, get) => ({
       postulations: [],
+      loading: false,
 
       addPostulation: (newPostulation) => {
         const timestamp = new Date().toISOString();
