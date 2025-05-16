@@ -37,6 +37,9 @@ export const heroTexts = {
     'trust.point1': '🚀 Pensado por buscadores de empleo reales',
     'trust.point2': '🔒 Tus datos están seguros y solo vos los ves',
     'trust.point3': '💡 En constante mejora con feedback de usuarios',
+    'trust.point1.explanation': 'Postulate fue creado por personas que han buscado trabajo y han entendido tus necesidades.',
+    'trust.point2.explanation': 'Tu información personal y de búsqueda laboral está protegida y solo tú puedes acceder a ella.',
+    'trust.point3.explanation': 'Nosotros escuchamos a los usuarios y continuamos mejorando la plataforma para ti.',
     'features.title': '¿Por qué elegir Postulate?'
   },
   en: {
@@ -77,6 +80,9 @@ export const heroTexts = {
     'trust.point1': '🚀 Designed by real job seekers',
     'trust.point2': '🔒 Your data is secure and only visible to you',
     'trust.point3': '💡 Continuously improving with user feedback',
+    'trust.point1.explanation': 'Postulate was created by people who have actually looked for a job and understand your needs.',
+    'trust.point2.explanation': 'Your personal and job search data is protected and only you can access it.',
+    'trust.point3.explanation': 'We listen to users and continuously improve the platform for you.',
     'features.title': 'Why choose Postulate?'
   }
 };

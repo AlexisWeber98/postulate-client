@@ -41,18 +41,22 @@ const FlipCard: React.FC<{ title: string; explanation: string; delay?: number }>
       <CardFlip isFlipped={flipped} flipDirection="horizontal">
         {/* Frente */}
         <div
-          className={`flex flex-col justify-center items-center border border-blue-200 ${cardShadow} rounded-3xl cursor-pointer ${cardSize} ${cardGradient}`}
+          className={`flex flex-col justify-center items-center border border-blue-200 ${cardShadow} rounded-3xl cursor-pointer ${cardSize} ${cardGradient} transition-transform duration-300 hover:scale-105`}
           onClick={() => setFlipped(true)}
         >
-          <span className="text-lg md:text-xl font-extrabold text-white text-center mb-4">{title}</span>
-          <ArrowRight className="h-10 w-10 text-white mt-2" />
+          <span className="text-2xl md:text-3xl font-extrabold text-white text-center mb-8 leading-tight tracking-tight drop-shadow-lg select-none">
+            {title}
+          </span>
+          <ArrowRight className="h-8 w-8 text-white mt-2" />
         </div>
         {/* Dorso */}
         <div
-          className={`flex flex-col justify-center items-center border border-blue-200 ${cardShadow} rounded-3xl cursor-pointer ${cardSize} ${cardGradient}`}
+          className={`flex flex-col justify-center items-center border border-blue-200 ${cardShadow} rounded-3xl cursor-pointer ${cardSize} ${cardGradient} transition-transform duration-300 hover:scale-105`}
           onClick={() => setFlipped(false)}
         >
-          <span className="text-base md:text-lg text-white text-center px-4">{explanation}</span>
+          <span className="text-lg md:text-xl text-white text-center px-6 font-medium tracking-tight leading-relaxed select-none">
+            {explanation}
+          </span>
         </div>
       </CardFlip>
     </motion.div>
