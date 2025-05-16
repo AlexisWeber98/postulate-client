@@ -73,11 +73,11 @@ const Landing: React.FC = () => {
             </p>
             <Link
               to="/register"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-xl shadow-lg text-white font-semibold text-lg transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[240px]"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-xl shadow-lg text-white font-extrabold text-lg transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[320px] whitespace-nowrap gap-4"
               style={{ boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)' }}
             >
               {t('landing.cta.button')}
-              <ArrowRight className="ml-2 h-5 w-5 text-white" />
+              <ArrowRight className="h-5 w-5 text-white" />
             </Link>
           </div>
         </div>
