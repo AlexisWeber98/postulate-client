@@ -4,6 +4,7 @@ import { Input } from '../components/ui/input';
 import { Check, Save } from 'lucide-react';
 import LoadingSpinner from '../components/atoms/LoadingSpinner';
 import { isValidEmail, hasContent } from '../lib/helpers/validation.helpers';
+import Button from '../shared/components/Button';
 
 const EditProfile: React.FC = () => {
   const { user, updateUser } = useAuthStore();
@@ -99,9 +100,9 @@ const EditProfile: React.FC = () => {
             />
             {emailError && <span id="email-error" className="text-red-500 text-xs">{emailError}</span>}
           </div>
-          <button
+          <Button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-lg text-white font-semibold shadow-lg hover:opacity-90 transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:ring-2 focus:ring-blue-400 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-lg font-semibold shadow-lg hover:opacity-90 transition focus:ring-2 focus:ring-blue-400 disabled:opacity-60 disabled:cursor-not-allowed"
             disabled={isLoading || !!nameError || !!emailError}
             aria-busy={isLoading}
           >
@@ -118,7 +119,7 @@ const EditProfile: React.FC = () => {
                 Guardar Cambios
               </>
             )}
-          </button>
+          </Button>
           {success && <p className="text-green-600 text-center mt-4 animate-fade-in">¡Perfil actualizado correctamente!</p>}
           {error && <p className="text-red-600 text-center mt-4 animate-fade-in">{error}</p>}
         </div>

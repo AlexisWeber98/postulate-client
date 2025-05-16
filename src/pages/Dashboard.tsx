@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { useErrorHandler } from '../hooks/useErrorHandler';
 import ActionModal from '../components/molecules/ActionModal';
 import LoadingSpinner from '../components/atoms/LoadingSpinner';
+import { MdAccountCircle } from 'react-icons/md';
 
 const Dashboard: React.FC = () => {
   const { postulations, loading } = usePostulationsStore();
@@ -110,30 +111,34 @@ const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 px-0 py-0 font-sans">
       <div className="container mx-auto px-4 sm:px-8 py-10">
-        {/* Encabezado con bienvenida */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 drop-shadow-sm">Dashboard</h1>
-            <p className="text-gray-700">¡Bienvenido de nuevo, {user?.name || 'Usuario'}!</p>
+        {/* Encabezado con bienvenida mejorado */}
+        <header className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 p-6">
+          <div className="flex items-center gap-4">
+            <MdAccountCircle className="text-7xl text-blue-500 drop-shadow-lg bg-white/30 rounded-full p-1" />
+            <div>
+              <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 text-transparent bg-clip-text mb-1">
+                ¡Bienvenido de nuevo, {user?.name || 'Usuario'}!
+              </h2>
+              <span className="text-lg text-gray-700 font-semibold tracking-wide">Dashboard</span>
+            </div>
           </div>
-
           <Link
             to="/add"
-            className="mt-4 md:mt-0 flex items-center px-6 py-3 rounded-xl shadow-lg text-white font-semibold text-lg transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="mt-6 md:mt-0 flex items-center px-6 py-3 rounded-xl shadow-lg text-white font-semibold text-lg transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             style={{ boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)' }}
           >
             <PlusCircle className="mr-2 h-6 w-6" />
             Nueva Postulación
           </Link>
-        </div>
+        </header>
+        <div className="border-b border-white/30 mb-10" />
 
         {/* Cards de postulaciones - NIVEL 2 */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-6">Tus Postulaciones</h2>
 
           {/* Sección de búsqueda y filtros */}
           <div className="mb-8 flex flex-col md:flex-row gap-4 items-center">
-            <div className="w-full md:w-1/2">
+            <div className="w-full">
               <SearchAndFilter
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}

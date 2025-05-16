@@ -33,23 +33,29 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
   const navigate = useNavigate();
 
   const handleSubmit = async (data: AuthData) => {
+    console.log('handleSubmit llamado con:', data, 'tipo:', type);
     setError(undefined);
     const schema = type === 'register' ? registerSchema : loginSchema;
     const result = schema.safeParse(data);
     if (!result.success) {
+      console.log('Error de validación:', result.error.errors);
       setError(result.error.errors[0].message);
       return;
     }
     setIsLoading(true);
     try {
       if (type === 'login') {
+        console.log('Llamando signIn con:', data.email, data.password);
         await signIn(data.email, data.password);
       } else {
         const d = data as RegisterData;
+        console.log('Llamando signUp con:', d.email, d.password, d.name, d.userName, d.lastName);
         await signUp(d.email, d.password, d.name, d.userName, d.lastName);
       }
+      console.log('Navegando al home después de login/registro exitoso');
       navigate('/');
     } catch (e: unknown) {
+      console.log('Error capturado en handleSubmit:', e);
       if (e instanceof Error) {
         setError(e.message);
       } else {
