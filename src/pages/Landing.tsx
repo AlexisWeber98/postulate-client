@@ -6,7 +6,7 @@ import HeroSectionContainer from '../features/landing/components/HeroSection.con
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import HowItWorksSection from '../features/landing/components/HowItWorksSection.ui';
-import FeaturesSection from '../features/landing/components/FeaturesSection.ui';
+import FeaturesSectionContainer from '../features/landing/components/FeaturesSection.container';
 import BenefitsSection from '../features/landing/components/BenefitsSection.ui';
 import TrustSection from '../features/landing/components/TrustSection.ui';
 
@@ -53,7 +53,7 @@ const Landing: React.FC = () => {
         </div>
 
         <div className="container mx-auto px-4 sm:px-8">
-          <FeaturesSection t={t} />
+          <FeaturesSectionContainer t={t} />
         </div>
 
         <div className="container mx-auto px-4 sm:px-8">

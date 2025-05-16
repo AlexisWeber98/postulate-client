@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import CardFlip from 'react-card-flip';
+import { motion } from 'framer-motion';
 
 interface TrustSectionProps {
   t: (key: string) => string;
@@ -25,28 +26,36 @@ const trustPoints = [
 ];
 
 const cardSize = "w-72 h-64 sm:w-80 sm:h-64";
+const cardGradient = "bg-gradient-to-r from-blue-500 to-violet-500 text-white";
+const cardShadow = "shadow-2xl";
 
-const FlipCard: React.FC<{ title: string; explanation: string }> = ({ title, explanation }) => {
+const FlipCard: React.FC<{ title: string; explanation: string; delay?: number }> = ({ title, explanation, delay = 0 }) => {
   const [flipped, setFlipped] = useState(false);
 
   return (
-    <CardFlip isFlipped={flipped} flipDirection="horizontal">
-      {/* Frente */}
-      <div
-        className={`flex flex-col justify-center items-center bg-white/80 border border-blue-200 shadow-xl rounded-3xl cursor-pointer ${cardSize}`}
-        onClick={() => setFlipped(true)}
-      >
-        <span className="text-lg md:text-xl font-extrabold text-blue-900 text-center mb-4">{title}</span>
-        <ArrowRight className="h-10 w-10 text-blue-500 mt-2" />
-      </div>
-      {/* Dorso */}
-      <div
-        className={`flex flex-col justify-center items-center bg-white/90 border border-blue-200 shadow-xl rounded-3xl cursor-pointer ${cardSize}`}
-        onClick={() => setFlipped(false)}
-      >
-        <span className="text-base md:text-lg text-gray-800 text-center px-4">{explanation}</span>
-      </div>
-    </CardFlip>
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay }}
+    >
+      <CardFlip isFlipped={flipped} flipDirection="horizontal">
+        {/* Frente */}
+        <div
+          className={`flex flex-col justify-center items-center border border-blue-200 ${cardShadow} rounded-3xl cursor-pointer ${cardSize} ${cardGradient}`}
+          onClick={() => setFlipped(true)}
+        >
+          <span className="text-lg md:text-xl font-extrabold text-white text-center mb-4">{title}</span>
+          <ArrowRight className="h-10 w-10 text-white mt-2" />
+        </div>
+        {/* Dorso */}
+        <div
+          className={`flex flex-col justify-center items-center border border-blue-200 ${cardShadow} rounded-3xl cursor-pointer ${cardSize} ${cardGradient}`}
+          onClick={() => setFlipped(false)}
+        >
+          <span className="text-base md:text-lg text-white text-center px-4">{explanation}</span>
+        </div>
+      </CardFlip>
+    </motion.div>
   );
 };
 
@@ -62,6 +71,7 @@ const TrustSection: React.FC<TrustSectionProps> = ({ t }) => {
             key={idx}
             title={point.title}
             explanation={point.explanation}
+            delay={0.15 * idx}
           />
         ))}
       </div>
