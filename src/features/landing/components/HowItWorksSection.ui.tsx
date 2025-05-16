@@ -9,18 +9,18 @@ interface HowItWorksSectionProps {
 const steps = [
   {
     icon: <UserPlus className="w-10 h-10 text-blue-500" />,
-    title: 'Registrate gratis',
-    desc: 'Completá tu registro en menos de un minuto y empezá a organizar tu búsqueda laboral.',
+    titleKey: 'howItWorks.step1.title',
+    descKey: 'howItWorks.step1.desc',
   },
   {
     icon: <ClipboardList className="w-10 h-10 text-violet-500" />,
-    title: 'Agregá tus postulaciones',
-    desc: 'Registrá todas tus postulaciones actuales y futuras para mantener un seguimiento organizado.',
+    titleKey: 'howItWorks.step2.title',
+    descKey: 'howItWorks.step2.desc',
   },
   {
     icon: <BarChart2 className="w-10 h-10 text-blue-700" />,
-    title: 'Visualizá tu progreso',
-    desc: 'Analizá tu progreso y optimizá tu estrategia de búsqueda laboral con nuestras herramientas.',
+    titleKey: 'howItWorks.step3.title',
+    descKey: 'howItWorks.step3.desc',
   },
 ];
 
@@ -33,13 +33,13 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ t }) => {
       <div className="container mx-auto">
         <div className="flex flex-row items-stretch justify-center gap-0 md:gap-8 relative">
           {steps.map((step, idx) => (
-            <React.Fragment key={step.title}>
+            <React.Fragment key={step.titleKey}>
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.15 }}
-                className="flex flex-col items-center bg-white/10 backdrop-blur-md rounded-2xl px-8 py-8 mx-0 md:mx-4 min-w-[260px] max-w-[320px] shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out"
+                className="flex flex-col items-center justify-between bg-white/10 backdrop-blur-md rounded-2xl px-8 py-8 mx-0 md:mx-4 min-w-[260px] max-w-[320px] min-h-[340px] h-[340px] shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out"
               >
                 <div className="mb-3 flex flex-col items-center">
                   <div className="mb-2">{step.icon}</div>
@@ -47,8 +47,8 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ t }) => {
                     {idx + 1}
                   </div>
                 </div>
-                <h3 className="text-lg md:text-xl font-extrabold text-blue-900 mb-2 text-center">{step.title}</h3>
-                <p className="text-gray-700 text-base text-center font-medium mb-0">{step.desc}</p>
+                <h3 className="text-lg md:text-xl font-extrabold text-blue-900 mb-2 text-center">{t ? t(step.titleKey) : step.titleKey}</h3>
+                <p className="text-gray-700 text-base text-center font-medium mb-0">{t ? t(step.descKey) : step.descKey}</p>
               </motion.div>
               {idx < steps.length - 1 && (
                 <div className="flex items-center justify-center">

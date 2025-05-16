@@ -41,7 +41,13 @@ export const heroTexts = {
     'trust.point2.explanation': 'Tu información personal y de búsqueda laboral está protegida y solo tú puedes acceder a ella.',
     'trust.point3.explanation': 'Nosotros escuchamos a los usuarios y continuamos mejorando la plataforma para ti.',
     'features.title': '¿Por qué elegir Postulate?',
-    'howItWorks.title': 'Cómo empezar a usar Postulate'
+    'howItWorks.title': 'Cómo empezar a usar Postulate',
+    'howItWorks.step1.title': 'Registrate gratis',
+    'howItWorks.step1.desc': 'Completá tu registro en menos de un minuto y empezá a organizar tu búsqueda laboral.',
+    'howItWorks.step2.title': 'Agregá tus postulaciones',
+    'howItWorks.step2.desc': 'Registrá todas tus postulaciones actuales y futuras para mantener un seguimiento organizado.',
+    'howItWorks.step3.title': 'Visualizá tu progreso',
+    'howItWorks.step3.desc': 'Analizá tu progreso y optimizá tu estrategia de búsqueda laboral con nuestras herramientas.'
   },
   en: {
     'hero.bringing': 'BRINGING',
@@ -85,6 +91,12 @@ export const heroTexts = {
     'trust.point2.explanation': 'Your personal and job search data is protected and only you can access it.',
     'trust.point3.explanation': 'We listen to users and continuously improve the platform for you.',
     'features.title': 'Why choose Postulate?',
-    'howItWorks.title': 'How to start using Postulate'
+    'howItWorks.title': 'How to start using Postulate',
+    'howItWorks.step1.title': 'Sign up for free',
+    'howItWorks.step1.desc': 'Complete your registration in less than a minute and start organizing your job search.',
+    'howItWorks.step2.title': 'Add your applications',
+    'howItWorks.step2.desc': 'Register all your current and future applications to keep an organized tracking.',
+    'howItWorks.step3.title': 'Track your progress',
+    'howItWorks.step3.desc': 'Analyze your progress and optimize your job search strategy with our tools.'
   }
 };
