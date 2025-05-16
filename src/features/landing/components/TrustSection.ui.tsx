@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowLeft } from 'lucide-react';
 import CardFlip from 'react-card-flip';
 import { motion } from 'framer-motion';
 
@@ -41,22 +41,31 @@ const FlipCard: React.FC<{ title: string; explanation: string; delay?: number }>
       <CardFlip isFlipped={flipped} flipDirection="horizontal">
         {/* Frente */}
         <div
-          className={`flex flex-col justify-center items-center border border-blue-200 ${cardShadow} rounded-3xl cursor-pointer ${cardSize} ${cardGradient} transition-transform duration-300 hover:scale-105`}
+          className={`flex flex-col justify-between items-center border border-blue-200 ${cardShadow} rounded-3xl cursor-pointer ${cardSize} ${cardGradient} transition-transform duration-300 hover:scale-105 h-full py-8`}
           onClick={() => setFlipped(true)}
         >
-          <span className="text-2xl md:text-3xl font-extrabold text-white text-center mb-8 leading-tight tracking-tight drop-shadow-lg select-none">
-            {title}
-          </span>
-          <ArrowRight className="h-8 w-8 text-white mt-2" />
+          <div className="flex-1 flex items-center justify-center w-full">
+            <span className="text-lg md:text-xl font-extrabold text-white text-center leading-tight tracking-tight drop-shadow-lg select-none w-full">
+              {title}
+            </span>
+          </div>
+          <div className="flex-1 flex items-end justify-center w-full">
+            <ArrowRight className="h-7 w-7 text-white" />
+          </div>
         </div>
         {/* Dorso */}
         <div
-          className={`flex flex-col justify-center items-center border border-blue-200 ${cardShadow} rounded-3xl cursor-pointer ${cardSize} ${cardGradient} transition-transform duration-300 hover:scale-105`}
+          className={`flex flex-col justify-between items-center border border-blue-200 ${cardShadow} rounded-3xl cursor-pointer ${cardSize} ${cardGradient} transition-transform duration-300 hover:scale-105 h-full py-8`}
           onClick={() => setFlipped(false)}
         >
-          <span className="text-lg md:text-xl text-white text-center px-6 font-medium tracking-tight leading-relaxed select-none">
-            {explanation}
-          </span>
+          <div className="flex-1 flex items-center justify-center w-full">
+            <span className="text-base md:text-lg text-white text-center px-6 font-medium tracking-tight leading-relaxed select-none w-full">
+              {explanation}
+            </span>
+          </div>
+          <div className="flex-1 flex items-end justify-center w-full">
+            <ArrowLeft className="h-7 w-7 text-white" />
+          </div>
         </div>
       </CardFlip>
     </motion.div>
