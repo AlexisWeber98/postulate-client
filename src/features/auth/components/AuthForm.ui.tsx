@@ -88,7 +88,8 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
         <button
           type="submit"
           disabled={isLoading}
-          className="bg-blue-600 text-white rounded py-2 font-semibold hover:bg-blue-700 transition"
+          className="flex items-center justify-center px-6 py-3 rounded-xl shadow-lg text-white font-semibold text-lg transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 mt-2"
+          style={{ boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)' }}
         >
           {type === 'login' ? 'Continuar' : 'Registrarse'}
         </button>
@@ -97,6 +98,14 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
       <div className="mt-4 text-center">
         <Link to="#" className="text-sm text-blue-500 hover:underline">
           Obtener ayuda sobre cómo iniciar sesión
+        </Link>
+      </div>
+      <div className="mt-6 text-center">
+        <Link
+          to="/landing"
+          className="inline-block px-4 py-2 rounded-lg text-blue-700 font-semibold bg-blue-100 hover:bg-blue-200 transition"
+        >
+          ← Volver a la página principal
         </Link>
       </div>
     </div>
