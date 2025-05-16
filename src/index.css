@@ -5,6 +5,6 @@
 @layer base {
   html,
   body {
-    @apply bg-transparent;
+    @apply bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 min-h-screen;
   }
 }
