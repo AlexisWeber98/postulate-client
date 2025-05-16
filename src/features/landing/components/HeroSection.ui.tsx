@@ -16,10 +16,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ t }) => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        <Briefcase className="h-16 w-16 text-white" />
+        <Briefcase className="h-16 w-16 text-white drop-shadow-[0_0_24px_rgba(80,112,255,0.5)]" />
       </motion.div>
       <motion.h1
-        className="text-4xl font-bold text-white sm:text-5xl md:text-6xl mb-4"
+        className="text-4xl font-bold text-white sm:text-5xl md:text-6xl mb-4 drop-shadow-[0_2px_24px_rgba(80,112,255,0.45)]"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}

@@ -116,17 +116,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
         </motion.div>
 
         {/* Flecha decorativa */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        >
-          <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-lg">
-            <ArrowRight className="h-6 w-6 text-blue-500 transform rotate-90" />
-          </div>
-        </motion.div>
+        {/* Eliminada por pedido del usuario */}
       </div>
     </section>
   );
