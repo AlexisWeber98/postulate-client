@@ -1,86 +1,64 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
+import { UserPlus, ClipboardList, BarChart2, ArrowRight } from 'lucide-react';
 
 interface HowItWorksSectionProps {
   t?: (key: string) => string;
 }
 
-const defaultSteps = [
+const steps = [
   {
-    label: 'Paso 1',
+    icon: <UserPlus className="w-10 h-10 text-blue-500" />,
     title: 'Registrate gratis',
-    desc: 'Completa tu registro en menos de un minuto y comienza a organizar tu búsqueda laboral.',
+    desc: 'Completá tu registro en menos de un minuto y empezá a organizar tu búsqueda laboral.',
   },
   {
-    label: 'Paso 2',
+    icon: <ClipboardList className="w-10 h-10 text-violet-500" />,
     title: 'Agregá tus postulaciones',
-    desc: 'Registra todas tus postulaciones actuales y futuras para mantener un seguimiento organizado.',
+    desc: 'Registrá todas tus postulaciones actuales y futuras para mantener un seguimiento organizado.',
   },
   {
-    label: 'Paso 3',
+    icon: <BarChart2 className="w-10 h-10 text-blue-700" />,
     title: 'Visualizá tu progreso',
-    desc: 'Analiza tu progreso y optimiza tu estrategia de búsqueda laboral con nuestras herramientas.',
-  },
-];
-
-const enSteps = [
-  {
-    label: 'Step 1',
-    title: 'Sign up for free',
-    desc: 'Complete your registration in less than a minute and start organizing your job search.',
-  },
-  {
-    label: 'Step 2',
-    title: 'Add your applications',
-    desc: 'Register all your current and future applications to keep an organized tracking.',
-  },
-  {
-    label: 'Step 3',
-    title: 'Track your progress',
-    desc: 'Analyze your progress and optimize your job search strategy with our tools.',
+    desc: 'Analizá tu progreso y optimizá tu estrategia de búsqueda laboral con nuestras herramientas.',
   },
 ];
 
 const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ t }) => {
-  const [activeStep, setActiveStep] = useState<number | null>(null);
-
-  // Detecta idioma por función t o por fallback
-  const isEnglish = t && t('landing.hero.title') === 'Job hunting will no longer be another job';
-  const steps = t ? (isEnglish ? enSteps : defaultSteps) : defaultSteps;
-
-
   return (
     <section className="relative py-20 px-2 w-full">
-
-      <div className="relative flex flex-col md:flex-row items-center justify-center max-w-5xl mx-auto min-h-[220px]">
-        {steps.map((step, idx) => (
-          <div
-            key={step.title}
-            className="relative z-10 flex flex-col items-center text-center flex-1 px-2 mb-12 md:mb-0 cursor-pointer"
-            onMouseEnter={() => setActiveStep(idx)}
-            onMouseLeave={() => setActiveStep(null)}
-          >
-            <div className={`w-16 h-16 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-violet-500 text-white text-3xl font-bold shadow-lg mb-2 border-4 border-white/60 transition-all duration-300 ${activeStep === idx ? 'scale-110 ring-4 ring-violet-300' : ''}`}>
-              {idx + 1}
-            </div>
-            <span className="text-base font-semibold text-blue-700 mb-1">{step.label}</span>
-            <h3 className="text-lg md:text-xl font-bold text-blue-900 mb-2 uppercase tracking-wide">{step.title}</h3>
-            {/* Mostrar solo la descripción del paso activo */}
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={activeStep === idx ? { opacity: 1, height: 'auto' } : { opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden"
-            >
-              {activeStep === idx && (
-                <p className="text-gray-700 text-base max-w-xs mx-auto mt-2">{step.desc}</p>
+      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        {t ? t('howItWorks.title') : 'Cómo empezar a usar Postulate'}
+      </h2>
+      <div className="container mx-auto">
+        <div className="flex flex-row items-stretch justify-center gap-0 md:gap-8 relative">
+          {steps.map((step, idx) => (
+            <React.Fragment key={step.title}>
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                className="flex flex-col items-center bg-white/10 backdrop-blur-md rounded-2xl px-8 py-8 mx-0 md:mx-4 min-w-[260px] max-w-[320px] shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out"
+              >
+                <div className="mb-3 flex flex-col items-center">
+                  <div className="mb-2">{step.icon}</div>
+                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-violet-500 text-white text-lg font-bold shadow-lg mb-2 border-4 border-white/30">
+                    {idx + 1}
+                  </div>
+                </div>
+                <h3 className="text-lg md:text-xl font-extrabold text-blue-900 mb-2 text-center">{step.title}</h3>
+                <p className="text-gray-700 text-base text-center font-medium mb-0">{step.desc}</p>
+              </motion.div>
+              {idx < steps.length - 1 && (
+                <div className="flex items-center justify-center">
+                  <ArrowRight className="w-8 h-8 text-violet-400 mx-2 md:mx-4" />
+                </div>
               )}
-            </motion.div>
-          </div>
-        ))}
+            </React.Fragment>
+          ))}
+        </div>
       </div>
-      {/* Línea vertical para mobile (sin animación por simplicidad) */}
-      <div className="md:hidden absolute left-1/2 top-32 bottom-10 w-1 bg-gradient-to-b from-blue-400 via-violet-400 to-blue-400 z-0" style={{transform: 'translateX(-50%)'}} />
     </section>
   );
 };

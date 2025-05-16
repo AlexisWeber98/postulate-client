@@ -38,10 +38,10 @@ export const heroTexts = {
     'trust.point2': 'Datos Protegidos',
     'trust.point3': 'Mejora continua',
     'trust.point1.explanation': 'Postulate fue creado por personas que han buscado trabajo y han entendido tus necesidades.',
-
     'trust.point2.explanation': 'Tu información personal y de búsqueda laboral está protegida y solo tú puedes acceder a ella.',
     'trust.point3.explanation': 'Nosotros escuchamos a los usuarios y continuamos mejorando la plataforma para ti.',
-    'features.title': '¿Por qué elegir Postulate?'
+    'features.title': '¿Por qué elegir Postulate?',
+    'howItWorks.title': 'Cómo empezar a usar Postulate'
   },
   en: {
     'hero.bringing': 'BRINGING',
@@ -84,6 +84,7 @@ export const heroTexts = {
     'trust.point1.explanation': 'Postulate was created by people who have actually looked for a job and understand your needs.',
     'trust.point2.explanation': 'Your personal and job search data is protected and only you can access it.',
     'trust.point3.explanation': 'We listen to users and continuously improve the platform for you.',
-    'features.title': 'Why choose Postulate?'
+    'features.title': 'Why choose Postulate?',
+    'howItWorks.title': 'How to start using Postulate'
   }
 };

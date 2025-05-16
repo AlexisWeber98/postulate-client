@@ -66,7 +66,7 @@ const Landing: React.FC = () => {
 
 
         <div className="container mx-auto px-4 sm:px-8">
-          <div className="mt-16 text-center">
+          <div className="mt-16 text-center mb-16 md:mb-32">
             <h3 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">{t('landing.cta.title')}</h3>
             <p className="text-gray-700 mb-8 max-w-2xl mx-auto text-base md:text-lg">
               {t('landing.cta.description')}
