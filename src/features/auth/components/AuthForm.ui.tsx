@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FormField from '../../../shared/components/FormField';
 
 interface AuthFormProps {
   type: 'login' | 'register';
@@ -36,52 +37,47 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
         }
       </p>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <label htmlFor="email" className="font-medium">Dirección de correo electrónico</label>
-        <input
+        <FormField
           id="email"
+          label="Dirección de correo electrónico"
           type="email"
           required
-          className="border rounded px-3 py-2"
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
         {type === 'register' && (
           <>
-            <label htmlFor="name" className="font-medium">Nombre</label>
-            <input
+            <FormField
               id="name"
+              label="Nombre"
               type="text"
               required
-              className="border rounded px-3 py-2"
               value={name}
               onChange={e => setName(e.target.value)}
             />
-            <label htmlFor="userName" className="font-medium">Nombre de usuario</label>
-            <input
+            <FormField
               id="userName"
+              label="Nombre de usuario"
               type="text"
               required
-              className="border rounded px-3 py-2"
               value={userName}
               onChange={e => setUserName(e.target.value)}
             />
-            <label htmlFor="lastName" className="font-medium">Apellido</label>
-            <input
+            <FormField
               id="lastName"
+              label="Apellido"
               type="text"
               required
-              className="border rounded px-3 py-2"
               value={lastName}
               onChange={e => setLastName(e.target.value)}
             />
           </>
         )}
-        <label htmlFor="password" className="font-medium">Contraseña</label>
-        <input
+        <FormField
           id="password"
+          label="Contraseña"
           type="password"
           required
-          className="border rounded px-3 py-2"
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
