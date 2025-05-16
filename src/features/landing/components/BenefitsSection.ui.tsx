@@ -38,7 +38,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-violet-600 text-transparent bg-clip-text">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
             {t('benefits.title')}
           </h2>
         </motion.div>
