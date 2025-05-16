@@ -3,6 +3,7 @@ import Navbar from '../components/organisms/Navbar';
 import Footer from '../components/organisms/Footer';
 import { CheckCircle2, BarChart2, Search, ArrowRight } from 'lucide-react';
 import HeroSectionContainer from '../features/landing/components/HeroSection.container';
+import HowItWorksSection from '../features/landing/components/HowItWorksSection.ui';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -66,6 +67,8 @@ const Landing: React.FC = () => {
               </p>
             </div>
           </div>
+
+          <HowItWorksSection />
 
           {/* Sección de llamada a la acción */}
           <div className="mt-16 text-center">

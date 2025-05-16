@@ -1,18 +1,14 @@
 import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../organisms/Navbar';
-import { APP_COLORS } from '../../styles/colors';
-
-const LoadingIndicator: React.FC = () => (
-  <div className="flex items-center justify-center h-64">
-    <div className="text-center">
-      <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500 mx-auto mb-3"></div>
-      <p className="text-gray-600">Cargando contenido...</p>
-    </div>
-  </div>
-);
+import LoadingIndicator from '../atoms/LoadingIndicator';
+import { APP_COLORS } from '../../constants/colors';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Layout: React.FC = () => {
+  const { t } = useLanguage();
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="flex flex-col min-h-screen" style={{ background: APP_COLORS.lightGray, fontFamily: 'Inter, sans-serif' }}>
       <Navbar />
@@ -22,8 +18,8 @@ const Layout: React.FC = () => {
         </Suspense>
       </main>
       <footer style={{ background: APP_COLORS.white }} className="shadow-inner py-4">
-        <div className="container mx-auto px-4 text-center text-gray-500 text-sm">
-          © {new Date().getFullYear()} Postulate - Gestor de Postulaciones Laborales
+        <div className="container mx-auto px-4 text-center text-black text-sm font-medium">
+          {t('footer.copyright').replace('{year}', currentYear.toString())}
         </div>
       </footer>
     </div>

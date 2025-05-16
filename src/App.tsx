@@ -43,12 +43,13 @@ function App() {
     <LanguageProvider>
       <Router>
         <Routes>
-          <Route path="/landing" element={user ? <Navigate to="/" replace /> : <Landing />} />
+          <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
+          <Route path="/landing" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
           <Route element={<AuthLayout />}>
-            <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
-            <Route path="/register" element={user ? <Navigate to="/" replace /> : <Register />} />
+            <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
+            <Route path="/register" element={user ? <Navigate to="/dashboard" replace /> : <Register />} />
           </Route>
-          <Route path="/" element={
+          <Route path="/dashboard" element={
             <PrivateRoute>
               <Layout />
             </PrivateRoute>
@@ -58,7 +59,7 @@ function App() {
             <Route path="edit/:id" element={<ApplicationForm />} />
             <Route path="profile" element={<EditProfile />} />
           </Route>
-          <Route path="*" element={<Navigate to={user ? "/" : "/landing"} replace />} />
+          <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />
         </Routes>
       </Router>
     </LanguageProvider>
