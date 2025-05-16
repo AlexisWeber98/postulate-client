@@ -42,7 +42,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ t }) => (
       >
         <Link
           to="/login"
-          className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-900 bg-white hover:bg-blue-50 transition-colors"
+          className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-lg text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          style={{ boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)' }}
         >
           {t('login')}
           <ArrowRight className="ml-2 h-5 w-5" />
