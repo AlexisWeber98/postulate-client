@@ -32,7 +32,11 @@ export const heroTexts = {
     'benefits.after.title': 'Con Postulate',
     'benefits.after.point1': '📋 Todo centralizado',
     'benefits.after.point2': '✅ Seguimiento visual claro',
-    'benefits.after.point3': '🔍 Filtros para encontrar todo rápido'
+    'benefits.after.point3': '🔍 Filtros para encontrar todo rápido',
+    'trust.title': '🧠 Razones para confiar en Postulate',
+    'trust.point1': '🚀 Pensado por buscadores de empleo reales',
+    'trust.point2': '🔒 Tus datos están seguros y solo vos los ves',
+    'trust.point3': '💡 En constante mejora con feedback de usuarios'
   },
   en: {
     'hero.bringing': 'BRINGING',
@@ -67,6 +71,10 @@ export const heroTexts = {
     'benefits.after.title': 'With Postulate',
     'benefits.after.point1': '📋 Everything centralized',
     'benefits.after.point2': '✅ Clear visual tracking',
-    'benefits.after.point3': '🔍 Filters to find everything quickly'
+    'benefits.after.point3': '🔍 Filters to find everything quickly',
+    'trust.title': '🧠 Reasons to trust Postulate',
+    'trust.point1': '🚀 Designed by real job seekers',
+    'trust.point2': '🔒 Your data is secure and only visible to you',
+    'trust.point3': '💡 Continuously improving with user feedback'
   }
 };

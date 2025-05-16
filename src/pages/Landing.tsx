@@ -8,6 +8,7 @@ import { useLanguage } from '../context/LanguageContext';
 import HowItWorksSection from '../features/landing/components/HowItWorksSection.ui';
 import FeaturesSection from '../features/landing/components/FeaturesSection.ui';
 import BenefitsSection from '../features/landing/components/BenefitsSection.ui';
+import TrustSection from '../features/landing/components/TrustSection.ui';
 
 const Landing: React.FC = () => {
   const { t } = useLanguage();
@@ -61,6 +62,14 @@ const Landing: React.FC = () => {
 
         <div className="container mx-auto px-4 sm:px-8">
           <BenefitsSection t={t} />
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-8">
+          <div className="border-b border-white/70 mb-10" />
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-8">
+          <TrustSection t={t} />
         </div>
 
         <div className="container mx-auto px-4 sm:px-8">

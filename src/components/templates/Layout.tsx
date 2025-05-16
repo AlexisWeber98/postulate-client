@@ -10,7 +10,7 @@ const Layout: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="flex flex-col min-h-screen" style={{ background: APP_COLORS.lightGray, fontFamily: 'Inter, sans-serif' }}>
+    <div className="flex flex-col min-h-screen" style={{ background: APP_COLORS.lightGray }}>
       <Navbar />
       <main className="flex-grow w-full">
         <Suspense fallback={<LoadingIndicator />}>
