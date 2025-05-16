@@ -29,7 +29,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ t }) => (
           {t('Postulate')}
         </motion.h1>
         <motion.p
-          className="text-xl text-white/90 max-w-2xl mb-8"
+          className="text-base md:text-lg text-gray-900 font-semibold max-w-2xl mb-8 text-center md:text-left"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}

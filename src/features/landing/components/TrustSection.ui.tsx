@@ -1,63 +1,67 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Rocket, Shield, Lightbulb } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight } from 'lucide-react';
+import CardFlip from 'react-card-flip';
 
 interface TrustSectionProps {
   t: (key: string) => string;
 }
 
-const TrustSection: React.FC<TrustSectionProps> = ({ t }) => {
-  const trustPoints = [
-    {
-      icon: <Rocket className="h-6 w-6 text-blue-500" />,
-      text: t('trust.point1')
-    },
-    {
-      icon: <Shield className="h-6 w-6 text-blue-500" />,
-      text: t('trust.point2')
-    },
-    {
-      icon: <Lightbulb className="h-6 w-6 text-blue-500" />,
-      text: t('trust.point3')
-    }
-  ];
+const trustPoints = [
+  {
+    title: 'Pensado por buscadores de empleo reales',
+    explanation: 'Postulate fue creado por personas que realmente buscaron trabajo y conocen tus necesidades.',
+    textKey: 'trust.point1',
+  },
+  {
+    title: 'Tus datos están seguros y solo vos los ves',
+    explanation: 'Tus datos personales y de búsqueda laboral están protegidos y solo vos podés acceder a ellos.',
+    textKey: 'trust.point2',
+  },
+  {
+    title: 'En constante mejora con feedback de usuarios',
+    explanation: 'Escuchamos a los usuarios y mejoramos la plataforma continuamente para vos.',
+    textKey: 'trust.point3',
+  },
+];
+
+const FlipCard: React.FC<{ title: string; explanation: string }> = ({ title, explanation }) => {
+  const [flipped, setFlipped] = useState(false);
 
   return (
-    <section className="py-20">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-violet-600 text-transparent bg-clip-text">
-            {t('trust.title')}
-          </h2>
-        </motion.div>
+    <CardFlip isFlipped={flipped} flipDirection="horizontal">
+      {/* Frente */}
+      <div
+        className="w-full max-w-sm h-56 flex flex-col justify-center items-center bg-white/80 border border-blue-200 shadow-xl rounded-3xl cursor-pointer"
+        onClick={() => setFlipped(true)}
+      >
+        <span className="text-lg md:text-xl font-extrabold text-blue-900 text-center mb-4">{title}</span>
+        <ArrowRight className="h-10 w-10 text-blue-500 mt-2" />
+      </div>
+      {/* Dorso */}
+      <div
+        className="w-full max-w-sm h-56 flex flex-col justify-center items-center bg-white/90 border border-blue-200 shadow-xl rounded-3xl cursor-pointer"
+        onClick={() => setFlipped(false)}
+      >
+        <span className="text-base md:text-lg text-gray-800 text-center px-4">{explanation}</span>
+      </div>
+    </CardFlip>
+  );
+};
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {trustPoints.map((point, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-white/30 transition-transform hover:-translate-y-1"
-            >
-              <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 flex items-center justify-center rounded-full mb-4 bg-blue-50">
-                  {point.icon}
-                </div>
-                <p className="text-gray-700 text-lg font-medium">
-                  {point.text}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+const TrustSection: React.FC<TrustSectionProps> = ({ t }) => {
+  return (
+    <section className="py-20 flex flex-col items-center">
+      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        {t('trust.title').replace('🧠 ', '')}
+      </h2>
+      <div className="flex flex-col md:flex-row gap-10 w-full justify-center">
+        {trustPoints.map((point, idx) => (
+          <FlipCard
+            key={idx}
+            title={t(point.textKey).replace(/^[^ ]+ /, '')}
+            explanation={point.explanation}
+          />
+        ))}
       </div>
     </section>
   );
