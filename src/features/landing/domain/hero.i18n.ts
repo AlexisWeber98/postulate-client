@@ -36,7 +36,8 @@ export const heroTexts = {
     'trust.title': '🧠 Razones para confiar en Postulate',
     'trust.point1': '🚀 Pensado por buscadores de empleo reales',
     'trust.point2': '🔒 Tus datos están seguros y solo vos los ves',
-    'trust.point3': '💡 En constante mejora con feedback de usuarios'
+    'trust.point3': '💡 En constante mejora con feedback de usuarios',
+    'features.title': '¿Por qué elegir Postulate?'
   },
   en: {
     'hero.bringing': 'BRINGING',
@@ -75,6 +76,7 @@ export const heroTexts = {
     'trust.title': '🧠 Reasons to trust Postulate',
     'trust.point1': '🚀 Designed by real job seekers',
     'trust.point2': '🔒 Your data is secure and only visible to you',
-    'trust.point3': '💡 Continuously improving with user feedback'
+    'trust.point3': '💡 Continuously improving with user feedback',
+    'features.title': 'Why choose Postulate?'
   }
 };
