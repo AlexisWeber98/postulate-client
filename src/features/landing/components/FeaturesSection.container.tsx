@@ -9,17 +9,29 @@ interface FeaturesSectionContainerProps {
 const FeaturesSectionContainer: React.FC<FeaturesSectionContainerProps> = ({ t }) => {
   const features: FeatureCard[] = [
     {
-      icon: <CheckCircle2 className="h-7 w-7 text-white" />,
+      icon: (
+        <span className="w-12 h-12 flex items-center justify-center rounded-full mb-4 bg-white">
+          <CheckCircle2 className="h-7 w-7 text-blue-500" />
+        </span>
+      ),
       title: t('card1.title'),
       desc: t('card1.desc'),
     },
     {
-      icon: <BarChart2 className="h-7 w-7 text-white" />,
+      icon: (
+        <span className="w-12 h-12 flex items-center justify-center rounded-full mb-4 bg-white">
+          <BarChart2 className="h-7 w-7 text-blue-500" />
+        </span>
+      ),
       title: t('card2.title'),
       desc: t('card2.desc'),
     },
     {
-      icon: <Search className="h-7 w-7 text-white" />,
+      icon: (
+        <span className="w-12 h-12 flex items-center justify-center rounded-full mb-4 bg-white">
+          <Search className="h-7 w-7 text-blue-500" />
+        </span>
+      ),
       title: t('card3.title'),
       desc: t('card3.desc'),
     },

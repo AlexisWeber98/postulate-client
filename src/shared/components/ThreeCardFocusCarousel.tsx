@@ -75,7 +75,7 @@ const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ feature
               return (
                 <div
                   key={pos + '-' + feature.title}
-                  className={`${base} ${styles} rounded-2xl p-8 h-full min-h-[260px] w-[320px]`}
+                  className={`${base} ${styles} rounded-2xl p-8 h-[320px] min-h-[320px] w-[320px] overflow-y-auto`}
                   style={{ pointerEvents: pos === 1 ? 'auto' : 'none' }}
                 >
                   <div className="w-12 h-12 flex items-center justify-center rounded-full mb-4 bg-gradient-to-r from-blue-500 to-violet-500">
