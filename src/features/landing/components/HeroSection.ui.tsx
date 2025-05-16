@@ -8,9 +8,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ t }) => (
-  <section className="relative bg-cover bg-center pt-16 pb-24 px-4" style={{ background: 'linear-gradient(135deg, #60a5fa 0%, #c7d2fe 50%, #a5b4fc 100%)' }}>
-    {/* Overlay para mejorar la legibilidad del texto */}
-    <div className="absolute inset-0 bg-blue-900 bg-opacity-75"></div>
+  <section className="relative  pt-16 pb-24 px-4">
     <div className="container mx-auto text-center relative z-10">
       <motion.div
         className="flex justify-center mb-6"
