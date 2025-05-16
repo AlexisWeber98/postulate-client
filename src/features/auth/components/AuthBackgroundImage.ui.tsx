@@ -30,14 +30,14 @@ export const AuthBackgroundImage = () => {
   }, [setIndex, images.length]);
 
   return (
-    <div className="fixed inset-0 w-full h-full -z-10">
+    <div className="fixed inset-0 w-full h-full z-10 pointer-events-none">
       <img
         src={images[index]}
         alt="Fondo representativo"
-        className="w-full h-full object-cover absolute inset-0"
+        className="w-full h-full object-cover absolute inset-0 z-10"
         loading="eager"
       />
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/40 z-20" />
     </div>
   );
 };

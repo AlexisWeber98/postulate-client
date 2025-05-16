@@ -1,9 +1,11 @@
 import React from 'react';
 import { AuthFormContainer } from './components/AuthForm.container';
+import { AuthBackgroundProvider } from './components/AuthBackgroundContext';
+import { AuthBackgroundImage } from './components/AuthBackgroundImage.ui';
 
 export const AuthPage: React.FC<{ type: 'login' | 'register' }> = ({ type }) => (
-  <>
-    {/* Branding y formulario, SIN fondo ni provider */}
+  <AuthBackgroundProvider>
+    <AuthBackgroundImage />
     <div className="hidden md:flex flex-col justify-center items-center w-1/2 relative z-10">
       <div className="flex flex-col items-center">
         <div className="bg-white/40 rounded-lg px-6 py-4 flex items-center gap-3 shadow-lg">
@@ -15,5 +17,5 @@ export const AuthPage: React.FC<{ type: 'login' | 'register' }> = ({ type }) => 
     <div className="flex flex-col justify-center items-center w-full md:w-1/2 min-h-screen relative z-10">
       <AuthFormContainer type={type} />
     </div>
-  </>
+  </AuthBackgroundProvider>
 );
