@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const steps = [
+interface HowItWorksSectionProps {
+  t?: (key: string) => string;
+}
+
+const defaultSteps = [
   {
     label: 'Paso 1',
     title: 'Registrate gratis',
@@ -19,8 +23,31 @@ const steps = [
   },
 ];
 
-const HowItWorksSection: React.FC = () => {
+const enSteps = [
+  {
+    label: 'Step 1',
+    title: 'Sign up for free',
+    desc: 'Complete your registration in less than a minute and start organizing your job search.',
+  },
+  {
+    label: 'Step 2',
+    title: 'Add your applications',
+    desc: 'Register all your current and future applications to keep an organized tracking.',
+  },
+  {
+    label: 'Step 3',
+    title: 'Track your progress',
+    desc: 'Analyze your progress and optimize your job search strategy with our tools.',
+  },
+];
+
+const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ t }) => {
   const [activeStep, setActiveStep] = useState<number | null>(null);
+
+  // Detecta idioma por función t o por fallback
+  const isEnglish = t && t('landing.hero.title') === 'Job hunting will no longer be another job';
+  const steps = t ? (isEnglish ? enSteps : defaultSteps) : defaultSteps;
+
 
   return (
     <section className="relative py-20 px-2 w-full">

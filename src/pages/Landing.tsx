@@ -3,9 +3,9 @@ import Navbar from '../components/organisms/Navbar';
 import Footer from '../components/organisms/Footer';
 import { CheckCircle2, BarChart2, Search, ArrowRight } from 'lucide-react';
 import HeroSectionContainer from '../features/landing/components/HeroSection.container';
-import HowItWorksSection from '../features/landing/components/HowItWorksSection.ui';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import HowItWorksSection from '../features/landing/components/HowItWorksSection.ui';
 
 const Landing: React.FC = () => {
   const { t } = useLanguage();
@@ -33,7 +33,9 @@ const Landing: React.FC = () => {
 
           </header>
 
-          <div className="border-b border-white/30 mb-10" />
+          <div className="border-b border-white/70 mb-10" />
+          <HowItWorksSection t={t} />
+          <div className="border-b border-white/70 mb-10" />
 
           {/* Sección de características */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -68,9 +70,8 @@ const Landing: React.FC = () => {
             </div>
           </div>
 
-          <HowItWorksSection />
-
           {/* Sección de llamada a la acción */}
+          <div className="border-b border-white/70 mb-10" />
           <div className="mt-16 text-center">
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">{t('landing.cta.title')}</h3>
             <p className="text-gray-700 mb-8 max-w-2xl mx-auto text-base md:text-lg">
