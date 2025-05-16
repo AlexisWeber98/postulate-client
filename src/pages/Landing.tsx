@@ -40,9 +40,7 @@ const Landing: React.FC = () => {
           </header>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-8">
-          <div className="border-b border-white/70 mb-10" />
-        </div>
+
 
         <div className="container mx-auto px-4 sm:px-8">
           <HowItWorksSection t={t} />
@@ -65,9 +63,7 @@ const Landing: React.FC = () => {
           <TrustSection t={t} />
         </div>
 
-        <div className="container mx-auto px-4 sm:px-8">
-          <div className="border-b border-white/70 mb-10" />
-        </div>
+
 
         <div className="container mx-auto px-4 sm:px-8">
           <div className="mt-16 text-center">

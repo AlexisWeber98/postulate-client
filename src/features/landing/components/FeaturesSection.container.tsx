@@ -24,7 +24,17 @@ const FeaturesSectionContainer: React.FC<FeaturesSectionContainerProps> = ({ t }
       desc: t('card3.desc'),
     },
   ]
-  return <ThreeCardFocusCarousel features={features} autoplay interval={3500} />
+  return (
+    <section className="py-20 flex flex-col items-center">
+      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        {t('features.title') || 'Características principales'}
+      </h2>
+      <ThreeCardFocusCarousel
+        features={features}
+        cardClassName="border border-blue-200 shadow-2xl rounded-3xl bg-gradient-to-r from-blue-500 to-violet-500 text-white"
+      />
+    </section>
+  )
 }
 
 export default FeaturesSectionContainer

@@ -10,12 +10,13 @@ export interface FeatureCard {
 
 interface ThreeCardFocusCarouselProps {
   features: FeatureCard[]
+  cardClassName?: string
 }
 
 const CARD_WIDTH = 320 // px (w-80)
 const GAP = 32 // px (gap-8)
 
-const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ features }) => {
+const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ features, cardClassName }) => {
   const [centerIdx, setCenterIdx] = React.useState(1)
   const total = features.length
   const isMobile = useIsMobile()
@@ -69,8 +70,8 @@ const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ feature
               const base = "transition-all duration-500 flex flex-col items-center text-center min-w-0"
               const styles =
                 pos === 1
-                  ? "scale-115 opacity-100 blur-0 z-10 bg-white/80 shadow-2xl border-2 border-blue-300"
-                  : "scale-95 opacity-50 blur-sm z-0 bg-white/60 border border-white/30"
+                  ? `scale-115 opacity-100 blur-0 z-10 shadow-2xl border-2 border-blue-300 ${cardClassName ?? "bg-white/80"}`
+                  : `scale-95 opacity-50 blur-sm z-0 border border-white/30 ${cardClassName ?? "bg-white/60"}`
               return (
                 <div
                   key={pos + '-' + feature.title}
@@ -80,8 +81,8 @@ const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ feature
                   <div className="w-12 h-12 flex items-center justify-center rounded-full mb-4 bg-gradient-to-r from-blue-500 to-violet-500">
                     {feature.icon}
                   </div>
-                  <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                  <p className="text-gray-700 text-base md:text-base">{feature.desc}</p>
+                  <h3 className="text-lg md:text-xl font-semibold text-white mb-2 break-words">{feature.title}</h3>
+                  <p className="text-white text-base md:text-base break-words">{feature.desc}</p>
                 </div>
               )
             })}
