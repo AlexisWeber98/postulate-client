@@ -73,8 +73,8 @@ const TrustSection: React.FC<TrustSectionProps> = ({ t }) => {
         {trustPoints.map((point, idx) => (
           <FlipCard
             key={idx}
-            title={point.title}
-            explanation={point.explanation}
+            title={t(point.textKey)}
+            explanation={t(point.textKey + '.explanation')}
             delay={0.15 * idx}
           />
         ))}
