@@ -95,11 +95,6 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
         </button>
         {error && <p className="text-red-600 text-sm mt-1">{error}</p>}
       </form>
-      <div className="mt-4 text-center">
-        <Link to="#" className="text-sm text-blue-500 hover:underline">
-          Obtener ayuda sobre cómo iniciar sesión
-        </Link>
-      </div>
       <div className="mt-6 text-center">
         <Link
           to="/landing"
