@@ -55,10 +55,10 @@ const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ feature
         {/* Flecha izquierda */}
         <button
           onClick={handlePrev}
-          className="z-10 p-2 rounded-full bg-white/80 hover:bg-white shadow absolute left-0 top-1/2 -translate-y-1/2 hidden md:block"
+          className="z-20 w-20 h-20 flex items-center justify-center rounded-full bg-white/95 hover:bg-white shadow-[0_8px_32px_rgba(80,112,255,0.25)] absolute -left-12 top-1/2 -translate-y-1/2 hidden md:flex"
           aria-label="Anterior"
         >
-          <ChevronLeft className="w-6 h-6 text-blue-500" />
+          <ChevronLeft className="w-9 h-9 text-blue-500" />
         </button>
         {/* Carrusel visible */}
         <div
@@ -71,15 +71,19 @@ const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ feature
             {visibleCards.map((feature, pos) => {
               // pos: 0=izq, 1=centro, 2=der
               const base = "transition-all duration-500 flex flex-col items-center text-center min-w-0"
+              const isCenter = pos === 1
               const styles =
-                pos === 1
+                isCenter
                   ? `scale-115 opacity-100 blur-0 z-10 shadow-2xl border-2 border-blue-300 ${cardClassName ?? "bg-white/80"}`
-                  : `scale-95 opacity-50 blur-sm z-0 border border-white/30 ${cardClassName ?? "bg-white/60"}`
+                  : `scale-100 opacity-50 blur-sm z-0 border border-white/30 ${cardClassName ?? "bg-white/60"}`
+              const sizeStyle = isCenter
+                ? { width: cardWidth, minWidth: cardWidth, height: cardHeight, minHeight: cardHeight }
+                : { width: cardWidth * 0.8, minWidth: cardWidth * 0.8, height: cardHeight * 0.8, minHeight: cardHeight * 0.8 }
               return (
                 <div
                   key={pos + '-' + feature.title}
                   className={`${base} ${styles} rounded-2xl p-8 overflow-y-auto`}
-                  style={{ pointerEvents: pos === 1 ? 'auto' : 'none', width: cardWidth, minWidth: cardWidth, height: cardHeight, minHeight: cardHeight }}
+                  style={{ pointerEvents: isCenter ? 'auto' : 'none', ...sizeStyle }}
                 >
                   {feature.icon}
                   <h3 className="text-lg md:text-xl font-semibold text-white mb-2 break-words">{feature.title}</h3>
@@ -92,10 +96,10 @@ const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ feature
         {/* Flecha derecha */}
         <button
           onClick={handleNext}
-          className="z-10 p-2 rounded-full bg-white/80 hover:bg-white shadow absolute right-0 top-1/2 -translate-y-1/2 hidden md:block"
+          className="z-20 w-20 h-20 flex items-center justify-center rounded-full bg-white/95 hover:bg-white shadow-[0_8px_32px_rgba(80,112,255,0.25)] absolute -right-12 top-1/2 -translate-y-1/2 hidden md:flex"
           aria-label="Siguiente"
         >
-          <ChevronRight className="w-6 h-6 text-blue-500" />
+          <ChevronRight className="w-9 h-9 text-blue-500" />
         </button>
       </div>
       {/* Navegación mobile */}
