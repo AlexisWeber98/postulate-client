@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import Button from "../../../components/atoms/Button";
 import Avatar from "../../../components/atoms/Avatar";
 import { Bell, Search } from "lucide-react";
@@ -27,12 +26,11 @@ export const Navbar = ({
           key={item.id}
           to={item.href}
           onClick={() => onNavClick(item.id)}
-          className={classNames(
-            "flex items-center gap-2 px-4 py-2 rounded-full transition-all",
+          className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
             activeItem === item.id
               ? "bg-violet-600 text-white shadow"
               : "bg-white/20 text-white hover:bg-white/30"
-          )}
+          }`}
         >
           {item.icon}
           <span className="hidden md:inline">{item.label}</span>

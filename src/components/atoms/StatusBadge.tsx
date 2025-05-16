@@ -1,10 +1,6 @@
 import React from 'react';
-import { ApplicationStatus, STATUS_LABELS, STATUS_COLORS } from '../types/interface/postulations/application';
+import { ApplicationStatus, STATUS_LABELS, STATUS_COLORS } from '@/interfaces/components/atoms/StatusBadge.interface';
 
-interface StatusBadgeProps {
-  status: ApplicationStatus;
-  className?: string;
-}
 
 const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => {
   return (

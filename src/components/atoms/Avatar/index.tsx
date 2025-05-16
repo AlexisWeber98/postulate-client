@@ -1,2 +1,2 @@
-import Avatar from './Avatar.ui';
+import { Avatar } from './Avatar.ui';
 export default Avatar;
