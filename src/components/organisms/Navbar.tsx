@@ -3,11 +3,13 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Briefcase } from 'lucide-react';
 import { useAuthStore } from '../../store/auth/authStore';
 import LanguageSelector from '../../features/landing/components/LanguageSelector';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuthStore();
+  const { t } = useLanguage();
 
   const handleSignOut = () => {
     signOut();
@@ -39,15 +41,15 @@ const Navbar: React.FC = () => {
             <nav className="flex gap-4">
               <Link
                 to="/login"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[160px]"
               >
-                Iniciar Sesión
+                {t('login')}
               </Link>
               <Link
                 to="/register"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-blue-700 font-semibold text-base transition bg-white border border-blue-300 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-blue-700 font-semibold text-base transition bg-white border border-blue-300 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[160px]"
               >
-                Registrarse
+                {t('register')}
               </Link>
             </nav>
             <LanguageSelector className="ml-4" />
@@ -70,15 +72,15 @@ const Navbar: React.FC = () => {
             <nav className="flex gap-4">
               <Link
                 to="/login"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[160px]"
               >
-                Iniciar Sesión
+                {t('login')}
               </Link>
               <Link
                 to="/register"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-blue-700 font-semibold text-base transition bg-white border border-blue-300 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-blue-700 font-semibold text-base transition bg-white border border-blue-300 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[160px]"
               >
-                Registrarse
+                {t('register')}
               </Link>
             </nav>
             <LanguageSelector className="ml-4" />
@@ -100,21 +102,21 @@ const Navbar: React.FC = () => {
           <nav className="flex gap-4 items-center">
             <Link
               to="/"
-              className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow transition-all"
+              className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow transition-all w-[140px] text-center"
             >
-              Dashboard
+              {t('dashboard')}
             </Link>
             <Link
               to="/profile"
-              className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow transition-all"
+              className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow transition-all w-[140px] text-center"
             >
-              Perfil
+              {t('profile')}
             </Link>
             <button
               onClick={handleSignOut}
-              className="px-6 py-2 rounded-full font-semibold text-green-900 bg-white hover:bg-green-100 shadow transition-all"
+              className="px-6 py-2 rounded-full font-semibold text-green-900 bg-white hover:bg-green-100 shadow transition-all w-[140px] text-center"
             >
-              Cerrar Sesión
+              {t('logout')}
             </button>
           </nav>
           <LanguageSelector className="ml-4" />
