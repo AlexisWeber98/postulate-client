@@ -11,12 +11,15 @@ export interface FeatureCard {
 interface ThreeCardFocusCarouselProps {
   features: FeatureCard[]
   cardClassName?: string
+  cardWidth?: number
+  cardHeight?: number
 }
 
-const CARD_WIDTH = 320 // px (w-80)
+const DEFAULT_CARD_WIDTH = 320 // px (w-80)
+const DEFAULT_CARD_HEIGHT = 320
 const GAP = 32 // px (gap-8)
 
-const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ features, cardClassName }) => {
+const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ features, cardClassName, cardWidth = DEFAULT_CARD_WIDTH, cardHeight = DEFAULT_CARD_HEIGHT }) => {
   const [centerIdx, setCenterIdx] = React.useState(1)
   const total = features.length
   const isMobile = useIsMobile()
@@ -42,7 +45,7 @@ const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ feature
   }
   const visibleCards = getVisibleCards()
 
-  // El contenedor tiene width = 3*CARD_WIDTH + 2*GAP
+  // El contenedor tiene width = 3*cardWidth + 2*GAP
   // Para centrar la card del medio: el wrapper debe tener justify-center y gap, y no usar translateX
   // Así, las 3 cards siempre quedan perfectamente alineadas
 
@@ -59,8 +62,8 @@ const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ feature
         </button>
         {/* Carrusel visible */}
         <div
-          className="overflow-hidden w-full flex justify-center"
-          style={{ maxWidth: isMobile ? CARD_WIDTH : 3 * CARD_WIDTH + 2 * GAP }}
+          className="overflow-visible w-full flex justify-center"
+          style={{ maxWidth: isMobile ? cardWidth : '100vw' }}
         >
           <div
             className={`flex gap-8 transition-all duration-500 ease-in-out justify-center w-full`}
@@ -75,12 +78,10 @@ const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ feature
               return (
                 <div
                   key={pos + '-' + feature.title}
-                  className={`${base} ${styles} rounded-2xl p-8 h-[320px] min-h-[320px] w-[320px] overflow-y-auto`}
-                  style={{ pointerEvents: pos === 1 ? 'auto' : 'none' }}
+                  className={`${base} ${styles} rounded-2xl p-8 overflow-y-auto`}
+                  style={{ pointerEvents: pos === 1 ? 'auto' : 'none', width: cardWidth, minWidth: cardWidth, height: cardHeight, minHeight: cardHeight }}
                 >
-                  <div className="w-12 h-12 flex items-center justify-center rounded-full mb-4 bg-gradient-to-r from-blue-500 to-violet-500">
-                    {feature.icon}
-                  </div>
+                  {feature.icon}
                   <h3 className="text-lg md:text-xl font-semibold text-white mb-2 break-words">{feature.title}</h3>
                   <p className="text-white text-base md:text-base break-words">{feature.desc}</p>
                 </div>

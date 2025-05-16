@@ -36,14 +36,19 @@ const FeaturesSectionContainer: React.FC<FeaturesSectionContainerProps> = ({ t }
       desc: t('card3.desc'),
     },
   ]
+  const sectionTitle = t('features.title') && t('features.title') !== 'features.title'
+    ? t('features.title')
+    : (t('¿Por qué elegir Postulate?') || 'Why choose Postulate?')
   return (
     <section className="py-20 flex flex-col items-center">
       <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-        {t('features.title') || 'Características principales'}
+        {sectionTitle}
       </h2>
       <ThreeCardFocusCarousel
         features={features}
         cardClassName="border border-blue-200 shadow-2xl rounded-3xl bg-gradient-to-r from-blue-500 to-violet-500 text-white"
+        cardWidth={380}
+        cardHeight={340}
       />
     </section>
   )
