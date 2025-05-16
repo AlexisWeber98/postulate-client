@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Briefcase, ArrowRight } from 'lucide-react';
+import { Briefcase } from 'lucide-react';
 import { useAuthStore } from '../../store/auth/authStore';
-import { APP_COLORS } from '../../styles/colors';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
@@ -16,73 +15,67 @@ const Navbar: React.FC = () => {
 
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    // Forzar la navegación a la landing page
     window.location.href = '/landing';
   };
 
+  // Ocultar Navbar en rutas no públicas y sin usuario
   if (!user && !['/landing', '/login', '/register'].includes(location.pathname)) {
     return null;
   }
 
-  // Si estamos en la landing page, mostramos el header completo
+  // Navbar para la landing (sin usuario)
   if (location.pathname === '/landing') {
     return (
-      <header>
-        {/* Barra de navegación */}
-        <div style={{ background: APP_COLORS.blue }} className="shadow-md">
-          <div className="container mx-auto px-6 py-4">
-            <div className="flex justify-between items-center">
-              <a href="/landing" onClick={handleLogoClick} className="flex items-center cursor-pointer">
-                <Briefcase className="h-7 w-7 text-white mr-2" />
-                <span className="text-xl font-bold text-white">Postulate</span>
-              </a>
-              <nav className="flex space-x-2">
-                <Link
-                  to="/login"
-                  className="px-4 py-2 text-sm font-medium text-white hover:text-blue-200 transition-colors"
-                >
-                  Iniciar Sesión
-                </Link>
-                <Link
-                  to="/register"
-                  className="px-4 py-2 text-sm font-medium text-blue-900 bg-white rounded-md hover:bg-blue-50 transition-colors"
-                >
-                  Registrarse
-                </Link>
-              </nav>
-            </div>
-          </div>
-        </div>
-
-
-      </header>
-    );
-  }
-
-  // Si el usuario no está autenticado, muestra un Navbar simple para login/register
-  if (!user) {
-    return (
-      <header style={{ background: APP_COLORS.blue }} className="w-full shadow-md font-sans">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <a href="/landing" onClick={handleLogoClick} className="flex items-center cursor-pointer">
-            <Briefcase className="h-7 w-7 text-white mr-2" />
-            <span className="text-xl font-bold text-white">Postulate</span>
+      <header className="sticky top-0 z-50 w-full bg-gradient-to-tr from-[#1a2236] via-[#232946] to-[#2d334a] shadow-lg">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          {/* Logo */}
+          <a href="/landing" onClick={handleLogoClick} className="flex items-center gap-2 select-none">
+            <Briefcase className="h-8 w-8 text-white" />
+            <span className="text-2xl font-extrabold text-white tracking-tight">Postulate</span>
           </a>
-
-          <div className="flex items-center space-x-4">
+          {/* Botones */}
+          <nav className="flex gap-4">
             <Link
               to="/login"
-              className="px-4 py-2 text-sm font-medium text-white hover:text-blue-200 transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               Iniciar Sesión
             </Link>
             <Link
               to="/register"
-              className="px-4 py-2 text-sm font-medium text-blue-900 bg-white rounded-md hover:bg-blue-50 transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-blue-700 font-semibold text-base transition bg-white border border-blue-300 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               Registrarse
             </Link>
-          </div>
+          </nav>
+        </div>
+      </header>
+    );
+  }
+
+  // Navbar para login/register (sin usuario)
+  if (!user) {
+    return (
+      <header className="sticky top-0 z-50 w-full bg-gradient-to-tr from-[#1a2236] via-[#232946] to-[#2d334a] shadow-lg">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <a href="/landing" onClick={handleLogoClick} className="flex items-center gap-2 select-none">
+            <Briefcase className="h-8 w-8 text-white" />
+            <span className="text-2xl font-extrabold text-white tracking-tight">Postulate</span>
+          </a>
+          <nav className="flex gap-4">
+            <Link
+              to="/login"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              Iniciar Sesión
+            </Link>
+            <Link
+              to="/register"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-blue-700 font-semibold text-base transition bg-white border border-blue-300 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              Registrarse
+            </Link>
+          </nav>
         </div>
       </header>
     );
@@ -90,33 +83,32 @@ const Navbar: React.FC = () => {
 
   // Navbar para usuarios autenticados
   return (
-    <header style={{ background: APP_COLORS.blue }} className="w-full shadow-md font-sans">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="/landing" onClick={handleLogoClick} className="flex items-center cursor-pointer">
-          <Briefcase className="h-7 w-7 text-white mr-2" />
-          <span className="text-xl font-bold text-white">Postulate</span>
+    <header className="sticky top-0 z-50 w-full bg-gradient-to-tr from-[#1a2236] via-[#232946] to-[#2d334a] shadow-lg">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="/landing" onClick={handleLogoClick} className="flex items-center gap-2 select-none">
+          <Briefcase className="h-8 w-8 text-white" />
+          <span className="text-2xl font-extrabold text-white tracking-tight">Postulate</span>
         </a>
-
-        <div className="flex items-center space-x-4">
+        <nav className="flex gap-4 items-center">
           <Link
             to="/"
-            className="px-4 py-2 text-sm font-medium text-white hover:text-blue-200 transition-colors"
+            className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow transition-all"
           >
             Dashboard
           </Link>
           <Link
             to="/profile"
-            className="px-4 py-2 text-sm font-medium text-white hover:text-blue-200 transition-colors"
+            className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow transition-all"
           >
             Perfil
           </Link>
           <button
             onClick={handleSignOut}
-            className="px-4 py-2 text-sm font-medium text-blue-900 bg-white rounded-md hover:bg-blue-50 transition-colors"
+            className="px-6 py-2 rounded-full font-semibold text-green-900 bg-white hover:bg-green-100 shadow transition-all"
           >
             Cerrar Sesión
           </button>
-        </div>
+        </nav>
       </div>
     </header>
   );
