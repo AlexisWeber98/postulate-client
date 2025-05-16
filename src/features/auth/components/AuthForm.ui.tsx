@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FormField from '../../../shared/components/FormField';
+import Button from '../../../shared/components/Button';
 
 interface AuthFormProps {
   type: 'login' | 'register';
@@ -81,14 +82,13 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        <button
+        <Button
           type="submit"
           disabled={isLoading}
-          className="flex items-center justify-center px-6 py-3 rounded-xl shadow-lg text-white font-semibold text-lg transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 mt-2"
-          style={{ boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)' }}
+          className="mt-2"
         >
           {type === 'login' ? 'Continuar' : 'Registrarse'}
-        </button>
+        </Button>
         {error && <p className="text-red-600 text-sm mt-1">{error}</p>}
       </form>
       <div className="mt-6 text-center">
