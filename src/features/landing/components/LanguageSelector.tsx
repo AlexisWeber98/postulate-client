@@ -14,8 +14,9 @@ const LanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) 
         `}
         style={{ borderRight: 'none' }}
         onClick={() => setLang('es')}
+        aria-label="Español"
       >
-        ES
+        <span className="text-lg">🇪🇸</span>
       </button>
       <button
         className={`h-8 w-10 flex-1 flex items-center justify-center font-extrabold text-base transition-all border-2 border-[#377dff] rounded-r-2xl focus:outline-none
@@ -25,8 +26,9 @@ const LanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) 
         `}
         style={{ borderLeft: 'none', marginLeft: '-2px' }}
         onClick={() => setLang('en')}
+        aria-label="English"
       >
-        EN
+        <span className="text-lg">🇺🇸</span>
       </button>
     </div>
   );
