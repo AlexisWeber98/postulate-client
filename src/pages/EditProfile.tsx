@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthStore } from '../store/auth/authStore';
 import { Input } from '../components/ui/input';
-import { Check, Save, User } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Check, Save } from 'lucide-react';
 import LoadingSpinner from '../components/atoms/LoadingSpinner';
 import { isValidEmail, hasContent } from '../lib/helpers/validation.helpers';
-
-const avatarStyles = [
-  "adventurer", "avataaars", "bottts", "funEmoji",
-  "lorelei", "notionists", "openPeeps", "personas"
-];
 
 const EditProfile: React.FC = () => {
   const { user, updateUser } = useAuthStore();
@@ -18,12 +12,8 @@ const EditProfile: React.FC = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [avatarSeed, setAvatarSeed] = useState(user?.name || 'User');
-  const [avatarStyle, setAvatarStyle] = useState('adventurer');
-  const [isChangingAvatar, setIsChangingAvatar] = useState(false);
   const [nameError, setNameError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
-  const navigate = useNavigate();
 
   // Validación en tiempo real
   useEffect(() => {
@@ -44,7 +34,6 @@ const EditProfile: React.FC = () => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
-      setAvatarSeed(user.name);
     }
   }, [user]);
 
@@ -64,89 +53,18 @@ const EditProfile: React.FC = () => {
       await updateUser({ name, email });
       setSuccess(true);
       setTimeout(() => setSuccess(false), 2000);
-    } catch (err) {
+    } catch {
       setError('Ocurrió un error al actualizar el perfil.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Create avatar URL
-  const avatarUrl = `https://api.dicebear.com/7.x/${avatarStyle}/svg?seed=${encodeURIComponent(avatarSeed)}`;
-
-  const generateRandomAvatar = () => {
-    // Generate a random avatar
-    const randomStyle = avatarStyles[Math.floor(Math.random() * avatarStyles.length)];
-    const randomSeed = Math.random().toString(36).substring(2, 10);
-    setAvatarStyle(randomStyle);
-    setAvatarSeed(randomSeed);
-  };
-
   return (
     <div className="flex flex-col items-center min-h-[calc(100vh-64px-56px)] bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 font-sans w-full max-w-none">
-      {/* Fondo decorativo */}
-      <div className="relative h-72 w-full flex justify-center items-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-700 via-blue-500 to-violet-500" />
-        <div className="relative group">
-          <img
-            src={avatarUrl}
-            alt="Avatar"
-            className="w-40 h-40 rounded-full border-4 border-white shadow-xl object-cover transition-all duration-300 group-hover:border-blue-400"
-          />
-          <button
-            onClick={() => setIsChangingAvatar(!isChangingAvatar)}
-            className="absolute bottom-0 right-0 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white rounded-full p-2 shadow-lg transition"
-            aria-label="Cambiar avatar"
-            title="Cambiar avatar"
-          >
-            <User className="h-5 w-5" />
-          </button>
-        </div>
-      </div>
-      {/* Avatar selection interface - conditionally displayed */}
-      {isChangingAvatar && (
-        <div className="bg-white/70 backdrop-blur-md rounded-xl shadow-md p-6 max-w-3xl mx-auto mb-8 mt-32 animate-fade-in">
-          <h3 className="text-lg font-semibold mb-4">Cambiar Avatar</h3>
-          <div className="flex flex-wrap gap-4 mb-4">
-            {avatarStyles.map(style => (
-              <button
-                key={style}
-                onClick={() => setAvatarStyle(style)}
-                className={`relative rounded-full overflow-hidden border-2 transition-all duration-200 ${avatarStyle === style ? 'border-blue-500' : 'border-gray-200'}`}
-                aria-label={`Seleccionar estilo ${style}`}
-              >
-                <img
-                  src={`https://api.dicebear.com/7.x/${style}/svg?seed=${avatarSeed}`}
-                  alt={`${style} style`}
-                  className="w-16 h-16"
-                />
-                {avatarStyle === style && (
-                  <div className="absolute bottom-0 right-0 bg-blue-500 rounded-full p-1 animate-pulse">
-                    <Check className="h-3 w-3 text-white" />
-                  </div>
-                )}
-              </button>
-            ))}
-          </div>
-          <div className="flex gap-4">
-            <button
-              onClick={generateRandomAvatar}
-              className="px-4 py-2 bg-white/70 hover:bg-white/90 rounded-md text-sm font-medium transition backdrop-blur-md"
-            >
-              Aleatorio
-            </button>
-            <button
-              onClick={() => setIsChangingAvatar(false)}
-              className="px-4 py-2 bg-gradient-to-r from-blue-500 to-violet-500 text-white rounded-md text-sm font-medium hover:from-blue-600 hover:to-violet-600 transition"
-            >
-              Aceptar
-            </button>
-          </div>
-        </div>
-      )}
       <form
         onSubmit={handleSubmit}
-        className={`flex flex-col items-center gap-8 w-full max-w-3xl mx-auto px-4 sm:px-8 pt-8 animate-fade-in`}
+        className={`flex flex-col items-center gap-8 w-full max-w-3xl mx-auto px-4 sm:px-8 pt-32 animate-fade-in`}
         aria-label="Formulario de edición de perfil"
       >
         <div className="w-full bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl p-10 transition-all duration-300">
@@ -204,13 +122,6 @@ const EditProfile: React.FC = () => {
           {success && <p className="text-green-600 text-center mt-4 animate-fade-in">¡Perfil actualizado correctamente!</p>}
           {error && <p className="text-red-600 text-center mt-4 animate-fade-in">{error}</p>}
         </div>
-        <button
-          type="button"
-          onClick={() => navigate('/dashboard')}
-          className="mt-2 text-blue-700 hover:underline text-sm"
-        >
-          ← Volver al Dashboard
-        </button>
       </form>
     </div>
   );
