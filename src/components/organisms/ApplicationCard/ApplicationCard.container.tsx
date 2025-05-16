@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ApplicationCardGlass from './components/ApplicationCardGlass.ui';
+import { ApplicationCardGlass } from './components/ApplicationCardGlass.ui';
 import ApplicationDetailModalUI from './components/ApplicationDetailModal.ui';
 import ApplicationEditModalUI from './components/ApplicationEditModal.ui';
 import { Postulation } from '../../../types/interface/postulations/postulation';

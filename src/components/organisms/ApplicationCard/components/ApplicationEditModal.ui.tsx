@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../../../molecules/Modal';
-import { ApplicationCardProps } from '../../../../interfaces/components/cards/ApplicationCardProps.interface';
+import { ApplicationCardProps } from '../../../../interfaces/components/organisms/ApplicationCard.interface';
 import { STATUS_LABELS, Postulation, PostulationStatus } from '../../../../types/interface/postulations/postulation';
 import StyledModalContainer from "../../../shared/components/StyledModalContainer/StyledModalContainer.ui";
 

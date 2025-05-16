@@ -1,13 +1,7 @@
-import React from 'react';
-import { ApplicationCardProps } from '../../../../interfaces/components/cards/ApplicationCardProps.interface';
+import { ApplicationCardGlassProps } from '../../../../interfaces/components/organisms/ApplicationCard.interface';
 import { STATUS_LABELS } from '../../../../types/interface/postulations/postulation';
 
-interface ApplicationCardGlassProps extends ApplicationCardProps {
-  onViewDetail: () => void;
-  onEdit: () => void;
-}
-
-const ApplicationCardGlass: React.FC<ApplicationCardGlassProps> = ({ application, onViewDetail, onEdit }) => {
+export const ApplicationCardGlass = ({ application, onViewDetail, onEdit }: ApplicationCardGlassProps) => {
   const { company, position, status, date, url, notes, createdAt, updatedAt } = application;
   const initials = company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
 
@@ -73,5 +67,3 @@ const ApplicationCardGlass: React.FC<ApplicationCardGlassProps> = ({ application
     </div>
   );
 };
-
-export default ApplicationCardGlass;
