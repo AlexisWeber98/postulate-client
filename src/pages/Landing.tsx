@@ -10,21 +10,34 @@ import FeaturesSectionContainer from '../features/landing/components/FeaturesSec
 import BenefitsSection from '../features/landing/components/BenefitsSection.ui';
 import TrustSection from '../features/landing/components/TrustSection.ui';
 import { motion } from 'framer-motion';
+import SideNavbar from '../components/organisms/SideNavbar';
 
 const Landing: React.FC = () => {
   const { t } = useLanguage();
+
+  const sections = [
+    { id: 'hero', label: t('landing.hero.title') },
+    { id: 'how-it-works', label: t('landing.howItWorks.title') },
+    { id: 'features', label: t('landing.features.title') },
+    { id: 'benefits', label: t('landing.benefits.title') },
+    { id: 'trust', label: t('landing.trust.title') },
+    { id: 'cta', label: t('landing.cta.title') },
+  ];
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 px-0 py-0 font-sans">
       <Navbar />
+      <SideNavbar sections={sections} />
 
-      <HeroSectionContainer />
+      <div id="hero">
+        <HeroSectionContainer />
+      </div>
 
       <main className="flex-grow">
           <div className="container mx-auto px-4 sm:px-8">
           <div className="border-b border-white/70 mb-10" />
         </div>
         <div className="container mx-auto px-4 sm:px-8 py-10">
-          {/* Encabezado con estilo similar al Dashboard */}
           <header className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 p-6 gap-6 md:gap-0">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-md shadow-lg">
@@ -37,36 +50,26 @@ const Landing: React.FC = () => {
                 <span className="text-lg text-gray-700 font-semibold tracking-wide">{t('landing.hero.subtitle')}</span>
               </div>
             </div>
-
           </header>
         </div>
 
-
-
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="container mx-auto px-4 sm:px-8">
+        <motion.div id="how-it-works" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="container mx-auto px-4 sm:px-8">
           <HowItWorksSection t={t} />
         </motion.div>
 
-
-
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }} className="container mx-auto px-4 sm:px-8">
+        <motion.div id="features" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }} className="container mx-auto px-4 sm:px-8">
           <FeaturesSectionContainer t={t} />
         </motion.div>
 
-
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="container mx-auto px-4 sm:px-8">
+        <motion.div id="benefits" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="container mx-auto px-4 sm:px-8">
           <BenefitsSection t={t} />
         </motion.div>
 
-
-
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.3 }} className="container mx-auto px-4 sm:px-8">
+        <motion.div id="trust" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.3 }} className="container mx-auto px-4 sm:px-8">
           <TrustSection t={t} />
         </motion.div>
 
-
-
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.4 }} className="container mx-auto px-4 sm:px-8">
+        <motion.div id="cta" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.4 }} className="container mx-auto px-4 sm:px-8">
           <div className="mt-16 text-center mb-16 md:mb-32">
             <h3 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">{t('landing.cta.title')}</h3>
             <p className="text-gray-700 mb-8 max-w-2xl mx-auto text-base md:text-lg">
