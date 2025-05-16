@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
   // Navbar para la landing (sin usuario)
   if (location.pathname === '/landing') {
     return (
-      <header className="sticky top-0 z-50 w-full bg-gradient-to-tr from-[#1a2236] via-[#232946] to-[#2d334a] shadow-lg">
+      <header className="sticky top-0 z-50 w-full shadow-lg bg-transparent backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <a href="/landing" onClick={handleLogoClick} className="flex items-center gap-2 select-none">
@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
   // Navbar para login/register (sin usuario)
   if (!user) {
     return (
-      <header className="sticky top-0 z-50 w-full bg-gradient-to-tr from-[#1a2236] via-[#232946] to-[#2d334a] shadow-lg">
+      <header className="sticky top-0 z-50 w-full shadow-lg bg-transparent backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <a href="/landing" onClick={handleLogoClick} className="flex items-center gap-2 select-none">
             <Briefcase className="h-8 w-8 text-white" />
@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
 
   // Navbar para usuarios autenticados
   return (
-    <header className="sticky top-0 z-50 w-full bg-gradient-to-tr from-[#1a2236] via-[#232946] to-[#2d334a] shadow-lg">
+    <header className="sticky top-0 z-50 w-full shadow-lg bg-transparent backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href="/landing" onClick={handleLogoClick} className="flex items-center gap-2 select-none">
           <Briefcase className="h-8 w-8 text-white" />

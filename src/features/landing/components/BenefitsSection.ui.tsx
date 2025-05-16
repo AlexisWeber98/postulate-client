@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle2, XCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface BenefitsSectionProps {
