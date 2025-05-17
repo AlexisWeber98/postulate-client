@@ -102,13 +102,13 @@ const Navbar: React.FC = () => {
         <div className="flex items-center gap-4">
           <nav className="flex gap-4 items-center">
             <Link
-              to="/"
+              to="/dashboard"
               className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow transition-all w-[140px] text-center"
             >
               Dashboard
             </Link>
             <Link
-              to="/profile"
+              to="/dashboard/profile"
               className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow transition-all w-[140px] text-center"
             >
               Perfil
