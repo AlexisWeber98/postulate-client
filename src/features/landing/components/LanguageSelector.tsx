@@ -6,11 +6,8 @@ const LanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) 
 
   return (
     <div
-      className={`flex items-center w-24 h-10 rounded-full bg-blue-100 transition-colors overflow-hidden border-2 ${className}`}
-      style={{
-        minWidth: 96,
-        borderImage: 'linear-gradient(90deg, #3B82F6 0%, #8B5CF6 100%) 1',
-      }}
+      className={`flex items-center w-20 h-8 rounded-full bg-blue-100 transition-colors overflow-hidden ${className}`}
+      style={{ minWidth: 80 }}
     >
       <button
         onClick={() => setLang('es')}
@@ -22,7 +19,7 @@ const LanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) 
         aria-label="Español"
         type="button"
       >
-        <span className="text-xl">🇪🇸</span>
+        <span className="text-lg">🇪🇸</span>
       </button>
       <button
         onClick={() => setLang('en')}
@@ -34,7 +31,7 @@ const LanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) 
         aria-label="English"
         type="button"
       >
-        <span className="text-xl">🇺🇸</span>
+        <span className="text-lg">🇺🇸</span>
       </button>
     </div>
   );
