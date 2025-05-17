@@ -14,6 +14,7 @@ export interface Postulation {
 
 export interface PostulationState {
   postulations: Postulation[];
+  loading: boolean;
   addPostulation: (newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>) => string;
   updatePostulation: (id: string, updatedFields: Partial<Postulation>) => void;
   deletePostulation: (id: string) => void;

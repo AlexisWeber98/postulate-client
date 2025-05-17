@@ -1,12 +1,8 @@
 import React from 'react';
-import { ApplicationStatus, STATUS_LABELS, STATUS_COLORS } from '../types/interface/postulations/application';
+import { BadgeProps } from '../../interfaces/components/atoms/Badge.interface';
+import { STATUS_COLORS, STATUS_LABELS } from '../../interfaces/types/ApplicationStatus.type';
 
-interface StatusBadgeProps {
-  status: ApplicationStatus;
-  className?: string;
-}
-
-const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => {
+const StatusBadge: React.FC<BadgeProps> = ({ status, className = '' }) => {
   return (
     <span
       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${STATUS_COLORS[status]} ${className}`}

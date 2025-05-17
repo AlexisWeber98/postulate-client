@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApplicationStatus } from '../types';
+
 import { Briefcase, Building2, ListFilter } from 'lucide-react';
 import {
   Select,
@@ -7,7 +7,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
+} from '../../components/ui/select';
+import { ApplicationStatus } from '../../interfaces/components/atoms/badges/StatusBadge.interface';
 
 interface FilterSelectsProps {
   statusFilter: ApplicationStatus | 'all';

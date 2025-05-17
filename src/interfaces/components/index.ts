@@ -5,7 +5,7 @@ import { ButtonProps } from './atoms';
 import { CardProps } from './molecules';
 
 // Organisms
-import { ApplicationCardProps } from './cards/ApplicationCardProps.interface';
+import { ApplicationCardProps } from './organisms/ApplicationCard.interface';
 
 // Exportar todas las interfaces de componentes desde aquí
 export type {
@@ -22,3 +22,5 @@ export type {
 export * from './atoms/ButtonProps.interface';
 export * from './molecules/CardProps.interface';
 export * from './organisms/ApplicationCardProps.interface';
+
+export { type NavbarProps } from './organisms';

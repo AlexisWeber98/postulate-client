@@ -8,23 +8,17 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import EditProfile from './pages/EditProfile';
 import { useAuthStore } from './store';
+import { LanguageProvider } from './context/LanguageContext';
+import { AuthLayout } from './features/auth/AuthLayout';
+import LoadingSpinner from './components/atoms/LoadingSpinner';
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading } = useAuthStore();
 
-  // Mostrar un indicador de carga solo si realmente estamos cargando
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Cargando...</p>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner fullScreen message="Cargando..." />;
   }
 
-  // Redirigir si no hay usuario
   if (!user) {
     return <Navigate to="/landing" replace />;
   }
@@ -46,12 +40,16 @@ function App() {
   }, [user]);
 
   return (
+    <LanguageProvider>
       <Router>
         <Routes>
-          <Route path="/landing" element={user ? <Navigate to="/" replace /> : <Landing />} />
-          <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
-          <Route path="/register" element={user ? <Navigate to="/" replace /> : <Register />} />
-          <Route path="/" element={
+          <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
+          <Route path="/landing" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
+            <Route path="/register" element={user ? <Navigate to="/dashboard" replace /> : <Register />} />
+          </Route>
+          <Route path="/dashboard" element={
             <PrivateRoute>
               <Layout />
             </PrivateRoute>
@@ -61,9 +59,10 @@ function App() {
             <Route path="edit/:id" element={<ApplicationForm />} />
             <Route path="profile" element={<EditProfile />} />
           </Route>
-          <Route path="*" element={<Navigate to={user ? "/" : "/landing"} replace />} />
+          <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />
         </Routes>
       </Router>
+    </LanguageProvider>
   );
 }
 
