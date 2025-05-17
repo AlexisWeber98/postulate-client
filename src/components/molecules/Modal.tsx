@@ -1,8 +1,14 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react';
-import { X } from 'lucide-react';
-import type { ModalProps } from '../types';
+// import { X } from 'lucide-react'; // Ya no se usa
+// import type { ModalProps } from '../types';
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [contentId] = useState(() => `modal-content-${Math.random().toString(36).substr(2, 9)}`);
@@ -68,29 +74,19 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Overlay con blur global y oscurecimiento */}
+      <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-md transition-all" />
+      {/* Contenido del modal centrado, sin fondo blanco ni bordes propios */}
       <div
         ref={modalRef}
-        className="bg-white rounded-lg shadow-xl w-full max-w-md mx-auto overflow-hidden transform transition-all"
+        className="relative z-50 w-full max-w-md mx-auto overflow-visible transform transition-all"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="modal-title"
         aria-describedby={contentId}
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b">
-          <h2 id="modal-title" className="text-xl font-semibold text-gray-900">
-            {title}
-          </h2>
-          <button
-            ref={closeButtonRef}
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            aria-label="Close modal"
-          >
-            <X className="h-6 w-6" />
-          </button>
-        </div>
-        <div id={contentId} className="px-6 py-4">
+        {/* El título y el botón de cerrar se delegan al contenido (StyledModalContainer) */}
+        <div id={contentId} className="w-full">
           {children}
         </div>
       </div>
