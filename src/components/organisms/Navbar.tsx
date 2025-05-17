@@ -125,7 +125,7 @@ const Navbar: React.FC = () => {
           <nav className="flex gap-4 items-center">
             <Link
               to="/dashboard"
-              className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow transition-all w-[140px] text-center"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[160px]"
             >
               Dashboard
             </Link>
@@ -140,7 +140,7 @@ const Navbar: React.FC = () => {
               >
                 <Avatar
                   fallback={user?.name ? user.name.charAt(0).toUpperCase() : '?'}
-                  className="cursor-pointer border-2 border-green-400 hover:border-green-600 transition"
+                  className="cursor-pointer transition"
                 />
               </button>
               {menuOpen && (
