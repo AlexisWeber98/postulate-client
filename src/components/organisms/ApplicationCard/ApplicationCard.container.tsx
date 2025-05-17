@@ -25,6 +25,12 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
     closeEditModal();
   };
 
+  const handleDelete = () => {
+    // Aquí deberías implementar la lógica para eliminar la postulación
+    console.log('Eliminando postulación:', application);
+    closeEditModal();
+  };
+
   return (
     <>
       <motion.div
@@ -48,6 +54,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
         isOpen={isEditModalOpen}
         onClose={closeEditModal}
         onSave={handleSave}
+        onDelete={handleDelete}
       />
     </>
   );
