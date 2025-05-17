@@ -17,7 +17,7 @@ interface ThreeCardFocusCarouselProps {
 
 const DEFAULT_CARD_WIDTH = 320 // px (w-80)
 const DEFAULT_CARD_HEIGHT = 320
-const GAP = 32 // px (gap-8)
+
 
 const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ features, cardClassName, cardWidth = DEFAULT_CARD_WIDTH, cardHeight = DEFAULT_CARD_HEIGHT }) => {
   const [centerIdx, setCenterIdx] = React.useState(1)
