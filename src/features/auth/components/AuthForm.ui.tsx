@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import FormField from '../../../shared/components/FormField';
 import Button from '../../../shared/components/Button';
+import { useLanguage } from '../../../context/LanguageContext';
 
 interface AuthFormProps {
   type: 'login' | 'register';
@@ -16,6 +17,7 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
   const [name, setName] = React.useState('');
   const [userName, setUserName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
+  const { t } = useLanguage();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,20 +29,26 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full mx-auto">
-      <h2 className="text-2xl font-bold mb-2 text-center">
-        {type === 'login' ? 'Inicio de sesión' : 'Crear cuenta'}
+    <div className="bg-white dark:bg-gray-900 dark:bg-opacity-90 rounded-2xl shadow-lg p-8 max-w-md w-full mx-auto transition-colors duration-200">
+      <h2 className="text-2xl font-bold mb-2 text-center text-blue-600 dark:text-blue-400">
+        {type === 'login' ? t('auth.loginTitle') : t('auth.registerTitle')}
       </h2>
-      <p className="text-center text-gray-600 mb-4">
+      <p className="text-center text-gray-600 dark:text-gray-300 mb-4">
         {type === 'login'
-          ? <>¿Eres un nuevo usuario? <Link to="/register" className="text-blue-600 hover:underline">Crear una cuenta</Link></>
-          : <>¿Ya tienes cuenta? <Link to="/login" className="text-blue-600 hover:underline">Iniciar sesión</Link></>
+          ? <>
+              {t('auth.newUser')}{' '}
+              <Link to="/register" className="text-blue-600 dark:text-blue-400 hover:underline">{t('auth.createAccountLink')}</Link>
+            </>
+          : <>
+              {t('auth.alreadyHaveAccount')}{' '}
+              <Link to="/login" className="text-blue-600 dark:text-blue-400 hover:underline">{t('auth.loginLink')}</Link>
+            </>
         }
       </p>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <FormField
           id="email"
-          label="Dirección de correo electrónico"
+          label={t('auth.email')}
           type="email"
           required
           value={email}
@@ -50,7 +58,7 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
           <>
             <FormField
               id="name"
-              label="Nombre"
+              label={t('auth.name')}
               type="text"
               required
               value={name}
@@ -58,7 +66,7 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
             />
             <FormField
               id="userName"
-              label="Nombre de usuario"
+              label={t('auth.userName')}
               type="text"
               required
               value={userName}
@@ -66,7 +74,7 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
             />
             <FormField
               id="lastName"
-              label="Apellido"
+              label={t('auth.lastName')}
               type="text"
               required
               value={lastName}
@@ -76,7 +84,7 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
         )}
         <FormField
           id="password"
-          label="Contraseña"
+          label={t('auth.password')}
           type="password"
           required
           value={password}
@@ -87,16 +95,16 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
           disabled={isLoading}
           className="mt-2"
         >
-          {type === 'login' ? 'Continuar' : 'Registrarse'}
+          {type === 'login' ? t('auth.continue') : t('auth.register')}
         </Button>
-        {error && <p className="text-red-600 text-sm mt-1">{error}</p>}
+        {error && <p className="text-red-600 dark:text-red-400 text-sm mt-1">{error}</p>}
       </form>
       <div className="mt-6 text-center">
         <Link
           to="/landing"
-          className="inline-block px-4 py-2 rounded-lg text-blue-700 font-semibold bg-blue-100 hover:bg-blue-200 transition"
+          className="inline-block px-4 py-2 rounded-lg text-blue-700 dark:text-blue-400 font-semibold bg-blue-100 dark:bg-gray-700 hover:bg-blue-200 dark:hover:bg-gray-600 transition"
         >
-          ← Volver a la página principal
+          ← {t('auth.backToHome')}
         </Link>
       </div>
     </div>

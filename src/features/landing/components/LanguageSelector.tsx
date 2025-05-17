@@ -5,30 +5,36 @@ const LanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) 
   const { lang, setLang } = useLanguage();
 
   return (
-    <div className={`flex items-center h-8 ${className}`} style={{ minWidth: 80 }}>
+    <div
+      className={`flex items-center w-24 h-10 rounded-full bg-blue-100 transition-colors overflow-hidden border-2 ${className}`}
+      style={{
+        minWidth: 96,
+        borderImage: 'linear-gradient(90deg, #3B82F6 0%, #8B5CF6 100%) 1',
+      }}
+    >
       <button
-        className={`h-8 w-10 flex-1 flex items-center justify-center font-extrabold text-base transition-all border-2 border-[#377dff] rounded-l-2xl focus:outline-none
-          ${lang === 'es'
-            ? 'bg-gradient-to-r from-blue-500 to-violet-500 text-white z-10'
-            : 'bg-transparent text-white'}
-        `}
-        style={{ borderRight: 'none' }}
         onClick={() => setLang('es')}
+        className={`flex-1 h-full flex items-center justify-center transition-all font-bold
+          ${lang === 'es'
+            ? 'bg-gradient-to-r from-blue-500 to-violet-500 text-white'
+            : 'bg-transparent text-blue-900 hover:bg-blue-200'}
+        `}
         aria-label="Español"
+        type="button"
       >
-        <span className="text-lg">🇪🇸</span>
+        <span className="text-xl">🇪🇸</span>
       </button>
       <button
-        className={`h-8 w-10 flex-1 flex items-center justify-center font-extrabold text-base transition-all border-2 border-[#377dff] rounded-r-2xl focus:outline-none
-          ${lang === 'en'
-            ? 'bg-gradient-to-r from-blue-500 to-violet-500 text-white z-10'
-            : 'bg-transparent text-white'}
-        `}
-        style={{ borderLeft: 'none', marginLeft: '-2px' }}
         onClick={() => setLang('en')}
+        className={`flex-1 h-full flex items-center justify-center transition-all font-bold
+          ${lang === 'en'
+            ? 'bg-gradient-to-r from-blue-500 to-violet-500 text-white'
+            : 'bg-transparent text-blue-900 hover:bg-blue-200'}
+        `}
         aria-label="English"
+        type="button"
       >
-        <span className="text-lg">🇺🇸</span>
+        <span className="text-xl">🇺🇸</span>
       </button>
     </div>
   );
