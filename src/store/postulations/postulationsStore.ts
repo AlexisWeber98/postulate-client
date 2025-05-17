@@ -5,18 +5,13 @@ import {
   PostulationState,
 } from "../../types/interface/postulations/postulation";
 
-<<<<<<< HEAD
-const usePostulationsStore = create<PostulationState>((set, get) => ({
-  postulations: [],
-  loading: false,
-=======
 export const usePostulationsStore = create<PostulationState>()(
   persist(
     (set, get) => ({
       postulations: [],
->>>>>>> 41d4925 (RF: delete duplicate directories)
+      loading: false,
 
-      addPostulation: (newPostulation) => {
+      addPostulation: (newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>) => {
         const timestamp = new Date().toISOString();
         const id = crypto.randomUUID();
 
@@ -34,7 +29,7 @@ export const usePostulationsStore = create<PostulationState>()(
         return id;
       },
 
-      updatePostulation: (id, updatedFields) => {
+      updatePostulation: (id: string, updatedFields: Partial<Postulation>) => {
         set((state) => ({
           postulations: state.postulations.map((app) =>
             app.id === id
@@ -48,17 +43,17 @@ export const usePostulationsStore = create<PostulationState>()(
         }));
       },
 
-      deletePostulation: (id) => {
+      deletePostulation: (id: string) => {
         set((state) => ({
           postulations: state.postulations.filter((app) => app.id !== id),
         }));
       },
 
-      getPostulation: (id) => {
+      getPostulation: (id: string) => {
         return get().postulations.find((app) => app.id === id);
       },
 
-      checkDuplicate: (company, position) => {
+      checkDuplicate: (company: string, position: string) => {
         return get().postulations.some(
           (app) =>
             app.company.toLowerCase() === company.toLowerCase() &&
