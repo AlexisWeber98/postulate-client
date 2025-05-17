@@ -52,7 +52,21 @@ export const heroTexts = {
     'howItWorks.step2.title': 'Agregá tus postulaciones',
     'howItWorks.step2.desc': 'Registrá todas tus postulaciones actuales y futuras para mantener un seguimiento organizado.',
     'howItWorks.step3.title': 'Visualizá tu progreso',
-    'howItWorks.step3.desc': 'Analizá tu progreso y optimizá tu estrategia de búsqueda laboral con nuestras herramientas.'
+    'howItWorks.step3.desc': 'Analizá tu progreso y optimizá tu estrategia de búsqueda laboral con nuestras herramientas.',
+    'auth.loginTitle': 'Inicio de sesión',
+    'auth.registerTitle': 'Crear cuenta',
+    'auth.newUser': '¿Eres un nuevo usuario?',
+    'auth.createAccountLink': 'Crear una cuenta',
+    'auth.alreadyHaveAccount': '¿Ya tienes cuenta?',
+    'auth.loginLink': 'Iniciar sesión',
+    'auth.email': 'Dirección de correo electrónico',
+    'auth.name': 'Nombre',
+    'auth.userName': 'Nombre de usuario',
+    'auth.lastName': 'Apellido',
+    'auth.password': 'Contraseña',
+    'auth.continue': 'Continuar',
+    'auth.register': 'Registrarse',
+    'auth.backToHome': 'Volver a la página principal'
   },
   en: {
     'hero.bringing': 'BRINGING',
@@ -107,6 +121,20 @@ export const heroTexts = {
     'howItWorks.step2.title': 'Add your applications',
     'howItWorks.step2.desc': 'Register all your current and future applications to keep an organized tracking.',
     'howItWorks.step3.title': 'Track your progress',
-    'howItWorks.step3.desc': 'Analyze your progress and optimize your job search strategy with our tools.'
+    'howItWorks.step3.desc': 'Analyze your progress and optimize your job search strategy with our tools.',
+    'auth.loginTitle': 'Sign in',
+    'auth.registerTitle': 'Create account',
+    'auth.newUser': 'New user?',
+    'auth.createAccountLink': 'Create an account',
+    'auth.alreadyHaveAccount': 'Already have an account?',
+    'auth.loginLink': 'Sign in',
+    'auth.email': 'Email address',
+    'auth.name': 'First name',
+    'auth.userName': 'Username',
+    'auth.lastName': 'Last name',
+    'auth.password': 'Password',
+    'auth.continue': 'Continue',
+    'auth.register': 'Register',
+    'auth.backToHome': 'Back to home page'
   }
 };

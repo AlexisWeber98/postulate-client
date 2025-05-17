@@ -1,6 +1,7 @@
 // Adaptación del Carousel de shadcn/ui para React puro
 import * as React from "react"
-import useEmblaCarousel, { type UseEmblaCarouselType, type EmblaOptionsType } from "embla-carousel-react"
+import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react"
+import type { EmblaOptionsType, EmblaPluginType } from "embla-carousel"
 
 import { cn } from "../../lib/utils"
 
@@ -20,7 +21,7 @@ export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   opts?: EmblaOptionsType
   orientation?: "horizontal" | "vertical"
   setApi?: (api: UseEmblaCarouselType[1]) => void
-  plugins?: any[]
+  plugins?: EmblaPluginType[]
 }
 
 const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(

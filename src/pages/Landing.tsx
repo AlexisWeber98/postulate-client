@@ -26,7 +26,7 @@ const Landing: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 px-0 py-0 font-sans">
+    <div className="min-h-screen w-full bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-0 py-0 font-sans transition-colors duration-200">
       <Navbar />
       <div id="hero" className="relative w-full h-screen">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80)', zIndex: 0 }}>

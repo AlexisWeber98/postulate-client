@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import EditProfile from './pages/EditProfile';
 import { useAuthStore } from './store';
 import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { AuthLayout } from './features/auth/AuthLayout';
 import LoadingSpinner from './components/atoms/LoadingSpinner';
 
@@ -26,7 +27,7 @@ const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   return <>{children}</>;
 };
 
-function App() {
+const App: React.FC = () => {
   const { user, initialize } = useAuthStore();
 
   // Inicializar el store de autenticación al cargar la app
@@ -40,30 +41,34 @@ function App() {
   }, [user]);
 
   return (
-    <LanguageProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
-          <Route path="/landing" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
-          <Route element={<AuthLayout />}>
-            <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
-            <Route path="/register" element={user ? <Navigate to="/dashboard" replace /> : <Register />} />
-          </Route>
-          <Route path="/dashboard" element={
-            <PrivateRoute>
-              <Layout />
-            </PrivateRoute>
-          }>
-            <Route index element={<Dashboard />} />
-            <Route path="add" element={<ApplicationForm />} />
-            <Route path="edit/:id" element={<ApplicationForm />} />
-            <Route path="profile" element={<EditProfile />} />
-          </Route>
-          <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />
-        </Routes>
-      </Router>
-    </LanguageProvider>
+    <ThemeProvider>
+      <LanguageProvider>
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+          <Router>
+            <Routes>
+              <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
+              <Route path="/landing" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
+              <Route element={<AuthLayout />}>
+                <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
+                <Route path="/register" element={user ? <Navigate to="/dashboard" replace /> : <Register />} />
+              </Route>
+              <Route path="/dashboard" element={
+                <PrivateRoute>
+                  <Layout />
+                </PrivateRoute>
+              }>
+                <Route index element={<Dashboard />} />
+                <Route path="add" element={<ApplicationForm />} />
+                <Route path="edit/:id" element={<ApplicationForm />} />
+                <Route path="profile" element={<EditProfile />} />
+              </Route>
+              <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />
+            </Routes>
+          </Router>
+        </div>
+      </LanguageProvider>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;

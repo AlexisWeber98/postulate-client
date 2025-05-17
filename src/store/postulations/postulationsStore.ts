@@ -38,7 +38,7 @@ export const usePostulationsStore = create<PostulationState>()(
                   ...updatedFields,
                   updatedAt: new Date().toISOString(),
                 }
-              : app,
+              : app
           ),
         }));
       },
@@ -57,12 +57,12 @@ export const usePostulationsStore = create<PostulationState>()(
         return get().postulations.some(
           (app: Postulation) =>
             app.company.toLowerCase() === company.toLowerCase() &&
-            app.position.toLowerCase() === position.toLowerCase(),
+            app.position.toLowerCase() === position.toLowerCase()
         );
       },
     }),
     {
       name: "job-potulations-storage",
-    },
-  ),
+    }
+  )
 );
