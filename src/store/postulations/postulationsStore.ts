@@ -22,7 +22,7 @@ export const usePostulationsStore = create<PostulationState>()(
           updatedAt: timestamp,
         };
 
-        set((state) => ({
+        set((state: PostulationState) => ({
           postulations: [postulation, ...state.postulations],
         }));
 
@@ -30,39 +30,39 @@ export const usePostulationsStore = create<PostulationState>()(
       },
 
       updatePostulation: (id: string, updatedFields: Partial<Postulation>) => {
-        set((state) => ({
-          postulations: state.postulations.map((app) =>
+        set((state: PostulationState) => ({
+          postulations: state.postulations.map((app: Postulation) =>
             app.id === id
               ? {
                   ...app,
                   ...updatedFields,
                   updatedAt: new Date().toISOString(),
                 }
-              : app,
+              : app
           ),
         }));
       },
 
       deletePostulation: (id: string) => {
-        set((state) => ({
-          postulations: state.postulations.filter((app) => app.id !== id),
+        set((state: PostulationState) => ({
+          postulations: state.postulations.filter((app: Postulation) => app.id !== id),
         }));
       },
 
       getPostulation: (id: string) => {
-        return get().postulations.find((app) => app.id === id);
+        return get().postulations.find((app: Postulation) => app.id === id);
       },
 
       checkDuplicate: (company: string, position: string) => {
         return get().postulations.some(
-          (app) =>
+          (app: Postulation) =>
             app.company.toLowerCase() === company.toLowerCase() &&
-            app.position.toLowerCase() === position.toLowerCase(),
+            app.position.toLowerCase() === position.toLowerCase()
         );
       },
     }),
     {
       name: "job-potulations-storage",
-    },
-  ),
+    }
+  )
 );
