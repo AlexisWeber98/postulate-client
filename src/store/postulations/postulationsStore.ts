@@ -9,9 +9,8 @@ export const usePostulationsStore = create<PostulationState>()(
   persist(
     (set, get) => ({
       postulations: [],
-      loading: false,
 
-      addPostulation: (newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>) => {
+      addPostulation: (newPostulation) => {
         const timestamp = new Date().toISOString();
         const id = crypto.randomUUID();
 
@@ -22,47 +21,47 @@ export const usePostulationsStore = create<PostulationState>()(
           updatedAt: timestamp,
         };
 
-        set((state: PostulationState) => ({
+        set((state) => ({
           postulations: [postulation, ...state.postulations],
         }));
 
         return id;
       },
 
-      updatePostulation: (id: string, updatedFields: Partial<Postulation>) => {
-        set((state: PostulationState) => ({
-          postulations: state.postulations.map((app: Postulation) =>
+      updatePostulation: (id, updatedFields) => {
+        set((state) => ({
+          postulations: state.postulations.map((app) =>
             app.id === id
               ? {
                   ...app,
                   ...updatedFields,
                   updatedAt: new Date().toISOString(),
                 }
-              : app
+              : app,
           ),
         }));
       },
 
-      deletePostulation: (id: string) => {
-        set((state: PostulationState) => ({
-          postulations: state.postulations.filter((app: Postulation) => app.id !== id),
+      deletePostulation: (id) => {
+        set((state) => ({
+          postulations: state.postulations.filter((app) => app.id !== id),
         }));
       },
 
-      getPostulation: (id: string) => {
-        return get().postulations.find((app: Postulation) => app.id === id);
+      getPostulation: (id) => {
+        return get().postulations.find((app) => app.id === id);
       },
 
-      checkDuplicate: (company: string, position: string) => {
+      checkDuplicate: (company, position) => {
         return get().postulations.some(
-          (app: Postulation) =>
+          (app) =>
             app.company.toLowerCase() === company.toLowerCase() &&
-            app.position.toLowerCase() === position.toLowerCase()
+            app.position.toLowerCase() === position.toLowerCase(),
         );
       },
     }),
     {
       name: "job-potulations-storage",
-    }
-  )
+    },
+  ),
 );

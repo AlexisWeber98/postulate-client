@@ -41,7 +41,6 @@ export const useAuthStore = create<AuthState>()(
           const data = await response.json();
           console.log('Login exitoso:', data);
           set({ user: data.result, loading: false });
-          console.log('Usuario seteado en el store:', get().user);
 
         } catch (error) {
           console.error('Error en login:', error);
@@ -73,7 +72,6 @@ export const useAuthStore = create<AuthState>()(
           const data = await response.json();
           console.log('Registro exitoso:', data);
           set({ user: data.user, loading: false });
-          console.log('Usuario seteado en el store:', get().user);
         } catch (error) {
           console.error('Error en registro:', error);
           set({ loading: false });

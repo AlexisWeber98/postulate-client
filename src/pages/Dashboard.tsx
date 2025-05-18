@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { usePostulationsStore, useAuthStore } from '../store';
 import ApplicationCard from '../components/organisms/ApplicationCard';
 import SearchAndFilter from '../components/organisms/SearchAndFilter';
@@ -6,28 +6,35 @@ import ApplicationStats from '../components/organisms/ApplicationStats';
 import { Postulation, PostulationStatus } from '../types/interface/postulations/postulation';
 import { AlertCircle, PlusCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useErrorHandler } from '../hooks/useErrorHandler';
-import ActionModal from '../components/molecules/ActionModal';
-import LoadingSpinner from '../components/atoms/LoadingSpinner';
-import { MdAccountCircle } from 'react-icons/md';
+import { APP_COLORS } from '../styles/colors';
 
 const Dashboard: React.FC = () => {
-  const { postulations, loading } = usePostulationsStore();
+  const { postulations } = usePostulationsStore();
   const { user } = useAuthStore();
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<PostulationStatus | 'all'>('all');
+      const [statusFilter, setStatusFilter] = useState<PostulationStatus | 'all'>('all');
   const [companyFilter, setCompanyFilter] = useState('');
   const [positionFilter, setPositionFilter] = useState('');
-  const { error, handleError } = useErrorHandler({
-    defaultMessage: 'Ocurrió un error al cargar los datos. Por favor, recarga la página.'
-  });
+  const [isLoading, setIsLoading] = useState(true);
+  // Estado para errores
+  const [error, setError] = useState<string | null>(null);
+
+  // Simulate loading state - reducido a 300ms para una mejor experiencia
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Manejadores de filtro seguros
   const handleSetCompanyFilter = (value: string) => {
     try {
       setCompanyFilter(value);
     } catch (error) {
-      handleError(error as Error, 'Error al configurar el filtro de empresa');
+      console.error("Error al configurar el filtro de empresa:", error);
+      setError("Ocurrió un error con los filtros. Por favor, recarga la página.");
       // Restablecer el filtro en caso de error
       setCompanyFilter('');
     }
@@ -37,7 +44,10 @@ const Dashboard: React.FC = () => {
     try {
       setPositionFilter(value);
     } catch (error) {
-      handleError(error as Error, 'Error al configurar el filtro de puesto');
+      console.error("Error al configurar el filtro de puesto:", error);
+      setError("Ocurrió un error con los filtros. Por favor, recarga la página.");
+      // Restablecer el filtro en caso de error
+      setPositionFilter('');
     }
   };
 
@@ -47,7 +57,7 @@ const Dashboard: React.FC = () => {
       const uniqueCompanies = new Set(postulations.map((app: Postulation) => app.company));
       return Array.from(uniqueCompanies).sort();
     } catch (error) {
-      handleError(error as Error, 'Error al obtener empresas únicas');
+      console.error("Error al obtener empresas únicas:", error);
       return [];
     }
   }, [postulations]);
@@ -57,7 +67,7 @@ const Dashboard: React.FC = () => {
       const uniquePositions = new Set(postulations.map((app: Postulation) => app.position));
       return Array.from(uniquePositions).sort();
     } catch (error) {
-      handleError(error as Error, 'Error al obtener puestos únicos');
+      console.error("Error al obtener puestos únicos:", error);
       return [];
     }
   }, [postulations]);
@@ -84,119 +94,126 @@ const Dashboard: React.FC = () => {
         return searchMatch && statusMatch && companyMatch && positionMatch;
       });
     } catch (error) {
-      handleError(error as Error, 'Error al filtrar aplicaciones');
+      console.error("Error al filtrar aplicaciones:", error);
+      setError("Ocurrió un error al filtrar. Por favor, recarga la página.");
       return [];
     }
   }, [postulations, searchTerm, statusFilter, companyFilter, positionFilter]);
 
-  if (loading) {
-    return <LoadingSpinner fullScreen />;
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500 mx-auto mb-3"></div>
+          <p className="text-gray-600">Cargando dashboard...</p>
+        </div>
+      </div>
+    );
   }
 
+  // Si hay un error, mostrar mensaje de error
   if (error) {
     return (
-      <ActionModal
-        isOpen={true}
-        onClose={() => window.location.reload()}
-        title="Error"
-        message={error}
-        onConfirm={() => window.location.reload()}
-        confirmText="Recargar página"
-        variant="danger"
-        icon={<AlertCircle className="h-6 w-6" />}
-      />
+      <div className="flex items-center justify-center h-64">
+        <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-xl shadow-sm max-w-2xl">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <AlertCircle className="h-6 w-6 text-red-400" />
+            </div>
+            <div className="ml-4">
+              <p className="text-base text-red-700">{error}</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="mt-3 px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
+              >
+                Recargar página
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 px-0 py-0 font-sans">
-      <div className="container mx-auto px-4 sm:px-8 py-10">
-        {/* Encabezado con bienvenida mejorado */}
-        <header className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 p-6">
-          <div className="flex items-center gap-4">
-            <MdAccountCircle className="text-7xl text-blue-500 drop-shadow-lg bg-white/30 rounded-full p-1" />
-            <div>
-              <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 text-transparent bg-clip-text mb-1">
-                ¡Bienvenido de nuevo, {user?.name || 'Usuario'}!
-              </h2>
-              <span className="text-lg text-gray-700 font-semibold tracking-wide">Dashboard</span>
-            </div>
-          </div>
-          <Link
-            to="/add"
-            className="mt-6 md:mt-0 flex items-center px-6 py-3 rounded-xl shadow-lg text-white font-semibold text-lg transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            style={{ boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)' }}
-          >
-            <PlusCircle className="mr-2 h-6 w-6" />
-            Nueva Postulación
-          </Link>
-        </header>
-        <div className="border-b border-white/30 mb-10" />
+    <div className="container mx-auto px-4 sm:px-8 py-8 font-sans">
+      {/* Encabezado con bienvenida */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Dashboard</h1>
+          <p className="text-gray-600">¡Bienvenido de nuevo, {user?.name || 'Usuario'}!</p>
+        </div>
 
-        {/* Cards de postulaciones - NIVEL 2 */}
-        <section className="mb-12">
-
-          {/* Sección de búsqueda y filtros */}
-          <div className="mb-8 flex flex-col md:flex-row gap-4 items-center">
-            <div className="w-full">
-              <SearchAndFilter
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-                statusFilter={statusFilter}
-                setStatusFilter={setStatusFilter}
-                companyFilter={companyFilter}
-                setCompanyFilter={handleSetCompanyFilter}
-                positionFilter={positionFilter}
-                setPositionFilter={handleSetPositionFilter}
-                companies={companies as string[]}
-                positions={positions as string[]}
-              />
-            </div>
-          </div>
-
-          {postulations.length === 0 ? (
-            <div className="bg-blue-200/30 border-l-4 border-blue-400 p-8 rounded-2xl shadow-md backdrop-blur-md">
-              <div className="flex">
-                <div className="flex-shrink-0">
-                  <AlertCircle className="h-6 w-6 text-blue-400" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-base text-blue-700">
-                    No tienes postulaciones registradas. ¡Comienza agregando tu primera postulación!
-                  </p>
-                </div>
-              </div>
-            </div>
-          ) : filteredApplications.length === 0 ? (
-            <div className="bg-yellow-200/30 border-l-4 border-yellow-400 p-8 rounded-2xl shadow-md backdrop-blur-md">
-              <div className="flex">
-                <div className="flex-shrink-0">
-                  <AlertCircle className="h-6 w-6 text-yellow-400" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-base text-yellow-700">
-                    No se encontraron resultados con los filtros actuales.
-                  </p>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {filteredApplications.map((application: Postulation) => (
-                <ApplicationCard key={application.id} application={application} />
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* Sección de estadísticas */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Resumen</h2>
-          <div className="rounded-2xl shadow-md bg-white/0 backdrop-blur-none">
-            <ApplicationStats />
-          </div>
-        </section>
+        <Link
+          to="/add"
+          className="mt-4 md:mt-0 flex items-center px-5 py-2.5 rounded-lg shadow-sm text-white font-medium"
+          style={{ background: APP_COLORS.blue }}
+        >
+          <PlusCircle className="mr-2 h-5 w-5" />
+          Nueva Postulación
+        </Link>
       </div>
+
+      {/* Cards de postulaciones - NIVEL 2 */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">Tus Postulaciones</h2>
+
+        {/* Sección de búsqueda y filtros */}
+        <div className="mb-6">
+          <SearchAndFilter
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            statusFilter={statusFilter}
+            setStatusFilter={setStatusFilter}
+            companyFilter={companyFilter}
+            setCompanyFilter={handleSetCompanyFilter}
+            positionFilter={positionFilter}
+            setPositionFilter={handleSetPositionFilter}
+            companies={companies as string[]}
+            positions={positions as string[]}
+          />
+        </div>
+
+        {postulations.length === 0 ? (
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-xl shadow-sm">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <AlertCircle className="h-6 w-6 text-blue-400" />
+              </div>
+              <div className="ml-4">
+                <p className="text-base text-blue-700">
+                  No tienes postulaciones registradas. ¡Comienza agregando tu primera postulación!
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : filteredApplications.length === 0 ? (
+          <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-xl shadow-sm">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <AlertCircle className="h-6 w-6 text-yellow-400" />
+              </div>
+              <div className="ml-4">
+                <p className="text-base text-yellow-700">
+                  No se encontraron resultados con los filtros actuales.
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              {filteredApplications.map((application: Postulation) => (
+              <ApplicationCard key={application.id} application={application} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Sección de estadísticas */}
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">Resumen</h2>
+        <ApplicationStats />
+      </section>
     </div>
   );
 };
