@@ -19,9 +19,6 @@ import { FormFieldProps } from './form';
 // Types
 import { Postulation } from '../types/interface/postulations/postulation';
 
-// UI
-import { PasswordToggleProps } from './ui/PasswordToggleProps.interface';
-
 export type {
   // UI Components
   ButtonProps,
@@ -42,10 +39,7 @@ export type {
   FormFieldProps,
 
   // Types
-  Postulation,
-
-  // UI
-  PasswordToggleProps,
+  Postulation
 };
 
 // Exportar grupos con alias para mayor claridad en importaciones

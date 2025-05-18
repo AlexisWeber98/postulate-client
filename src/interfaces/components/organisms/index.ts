@@ -1,9 +1,7 @@
 // Exportar interfaces de componentes de tipo organismo
 
-import { ApplicationCardProps } from './ApplicationCard.interface';
+import { ApplicationCardProps } from '../cards/ApplicationCardProps.interface';
 
 export type { ApplicationCardProps };
 
-export * from './ApplicationCard.interface';
-
-export { type NavbarProps } from './NavbarProps.interface';
+export * from './ApplicationCardProps.interface';
