@@ -6,6 +6,7 @@ import Modal from "../components/molecules/Modal";
 import { Save, AlertCircle } from "lucide-react";
 import { ValidationHelpers, DateHelpers } from "../lib/helpers";
 
+
 const ApplicationForm: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const ApplicationForm: React.FC = () => {
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Set today's date as default
+
   useEffect(() => {
     if (!date) {
       setDate(DateHelpers.getCurrentDateISO());
