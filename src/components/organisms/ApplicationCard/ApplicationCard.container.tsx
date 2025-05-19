@@ -65,7 +65,6 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
         isOpen={isEditModalOpen}
         onClose={closeEditModal}
         onSave={handleSave}
-        onDelete={handleDelete}
       />
     </>
   );

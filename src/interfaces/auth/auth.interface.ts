@@ -13,7 +13,10 @@ export interface UserWithPassword extends User {
 export interface AuthState {
   user: User | null;
   loading: boolean;
+  token: string | null;
+  isAuthenticated: boolean;
   initialize: () => void;
+  checkAuth: () => boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, name: string, userName: string, lastName: string) => Promise<void>;
   signOut: () => void;
@@ -32,8 +35,6 @@ export interface RegisterRequest {
   userName: string;
   lastName: string;
 }
-
-
 
 export interface UserWithPassword extends User {
   password: string;

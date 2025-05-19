@@ -1,59 +1,33 @@
+import axios from "axios";
+import { useAuthStore } from "../store/auth/authStore";
+
 // Configuración base para las peticiones HTTP
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:6001";
+const API_KEY = import.meta.env.VITE_API_KEY; //|| "your-api-key";
 
-// Cliente HTTP básico
-export const client = {
-  // Método GET
-  async get<T>(endpoint: string): Promise<T> {
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    });
+console.log("API_URL", API_URL);
+console.log("API_KEY", API_KEY);
+export const client = axios.create({
+  baseURL: API_URL,
+  headers: {
+    "Content-Type": "application/json",
+    "x-api-key": API_KEY,
+  },
+});
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
+// Interceptor para agregar el token de autenticación
+client.interceptors.request.use(
+  (config) => {
+    const token = useAuthStore.getState().token;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
-
-    return response.json();
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   },
 
-  // Método POST
-  async post<T>(endpoint: string, data: unknown): Promise<T> {
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
-
-    return response.json();
-  },
-
-  // Método PUT
-  async put<T>(endpoint: string, data: unknown): Promise<T> {
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
-
-    return response.json();
-  },
 
   // Método PATCH
   async patch<T>(endpoint: string, data: unknown): Promise<T> {
@@ -87,8 +61,36 @@ export const client = {
 
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
-    }
 
-    return response.json();
+);
+
+// Interceptor para manejar errores de autenticación
+client.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      useAuthStore.getState().signOut();
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  },
+);
+
+export const httpClient = {
+  get: async <T>(url: string) => {
+    const response = await client.get<T>(url);
+    return response.data;
+  },
+  post: async <T>(url: string, data: any) => {
+    const response = await client.post<T>(url, data);
+    return response.data;
+  },
+  put: async <T>(url: string, data: any) => {
+    const response = await client.put<T>(url, data);
+    return response.data;
+  },
+  delete: async <T>(url: string) => {
+    const response = await client.delete<T>(url);
+    return response.data;
   },
 };
