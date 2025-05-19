@@ -1,98 +1,189 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { AuthState } from '../../interfaces';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import axios from "axios";
+import { AuthState } from "../../interfaces";
+import { jwtDecode, type JwtPayload } from "jwt-decode";
+import { User } from "../../interfaces/auth/auth.interface";
+import { authApi } from "../../api";
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://api-postulate.alexisweber.com';
-
+const isTokenExpired = (token: string): boolean => {
+  const decoded = jwtDecode<JwtPayload>(token);
+  return (decoded.exp ?? 0) * 1000 < Date.now();
+};
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       user: null,
       loading: false,
-      initialize: () => {
-        const { user } = get();
-        if (user) {
-          set({ loading: false });
+      token: null,
+      isAuthenticated: false,
+
+      checkAuth: () => {
+        const { token } = get();
+        if (!token) {
+          set({ isAuthenticated: false, user: null });
+          return false;
         }
-        console.log('Auth store inicializado', { user, loading: false });
+
+        if (isTokenExpired(token)) {
+          set({ isAuthenticated: false, user: null, token: null });
+          return false;
+        }
+
+        try {
+          const decoded = jwtDecode<JwtPayload & User>(token);
+          set({
+            isAuthenticated: true,
+            user: {
+              id: decoded.id,
+              name: decoded.name,
+              lastName: decoded.lastName,
+              userName: decoded.userName,
+              email: decoded.email,
+            },
+          });
+          return true;
+        } catch (error) {
+          console.error("Error al decodificar token:", error);
+          set({ isAuthenticated: false, user: null, token: null });
+          return false;
+        }
       },
+
       signIn: async (email: string, password: string) => {
-        console.log('Intentando login con:', { email });
         set({ loading: true });
 
         try {
-          console.log('Haciendo petición a:', `${API_URL}/users/login`);
-          const response = await fetch(`${API_URL}/users/login`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
+          const response = await authApi.login({ email, password });
+          const token = response.data.result;
+          const decoded = jwtDecode<JwtPayload & User>(token);
+
+          set({
+            token: token,
+            isAuthenticated: true,
+            loading: false,
+            user: {
+              id: decoded.id,
+              name: decoded.name,
+              lastName: decoded.lastName,
+              userName: decoded.userName,
+              email: decoded.email,
             },
-            body: JSON.stringify({ email, password }),
+          });
+        } catch (error: any) {
+          set({ loading: false });
+          if (error.response?.status === 401) {
+            throw new Error(
+              error.response.data.message || "Credenciales incorrectas",
+            );
+          }
+          throw new Error(
+            error.response?.data?.message || "Error en la autenticación",
+          );
+        }
+      },
+
+      signUp: async (
+        email: string,
+        password: string,
+        name: string,
+        userName: string,
+        lastName: string,
+      ) => {
+        set({ loading: true });
+
+        try {
+          const response = await authApi.register({
+            email,
+            name,
+            userName,
+            lastName,
+            password,
           });
 
-          console.log('Respuesta del servidor:', response.status);
-          if (!response.ok) {
-            const error = await response.json();
-            console.error('Error en login:', error);
-            throw new Error(error.message || 'Credenciales inválidas');
-          }
-
-          const data = await response.json();
-          console.log('Login exitoso:', data);
+          const data = response.data;
           set({ user: data.result, loading: false });
-          console.log('Usuario seteado en el store:', get().user);
-
         } catch (error) {
-          console.error('Error en login:', error);
           set({ loading: false });
-          throw error;
-        }
-      },
-      signUp: async (email: string, password: string, name: string, userName: string, lastName: string) => {
-        console.log('Intentando registro con:', { email, name, userName, lastName, password });
-        set({ loading: true });
-
-        try {
-          console.log('Haciendo petición a:', `${API_URL}/users`);
-          const response = await fetch(`${API_URL}/users`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password, userName, name, lastName }),
-          });
-
-          console.log('Respuesta del servidor:', response.status);
-          if (!response.ok) {
-            const error = await response.json();
-            console.error('Error en registro:', error);
-            throw new Error(error.message || 'Error al registrar usuario');
+          if (error.response?.status === 409) {
+            throw new Error(
+              error.response.data.message || "El usuario ya existe",
+            );
           }
-
-          const data = await response.json();
-          console.log('Registro exitoso:', data);
-          set({ user: data.user, loading: false });
-          console.log('Usuario seteado en el store:', get().user);
-        } catch (error) {
-          console.error('Error en registro:', error);
-          set({ loading: false });
-          throw error;
+          throw new Error(
+            error.response?.data?.message || "Error en el registro",
+          );
         }
       },
+
       signOut: () => {
-        console.log('Cerrando sesión');
-        set({ user: null, loading: false });
+        console.log("Cerrando sesión");
+        set({
+          user: null,
+          token: null,
+          isAuthenticated: false,
+          loading: false,
+        });
       },
+
       updateUser: (data: { name?: string; email?: string }) => {
-        console.log('Actualizando usuario:', data);
+        console.log("Actualizando usuario:", data);
         set((state) => ({
-          user: state.user ? { ...state.user, ...data } : null
+          user: state.user ? { ...state.user, ...data } : null,
         }));
+      },
+
+      initialize: () => {
+        const { token } = get();
+        if (token) {
+          const decoded = jwtDecode<JwtPayload & User>(token);
+          set({
+            isAuthenticated: true,
+            user: {
+              id: decoded.id,
+              name: decoded.name,
+              lastName: decoded.lastName,
+              userName: decoded.userName,
+              email: decoded.email,
+            },
+            loading: false,
+          });
+        } else {
+          set({ loading: false });
+        }
+        console.log("Auth store inicializado", { token, loading: false });
       },
     }),
     {
-      name: 'auth-storage'
+      name: "auth-storage",
+      partialize: (state) => ({ token: state.token }),
+    },
+  ),
+);
+
+// Configurar el interceptor de axios para incluir el token en todas las peticiones
+axios.interceptors.request.use(
+  (config) => {
+    const token = useAuthStore.getState().token;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
-  )
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
+
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      const authStore = useAuthStore.getState();
+      authStore.signOut();
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  },
 );
