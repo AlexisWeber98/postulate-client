@@ -15,6 +15,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const formattedDate = new Date(date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+
   const handleEdit = () => {
     navigate(`/edit/${id}`);
   };
