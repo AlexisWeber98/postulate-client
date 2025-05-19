@@ -14,13 +14,17 @@ import { AuthLayout } from './features/auth/AuthLayout';
 import LoadingSpinner from './components/atoms/LoadingSpinner';
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, loading } = useAuthStore();
+  const { isAuthenticated, loading, checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   if (loading) {
     return <LoadingSpinner fullScreen message="Cargando..." />;
   }
 
-  if (!user) {
+  if (!isAuthenticated) {
     return <Navigate to="/landing" replace />;
   }
 
@@ -28,17 +32,13 @@ const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 };
 
 const App: React.FC = () => {
-  const { user, initialize } = useAuthStore();
+  const { initialize, checkAuth } = useAuthStore();
 
   // Inicializar el store de autenticación al cargar la app
   useEffect(() => {
     initialize();
-  }, [initialize]);
-
-  // Log the authentication state for debugging
-  useEffect(() => {
-    console.log('Auth state:', { user });
-  }, [user]);
+    checkAuth();
+  }, [initialize, checkAuth]);
 
   return (
     <ThemeProvider>
@@ -46,11 +46,11 @@ const App: React.FC = () => {
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
           <Router>
             <Routes>
-              <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
-              <Route path="/landing" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/landing" element={<Landing />} />
               <Route element={<AuthLayout />}>
-                <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
-                <Route path="/register" element={user ? <Navigate to="/dashboard" replace /> : <Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
               </Route>
               <Route path="/dashboard" element={
                 <PrivateRoute>
@@ -62,7 +62,7 @@ const App: React.FC = () => {
                 <Route path="edit/:id" element={<ApplicationForm />} />
                 <Route path="profile" element={<EditProfile />} />
               </Route>
-              <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>
           </Router>
         </div>
