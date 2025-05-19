@@ -121,6 +121,7 @@ const Dashboard: React.FC = () => {
               <span className="text-lg text-gray-700 dark:text-gray-300 font-semibold tracking-wide">Dashboard</span>
             </div>
           </div>
+          {/* Botón de nueva postulación */}
           <Link
             to="/dashboard/add"
             className="mt-6 md:mt-0 flex items-center px-6 py-3 rounded-xl shadow-lg text-white font-semibold text-lg transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
