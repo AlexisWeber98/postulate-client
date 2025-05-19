@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { usePostulationsStore } from "../store";
 import { PostulationStatus, STATUS_LABELS } from "../types/index";
 import Modal from "../components/molecules/Modal";
-import { Save, AlertCircle } from "lucide-react";
+import { Save, AlertCircle, ArrowLeft } from "lucide-react";
 import { ValidationHelpers, DateHelpers } from "../lib/helpers";
 
 
@@ -94,9 +94,6 @@ const ApplicationForm: React.FC = () => {
         date,
         url,
         notes,
-        sendCv,
-        sendEmail,
-        recruiterContact,
       });
     } else {
       addPostulation({
@@ -106,9 +103,6 @@ const ApplicationForm: React.FC = () => {
         date,
         url,
         notes,
-        sendCv,
-        sendEmail,
-        recruiterContact,
       });
     }
 
@@ -133,6 +127,15 @@ const ApplicationForm: React.FC = () => {
   return (
     <div className="flex flex-col min-h-[calc(100vh-200px)]">
       <div className="max-w-3xl mx-auto w-full">
+        <div className="mb-4">
+          <Link
+            to="/dashboard"
+            className="inline-flex items-center px-4 py-2 rounded-md text-blue-600 bg-blue-100 hover:bg-blue-200 font-medium transition mb-2"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Volver al Dashboard
+          </Link>
+        </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
           {id ? "Editar Postulación" : "Nueva Postulación"}
         </h1>
