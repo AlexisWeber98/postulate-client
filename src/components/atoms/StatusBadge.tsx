@@ -1,6 +1,6 @@
 import React from 'react';
 import { BadgeProps } from '../../interfaces/components/atoms/Badge.interface';
-import { STATUS_COLORS, STATUS_LABELS } from '../../interfaces/types/ApplicationStatus.type';
+import { STATUS_COLORS, STATUS_LABELS } from '../../types/interface/postulations/application-status';
 
 const StatusBadge: React.FC<BadgeProps> = ({ status, className = '' }) => {
   return (
