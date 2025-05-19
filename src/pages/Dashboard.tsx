@@ -109,17 +109,17 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 px-0 py-0 font-sans">
+    <div className="min-h-screen w-full bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-0 py-0 font-sans transition-colors duration-200">
       <div className="container mx-auto px-4 sm:px-8 py-10">
         {/* Encabezado con bienvenida mejorado */}
         <header className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 p-6">
           <div className="flex items-center gap-4">
-            <MdAccountCircle className="text-7xl text-blue-500 drop-shadow-lg bg-white/30 rounded-full p-1" />
+            <MdAccountCircle className="text-7xl text-blue-500 dark:text-blue-400 drop-shadow-lg bg-white/30 dark:bg-gray-800/30 rounded-full p-1" />
             <div>
-              <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 text-transparent bg-clip-text mb-1">
+              <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 text-transparent bg-clip-text mb-1">
                 ¡Bienvenido de nuevo, {user?.name || 'Usuario'}!
               </h2>
-              <span className="text-lg text-gray-700 font-semibold tracking-wide">Dashboard</span>
+              <span className="text-lg text-gray-700 dark:text-gray-300 font-semibold tracking-wide">Dashboard</span>
             </div>
           </div>
           <Link
@@ -155,26 +155,26 @@ const Dashboard: React.FC = () => {
           </div>
 
           {postulations.length === 0 ? (
-            <div className="bg-blue-200/30 border-l-4 border-blue-400 p-8 rounded-2xl shadow-md backdrop-blur-md">
+            <div className="bg-blue-200/30 dark:bg-blue-900/30 border-l-4 border-blue-400 dark:border-blue-500 p-8 rounded-2xl shadow-md backdrop-blur-md">
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <AlertCircle className="h-6 w-6 text-blue-400" />
+                  <AlertCircle className="h-6 w-6 text-blue-400 dark:text-blue-300" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-base text-blue-700">
+                  <p className="text-base text-blue-700 dark:text-blue-300">
                     No tienes postulaciones registradas. ¡Comienza agregando tu primera postulación!
                   </p>
                 </div>
               </div>
             </div>
           ) : filteredApplications.length === 0 ? (
-            <div className="bg-yellow-200/30 border-l-4 border-yellow-400 p-8 rounded-2xl shadow-md backdrop-blur-md">
+            <div className="bg-yellow-200/30 dark:bg-yellow-900/30 border-l-4 border-yellow-400 dark:border-yellow-500 p-8 rounded-2xl shadow-md backdrop-blur-md">
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <AlertCircle className="h-6 w-6 text-yellow-400" />
+                  <AlertCircle className="h-6 w-6 text-yellow-400 dark:text-yellow-300" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-base text-yellow-700">
+                  <p className="text-base text-yellow-700 dark:text-yellow-300">
                     No se encontraron resultados con los filtros actuales.
                   </p>
                 </div>
@@ -191,8 +191,8 @@ const Dashboard: React.FC = () => {
 
         {/* Sección de estadísticas */}
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Resumen</h2>
-          <div className="rounded-2xl shadow-md bg-white/0 backdrop-blur-none">
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Resumen</h2>
+          <div className="rounded-2xl shadow-md bg-white/0 dark:bg-gray-800/0 backdrop-blur-none">
             <ApplicationStats />
           </div>
         </section>

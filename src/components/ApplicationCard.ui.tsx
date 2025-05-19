@@ -41,7 +41,7 @@ const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
   return (
     <>
       <div
-        className="rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
+        className="rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden dark:bg-gray-800/50"
         style={{ backgroundColor: APP_COLORS.cardColors[status as keyof typeof APP_COLORS.cardColors] || 'white' }}
       >
         <div className="p-6">
@@ -53,23 +53,23 @@ const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
               {getInitials(company)}
             </div>
             <div className="flex-grow">
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">{company}</h3>
-              <p className="text-gray-700">{position}</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">{company}</h3>
+              <p className="text-gray-700 dark:text-gray-300">{position}</p>
             </div>
             <div>
-              <span className={`${statusColors[status]} px-3 py-1 rounded-full text-sm font-medium`}>
+              <span className={`${statusColors[status]} dark:bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium`}>
                 {getStatusLabel(status)}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center text-gray-500 text-sm mb-3">
+          <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-3">
             <Calendar className="h-4 w-4 mr-2" />
             <span>Aplicado: {formattedDate}</span>
           </div>
 
           {notes && (
-            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{notes}</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{notes}</p>
           )}
         </div>
 
