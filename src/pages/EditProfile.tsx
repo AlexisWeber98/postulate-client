@@ -5,6 +5,14 @@ import { Check, Save } from 'lucide-react';
 import LoadingSpinner from '../components/atoms/LoadingSpinner';
 import { isValidEmail, hasContent } from '../lib/helpers/validation.helpers';
 import Button from '../shared/components/Button';
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem
+} from '../components/ui/select';
+import { STATUS_LABELS, PostulationStatus } from '../types/interface/postulations/postulation';
 
 const EditProfile: React.FC = () => {
   const { user, updateUser } = useAuthStore();
@@ -15,6 +23,7 @@ const EditProfile: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [nameError, setNameError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
+  const [estado, setEstado] = useState<PostulationStatus>('applied');
 
   // Validación en tiempo real
   useEffect(() => {
@@ -99,6 +108,19 @@ const EditProfile: React.FC = () => {
               aria-describedby="email-error"
             />
             {emailError && <span id="email-error" className="text-red-500 dark:text-red-400 text-xs">{emailError}</span>}
+          </div>
+          <div className="w-full mb-8">
+            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1" htmlFor="estado">Estado</label>
+            <Select value={estado} onValueChange={value => setEstado(value as PostulationStatus)}>
+              <SelectTrigger className="text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 w-full">
+                <SelectValue placeholder="Selecciona un estado" />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.entries(STATUS_LABELS).map(([value, label]) => (
+                  <SelectItem key={value} value={value}>{label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <Button
             type="submit"

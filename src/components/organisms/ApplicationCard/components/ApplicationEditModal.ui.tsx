@@ -3,6 +3,13 @@ import Modal from '../../../molecules/Modal';
 import { ApplicationCardProps } from '../../../../interfaces/components/organisms/ApplicationCard.interface';
 import { STATUS_LABELS, Postulation, PostulationStatus } from '../../../../types/interface/postulations/postulation';
 import StyledModalContainer from "../../../shared/components/StyledModalContainer/StyledModalContainer.ui";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem
+} from '../../../ui/select';
 
 interface ApplicationEditModalUIProps extends ApplicationCardProps {
   isOpen: boolean;
@@ -18,8 +25,9 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   onSave,
   onDelete,
 }) => {
+  const [estado, setEstado] = React.useState<PostulationStatus>(application?.status || 'applied');
   if (!application) return null;
-  const { company, position, status, date, url, notes } = application;
+  const { company, position, date, url, notes } = application;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +36,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
       ...application,
       company: formData.get('company') as string,
       position: formData.get('position') as string,
-      status: formData.get('status') as PostulationStatus,
+      status: estado,
       date: formData.get('date') as string,
       url: formData.get('url') as string,
       notes: formData.get('notes') as string,
@@ -83,17 +91,16 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
 
             <div>
               <label className="block text-white/90 text-sm mb-1">Estado</label>
-              <select
-                name="status"
-                defaultValue={status}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
-              >
-                {Object.entries(STATUS_LABELS).map(([key, label]) => (
-                  <option key={key} value={key} className="bg-gray-800">
-                    {label}
-                  </option>
-                ))}
-              </select>
+              <Select value={estado} onValueChange={value => setEstado(value as PostulationStatus)} name="status">
+                <SelectTrigger className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+                  <SelectValue placeholder="Selecciona un estado" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(STATUS_LABELS).map(([key, label]) => (
+                    <SelectItem key={key} value={key}>{label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div>
