@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import { useAuthStore } from "../store/auth/authStore";
 
 // Configuración base para las peticiones HTTP
@@ -7,7 +7,9 @@ const API_KEY = import.meta.env.VITE_API_KEY; //|| "your-api-key";
 
 console.log("API_URL", API_URL);
 console.log("API_KEY", API_KEY);
-export const client = axios.create({
+
+// Crear instancia de axios con configuración base
+export const client: AxiosInstance = axios.create({
   baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
@@ -27,41 +29,6 @@ client.interceptors.request.use(
   (error) => {
     return Promise.reject(error);
   },
-
-
-  // Método PATCH
-  async patch<T>(endpoint: string, data: unknown): Promise<T> {
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
-
-    return response.json();
-  },
-
-
-
-  // Método DELETE
-  async delete<T>(endpoint: string): Promise<T> {
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-
 );
 
 // Interceptor para manejar errores de autenticación
@@ -76,19 +43,28 @@ client.interceptors.response.use(
   },
 );
 
+// Cliente HTTP con métodos tipados
 export const httpClient = {
   get: async <T>(url: string) => {
     const response = await client.get<T>(url);
     return response.data;
   },
-  post: async <T>(url: string, data: any) => {
+
+  post: async <T>(url: string, data: unknown) => {
     const response = await client.post<T>(url, data);
     return response.data;
   },
-  put: async <T>(url: string, data: any) => {
+
+  put: async <T>(url: string, data: unknown) => {
     const response = await client.put<T>(url, data);
     return response.data;
   },
+
+  patch: async <T>(url: string, data: unknown) => {
+    const response = await client.patch<T>(url, data);
+    return response.data;
+  },
+
   delete: async <T>(url: string) => {
     const response = await client.delete<T>(url);
     return response.data;

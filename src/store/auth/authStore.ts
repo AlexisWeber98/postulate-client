@@ -56,6 +56,8 @@ export const useAuthStore = create<AuthState>()(
 
         try {
           const response = await authApi.login({ email, password });
+
+          console.log("Respuesta de inicio de sesión:", response);
           const token = response.data.result;
           const decoded = jwtDecode<JwtPayload & User>(token);
 
