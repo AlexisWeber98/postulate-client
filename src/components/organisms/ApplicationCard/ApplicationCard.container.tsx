@@ -4,6 +4,7 @@ import ApplicationDetailModalUI from './components/ApplicationDetailModal.ui';
 import ApplicationEditModalUI from './components/ApplicationEditModal.ui';
 import { Postulation } from '../../../types/interface/postulations/postulation';
 import { motion } from 'framer-motion';
+import { usePostulationsStore } from '../../../store';
 
 interface ApplicationCardProps {
   application: Postulation;
@@ -13,6 +14,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
+  const { updatePostulation } = usePostulationsStore();
 
   const openDetailModal = () => setIsDetailModalOpen(true);
   const closeDetailModal = () => setIsDetailModalOpen(false);
@@ -20,8 +22,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const closeEditModal = () => setIsEditModalOpen(false);
 
   const handleSave = (updatedApplication: Postulation) => {
-    // Aquí deberías implementar la lógica para guardar los cambios
-    console.log('Guardando cambios:', updatedApplication);
+    updatePostulation(updatedApplication.id, updatedApplication);
     closeEditModal();
   };
 
