@@ -15,7 +15,6 @@ interface ApplicationEditModalUIProps extends ApplicationCardProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (updatedApplication: Postulation) => void;
-  onDelete: () => void;
 }
 
 const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
@@ -23,7 +22,6 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   isOpen,
   onClose,
   onSave,
-  onDelete,
 }) => {
   const [estado, setEstado] = React.useState<PostulationStatus>(application?.status || 'applied');
   if (!application) return null;
@@ -148,13 +146,6 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all"
             >
               Guardar
-            </button>
-            <button
-              type="button"
-              onClick={onDelete}
-              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all"
-            >
-              Eliminar
             </button>
           </div>
         </form>

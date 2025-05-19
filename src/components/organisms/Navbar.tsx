@@ -4,12 +4,12 @@ import { Briefcase } from 'lucide-react';
 import { useAuthStore } from '../../store/auth/authStore';
 import { ThemeToggle } from '../ThemeToggle';
 import LanguageSelector from '../../features/landing/components/LanguageSelector';
-import Avatar from '../atoms/Avatar';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuthStore();
+
 
 
   const [menuOpen, setMenuOpen] = React.useState(false);
@@ -31,6 +31,7 @@ const Navbar: React.FC = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [menuOpen]);
+
 
   const handleSignOut = () => {
     signOut();
@@ -124,43 +125,23 @@ const Navbar: React.FC = () => {
         <div className="flex items-center gap-4">
           <nav className="flex gap-4 items-center">
             <Link
-              to="/dashboard"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[160px]"
+              to="/"
+              className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow transition-all w-[140px] text-center"
             >
               Dashboard
             </Link>
-            {/* Avatar + menú */}
-            <div className="relative" ref={avatarRef}>
-              <button
-                className="focus:outline-none"
-                onClick={() => setMenuOpen((open) => !open)}
-                aria-haspopup="true"
-                aria-expanded={menuOpen}
-                tabIndex={0}
-              >
-                <Avatar
-                  fallback={user?.name ? user.name.charAt(0).toUpperCase() : '?'}
-                  className="cursor-pointer transition"
-                />
-              </button>
-              {menuOpen && (
-                <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded-xl shadow-lg py-2 z-50 animate-fade-in">
-                  <Link
-                    to="/dashboard/profile"
-                    className="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-green-100 dark:hover:bg-gray-700 rounded transition"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    Perfil
-                  </Link>
-                  <button
-                    onClick={() => { setMenuOpen(false); handleSignOut(); }}
-                    className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900 rounded transition"
-                  >
-                    Cerrar sesión
-                  </button>
-                </div>
-              )}
-            </div>
+            <Link
+              to="/profile"
+              className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow transition-all w-[140px] text-center"
+            >
+              Perfil
+            </Link>
+            <button
+              onClick={handleSignOut}
+              className="px-6 py-2 rounded-full font-semibold text-green-900 dark:text-green-100 bg-white dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-gray-600 shadow transition-all w-[140px] text-center"
+            >
+              Cerrar sesión
+            </button>
           </nav>
           <ThemeToggle />
           <LanguageSelector />
