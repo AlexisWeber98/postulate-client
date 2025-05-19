@@ -1,13 +1,34 @@
 export type PostulationStatus = 'applied' | 'interview' | 'technical' | 'offer' | 'rejected' | 'accepted';
 
+export const STATUS_LABELS: Record<PostulationStatus, string> = {
+  applied: 'Aplicado',
+  interview: 'Entrevista',
+  technical: 'Técnica',
+  offer: 'Oferta',
+  rejected: 'Rechazado',
+  accepted: 'Aceptado'
+};
+
+export const STATUS_LABELS_EN: Record<PostulationStatus, string> = {
+  applied: 'Applied',
+  interview: 'Interview',
+  technical: 'Technical',
+  offer: 'Offer',
+  rejected: 'Rejected',
+  accepted: 'Accepted'
+};
+
 export interface Postulation {
   id: string;
   company: string;
   position: string;
   status: PostulationStatus;
   date: string;
-    url?: string;
+  url?: string;
   notes?: string;
+  recruiterContact?: string;
+  sentCV?: boolean;
+  sentEmail?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -21,15 +42,6 @@ export interface PostulationState {
   getPostulation: (id: string) => Postulation | undefined;
   checkDuplicate: (company: string, position: string) => boolean;
 }
-
-export const STATUS_LABELS: Record<PostulationStatus, string> = {
-  applied: 'Aplicado',
-  interview: 'Entrevista',
-  technical: 'Prueba Técnica',
-  offer: 'Oferta',
-  rejected: 'Rechazado',
-  accepted: 'Aceptado'
-};
 
 export const STATUS_COLORS: Record<PostulationStatus, string> = {
   applied: 'bg-blue-100 text-blue-800',

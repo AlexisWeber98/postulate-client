@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
 import { usePostulationsStore } from '../../store';
-import { Postulation, PostulationStatus, STATUS_LABELS } from '../../types/interface/postulations/postulation';
+import { Postulation, PostulationStatus, STATUS_LABELS, STATUS_LABELS_EN } from '../../types/interface/postulations/postulation';
 import { PieChart, Activity, Users, Calendar } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 const ApplicationStats: React.FC = () => {
   const { postulations } = usePostulationsStore();
+  const { t, lang } = useLanguage();
 
   // Count by status
   const statusCounts = useMemo(() => {
@@ -53,23 +55,23 @@ const ApplicationStats: React.FC = () => {
 
   const stats = [
     {
-      name: 'Total de Postulaciones',
+      name: t('dashboard.stats.total'),
       value: totalApplications,
       icon: <PieChart className="h-6 w-6 text-blue-600" />
     },
     {
-      name: 'Postulaciones Activas',
+      name: t('dashboard.stats.active'),
       value: activeApplications,
       icon: <Activity className="h-6 w-6 text-purple-600" />
     },
     {
-      name: 'Últimos 30 días',
+      name: t('dashboard.stats.recent'),
       value: recentApplications,
       icon: <Calendar className="h-6 w-6 text-orange-600" />
     },
     {
-      name: 'Empresa Más Frecuente',
-      value: topCompany.name ? `${topCompany.name} (${topCompany.count})` : 'Ninguna',
+      name: t('dashboard.stats.topCompany'),
+      value: topCompany.name ? `${topCompany.name} (${topCompany.count})` : t('dashboard.stats.none'),
       icon: <Users className="h-6 w-6 text-green-600" />
     }
   ];
@@ -78,17 +80,18 @@ const ApplicationStats: React.FC = () => {
   if (postulations.length === 0) {
     return (
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Resumen</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('dashboard.summary')}</h2>
         <div className="bg-white overflow-hidden shadow rounded-lg p-6">
-          <p className="text-gray-600">No hay postulaciones para mostrar estadísticas.</p>
+          <p className="text-gray-600">{t('dashboard.stats.noStats')}</p>
         </div>
       </div>
     );
   }
 
+  const statusLabels = lang === 'en' ? STATUS_LABELS_EN : STATUS_LABELS;
+
   return (
     <div className="mb-6">
-
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
           <div key={stat.name} className="bg-white overflow-hidden shadow rounded-lg">
@@ -106,9 +109,9 @@ const ApplicationStats: React.FC = () => {
       </div>
 
       <div className="mt-6 bg-white shadow rounded-lg p-6">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Distribución por Estado</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">{t('dashboard.stats.statusDistribution')}</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {Object.entries(STATUS_LABELS).map(([status, label]) => (
+          {Object.entries(statusLabels).map(([status, label]) => (
             <div key={status} className="text-center">
               <div
                 className={`inline-block w-16 h-3 rounded-full ${status === 'applied' ? 'bg-blue-500' :

@@ -3,6 +3,7 @@ import { Search } from 'lucide-react';
 import FilterSelects from './FilterSelects';
 import { ApplicationStatus } from '../../types/interface/postulations/application-status';
 import { APP_COLORS } from '../../styles/colors';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface SearchAndFilterProps {
   searchTerm: string;
@@ -29,6 +30,8 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   companies,
   positions
 }) => {
+  const { t } = useLanguage();
+
   // Ensure we have arrays even if they're undefined
   const safeCompanies = Array.isArray(companies) ? companies : [];
   const safePositions = Array.isArray(positions) ? positions : [];
@@ -47,7 +50,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              placeholder="Buscar por empresa, posición o notas..."
+              placeholder={t('dashboard.filters.search')}
               style={{ borderColor: APP_COLORS.lightGray }}
             />
           </div>
@@ -77,7 +80,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
               }}
               className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 focus:outline-none"
             >
-              Limpiar filtros
+              {t('dashboard.filters.clear')}
             </button>
           </div>
         )}

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Briefcase, Building2, ListFilter } from 'lucide-react';
 import {
   Select,
@@ -9,6 +8,7 @@ import {
   SelectValue,
 } from '../../components/ui/select';
 import { ApplicationStatus } from '../../interfaces/components/atoms/badges/StatusBadge.interface';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface FilterSelectsProps {
   statusFilter: ApplicationStatus | 'all';
@@ -31,6 +31,8 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
   positionFilter,
   setPositionFilter,
 }) => {
+  const { t } = useLanguage();
+
   // Manejador tipado para statusFilter
   const handleStatusChange = (value: string) => {
     setStatusFilter(value as ApplicationStatus | 'all');
@@ -72,20 +74,20 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
       <div className="w-full md:w-64">
         <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
           <ListFilter className="h-4 w-4" />
-          <span>Estado</span>
+          <span>{t('dashboard.filters.status')}</span>
         </div>
         <Select value={statusFilter} onValueChange={handleStatusChange}>
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Todos los estados" />
+            <SelectValue placeholder={t('dashboard.filters.all')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Estado de la postulación</SelectItem>
-            <SelectItem value="applied">Aplicado</SelectItem>
-            <SelectItem value="interview">Entrevista</SelectItem>
-            <SelectItem value="technical">Prueba Técnica</SelectItem>
-            <SelectItem value="offer">Oferta</SelectItem>
-            <SelectItem value="rejected">Rechazado</SelectItem>
-            <SelectItem value="accepted">Aceptado</SelectItem>
+            <SelectItem value="all">{t('dashboard.filters.all')}</SelectItem>
+            <SelectItem value="applied">{t('dashboard.stats.status.applied')}</SelectItem>
+            <SelectItem value="interview">{t('dashboard.stats.status.interview')}</SelectItem>
+            <SelectItem value="technical">{t('dashboard.stats.status.technical')}</SelectItem>
+            <SelectItem value="offer">{t('dashboard.stats.status.offer')}</SelectItem>
+            <SelectItem value="rejected">{t('dashboard.stats.status.rejected')}</SelectItem>
+            <SelectItem value="accepted">{t('dashboard.stats.status.accepted')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -94,7 +96,7 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
       <div className="w-full md:w-64">
         <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
           <Building2 className="h-4 w-4" />
-          <span>Empresa {getBadgeCounter(companies)}</span>
+          <span>{t('dashboard.filters.company')} {getBadgeCounter(companies)}</span>
         </div>
         <Select
           value={safeCompanyValue}
@@ -102,16 +104,16 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
           defaultValue="all"
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Todas las empresas" />
+            <SelectValue placeholder={t('dashboard.filters.selectCompany')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Todas las empresas</SelectItem>
+            <SelectItem value="all">{t('dashboard.filters.selectCompany')}</SelectItem>
             {companies && companies.length > 0 ? (
               companies.map((company) => (
                 <SelectItem key={company} value={company}>{company}</SelectItem>
               ))
             ) : (
-              <SelectItem value="all" disabled>No hay empresas disponibles</SelectItem>
+              <SelectItem value="all" disabled>{t('dashboard.filters.noCompanies')}</SelectItem>
             )}
           </SelectContent>
         </Select>
@@ -121,7 +123,7 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
       <div className="w-full md:w-64">
         <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
           <Briefcase className="h-4 w-4" />
-          <span>Puesto {getBadgeCounter(positions)}</span>
+          <span>{t('dashboard.filters.position')} {getBadgeCounter(positions)}</span>
         </div>
         <Select
           value={safePositionValue}
@@ -129,16 +131,16 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
           defaultValue="all"
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Todos los puestos" />
+            <SelectValue placeholder={t('dashboard.filters.selectPosition')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Todos los puestos</SelectItem>
+            <SelectItem value="all">{t('dashboard.filters.selectPosition')}</SelectItem>
             {positions && positions.length > 0 ? (
               positions.map((position) => (
                 <SelectItem key={position} value={position}>{position}</SelectItem>
               ))
             ) : (
-              <SelectItem value="all" disabled>No hay puestos disponibles</SelectItem>
+              <SelectItem value="all" disabled>{t('dashboard.filters.noPositions')}</SelectItem>
             )}
           </SelectContent>
         </Select>

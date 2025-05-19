@@ -10,16 +10,18 @@ import { useErrorHandler } from '../hooks/useErrorHandler';
 import ActionModal from '../components/molecules/ActionModal';
 import LoadingSpinner from '../components/atoms/LoadingSpinner';
 import { MdAccountCircle } from 'react-icons/md';
+import { useLanguage } from '../context/LanguageContext';
 
 const Dashboard: React.FC = () => {
   const { postulations, loading } = usePostulationsStore();
   const { user } = useAuthStore();
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<PostulationStatus | 'all'>('all');
   const [companyFilter, setCompanyFilter] = useState('');
   const [positionFilter, setPositionFilter] = useState('');
   const { error, handleError } = useErrorHandler({
-    defaultMessage: 'Ocurrió un error al cargar los datos. Por favor, recarga la página.'
+    defaultMessage: t('dashboard.errorMessage')
   });
 
   // Manejadores de filtro seguros
@@ -27,7 +29,7 @@ const Dashboard: React.FC = () => {
     try {
       setCompanyFilter(value);
     } catch (error) {
-      handleError(error as Error, 'Error al configurar el filtro de empresa');
+      handleError(error as Error, t('dashboard.errorCompanyFilter'));
       // Restablecer el filtro en caso de error
       setCompanyFilter('');
     }
@@ -37,7 +39,7 @@ const Dashboard: React.FC = () => {
     try {
       setPositionFilter(value);
     } catch (error) {
-      handleError(error as Error, 'Error al configurar el filtro de puesto');
+      handleError(error as Error, t('dashboard.errorPositionFilter'));
     }
   };
 
@@ -46,7 +48,7 @@ const Dashboard: React.FC = () => {
       const uniqueCompanies = new Set(postulations.map((app: Postulation) => app.company));
       return Array.from(uniqueCompanies).sort();
     } catch (error) {
-      handleError(error as Error, 'Error al obtener empresas únicas');
+      handleError(error as Error, t('dashboard.errorUniqueCompanies'));
       return [];
     }
   }, [postulations]);
@@ -56,7 +58,7 @@ const Dashboard: React.FC = () => {
       const uniquePositions = new Set(postulations.map((app: Postulation) => app.position));
       return Array.from(uniquePositions).sort();
     } catch (error) {
-      handleError(error as Error, 'Error al obtener puestos únicos');
+      handleError(error as Error, t('dashboard.errorUniquePositions'));
       return [];
     }
   }, [postulations]);
@@ -83,13 +85,13 @@ const Dashboard: React.FC = () => {
         return searchMatch && statusMatch && companyMatch && positionMatch;
       });
     } catch (error) {
-      handleError(error as Error, 'Error al filtrar aplicaciones');
+      handleError(error as Error, t('dashboard.errorFilterApplications'));
       return [];
     }
   }, [postulations, searchTerm, statusFilter, companyFilter, positionFilter]);
 
   if (loading) {
-    return <LoadingSpinner fullScreen />;
+    return <LoadingSpinner fullScreen message={t('dashboard.loading')} />;
   }
 
   if (error) {
@@ -97,10 +99,10 @@ const Dashboard: React.FC = () => {
       <ActionModal
         isOpen={true}
         onClose={() => window.location.reload()}
-        title="Error"
+        title={t('dashboard.error')}
         message={error}
         onConfirm={() => window.location.reload()}
-        confirmText="Recargar página"
+        confirmText={t('dashboard.reload')}
         variant="danger"
         icon={<AlertCircle className="h-6 w-6" />}
       />
@@ -116,9 +118,9 @@ const Dashboard: React.FC = () => {
             <MdAccountCircle className="text-7xl text-blue-500 dark:text-blue-400 drop-shadow-lg bg-white/30 dark:bg-gray-800/30 rounded-full p-1" />
             <div>
               <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 text-transparent bg-clip-text mb-1">
-                ¡Bienvenido de nuevo, {user?.name || 'Usuario'}!
+                {t('dashboard.welcome', { name: user?.name || 'Usuario' })}
               </h2>
-              <span className="text-lg text-gray-700 dark:text-gray-300 font-semibold tracking-wide">Dashboard</span>
+              <span className="text-lg text-gray-700 dark:text-gray-300 font-semibold tracking-wide">{t('dashboard.title')}</span>
             </div>
           </div>
           {/* Botón de nueva postulación */}
@@ -128,14 +130,13 @@ const Dashboard: React.FC = () => {
             style={{ boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)' }}
           >
             <PlusCircle className="mr-2 h-6 w-6" />
-            Nueva Postulación
+            {t('dashboard.newApplication')}
           </Link>
         </header>
         <div className="border-b border-white/30 mb-10" />
 
         {/* Cards de postulaciones - NIVEL 2 */}
         <section className="mb-12">
-
           {/* Sección de búsqueda y filtros */}
           <div className="mb-8 flex flex-col md:flex-row gap-4 items-center">
             <div className="w-full">
@@ -162,7 +163,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="ml-4">
                   <p className="text-base text-blue-700 dark:text-blue-300">
-                    No tienes postulaciones registradas. ¡Comienza agregando tu primera postulación!
+                    {t('dashboard.noApplications')}
                   </p>
                 </div>
               </div>
@@ -175,14 +176,14 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="ml-4">
                   <p className="text-base text-yellow-700 dark:text-yellow-300">
-                    No se encontraron resultados con los filtros actuales.
+                    {t('dashboard.noResults')}
                   </p>
                 </div>
               </div>
             </div>
           ) : (
             <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {filteredApplications.map((application: Postulation) => (
+              {filteredApplications.map((application: Postulation) => (
                 <ApplicationCard key={application.id} application={application} />
               ))}
             </div>
@@ -191,7 +192,7 @@ const Dashboard: React.FC = () => {
 
         {/* Sección de estadísticas */}
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Resumen</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">{t('dashboard.summary')}</h2>
           <div className="rounded-2xl shadow-md bg-white/0 dark:bg-gray-800/0 backdrop-blur-none">
             <ApplicationStats />
           </div>
