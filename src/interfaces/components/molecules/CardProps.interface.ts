@@ -7,4 +7,5 @@ export interface CardProps {
   variant?: 'default' | 'hover' | 'active';
   bgColor?: string;
   rounded?: 'sm' | 'md' | 'lg' | 'full' | 'none';
+  shadow?: 'none' | 'sm' | 'md' | 'lg'; // <-- agregá esta línea
 }

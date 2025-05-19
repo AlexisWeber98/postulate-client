@@ -1,6 +1,7 @@
 import '../styles/globals.css';
-import type { AppProps } from 'next/app';
+
 import { LanguageProvider } from '../context/LanguageContext';
+import { ApplicationCardProps } from '../interfaces/components/molecules/CardProps.interface';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

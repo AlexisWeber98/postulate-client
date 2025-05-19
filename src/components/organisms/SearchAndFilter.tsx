@@ -28,7 +28,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   positions
 }) => {
   const statusOptions: { value: PostulationStatus | 'all'; label: string }[] = [
-    { value: 'all', label: 'Todos' },
+    { value: 'all', label: 'Estado de la postulación' },
     { value: 'applied', label: 'Aplicado' },
     { value: 'interview', label: 'Entrevista' },
     { value: 'technical', label: 'Prueba Técnica' },

@@ -4,6 +4,8 @@ import ApplicationDetailModalUI from './components/ApplicationDetailModal.ui';
 import ApplicationEditModalUI from './components/ApplicationEditModal.ui';
 import { Postulation } from '../../../types/interface/postulations/postulation';
 import { motion } from 'framer-motion';
+import { usePostulationsStore } from '../../../store';
+import { postulationsApi } from '../../../api/postulations';
 
 interface ApplicationCardProps {
   application: Postulation;
@@ -13,6 +15,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
+  const { updatePostulation, deletePostulation } = usePostulationsStore();
 
   const openDetailModal = () => setIsDetailModalOpen(true);
   const closeDetailModal = () => setIsDetailModalOpen(false);
@@ -20,15 +23,23 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const closeEditModal = () => setIsEditModalOpen(false);
 
   const handleSave = (updatedApplication: Postulation) => {
-    // Aquí deberías implementar la lógica para guardar los cambios
-    console.log('Guardando cambios:', updatedApplication);
+    updatePostulation(updatedApplication.id, updatedApplication);
     closeEditModal();
   };
 
-  const handleDelete = () => {
-    // Aquí deberías implementar la lógica para eliminar la postulación
-    console.log('Eliminando postulación:', application);
-    closeEditModal();
+  const handleDelete = async () => {
+    console.log('🟥 Botón Eliminar presionado');
+    try {
+      console.log('📤 Enviando request DELETE a API con ID:', application.id);
+      await postulationsApi.delete(application.id);
+      console.log('✅ Eliminado del servidor exitosamente');
+      deletePostulation(application.id);
+      console.log('🗑️ Eliminado del store');
+      closeEditModal();
+      console.log('❎ Modal cerrado');
+    } catch (err) {
+      console.error('❌ Error al eliminar la postulación 😓', err);
+    }
   };
 
   return (
@@ -54,7 +65,6 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
         isOpen={isEditModalOpen}
         onClose={closeEditModal}
         onSave={handleSave}
-        onDelete={handleDelete}
       />
     </>
   );

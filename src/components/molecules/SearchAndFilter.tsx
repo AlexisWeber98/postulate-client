@@ -1,8 +1,8 @@
 import React from 'react';
 import { Search } from 'lucide-react';
-import { ApplicationStatus } from '../types';
 import FilterSelects from './FilterSelects';
-import { APP_COLORS } from '../styles/colors';
+import { ApplicationStatus } from '../../types/interface/postulations/application-status';
+import { APP_COLORS } from '../../styles/colors';
 
 interface SearchAndFilterProps {
   searchTerm: string;

@@ -16,7 +16,7 @@ export const postulationsApi = {
   getAll: () => client.get<Postulation[]>("/postulations"),
 
   // Obtener una aplicación por ID
-  getById: (id: string) => client.get<Postulation>(`/postulations/${id}`),
+  getById: (id: string) => client.get<Postulation>(`/postulations/user/${id}`),
 
   // Crear una nueva aplicación
   create: (data: CreatePostulationRequest) =>
@@ -24,7 +24,7 @@ export const postulationsApi = {
 
   // Actualizar una aplicación existente
   update: (id: string, data: UpdatePostulationRequest) =>
-    client.put<Postulation>(`/postulations/${id}`, data),
+    client.patch<Postulation>(`/postulations/${id}`, data),
 
   // Eliminar una aplicación
   delete: (id: string) => client.delete<void>(`/postulations/${id}`),
