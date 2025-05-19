@@ -79,7 +79,7 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
             <SelectValue placeholder="Todos los estados" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Todos los estados</SelectItem>
+            <SelectItem value="all">Estado de la postulación</SelectItem>
             <SelectItem value="applied">Aplicado</SelectItem>
             <SelectItem value="interview">Entrevista</SelectItem>
             <SelectItem value="technical">Prueba Técnica</SelectItem>
