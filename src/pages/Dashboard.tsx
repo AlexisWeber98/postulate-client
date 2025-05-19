@@ -41,7 +41,6 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  // Get unique companies and positions for filters
   const companies = useMemo(() => {
     try {
       const uniqueCompanies = new Set(postulations.map((app: Postulation) => app.company));

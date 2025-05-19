@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuthStore();
 
-  // Hooks para menú de usuario (deben ir antes de cualquier return o lógica condicional)
+
   const [menuOpen, setMenuOpen] = React.useState(false);
   const avatarRef = React.useRef<HTMLDivElement>(null);
 
