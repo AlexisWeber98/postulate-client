@@ -8,8 +8,10 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "echo 'husky v9 configurado manualmente, sin install'",
-    "validate-rules": "node scripts/validateRules.js"
+    "prepare": "husky",
+    "validate-rules": "node scripts/validateRules.js",
+    "commit": "cz",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
