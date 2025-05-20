@@ -46,14 +46,14 @@ const Step: React.FC<StepProps> = ({ icon, title, description }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.5 }}
-    className="bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-white/30 transition-transform hover:-translate-y-1 flex flex-col items-center text-center"
+    className="border border-blue-200 shadow-2xl rounded-3xl bg-gradient-to-r from-blue-500 to-violet-500 text-white p-8 transition-transform hover:-translate-y-1 flex flex-col items-center text-center"
   >
     <div className="flex flex-col items-center">
-      <div className="w-12 h-12 flex items-center justify-center rounded-full mb-4 bg-gradient-to-r from-blue-500 to-violet-500">
+      <div className="w-12 h-12 flex items-center justify-center rounded-full mb-4 bg-white/20">
         {icon}
       </div>
-      <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-700 text-base md:text-base">{description}</p>
+      <h3 className="text-lg md:text-xl font-semibold text-white mb-2">{title}</h3>
+      <p className="text-white/90 text-base md:text-base">{description}</p>
     </div>
   </motion.div>
 );
