@@ -5,6 +5,8 @@ import { PostulationStatus, STATUS_LABELS } from "../types/index";
 import Modal from "../components/molecules/Modal";
 import { Save, AlertCircle, ArrowLeft } from "lucide-react";
 import { ValidationHelpers, DateHelpers } from "../lib/helpers";
+import { useLanguage } from '../context/LanguageContext';
+import Button from '../components/atoms/Button/Button.ui';
 
 
 const ApplicationForm: React.FC = () => {
@@ -12,6 +14,7 @@ const ApplicationForm: React.FC = () => {
   const navigate = useNavigate();
   const { addPostulation, updatePostulation, getPostulation, checkDuplicate } =
     usePostulationsStore();
+  const { t } = useLanguage();
 
   const [company, setCompany] = useState("");
   const [position, setPosition] = useState("");
@@ -133,207 +136,165 @@ const ApplicationForm: React.FC = () => {
             className="inline-flex items-center px-4 py-2 rounded-md text-blue-600 bg-blue-100 hover:bg-blue-200 font-medium transition mb-2"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Volver al Dashboard
+            {t('dashboard.backToDashboard')}
           </Link>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-          {id ? "Editar Postulación" : "Nueva Postulación"}
+        <h1 className="text-3xl font-extrabold text-white text-center mb-8 drop-shadow">
+          {id ? t('dashboard.editApplication') : t('dashboard.newApplication')}
         </h1>
-
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-md rounded-lg p-6 mb-8"
+          className="relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 border border-blue-400/20 rounded-3xl shadow-2xl p-8 mb-8"
         >
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
-              <label
-                htmlFor="company"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Empresa *
+              <label htmlFor="company" className="block text-base font-semibold text-white mb-1 drop-shadow">
+                {t('dashboard.company')} *
               </label>
               <input
                 type="text"
                 id="company"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
-                className={`block w-full px-3 py-2 border ${
-                  errors.company ? "border-red-300" : "border-gray-300"
-                } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
-                placeholder="Nombre de la empresa"
+                className={`w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none ${errors.company ? 'ring-2 ring-red-400' : ''}`}
+                placeholder={t('dashboard.companyPlaceholder')}
+                required
               />
               {errors.company && (
-                <p className="mt-1 text-sm text-red-600">{errors.company}</p>
+                <p className="mt-1 text-xs text-red-400">{errors.company}</p>
               )}
             </div>
-
             <div>
-              <label
-                htmlFor="position"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Puesto *
+              <label htmlFor="position" className="block text-base font-semibold text-white mb-1 drop-shadow">
+                {t('dashboard.position')} *
               </label>
               <input
                 type="text"
                 id="position"
                 value={position}
                 onChange={(e) => setPosition(e.target.value)}
-                className={`block w-full px-3 py-2 border ${
-                  errors.position ? "border-red-300" : "border-gray-300"
-                } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
-                placeholder="Título del puesto"
+                className={`w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none ${errors.position ? 'ring-2 ring-red-400' : ''}`}
+                placeholder={t('dashboard.positionPlaceholder')}
+                required
               />
               {errors.position && (
-                <p className="mt-1 text-sm text-red-600">{errors.position}</p>
+                <p className="mt-1 text-xs text-red-400">{errors.position}</p>
               )}
             </div>
-
             <div>
-              <label
-                htmlFor="status"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Estado *
+              <label htmlFor="status" className="block text-base font-semibold text-white mb-1 drop-shadow">
+                {t('dashboard.status')} *
               </label>
               <select
                 id="status"
                 value={status}
                 onChange={(e) => setStatus(e.target.value as PostulationStatus)}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none"
+                required
               >
                 {Object.entries(STATUS_LABELS).map(([value, label]) => (
-                  <option key={value} value={value}>
+                  <option key={value} value={value} className="text-black bg-white">
                     {label}
                   </option>
                 ))}
               </select>
             </div>
-
             <div>
-              <label
-                htmlFor="date"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Fecha de Postulación *
+              <label htmlFor="date" className="block text-base font-semibold text-white mb-1 drop-shadow">
+                {t('dashboard.date')} *
               </label>
               <input
                 type="date"
                 id="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className={`block w-full px-3 py-2 border ${
-                  errors.date ? "border-red-300" : "border-gray-300"
-                } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                className={`w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none ${errors.date ? 'ring-2 ring-red-400' : ''}`}
+                required
               />
               {errors.date && (
-                <p className="mt-1 text-sm text-red-600">{errors.date}</p>
+                <p className="mt-1 text-xs text-red-400">{errors.date}</p>
               )}
             </div>
-
             <div className="md:col-span-2">
-              <label
-                htmlFor="url"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                URL de Referencia
+              <label htmlFor="url" className="block text-base font-semibold text-white mb-1 drop-shadow">
+                {t('dashboard.referenceUrl')}
               </label>
               <input
                 type="url"
                 id="url"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                className={`block w-full px-3 py-2 border ${
-                  errors.url ? "border-red-300" : "border-gray-300"
-                } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
-                placeholder="https://ejemplo.com/trabajo"
+                className={`w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none ${errors.url ? 'ring-2 ring-red-400' : ''}`}
+                placeholder={t('dashboard.referenceUrlPlaceholder')}
               />
               {errors.url && (
-                <p className="mt-1 text-sm text-red-600">{errors.url}</p>
+                <p className="mt-1 text-xs text-red-400">{errors.url}</p>
               )}
             </div>
-
             <div className="md:col-span-2">
-              <label
-                htmlFor="notes"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Notas
+              <label htmlFor="notes" className="block text-base font-semibold text-white mb-1 drop-shadow">
+                {t('dashboard.notes')}
               </label>
               <textarea
                 id="notes"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={5}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Añade cualquier información relevante sobre esta postulación"
+                className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
+                placeholder={t('dashboard.notesPlaceholder')}
               />
             </div>
-
             <div className="col-span-2">
-              <label
-                htmlFor="recruiterContact"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Contacto del reclutador o empresa
+              <label htmlFor="recruiterContact" className="block text-base font-semibold text-white mb-1 drop-shadow">
+                {t('dashboard.recruiterContact')}
               </label>
               <input
                 type="text"
                 id="recruiterContact"
                 value={recruiterContact}
                 onChange={(e) => setRecruiterContact(e.target.value)}
-                placeholder="Ejemplo: email@empresa.com o +54 9 11 1234 5678"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm  px-3 py-2"
+                placeholder={t('dashboard.recruiterContactPlaceholder')}
+                className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
               />
-              <p className="mt-1 text-sm text-gray-500 p-2">
-                * Fundamental para hacer el seguimiento, luego de un tiempo
-                prudencial, se recomienda contactar para seguir el estado del
-                proceso
+              <p className="mt-1 text-xs text-blue-200 p-2">
+                * {t('dashboard.recruiterContactHelper')}
               </p>
             </div>
-
             <div>
-              <label htmlFor="sendCv" className="flex items-center space-x-2">
+              <label htmlFor="sendCv" className="flex items-center gap-2 text-white/90 text-base">
                 <input
                   type="checkbox"
                   id="sendCv"
                   checked={sendCv}
                   onChange={(e) => setSendCv(e.target.checked)}
-                  className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  className="accent-blue-500 w-5 h-5"
                 />
-                <span className="text-sm font-medium text-gray-700">
-                  Envié CV
-                </span>
+                {t('dashboard.sentCV')}
               </label>
             </div>
-
             <div>
-              <label
-                htmlFor="sendEmail"
-                className="flex items-center space-x-2"
-              >
+              <label htmlFor="sendEmail" className="flex items-center gap-2 text-white/90 text-base">
                 <input
                   type="checkbox"
                   id="sendEmail"
                   checked={sendEmail}
                   onChange={(e) => setSendEmail(e.target.checked)}
-                  className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  className="accent-blue-500 w-5 h-5"
                 />
-                <span className="text-sm font-medium text-gray-700">
-                  Envié Email
-                </span>
+                {t('dashboard.sentEmail')}
               </label>
             </div>
           </div>
-
           <div className="flex justify-end mt-6">
-            <button
+            <Button
               type="submit"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              variant="primary"
+              size="lg"
+              className="w-full mt-2"
+              icon={<Save className="h-5 w-5" />}
             >
-              <Save className="h-4 w-4 mr-2" />
-              {id ? "Actualizar postulación" : "Crear postulación"}
-            </button>
+              {id ? t('dashboard.editApplication') : t('hero.cta.button')}
+            </Button>
           </div>
         </form>
       </div>
