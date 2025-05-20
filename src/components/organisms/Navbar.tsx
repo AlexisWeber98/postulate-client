@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Briefcase } from 'lucide-react';
 import { useAuthStore } from '../../store/auth/authStore';
 import { ThemeToggle } from '../ThemeToggle';
@@ -8,7 +8,6 @@ import Avatar from '../atoms/Avatar';
 import { useLanguageStore } from '../../store';
 
 const Navbar: React.FC = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuthStore();
   const { t } = useLanguageStore();
@@ -42,11 +41,6 @@ const Navbar: React.FC = () => {
     e.preventDefault();
     navigate('/landing');
   };
-
-  // Ocultar Navbar en rutas no públicas y sin usuario
-  if (!user && !['/landing', '/login', '/register'].includes(location.pathname)) {
-    return null;
-  }
 
   // Navbar para usuario autenticado (incluyendo landing page)
   if (user) {
