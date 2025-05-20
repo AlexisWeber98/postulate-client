@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "prepare": "husky",
     "validate-rules": "node scripts/validateRules.js",
-    "commit": "cz",
+    "commit": "git-cz",
+    "commit:all": "git add . && git-cz",
     "test": "echo \"No tests specified\" && exit 0"
   },
   "lint-staged": {
@@ -48,6 +49,8 @@
     "@types/react-icons": "^2.2.7",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.18",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
@@ -59,5 +62,10 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
     "vite": "^5.4.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
