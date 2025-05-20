@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { usePostulationsStore } from '../../../store';
 import { postulationsApi } from '../../../api/postulations';
 import { toast } from 'react-hot-toast';
+import { AxiosError } from 'axios';
 
 interface ApplicationCardProps {
   application: Postulation;
@@ -19,20 +20,37 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
 
   const { updatePostulation, deletePostulation } = usePostulationsStore();
 
-  const openDetailModal = () => setIsDetailModalOpen(true);
-  const closeDetailModal = () => setIsDetailModalOpen(false);
-  const openEditModal = () => setIsEditModalOpen(true);
-  const closeEditModal = () => setIsEditModalOpen(false);
+  const openDetailModal = () => {
+    console.log('[ApplicationCard] Abriendo modal de detalles para postulación:', application.id);
+    setIsDetailModalOpen(true);
+  };
+
+  const closeDetailModal = () => {
+    console.log('[ApplicationCard] Cerrando modal de detalles');
+    setIsDetailModalOpen(false);
+  };
+
+  const openEditModal = () => {
+    console.log('[ApplicationCard] Abriendo modal de edición para postulación:', application.id);
+    setIsEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    console.log('[ApplicationCard] Cerrando modal de edición');
+    setIsEditModalOpen(false);
+  };
 
   const handleSave = async (updatedApplication: Postulation) => {
+    console.log('[ApplicationCard] Iniciando actualización de postulación:', updatedApplication.id);
     setIsLoading(true);
     try {
       await postulationsApi.update(updatedApplication.id, updatedApplication);
       updatePostulation(updatedApplication.id, updatedApplication);
+      console.log('[ApplicationCard] Postulación actualizada exitosamente:', updatedApplication.id);
       toast.success('Postulación actualizada correctamente');
       closeEditModal();
     } catch (error) {
-      console.error('Error al actualizar la postulación:', error);
+      console.error('[ApplicationCard] Error al actualizar la postulación:', error);
       toast.error('Error al actualizar la postulación');
     } finally {
       setIsLoading(false);
@@ -41,19 +59,38 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
 
   const handleDelete = async () => {
     if (!window.confirm('¿Estás seguro de que deseas eliminar esta postulación?')) {
+      console.log('[ApplicationCard] Eliminación cancelada por el usuario');
       return;
     }
 
+    console.log('[ApplicationCard] 🟥 Botón Eliminar presionado');
+    console.log('[ApplicationCard] 📤 Enviando request DELETE a API con ID:', application.id);
     setIsLoading(true);
+
     try {
-      await postulationsApi.delete(application.id);
+      const response = await postulationsApi.delete(application.id);
+      console.log('[ApplicationCard] ✅ Respuesta del servidor:', response);
+
       deletePostulation(application.id);
+      console.log('[ApplicationCard] ✅ Postulación eliminada exitosamente:', application.id);
       toast.success('Postulación eliminada correctamente');
       closeEditModal();
       closeDetailModal();
-    } catch (error) {
-      console.error('Error al eliminar la postulación:', error);
-      toast.error('Error al eliminar la postulación');
+    } catch (error: unknown) {
+      console.error('[ApplicationCard] ❌ Error al eliminar la postulación 😓', error);
+
+      // Log detallado del error
+      if (error instanceof AxiosError) {
+        console.error('[ApplicationCard] 📝 Detalles del error:', {
+          status: error.response?.status,
+          data: error.response?.data,
+          headers: error.response?.headers
+        });
+        toast.error(error.response?.data?.message || 'Error al eliminar la postulación');
+      } else {
+        console.error('[ApplicationCard] ❌ Error inesperado:', error);
+        toast.error('Error al eliminar la postulación');
+      }
     } finally {
       setIsLoading(false);
     }
