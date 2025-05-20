@@ -1,7 +1,7 @@
-import { useTheme } from '../context/ThemeContext';
+import { useThemeStore } from '../store/theme/themeStore';
 
 export function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useThemeStore();
 
   return (
     <button

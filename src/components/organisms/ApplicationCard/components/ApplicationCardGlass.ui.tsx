@@ -1,11 +1,11 @@
 import { ApplicationCardGlassProps } from '../../../../interfaces/components/organisms/ApplicationCard.interface';
 import { STATUS_LABELS, STATUS_COLORS, STATUS_LABELS_EN } from '../../../../types/interface/postulations/postulation';
-import { useLanguage } from '../../../../context/LanguageContext';
+import { useLanguageStore } from '../../../../store/language/languageStore';
 
 export const ApplicationCardGlass = ({ application, onViewDetail, onEdit }: ApplicationCardGlassProps) => {
   const { company, position, status, date, url, notes, createdAt, updatedAt, sentCV, sentEmail } = application;
   const initials = company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
-  const { t, lang } = useLanguage();
+  const { t, lang } = useLanguageStore();
 
   return (
     <div className="relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 rounded-3xl shadow-xl p-0 overflow-hidden backdrop-blur-md border border-blue-400/20 max-w-xs mx-auto">

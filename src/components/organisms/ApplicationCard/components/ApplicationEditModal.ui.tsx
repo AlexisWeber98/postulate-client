@@ -10,7 +10,7 @@ import {
   SelectContent,
   SelectItem
 } from '../../../ui/select';
-import { useLanguage } from '../../../../context/LanguageContext';
+import { useLanguageStore } from '../../../../store/language/languageStore';
 
 interface ApplicationEditModalUIProps extends ApplicationCardProps {
   isOpen: boolean;
@@ -31,7 +31,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   const [estado, setEstado] = React.useState<PostulationStatus>(application?.status || 'applied');
   const [sentCV, setSentCV] = React.useState<boolean>(!!application?.sentCV);
   const [sentEmail, setSentEmail] = React.useState<boolean>(!!application?.sentEmail);
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   if (!application) return null;
   const { company, position, date, url, notes } = application;
 

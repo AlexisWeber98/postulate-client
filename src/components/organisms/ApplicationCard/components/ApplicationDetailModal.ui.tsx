@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from '../../../molecules/Modal';
 import { ApplicationCardProps } from '../../../../interfaces/components/organisms/ApplicationCard.interface';
 import { STATUS_LABELS, STATUS_COLORS } from '../../../../types/interface/postulations/postulation';
-import { useLanguage } from '../../../../context/LanguageContext';
+import { useLanguageStore } from '../../../../store/language/languageStore';
 
 import StyledModalContainer from "../../../shared/components/StyledModalContainer/StyledModalContainer.ui";
 
@@ -20,7 +20,7 @@ const ApplicationDetailModalUI: React.FC<ApplicationDetailModalUIProps> = ({
   isOpen,
   onClose,
 }) => {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   if (!application) return null;
   const { company, position, status, date, url, notes, createdAt, updatedAt, sentCV, sentEmail } = application;
 
