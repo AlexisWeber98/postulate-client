@@ -9,7 +9,10 @@ export const en = {
 
   // Hero
   'hero.title': 'Manage your job applications',
-  'hero.subtitle': '[[Organize]], [[Track]] and [[Optimize]] your job search',
+  'hero.subtitle.rest': 'your job search',
+  'hero.organize': 'Organize',
+  'hero.track': 'track',
+  'hero.optimize': 'optimize',
   'hero.cta.button': 'Get Started',
 
   // Auth
@@ -126,7 +129,7 @@ export const en = {
   'landing.howItWorks.step3.description': 'View statistics and metrics of your search',
   'landing.features.title': 'Features',
   'landing.benefits.title': 'Benefits',
-  'landing.trust.title': 'Trusted By',
+  'landing.trust.title': 'Why Trust Us?',
   'landing.cta.title': 'Get Started',
   'landing.cta.description': 'Join our platform and optimize your job search',
   'landing.cta.button': 'Sign Up Free',
@@ -169,7 +172,13 @@ export const en = {
   'benefits.before.point1': 'Applications lost across different platforms',
   'benefits.before.point2': 'No tracking of your application status',
   'benefits.before.point3': 'Time wasted searching for information',
-  'trust.title': 'Trusted By',
+  'trust.title': ' Why Trust Us?',
   'trust.subtitle': 'Discover why professionals choose Postulate',
-  'trust.description': 'Join our community of professionals who have optimized their job search'
+  'trust.description': 'Join our community of professionals who have optimized their job search',
+  'trust.point1': 'Created by Job Seekers',
+  'trust.point1.explanation': 'Postulate was created by people who have actually searched for jobs and understand your needs.',
+  'trust.point2': 'Your Data is Secure',
+  'trust.point2.explanation': 'Your personal and job search data is protected and only you can access it.',
+  'trust.point3': 'Continuous Improvement',
+  'trust.point3.explanation': 'We listen to users and continuously improve the platform for you.'
 } as const;

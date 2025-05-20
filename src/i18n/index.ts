@@ -3,7 +3,13 @@ import { en } from './translations/en';
 
 export type Language = 'es' | 'en';
 export type Translations = Record<string, string>;
-export type TranslationKey = keyof typeof es;
+
+// Definir el tipo TranslationKey para incluir las claves anidadas
+export type TranslationKey =
+  | keyof typeof es
+  | `trust.point${1 | 2 | 3}`
+  | `trust.point${1 | 2 | 3}.explanation`
+  | 'hero.subtitle.rest';
 
 const translations: Record<Language, Translations> = {
   es,

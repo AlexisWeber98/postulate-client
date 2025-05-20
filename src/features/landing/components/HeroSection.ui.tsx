@@ -5,16 +5,9 @@ import { Link } from 'react-router-dom';
 import { useLanguageStore } from '../../../store';
 
 function highlightImportant(text: string) {
-  const parts = text.split(/(\[\[.*?\]\])/g);
-  return parts.map((part, idx) => {
-    if (/^\[\[.*\]\]$/.test(part)) {
-      const clean = part.replace(/^\[\[/, '').replace(/\]\]$/, '');
-      return (
-        <span key={idx} className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent font-extrabold">{clean}</span>
-      );
-    }
-    return part;
-  });
+  return (
+    <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent font-extrabold">{text}</span>
+  );
 }
 
 const HeroSection: React.FC = () => {
@@ -40,14 +33,21 @@ const HeroSection: React.FC = () => {
           >
             {t('Postulate')}
           </motion.h1>
-          <motion.p
-            className="text-lg md:text-2xl text-white font-semibold max-w-2xl h-[96px] mb-10 text-center md:text-left drop-shadow-lg flex items-center"
+          <motion.div
+            className="text-lg md:text-2xl text-white font-semibold max-w-2xl mb-10 text-center md:text-left drop-shadow-lg flex items-center"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
           >
-            {highlightImportant(t('hero.subtitle'))}
-          </motion.p>
+            <div className="flex items-center gap-2">
+              {highlightImportant(t('hero.organize'))}
+              <span className="text-white">,</span>
+              {highlightImportant(t('hero.track'))}
+              <span className="text-white"> y </span>
+              {highlightImportant(t('hero.optimize'))}
+              <span className="text-white">{t('hero.subtitle.rest')}</span>
+            </div>
+          </motion.div>
           <motion.div
             className="flex flex-row justify-center md:justify-start gap-6"
             initial={{ opacity: 0, y: 40 }}

@@ -9,7 +9,10 @@ export const es = {
 
   // Hero
   'hero.title': 'Gestiona tus postulaciones laborales',
-  'hero.subtitle': '[[Organiza]], [[Sigue]] y [[Optimiza]] tu búsqueda de trabajo',
+  'hero.subtitle.rest': 'tu búsqueda de trabajo',
+  'hero.organize': 'Organiza',
+  'hero.track': 'sigue',
+  'hero.optimize': 'optimiza',
   'hero.cta.button': 'Comenzar Ahora',
 
   // Auth
@@ -126,7 +129,7 @@ export const es = {
   'landing.howItWorks.step3.description': 'Visualiza estadísticas y métricas de tu búsqueda',
   'landing.features.title': 'Características',
   'landing.benefits.title': 'Beneficios',
-  'landing.trust.title': 'Confían en Nosotros',
+  'landing.trust.title': '¿Por qué Confiar en Nosotros?',
   'landing.cta.title': 'Comienza Ahora',
   'landing.cta.description': 'Únete a nuestra plataforma y optimiza tu búsqueda de trabajo',
   'landing.cta.button': 'Regístrate Gratis',
@@ -169,7 +172,13 @@ export const es = {
   'benefits.before.point1': 'Postulaciones perdidas en diferentes plataformas',
   'benefits.before.point2': 'Sin seguimiento del estado de tus aplicaciones',
   'benefits.before.point3': 'Tiempo perdido buscando información',
-  'trust.title': 'Confían en Nosotros',
+  'trust.title': '¿Por qué Confiar en Nosotros?',
   'trust.subtitle': 'Descubre por qué los profesionales eligen Postulate',
-  'trust.description': 'Únete a nuestra comunidad de profesionales que han optimizado su búsqueda de trabajo'
+  'trust.description': 'Únete a nuestra comunidad de profesionales que han optimizado su búsqueda de trabajo',
+  'trust.point1': 'Pensado por buscadores',
+  'trust.point1.explanation': 'Postulate fue creado por personas que realmente buscaron trabajo y conocen tus necesidades.',
+  'trust.point2': 'Tus datos seguros',
+  'trust.point2.explanation': 'Tus datos personales y de búsqueda laboral están protegidos y solo vos podés acceder a ellos.',
+  'trust.point3': 'Mejora continua',
+  'trust.point3.explanation': 'Escuchamos a los usuarios y mejoramos la plataforma continuamente para vos.'
 } as const;

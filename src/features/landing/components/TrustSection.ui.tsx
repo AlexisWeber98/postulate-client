@@ -5,21 +5,9 @@ import { motion } from 'framer-motion';
 import { TranslationKey } from '../../../i18n';
 
 const trustPoints = [
-  {
-    title: 'Pensado por buscadores',
-    explanation: 'Postulate fue creado por personas que realmente buscaron trabajo y conocen tus necesidades.',
-    textKey: 'trust.point1',
-  },
-  {
-    title: 'Tus datos seguros',
-    explanation: 'Tus datos personales y de búsqueda laboral están protegidos y solo vos podés acceder a ellos.',
-    textKey: 'trust.point2',
-  },
-  {
-    title: 'Mejora continua',
-    explanation: 'Escuchamos a los usuarios y mejoramos la plataforma continuamente para vos.',
-    textKey: 'trust.point3',
-  },
+  { textKey: 'trust.point1' },
+  { textKey: 'trust.point2' },
+  { textKey: 'trust.point3' },
 ];
 
 const cardSize = "w-72 h-64 sm:w-80 sm:h-64";
@@ -77,7 +65,7 @@ const TrustSection: React.FC<TrustSectionProps> = ({ t }) => {
   return (
     <section className="py-20 flex flex-col items-center">
       <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-        {t('trust.title').replace('🧠 ', '')}
+        {t('trust.title')}
       </h2>
       <div className="flex flex-col md:flex-row gap-10 w-full justify-center">
         {trustPoints.map((point, idx) => (
