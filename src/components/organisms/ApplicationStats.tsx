@@ -1,20 +1,11 @@
 import React, { useMemo } from 'react';
-import { usePostulationsStore } from '../../store';
-import { Postulation, PostulationStatus, STATUS_LABELS, STATUS_LABELS_EN } from '../../types/interface/postulations/postulation';
+import { usePostulationsStore, useLanguageStore } from '../../store';
+import { Postulation } from '../../types/interface/postulations/postulation';
 import { PieChart, Activity, Users, Calendar } from 'lucide-react';
-import { useLanguage } from '../../context/LanguageContext';
 
 const ApplicationStats: React.FC = () => {
   const { postulations } = usePostulationsStore();
-  const { t, lang } = useLanguage();
-
-  // Count by status
-  const statusCounts = useMemo(() => {
-    return postulations.reduce((acc: Record<PostulationStatus, number>, app: Postulation) => {
-      acc[app.status] = (acc[app.status] || 0) + 1;
-      return acc;
-    }, {} as Record<PostulationStatus, number>);
-  }, [postulations]);
+  const { t } = useLanguageStore();
 
   // Total count
   const totalApplications = postulations.length;
@@ -53,81 +44,45 @@ const ApplicationStats: React.FC = () => {
     ).length;
   }, [postulations]);
 
-  const stats = [
-    {
-      name: t('dashboard.stats.total'),
-      value: totalApplications,
-      icon: <PieChart className="h-6 w-6 text-blue-600" />
-    },
-    {
-      name: t('dashboard.stats.active'),
-      value: activeApplications,
-      icon: <Activity className="h-6 w-6 text-purple-600" />
-    },
-    {
-      name: t('dashboard.stats.recent'),
-      value: recentApplications,
-      icon: <Calendar className="h-6 w-6 text-orange-600" />
-    },
-    {
-      name: t('dashboard.stats.topCompany'),
-      value: topCompany.name ? `${topCompany.name} (${topCompany.count})` : t('dashboard.stats.none'),
-      icon: <Users className="h-6 w-6 text-green-600" />
-    }
-  ];
-
-  // Si no hay aplicaciones, mostrar un mensaje simplificado
-  if (postulations.length === 0) {
-    return (
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('dashboard.summary')}</h2>
-        <div className="bg-white overflow-hidden shadow rounded-lg p-6">
-          <p className="text-gray-600">{t('dashboard.stats.noStats')}</p>
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('stats.totalApplications')}</p>
+            <p className="text-2xl font-semibold">{totalApplications}</p>
+          </div>
+          <PieChart className="w-8 h-8 text-blue-500" />
         </div>
       </div>
-    );
-  }
 
-  const statusLabels = lang === 'en' ? STATUS_LABELS_EN : STATUS_LABELS;
-
-  return (
-    <div className="mb-6">
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat) => (
-          <div
-            key={stat.name}
-            className="relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 rounded-3xl shadow-xl p-0 overflow-hidden backdrop-blur-md border border-blue-400/20"
-          >
-            <div className="px-4 py-5 sm:p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0 text-white">{stat.icon}</div>
-                <div className="ml-5 w-0 flex-1">
-                  <dt className="text-sm font-medium text-white/80 truncate">{stat.name}</dt>
-                  <dd className="text-lg font-semibold text-white">{stat.value}</dd>
-                </div>
-              </div>
-            </div>
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('stats.activeApplications')}</p>
+            <p className="text-2xl font-semibold">{activeApplications}</p>
           </div>
-        ))}
+          <Activity className="w-8 h-8 text-green-500" />
+        </div>
       </div>
 
-      <div className="mt-6 relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 rounded-3xl shadow-xl p-6 overflow-hidden backdrop-blur-md border border-blue-400/20">
-        <h3 className="text-lg font-medium text-white mb-4">{t('dashboard.stats.statusDistribution')}</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {Object.entries(statusLabels).map(([status, label]) => (
-            <div key={status} className="text-center">
-              <div
-                className={`inline-block w-16 h-3 rounded-full ${status === 'applied' ? 'bg-blue-500' :
-                  status === 'interview' ? 'bg-purple-500' :
-                  status === 'technical' ? 'bg-orange-500' :
-                  status === 'offer' ? 'bg-teal-500' :
-                  status === 'rejected' ? 'bg-red-500' :
-                  'bg-green-500'}`}
-              />
-              <p className="mt-2 text-sm font-medium text-white/80">{label}</p>
-              <p className="text-xl font-semibold text-white">{statusCounts[status as PostulationStatus] || 0}</p>
-            </div>
-          ))}
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('stats.topCompany')}</p>
+            <p className="text-2xl font-semibold">{topCompany.name || '-'}</p>
+          </div>
+          <Users className="w-8 h-8 text-purple-500" />
+        </div>
+      </div>
+
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('stats.recentApplications')}</p>
+            <p className="text-2xl font-semibold">{recentApplications}</p>
+          </div>
+          <Calendar className="w-8 h-8 text-orange-500" />
         </div>
       </div>
     </div>

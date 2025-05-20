@@ -18,3 +18,7 @@ dist
 *.sw?
 bun.lock
 package-lock.json
+
+.cursor
+.cursor/rules
+.cursor-rules
