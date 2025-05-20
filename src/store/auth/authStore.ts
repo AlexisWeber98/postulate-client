@@ -195,3 +195,13 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+interface AuthBackgroundState {
+  backgroundImage: string;
+  setBackgroundImage: (image: string) => void;
+}
+
+export const useAuthBackgroundStore = create<AuthBackgroundState>((set) => ({
+  backgroundImage: '/images/auth-background.jpg',
+  setBackgroundImage: (image) => set({ backgroundImage: image })
+}));
