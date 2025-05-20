@@ -118,7 +118,7 @@ const Dashboard: React.FC = () => {
             <MdAccountCircle className="text-7xl text-blue-500 dark:text-blue-400 drop-shadow-lg bg-white/30 dark:bg-gray-800/30 rounded-full p-1" />
             <div>
               <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 text-transparent bg-clip-text mb-1">
-                {t('dashboard.welcome', { name: user?.name || 'Usuario' })}
+                {t('dashboard.welcome').replace('{name}', user?.name || 'Usuario')}
               </h2>
               <span className="text-lg text-gray-700 dark:text-gray-300 font-semibold tracking-wide">{t('dashboard.title')}</span>
             </div>

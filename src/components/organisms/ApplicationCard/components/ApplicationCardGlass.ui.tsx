@@ -1,9 +1,11 @@
 import { ApplicationCardGlassProps } from '../../../../interfaces/components/organisms/ApplicationCard.interface';
 import { STATUS_LABELS, STATUS_COLORS } from '../../../../types/interface/postulations/postulation';
+import { useLanguage } from '../../../../context/LanguageContext';
 
 export const ApplicationCardGlass = ({ application, onViewDetail, onEdit }: ApplicationCardGlassProps) => {
-  const { company, position, status, date, url, notes, createdAt, updatedAt } = application;
+  const { company, position, status, date, url, notes, createdAt, updatedAt, sentCV, sentEmail } = application;
   const initials = company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  const { t } = useLanguage();
 
   return (
     <div className="relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 rounded-3xl shadow-xl p-0 overflow-hidden backdrop-blur-md border border-blue-400/20 max-w-xs mx-auto">
@@ -32,6 +34,23 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit }: Appl
           <div className="opacity-70">Empresa</div>
         </div>
       </div>
+      {/* Badges de envío de CV y Email */}
+      {(sentCV || sentEmail) && (
+        <div className="flex justify-center gap-2 mb-2 px-4">
+          {sentCV && (
+            <span className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
+              <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              {t('dashboard.sentCV')}
+            </span>
+          )}
+          {sentEmail && (
+            <span className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
+              <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              {t('dashboard.sentEmail')}
+            </span>
+          )}
+        </div>
+      )}
       {/* Descripción/notas */}
       <div className="px-6 py-2 text-white/90 text-sm min-h-[48px]">
         {notes || 'Sin notas'}

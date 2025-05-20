@@ -22,7 +22,7 @@ const ApplicationDetailModalUI: React.FC<ApplicationDetailModalUIProps> = ({
 }) => {
   const { t } = useLanguage();
   if (!application) return null;
-  const { company, position, status, date, url, notes, createdAt, updatedAt } = application;
+  const { company, position, status, date, url, notes, createdAt, updatedAt, sentCV, sentEmail } = application;
 
  return (
   <Modal isOpen={isOpen} onClose={onClose}>
@@ -73,6 +73,24 @@ const ApplicationDetailModalUI: React.FC<ApplicationDetailModalUIProps> = ({
           <div className="text-white/50 text-[11px]">{t('dashboard.company')}</div>
         </div>
       </div>
+
+      {/* Badges de envío de CV y Email */}
+      {(sentCV || sentEmail) && (
+        <div className="flex justify-center gap-2 mb-4">
+          {sentCV && (
+            <span className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
+              <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              {t('dashboard.sentCV')}
+            </span>
+          )}
+          {sentEmail && (
+            <span className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
+              <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              {t('dashboard.sentEmail')}
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Notas */}
       <div className="text-white text-sm mb-4 min-h-[48px] whitespace-pre-wrap">
