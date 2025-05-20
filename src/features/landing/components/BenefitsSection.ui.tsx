@@ -2,7 +2,6 @@ import React from 'react';
 import { CheckCircle2, XCircle, ClipboardList, Eye, Search, Paperclip, HelpCircle, Hourglass } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-
 interface BenefitsSectionProps {
   t: (key: string) => string;
 }

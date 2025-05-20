@@ -152,4 +152,11 @@ export const es = {
   'stats.activeApplications': 'Postulaciones Activas',
   'stats.topCompany': 'Empresa Principal',
   'stats.recentApplications': 'Postulaciones Recientes',
+  'card1.title': 'Seguimiento de Postulaciones',
+  'card1.desc': 'Mantén un registro organizado de todas tus postulaciones',
+  'card2.title': 'Estadísticas Detalladas',
+  'card2.desc': 'Visualiza métricas y tendencias de tu búsqueda laboral',
+  'card3.title': 'Búsqueda Eficiente',
+  'card3.desc': 'Encuentra rápidamente las postulaciones que necesitas',
+  'features.title': 'Características',
 };
