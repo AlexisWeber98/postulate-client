@@ -148,7 +148,12 @@ export const heroTexts = {
     'dashboard.filters.selectPosition': 'Todos los puestos',
     'dashboard.filters.clear': 'Limpiar filtros',
     'dashboard.filters.noCompanies': 'No hay empresas disponibles',
-    'dashboard.filters.noPositions': 'No hay puestos disponibles'
+    'dashboard.filters.noPositions': 'No hay puestos disponibles',
+    'dashboard.actions.view': 'Ver Detalles',
+    'dashboard.actions.edit': 'Editar',
+    'dashboard.actions.delete': 'Eliminar',
+    'dashboard.actions.save': 'Guardar',
+    'dashboard.actions.cancel': 'Cancelar'
   },
   en: {
     'hero.bringing': 'BRINGING',
@@ -299,6 +304,11 @@ export const heroTexts = {
     'dashboard.filters.selectPosition': 'All positions',
     'dashboard.filters.clear': 'Clear filters',
     'dashboard.filters.noCompanies': 'No companies available',
-    'dashboard.filters.noPositions': 'No positions available'
+    'dashboard.filters.noPositions': 'No positions available',
+    'dashboard.actions.view': 'View Details',
+    'dashboard.actions.edit': 'Edit',
+    'dashboard.actions.delete': 'Delete',
+    'dashboard.actions.save': 'Save',
+    'dashboard.actions.cancel': 'Cancel'
   }
 };

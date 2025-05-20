@@ -74,14 +74,14 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit }: Appl
           onClick={onViewDetail}
           className="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg text-lg transition-all duration-200"
         >
-          {t('dashboard.viewDetail')}
+          {t('dashboard.actions.view')}
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
         </button>
         <button
           onClick={onEdit}
           className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg text-lg transition-all duration-200"
         >
-          {t('dashboard.edit')}
+          {t('dashboard.actions.edit')}
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 10-4-4l-8 8v3z" /></svg>
         </button>
       </div>
