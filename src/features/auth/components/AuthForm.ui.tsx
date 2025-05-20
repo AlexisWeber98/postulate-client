@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import FormField from '../../../shared/components/FormField';
-import Button from '../../../shared/components/Button';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Save, ArrowLeft, Info, Loader2, CheckCircle2, XCircle } from 'lucide-react';
 import { useLanguage } from '../../../context/LanguageContext';
+import Button from '../../../components/atoms/Button/Button.ui';
+import { isValidEmail, hasContent } from '../../../lib/helpers/validation.helpers';
 
 interface AuthFormProps {
   type: 'login' | 'register';
@@ -12,12 +14,98 @@ interface AuthFormProps {
 }
 
 export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [name, setName] = React.useState('');
-  const [userName, setUserName] = React.useState('');
-  const [lastName, setLastName] = React.useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [userName, setUserName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [fieldStatus, setFieldStatus] = useState<Record<string, { isValid: boolean; message?: string }>>({});
+  const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({});
   const { t } = useLanguage();
+
+  // Validación en tiempo real
+  useEffect(() => {
+    if (!isValidEmail(email)) {
+      setFieldStatus(prev => ({
+        ...prev,
+        email: {
+          isValid: false,
+          message: 'El email no es válido'
+        }
+      }));
+    } else {
+      setFieldStatus(prev => ({
+        ...prev,
+        email: { isValid: true }
+      }));
+    }
+
+    if (password.length < 6) {
+      setFieldStatus(prev => ({
+        ...prev,
+        password: {
+          isValid: false,
+          message: 'La contraseña debe tener al menos 6 caracteres'
+        }
+      }));
+    } else {
+      setFieldStatus(prev => ({
+        ...prev,
+        password: { isValid: true }
+      }));
+    }
+
+    if (type === 'register') {
+      if (!hasContent(name)) {
+        setFieldStatus(prev => ({
+          ...prev,
+          name: {
+            isValid: false,
+            message: 'El nombre es obligatorio'
+          }
+        }));
+      } else {
+        setFieldStatus(prev => ({
+          ...prev,
+          name: { isValid: true }
+        }));
+      }
+
+      if (!hasContent(userName)) {
+        setFieldStatus(prev => ({
+          ...prev,
+          userName: {
+            isValid: false,
+            message: 'El nombre de usuario es obligatorio'
+          }
+        }));
+      } else {
+        setFieldStatus(prev => ({
+          ...prev,
+          userName: { isValid: true }
+        }));
+      }
+
+      if (!hasContent(lastName)) {
+        setFieldStatus(prev => ({
+          ...prev,
+          lastName: {
+            isValid: false,
+            message: 'El apellido es obligatorio'
+          }
+        }));
+      } else {
+        setFieldStatus(prev => ({
+          ...prev,
+          lastName: { isValid: true }
+        }));
+      }
+    }
+  }, [email, password, name, userName, lastName, type]);
+
+  const handleFieldBlur = (name: string) => {
+    setIsBlurred(prev => ({ ...prev, [name]: true }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,85 +116,232 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
     }
   };
 
+  const FieldWrapper: React.FC<{
+    name: string;
+    label: string;
+    required?: boolean;
+    children: React.ReactNode;
+    tooltip?: string;
+  }> = ({ name, label, required, children, tooltip }) => (
+    <div className="relative">
+      <label htmlFor={name} className="block text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
+        {label} {required && <span className="text-red-500">*</span>}
+        {tooltip && (
+          <div className="group relative">
+            <Info className="h-4 w-4 text-blue-500 dark:text-blue-400 cursor-help" />
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-48 shadow-lg border border-gray-200 dark:border-gray-700 z-10">
+              {tooltip}
+            </div>
+          </div>
+        )}
+      </label>
+      <div className="relative">
+        {children}
+        <AnimatePresence mode="wait">
+          {isBlurred[name] && fieldStatus[name] && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.2 }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
+            >
+              {fieldStatus[name].isValid ? (
+                <CheckCircle2 className="h-5 w-5 text-green-500" />
+              ) : (
+                <XCircle className="h-5 w-5 text-red-500" />
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+      <AnimatePresence mode="wait">
+        {isBlurred[name] && fieldStatus[name]?.message && (
+          <motion.p
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="mt-2 text-sm text-red-500 dark:text-red-400 overflow-hidden"
+          >
+            {fieldStatus[name].message}
+          </motion.p>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+
   return (
-    <div className="bg-white dark:bg-gray-900 dark:bg-opacity-90 rounded-2xl shadow-lg p-8 max-w-md w-full mx-auto transition-colors duration-200">
-      <h2 className="text-2xl font-bold mb-2 text-center text-blue-600 dark:text-blue-400">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700/50 p-8 max-w-md w-full mx-auto"
+    >
+      <motion.h2
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="text-3xl font-extrabold text-center mb-2 bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent"
+      >
         {type === 'login' ? t('auth.loginTitle') : t('auth.registerTitle')}
-      </h2>
-      <p className="text-center text-gray-600 dark:text-gray-300 mb-4">
-        {type === 'login'
-          ? <>
-              {t('auth.newUser')}{' '}
-              <Link to="/register" className="text-blue-600 dark:text-blue-400 hover:underline">{t('auth.createAccountLink')}</Link>
-            </>
-          : <>
-              {t('auth.alreadyHaveAccount')}{' '}
-              <Link to="/login" className="text-blue-600 dark:text-blue-400 hover:underline">{t('auth.loginLink')}</Link>
-            </>
-        }
-      </p>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <FormField
-          id="email"
+      </motion.h2>
+
+      <motion.form
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="flex flex-col gap-6"
+        onSubmit={handleSubmit}
+      >
+        <FieldWrapper
+          name="email"
           label={t('auth.email')}
-          type="email"
           required
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
+          tooltip="Ingresa tu correo electrónico"
+        >
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            onBlur={() => handleFieldBlur('email')}
+            className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.email?.isValid && isBlurred.email ? 'ring-2 ring-red-400' : ''}`}
+            placeholder="tu@email.com"
+            required
+          />
+        </FieldWrapper>
+
         {type === 'register' && (
           <>
-            <FormField
-              id="name"
+            <FieldWrapper
+              name="name"
               label={t('auth.name')}
-              type="text"
               required
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-            <FormField
-              id="userName"
+              tooltip="Ingresa tu nombre completo"
+            >
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                onBlur={() => handleFieldBlur('name')}
+                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.name?.isValid && isBlurred.name ? 'ring-2 ring-red-400' : ''}`}
+                placeholder="Tu nombre"
+                required
+              />
+            </FieldWrapper>
+
+            <FieldWrapper
+              name="userName"
               label={t('auth.userName')}
-              type="text"
               required
-              value={userName}
-              onChange={e => setUserName(e.target.value)}
-            />
-            <FormField
-              id="lastName"
+              tooltip="Ingresa tu nombre de usuario"
+            >
+              <input
+                type="text"
+                id="userName"
+                value={userName}
+                onChange={e => setUserName(e.target.value)}
+                onBlur={() => handleFieldBlur('userName')}
+                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.userName?.isValid && isBlurred.userName ? 'ring-2 ring-red-400' : ''}`}
+                placeholder="Tu nombre de usuario"
+                required
+              />
+            </FieldWrapper>
+
+            <FieldWrapper
+              name="lastName"
               label={t('auth.lastName')}
-              type="text"
               required
-              value={lastName}
-              onChange={e => setLastName(e.target.value)}
-            />
+              tooltip="Ingresa tu apellido"
+            >
+              <input
+                type="text"
+                id="lastName"
+                value={lastName}
+                onChange={e => setLastName(e.target.value)}
+                onBlur={() => handleFieldBlur('lastName')}
+                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.lastName?.isValid && isBlurred.lastName ? 'ring-2 ring-red-400' : ''}`}
+                placeholder="Tu apellido"
+                required
+              />
+            </FieldWrapper>
           </>
         )}
-        <FormField
-          id="password"
+
+        <FieldWrapper
+          name="password"
           label={t('auth.password')}
-          type="password"
           required
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <Button
-          type="submit"
-          disabled={isLoading}
-          className="mt-2"
+          tooltip="Ingresa tu contraseña (mínimo 6 caracteres)"
         >
-          {type === 'login' ? t('auth.continue') : t('auth.register')}
-        </Button>
-        {error && <p className="text-red-600 dark:text-red-400 text-sm mt-1">{error}</p>}
-      </form>
-      <div className="mt-6 text-center">
-        <Link
-          to="/landing"
-          className="inline-block px-4 py-2 rounded-lg text-blue-700 dark:text-blue-400 font-semibold bg-blue-100 dark:bg-gray-700 hover:bg-blue-200 dark:hover:bg-gray-600 transition"
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            onBlur={() => handleFieldBlur('password')}
+            className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.password?.isValid && isBlurred.password ? 'ring-2 ring-red-400' : ''}`}
+            placeholder="Tu contraseña"
+            required
+          />
+        </FieldWrapper>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="flex flex-col gap-4"
         >
-          ← {t('auth.backToHome')}
-        </Link>
-      </div>
-    </div>
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            disabled={isLoading || Object.values(fieldStatus).some(f => !f.isValid)}
+            className="w-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            icon={isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
+          >
+            {isLoading ? 'Procesando...' : (type === 'login' ? t('auth.continue') : t('auth.register'))}
+          </Button>
+
+          <div className="text-center text-gray-600 dark:text-gray-300 mt-2">
+            {type === 'login'
+              ? <>
+                  {t('auth.newUser')}{' '}
+                  <Link to="/register" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">{t('auth.createAccountLink')}</Link>
+                </>
+              : <>
+                  {t('auth.alreadyHaveAccount')}{' '}
+                  <Link to="/login" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">{t('auth.loginLink')}</Link>
+                </>
+            }
+          </div>
+
+          <Link
+            to="/landing"
+            className="inline-flex items-center justify-center px-4 py-2 rounded-lg text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 font-medium transition-all duration-200 hover:scale-105"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            {t('auth.backToHome')}
+          </Link>
+        </motion.div>
+
+        <AnimatePresence mode="wait">
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="mt-2 text-center"
+            >
+              <p className="text-red-600 dark:text-red-400 font-medium">
+                {error}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.form>
+    </motion.div>
   );
 };
