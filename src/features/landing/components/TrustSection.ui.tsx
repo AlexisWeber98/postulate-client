@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
 import CardFlip from 'react-card-flip';
 import { motion } from 'framer-motion';
+import { TranslationKey } from '../../../i18n';
 
 const trustPoints = [
   {
@@ -69,7 +70,7 @@ const FlipCard: React.FC<{ title: string; explanation: string; delay?: number }>
 };
 
 interface TrustSectionProps {
-  t: (key: string) => string;
+  t: (key: TranslationKey) => string;
 }
 
 const TrustSection: React.FC<TrustSectionProps> = ({ t }) => {
@@ -82,8 +83,8 @@ const TrustSection: React.FC<TrustSectionProps> = ({ t }) => {
         {trustPoints.map((point, idx) => (
           <FlipCard
             key={idx}
-            title={t(point.textKey)}
-            explanation={t(point.textKey + '.explanation')}
+            title={t(point.textKey as TranslationKey)}
+            explanation={t(point.textKey + '.explanation' as TranslationKey)}
             delay={0.15 * idx}
           />
         ))}

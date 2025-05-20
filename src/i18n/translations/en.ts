@@ -168,5 +168,8 @@ export const en = {
   'benefits.before.title': 'Without Postulate',
   'benefits.before.point1': 'Applications lost across different platforms',
   'benefits.before.point2': 'No tracking of your application status',
-  'benefits.before.point3': 'Time wasted searching for information'
+  'benefits.before.point3': 'Time wasted searching for information',
+  'trust.title': 'Trusted By',
+  'trust.subtitle': 'Discover why professionals choose Postulate',
+  'trust.description': 'Join our community of professionals who have optimized their job search'
 } as const;
