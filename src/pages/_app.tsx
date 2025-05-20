@@ -1,14 +1,12 @@
 import '../styles/globals.css';
 
-import { LanguageProvider } from '../context/LanguageContext';
-import { ApplicationCardProps } from '../interfaces/components/molecules/CardProps.interface';
+interface AppProps {
+  Component: React.ComponentType;
+  pageProps: Record<string, unknown>;
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <LanguageProvider>
-      <Component {...pageProps} />
-    </LanguageProvider>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;

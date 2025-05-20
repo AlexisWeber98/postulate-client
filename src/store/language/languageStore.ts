@@ -1,21 +1,21 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { heroTexts } from '../../features/landing/domain/hero.i18n';
-
-type Lang = 'es' | 'en';
 
 interface LanguageState {
-  lang: Lang;
-  setLang: (lang: Lang) => void;
+  language: string;
   t: (key: string) => string;
+  setLanguage: (lang: string) => void;
 }
 
 export const useLanguageStore = create<LanguageState>()(
   persist(
-    (set, get) => ({
-      lang: (localStorage.getItem('lang') as Lang) || 'es',
-      setLang: (newLang: Lang) => set({ lang: newLang }),
-      t: (key: string) => (heroTexts[get().lang] as Record<string, string>)[key] || key,
+    (set) => ({
+      language: (localStorage.getItem('lang') as string) || 'es',
+      t: (key: string) => {
+        // Aquí deberías implementar tu lógica de traducción
+        return key;
+      },
+      setLanguage: (lang: string) => set({ language: lang }),
     }),
     {
       name: 'language-storage',

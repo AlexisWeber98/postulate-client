@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { usePostulationsStore, useAuthStore } from '../store';
+import { usePostulationsStore, useAuthStore, useLanguageStore } from '../store';
 import ApplicationCard from '../components/organisms/ApplicationCard';
 import SearchAndFilter from '../components/organisms/SearchAndFilter';
 import ApplicationStats from '../components/organisms/ApplicationStats';
@@ -10,12 +10,11 @@ import { useErrorHandler } from '../hooks/useErrorHandler';
 import ActionModal from '../components/molecules/ActionModal';
 import LoadingSpinner from '../components/atoms/LoadingSpinner';
 import { MdAccountCircle } from 'react-icons/md';
-import { useLanguage } from '../context/LanguageContext';
 
 const Dashboard: React.FC = () => {
   const { postulations, loading } = usePostulationsStore();
   const { user } = useAuthStore();
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<PostulationStatus | 'all'>('all');
   const [companyFilter, setCompanyFilter] = useState('');

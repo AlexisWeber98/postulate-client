@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Save, ArrowLeft, Info, Loader2, CheckCircle2, XCircle } from 'lucide-react';
-import { useLanguage } from '../../../context/LanguageContext';
+import { useLanguageStore } from '../../../store';
 import Button from '../../../components/atoms/Button/Button.ui';
 import { isValidEmail, hasContent } from '../../../lib/helpers/validation.helpers';
 
@@ -21,7 +21,7 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
   const [lastName, setLastName] = useState('');
   const [fieldStatus, setFieldStatus] = useState<Record<string, { isValid: boolean; message?: string }>>({});
   const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({});
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
 
   // Validación en tiempo real
   useEffect(() => {

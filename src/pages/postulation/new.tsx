@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import NewPostulationFormContainer from '../../features/postulation/components/NewPostulationForm.container';
 import { postulationsApi } from '../../api/postulations';
-import { usePostulationsStore } from '../../store/postulations/postulationsStore';
+import { usePostulationsStore, useLanguageStore } from '../../store';
 import { NewPostulationFormValues } from '../../types';
-import { PostulationStatus } from '../../types/interface/postulations/postulation';
+import { PostulationStatus, PostulationState } from '../../types/interface/postulations/postulation';
 import { ApplicationStatus } from '../../types/interface/postulations/application-status';
-import { useLanguage } from '../../context/LanguageContext';
+
 
 // Mapeo entre ApplicationStatus y PostulationStatus
 const mapApplicationToPostulationStatus = (status: ApplicationStatus): PostulationStatus => {
@@ -24,11 +24,11 @@ const mapApplicationToPostulationStatus = (status: ApplicationStatus): Postulati
 };
 
 const NuevaPostulacionPage: React.FC = () => {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState<string | undefined>();
   const [success, setSuccess] = useState(false);
-  const addPostulation = usePostulationsStore((state: any) => state.addPostulation);
+  const addPostulation = usePostulationsStore((state: PostulationState) => state.addPostulation);
 
   const handleSubmit = async (values: NewPostulationFormValues) => {
     setLoading(true);
