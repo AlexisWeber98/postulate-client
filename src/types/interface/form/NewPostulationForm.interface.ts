@@ -5,7 +5,7 @@ export interface NewPostulationFormValues {
   position: string;
   status: PostulationStatus;
   date: string;
-  url?: string;
+  referenceUrl?: string;
   notes?: string;
   recruiterContact?: string;
   sentCV?: boolean;
