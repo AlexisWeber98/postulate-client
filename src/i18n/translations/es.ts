@@ -148,4 +148,8 @@ export const es = {
   'dashboard.summary': 'Resumen',
   'dashboard.backToDashboard': 'Volver al Dashboard',
   'dashboard.editApplication': 'Editar Postulación',
+  'stats.totalApplications': 'Total de Postulaciones',
+  'stats.activeApplications': 'Postulaciones Activas',
+  'stats.topCompany': 'Empresa Principal',
+  'stats.recentApplications': 'Postulaciones Recientes',
 };

@@ -147,5 +147,9 @@ export const en = {
   'dashboard.noResults': 'No results found',
   'dashboard.summary': 'Summary',
   'dashboard.backToDashboard': 'Back to Dashboard',
-  'dashboard.editApplication': 'Edit Application'
+  'dashboard.editApplication': 'Edit Application',
+  'stats.totalApplications': 'Total Applications',
+  'stats.activeApplications': 'Active Applications',
+  'stats.topCompany': 'Top Company',
+  'stats.recentApplications': 'Recent Applications',
 };
