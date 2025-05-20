@@ -73,6 +73,14 @@ export const useAuthStore = create<AuthState>()(
         } catch (error) {
           set({ loading: false });
           console.error("Error en signIn:", error);
+
+          if (error instanceof Error) {
+            if (error.message.includes('timeout')) {
+              throw new Error('La conexión está tardando demasiado. Por favor, verifica tu conexión a internet e intenta nuevamente.');
+            }
+            throw error;
+          }
+
           const apiError = error as ApiError;
           if (apiError.response?.status === 401) {
             throw new Error(

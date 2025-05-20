@@ -1,6 +1,10 @@
-import React from 'react';
+
 import { AuthPage } from '../features/auth/AuthPage';
 
 export default function Register() {
-  return <AuthPage type="register" />;
+  return (
+    <div className="w-full min-h-screen flex items-center justify-center">
+      <AuthPage type="register" />
+    </div>
+  );
 }

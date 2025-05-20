@@ -10,7 +10,9 @@ interface HowItWorksSectionProps {
 const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ t }) => {
   return (
     <div className="text-center">
-      <h2 className="text-4xl font-bold mb-12 text-white">{t('landing.howItWorks.title')}</h2>
+      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        {t('landing.howItWorks.title')}
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <Step
           icon={<UserPlus className="w-8 h-8" />}
@@ -44,14 +46,14 @@ const Step: React.FC<StepProps> = ({ icon, title, description }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.5 }}
-    className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-white"
+    className="bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-white/30 transition-transform hover:-translate-y-1 flex flex-col items-center text-center"
   >
     <div className="flex flex-col items-center">
-      <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mb-4">
+      <div className="w-12 h-12 flex items-center justify-center rounded-full mb-4 bg-gradient-to-r from-blue-500 to-violet-500">
         {icon}
       </div>
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <p className="text-white/80">{description}</p>
+      <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">{title}</h3>
+      <p className="text-gray-700 text-base md:text-base">{description}</p>
     </div>
   </motion.div>
 );

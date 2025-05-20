@@ -28,34 +28,34 @@ interface AuthFormContainerProps {
 
 export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) => {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [error, setError] = React.useState<string | undefined>(undefined);
+  const [error, setError] = React.useState<string>();
   const { signIn, signUp } = useAuthStore();
   const navigate = useNavigate();
 
   const handleSubmit = async (data: AuthData) => {
-    console.log('handleSubmit llamado con:', data, 'tipo:', type);
     setError(undefined);
+
     const schema = type === 'register' ? registerSchema : loginSchema;
     const result = schema.safeParse(data);
+
     if (!result.success) {
-      console.log('Error de validación:', result.error.errors);
       setError(result.error.errors[0].message);
       return;
     }
+
     setIsLoading(true);
+
     try {
       if (type === 'login') {
-        console.log('Llamando signIn con:', data.email, data.password);
-        await signIn(data.email, data.password);
+        const { email, password } = data as LoginData;
+        await signIn(email, password);
       } else {
-        const d = data as RegisterData;
-        console.log('Llamando signUp con:', d.email, d.password, d.name, d.userName, d.lastName);
-        await signUp(d.email, d.password, d.name, d.userName, d.lastName);
+        const { email, password, name, userName, lastName } = data as RegisterData;
+        await signUp(email, password, name, userName, lastName);
       }
-      console.log('Navegando al dashboard después de login/registro exitoso');
+
       navigate('/dashboard');
     } catch (e: unknown) {
-      console.log('Error capturado en handleSubmit:', e);
       if (e instanceof Error) {
         setError(e.message);
       } else {

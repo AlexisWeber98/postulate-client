@@ -120,7 +120,7 @@ export const es = {
   'landing.intro.card2': 'Búsqueda Eficiente',
   'landing.intro.card3': 'Gestión de Documentos',
   'landing.intro.card4': 'Oportunidades Laborales',
-  'landing.howItWorks.title': 'Cómo Funciona',
+  'landing.howItWorks.title': '¿Cómo Funciona?',
   'landing.howItWorks.step1.title': 'Crea tu cuenta',
   'landing.howItWorks.step1.description': 'Regístrate y comienza a gestionar tus postulaciones',
   'landing.howItWorks.step2.title': 'Añade tus postulaciones',

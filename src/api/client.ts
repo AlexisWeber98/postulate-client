@@ -15,6 +15,8 @@ export const client: AxiosInstance = axios.create({
     "Content-Type": "application/json",
     "x-api-key": API_KEY,
   },
+  timeout: 30000, // 30 segundos de timeout
+  timeoutErrorMessage: "La solicitud está tardando demasiado. Por favor, intenta nuevamente.",
 });
 
 // Interceptor para agregar el token de autenticación
@@ -35,6 +37,10 @@ client.interceptors.request.use(
 client.interceptors.response.use(
   (response) => response,
   (error) => {
+    if (error.code === 'ECONNABORTED') {
+      throw new Error('La solicitud está tardando demasiado. Por favor, verifica tu conexión e intenta nuevamente.');
+    }
+
     if (error.response?.status === 401) {
       useAuthStore.getState().signOut();
       window.location.href = "/login";

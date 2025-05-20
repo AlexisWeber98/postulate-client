@@ -37,15 +37,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
       transition={{ duration: 0.3 }}
       className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700/50 p-8 max-w-md w-full mx-auto"
     >
-      <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="text-3xl font-extrabold text-center mb-2 bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent"
-      >
-        {type === 'login' ? t('auth.loginTitle') : t('auth.registerTitle')}
-      </motion.h2>
-
       <motion.form
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
