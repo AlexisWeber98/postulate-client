@@ -7,6 +7,7 @@ import { PostulationStatus, PostulationState } from '../../types/interface/postu
 import { ApplicationStatus } from '../../types/interface/postulations/application-status';
 
 
+
 // Mapeo entre ApplicationStatus y PostulationStatus
 const mapApplicationToPostulationStatus = (status: ApplicationStatus): PostulationStatus => {
   switch (status) {
@@ -40,7 +41,7 @@ const NuevaPostulacionPage: React.FC = () => {
       await postulationsApi.create({
         company,
         position,
-        status: mapApplicationToPostulationStatus(status),
+        status: mapApplicationToPostulationStatus(status as ApplicationStatus),
         date,
         url: referenceUrl,
         notes,
@@ -51,7 +52,7 @@ const NuevaPostulacionPage: React.FC = () => {
       addPostulation({
         company,
         position,
-        status: mapApplicationToPostulationStatus(status),
+        status: mapApplicationToPostulationStatus(status as ApplicationStatus),
         date,
         url: referenceUrl,
         notes,

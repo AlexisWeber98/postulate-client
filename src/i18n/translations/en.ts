@@ -131,5 +131,19 @@ export const en = {
   'landing.cta.description': 'Join our platform and optimize your job search',
   'landing.cta.button': 'Sign Up Free',
   'successMessage': 'Application created successfully!',
-  'errorMessage': 'An error occurred while saving the application.'
+  'errorMessage': 'An error occurred while saving the application.',
+  'dashboard.errorMessage': 'Error loading dashboard',
+  'dashboard.errorCompanyFilter': 'Error filtering by company',
+  'dashboard.errorPositionFilter': 'Error filtering by position',
+  'dashboard.errorUniqueCompanies': 'Error getting unique companies',
+  'dashboard.errorUniquePositions': 'Error getting unique positions',
+  'dashboard.errorFilterApplications': 'Error filtering applications',
+  'dashboard.error': 'Error',
+  'dashboard.reload': 'Reload',
+  'dashboard.welcome': 'Welcome, {name}!',
+  'dashboard.title': 'Dashboard',
+  'dashboard.newApplication': 'New Application',
+  'dashboard.noApplications': 'No applications registered',
+  'dashboard.noResults': 'No results found',
+  'dashboard.summary': 'Summary'
 };
