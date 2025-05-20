@@ -1,11 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { usePostulationsStore } from "../store";
+import { usePostulationsStore, useLanguageStore } from "../store";
 import { PostulationStatus, STATUS_LABELS } from "../types/index";
 import Modal from "../components/molecules/Modal";
 import { Save, AlertCircle, ArrowLeft, Info, Loader2, CheckCircle2, XCircle } from "lucide-react";
 import { ValidationHelpers, DateHelpers } from "../lib/helpers";
-import { useLanguageStore } from '../store';
 import Button from '../components/atoms/Button/Button.ui';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -316,7 +315,7 @@ const ApplicationForm: React.FC = () => {
 
             <div>
               <label htmlFor="status" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
-                {t('dashboard.status')} *
+                {t('status')} *
               </label>
               <select
                 id="status"
@@ -351,7 +350,7 @@ const ApplicationForm: React.FC = () => {
             <div className="md:col-span-2">
               <FieldWrapper
                 name="url"
-                label={t('dashboard.referenceUrl')}
+                label={t('referenceUrl')}
                 tooltip="Ingresa la URL de la publicación o la página de la empresa"
               >
                 <input
@@ -367,7 +366,7 @@ const ApplicationForm: React.FC = () => {
             </div>
             <div className="md:col-span-2">
               <label htmlFor="notes" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
-                {t('dashboard.notes')}
+                {t('notes')}
               </label>
               <textarea
                 id="notes"
@@ -380,7 +379,7 @@ const ApplicationForm: React.FC = () => {
             </div>
             <div className="col-span-2">
               <label htmlFor="recruiterContact" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
-                {t('dashboard.recruiterContact')}
+                {t('recruiterContact')}
               </label>
               <input
                 type="text"
