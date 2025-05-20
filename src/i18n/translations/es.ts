@@ -17,6 +17,20 @@ export const es = {
   'auth.dashboard': 'Dashboard',
   'auth.profile': 'Perfil',
   'auth.signOut': 'Cerrar Sesión',
+  'auth.loginTitle': 'Iniciar Sesión',
+  'auth.registerTitle': 'Crear Cuenta',
+  'auth.email': 'Correo Electrónico',
+  'auth.name': 'Nombre',
+  'auth.userName': 'Nombre de Usuario',
+  'auth.lastName': 'Apellido',
+  'auth.password': 'Contraseña',
+  'auth.continue': 'Continuar',
+  'auth.register': 'Registrarse',
+  'auth.newUser': '¿No tienes una cuenta?',
+  'auth.createAccountLink': 'Crear cuenta',
+  'auth.alreadyHaveAccount': '¿Ya tienes una cuenta?',
+  'auth.loginLink': 'Iniciar sesión',
+  'auth.backToHome': 'Volver al inicio',
 
   // Dashboard
   'dashboard.filters.search': 'Buscar postulaciones...',
@@ -87,37 +101,6 @@ export const es = {
   'footer.rights': 'Todos los derechos reservados.',
   'footer.copyright': '© {year} Postulate. Todos los derechos reservados.',
 
-  landing: {
-    hero: {
-      title: 'Postulate',
-      subtitle: 'Gestiona tus postulaciones de trabajo',
-    },
-    intro: {
-      title: 'Introducción',
-      card1: 'Seguimiento de Postulaciones',
-      card2: 'Búsqueda Eficiente',
-      card3: 'Gestión de Documentos',
-      card4: 'Oportunidades Laborales',
-    },
-    howItWorks: {
-      title: 'Cómo Funciona',
-    },
-    features: {
-      title: 'Características',
-    },
-    benefits: {
-      title: 'Beneficios',
-    },
-    trust: {
-      title: 'Confían en Nosotros',
-    },
-    cta: {
-      title: 'Comienza Ahora',
-      description: 'Únete a nuestra plataforma y optimiza tu búsqueda de trabajo',
-      button: 'Regístrate Gratis',
-    },
-  },
-
   'landing.hero.title': 'Postulate',
   'landing.hero.subtitle': 'Gestiona tus postulaciones de trabajo',
   'landing.intro.title': 'Introducción',
@@ -126,13 +109,18 @@ export const es = {
   'landing.intro.card3': 'Gestión de Documentos',
   'landing.intro.card4': 'Oportunidades Laborales',
   'landing.howItWorks.title': 'Cómo Funciona',
+  'landing.howItWorks.step1.title': 'Crea tu cuenta',
+  'landing.howItWorks.step1.description': 'Regístrate y comienza a gestionar tus postulaciones',
+  'landing.howItWorks.step2.title': 'Añade tus postulaciones',
+  'landing.howItWorks.step2.description': 'Registra cada postulación con sus detalles',
+  'landing.howItWorks.step3.title': 'Sigue tu progreso',
+  'landing.howItWorks.step3.description': 'Visualiza estadísticas y métricas de tu búsqueda',
   'landing.features.title': 'Características',
   'landing.benefits.title': 'Beneficios',
   'landing.trust.title': 'Confían en Nosotros',
   'landing.cta.title': 'Comienza Ahora',
   'landing.cta.description': 'Únete a nuestra plataforma y optimiza tu búsqueda de trabajo',
   'landing.cta.button': 'Regístrate Gratis',
-
   'successMessage': '¡Postulación creada exitosamente!',
   'errorMessage': 'Ocurrió un error al guardar la postulación.',
 };

@@ -1,2 +1,2 @@
-export { default as AuthForm } from './AuthForm.ui';
-export { default as AuthFormContainer } from './AuthForm.container';
+export { AuthForm } from './AuthForm.ui';
+export { AuthFormContainer } from './AuthForm.container';
