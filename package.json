@@ -67,7 +67,53 @@
   },
   "config": {
     "commitizen": {
-      "path": "cz-conventional-changelog"
+      "path": "cz-conventional-changelog",
+      "types": {
+        "agregar": {
+          "description": "Agregar una nueva característica",
+          "title": "Agregar"
+        },
+        "actualizar": {
+          "description": "Actualizar una característica existente",
+          "title": "Actualizar"
+        },
+        "eliminar": {
+          "description": "Eliminar código o archivos",
+          "title": "Eliminar"
+        },
+        "corregir": {
+          "description": "Corregir un error",
+          "title": "Corregir"
+        },
+        "mejorar": {
+          "description": "Mejorar el rendimiento o la funcionalidad",
+          "title": "Mejorar"
+        },
+        "refactorizar": {
+          "description": "Refactorizar código sin cambiar funcionalidad",
+          "title": "Refactorizar"
+        },
+        "revertir": {
+          "description": "Revertir cambios anteriores",
+          "title": "Revertir"
+        },
+        "estilizar": {
+          "description": "Cambios que no afectan el significado del código",
+          "title": "Estilizar"
+        },
+        "documentar": {
+          "description": "Cambios en la documentación",
+          "title": "Documentar"
+        },
+        "construir": {
+          "description": "Cambios que afectan el sistema de build",
+          "title": "Construir"
+        },
+        "configurar": {
+          "description": "Cambios en la configuración",
+          "title": "Configurar"
+        }
+      }
     }
   }
 }
