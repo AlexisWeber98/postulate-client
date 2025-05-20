@@ -17,61 +17,61 @@ export const useAuthForm = (type: 'login' | 'register') => {
   const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
+    const validateFields = () => {
+      const newFieldStatus: Record<string, FieldStatus> = {};
+
+      if (!isValidEmail(formData.email)) {
+        newFieldStatus.email = {
+          isValid: false,
+          message: 'El email no es válido'
+        };
+      } else {
+        newFieldStatus.email = { isValid: true };
+      }
+
+      if (formData.password.length < 6) {
+        newFieldStatus.password = {
+          isValid: false,
+          message: 'La contraseña debe tener al menos 6 caracteres'
+        };
+      } else {
+        newFieldStatus.password = { isValid: true };
+      }
+
+      if (type === 'register') {
+        if (!hasContent(formData.name)) {
+          newFieldStatus.name = {
+            isValid: false,
+            message: 'El nombre es obligatorio'
+          };
+        } else {
+          newFieldStatus.name = { isValid: true };
+        }
+
+        if (!hasContent(formData.userName)) {
+          newFieldStatus.userName = {
+            isValid: false,
+            message: 'El nombre de usuario es obligatorio'
+          };
+        } else {
+          newFieldStatus.userName = { isValid: true };
+        }
+
+        if (!hasContent(formData.lastName)) {
+          newFieldStatus.lastName = {
+            isValid: false,
+            message: 'El apellido es obligatorio'
+          };
+        } else {
+          newFieldStatus.lastName = { isValid: true };
+        }
+      }
+
+      setFieldStatus(newFieldStatus);
+    };
+
     validateFields();
   }, [formData, type]);
-
-  const validateFields = () => {
-    const newFieldStatus: Record<string, FieldStatus> = {};
-
-    if (!isValidEmail(formData.email)) {
-      newFieldStatus.email = {
-        isValid: false,
-        message: 'El email no es válido'
-      };
-    } else {
-      newFieldStatus.email = { isValid: true };
-    }
-
-    if (formData.password.length < 6) {
-      newFieldStatus.password = {
-        isValid: false,
-        message: 'La contraseña debe tener al menos 6 caracteres'
-      };
-    } else {
-      newFieldStatus.password = { isValid: true };
-    }
-
-    if (type === 'register') {
-      if (!hasContent(formData.name)) {
-        newFieldStatus.name = {
-          isValid: false,
-          message: 'El nombre es obligatorio'
-        };
-      } else {
-        newFieldStatus.name = { isValid: true };
-      }
-
-      if (!hasContent(formData.userName)) {
-        newFieldStatus.userName = {
-          isValid: false,
-          message: 'El nombre de usuario es obligatorio'
-        };
-      } else {
-        newFieldStatus.userName = { isValid: true };
-      }
-
-      if (!hasContent(formData.lastName)) {
-        newFieldStatus.lastName = {
-          isValid: false,
-          message: 'El apellido es obligatorio'
-        };
-      } else {
-        newFieldStatus.lastName = { isValid: true };
-      }
-    }
-
-    setFieldStatus(newFieldStatus);
-  };
 
   const handleFieldChange = (name: string, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
