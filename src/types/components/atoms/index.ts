@@ -10,3 +10,7 @@ export * from './ButtonProps.interface';
 export * from './Avatar.interface';
 export * from './badges/index';
 
+export type { BadgeProps } from './Badge.interface';
+export type { ButtonProps } from './ButtonProps.interface';
+export type { AvatarProps } from './Avatar.interface';
+
