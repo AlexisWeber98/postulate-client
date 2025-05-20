@@ -7,12 +7,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../components/ui/select';
-import { ApplicationStatus } from '../../types/components/atoms/badges/StatusBadge.interface';
+import { PostulationStatus } from '../../types/interface/postulations/postulation';
 import { useLanguageStore } from '../../store';
 
 interface FilterSelectsProps {
-  statusFilter: ApplicationStatus | 'all';
-  setStatusFilter: (value: ApplicationStatus | 'all') => void;
+  statusFilter: PostulationStatus | 'all';
+  setStatusFilter: (value: PostulationStatus | 'all') => void;
   companies: string[];
   companyFilter: string;
   setCompanyFilter: (value: string) => void;
@@ -33,9 +33,19 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
 }) => {
   const { t } = useLanguageStore();
 
+  const statusOptions: (PostulationStatus | 'all')[] = [
+    'all',
+    'applied',
+    'interview',
+    'technical',
+    'offer',
+    'rejected',
+    'accepted'
+  ];
+
   // Manejador tipado para statusFilter
   const handleStatusChange = (value: string) => {
-    setStatusFilter(value as ApplicationStatus | 'all');
+    setStatusFilter(value as PostulationStatus | 'all');
   };
 
   // Handlers para convertir valores "all" a cadenas vacías y viceversa
@@ -82,12 +92,9 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{t('dashboard.filters.all')}</SelectItem>
-            <SelectItem value="applied">{t('dashboard.stats.status.applied')}</SelectItem>
-            <SelectItem value="interview">{t('dashboard.stats.status.interview')}</SelectItem>
-            <SelectItem value="technical">{t('dashboard.stats.status.technical')}</SelectItem>
-            <SelectItem value="offer">{t('dashboard.stats.status.offer')}</SelectItem>
-            <SelectItem value="rejected">{t('dashboard.stats.status.rejected')}</SelectItem>
-            <SelectItem value="accepted">{t('dashboard.stats.status.accepted')}</SelectItem>
+            {statusOptions.map((status) => (
+              <SelectItem key={status} value={status}>{status}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

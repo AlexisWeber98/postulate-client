@@ -1,15 +1,15 @@
-import { ApplicationStatus } from '../postulations/application-status';
+import { PostulationStatus } from '../postulations/postulation';
 
 export interface NewPostulationFormValues {
   company: string;
   position: string;
-  status: ApplicationStatus;
+  status: PostulationStatus;
   date: string;
-  referenceUrl?: string;
+  url?: string;
   notes?: string;
   recruiterContact?: string;
-  sentCV: boolean;
-  sentEmail: boolean;
+  sentCV?: boolean;
+  sentEmail?: boolean;
 }
 
 export interface NewPostulationFormProps {

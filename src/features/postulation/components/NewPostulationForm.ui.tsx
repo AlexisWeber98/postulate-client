@@ -1,6 +1,6 @@
 import React from 'react';
 import FormField from './FormField.ui';
-import { ApplicationStatus, STATUS_LABELS } from '../../../types/interface/postulations/application-status';
+import { PostulationStatus, STATUS_LABELS } from '../../../types/interface/postulations/postulation';
 import { NewPostulationFormProps, NewPostulationFormValues } from '../../../types';
 import { useLanguageStore } from '../../../store';
 import Button from '../../../components/atoms/Button/Button.ui';
@@ -15,7 +15,7 @@ interface UIProps extends Omit<NewPostulationFormProps, 'onSubmit'> {
   onSubmit: (e: React.FormEvent) => void;
 }
 
-const statusOptions = Object.values(ApplicationStatus);
+const statusOptions: PostulationStatus[] = ['applied', 'interview', 'technical', 'offer', 'rejected', 'accepted'];
 
 const NewPostulationFormUI: React.FC<UIProps> = ({
   values,
@@ -71,7 +71,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             <option value="" className="text-black bg-white">{t('selectStatus') || 'Seleccionar estado'}</option>
             {statusOptions.map((status) => (
               <option key={status} value={status} className="text-black bg-white">
-                {STATUS_LABELS[status as ApplicationStatus]}
+                {STATUS_LABELS[status as PostulationStatus]}
               </option>
             ))}
           </select>

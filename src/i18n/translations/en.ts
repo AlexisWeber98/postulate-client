@@ -69,6 +69,12 @@ export const en = {
   'dashboard.recruiterContactHelper': 'Example: email@company.com or +1 123 456 7890',
   'dashboard.recruiterContactPlaceholder': 'Example: email@company.com or +1 123 456 7890',
 
+  'referenceUrl.placeholder': 'https://example.com/job',
+  'notes.placeholder': 'Add any relevant information about this application',
+  'recruiterContact.helper': 'Example: email@company.com or +1 123 456 7890',
+  'recruiterContact.placeholder': 'Example: email@company.com or +1 123 456 7890',
+  'dashboard.loading': 'Loading...',
+
   // Footer
   'footer.description': 'The platform that helps you manage and optimize your job search.',
   'footer.quickLinks': 'Quick Links',

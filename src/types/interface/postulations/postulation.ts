@@ -18,6 +18,15 @@ export const STATUS_LABELS_EN: Record<PostulationStatus, string> = {
   accepted: 'Accepted'
 };
 
+export const STATUS_COLORS: Record<PostulationStatus, string> = {
+  applied: 'bg-blue-100 text-blue-800',
+  interview: 'bg-purple-100 text-purple-800',
+  technical: 'bg-yellow-100 text-yellow-800',
+  offer: 'bg-green-100 text-green-800',
+  rejected: 'bg-red-100 text-red-800',
+  accepted: 'bg-green-100 text-green-800'
+};
+
 export interface Postulation {
   id: string;
   company: string;
@@ -42,12 +51,3 @@ export interface PostulationState {
   getPostulation: (id: string) => Postulation | undefined;
   checkDuplicate: (company: string, position: string) => boolean;
 }
-
-export const STATUS_COLORS: Record<PostulationStatus, string> = {
-  applied: 'bg-blue-100 text-blue-800',
-  interview: 'bg-purple-100 text-purple-800',
-  technical: 'bg-yellow-100 text-yellow-800',
-  offer: 'bg-green-100 text-green-800',
-  rejected: 'bg-red-100 text-red-800',
-  accepted: 'bg-green-100 text-green-800'
-};

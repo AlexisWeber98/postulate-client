@@ -1,15 +1,15 @@
 import React from 'react';
 import { Search } from 'lucide-react';
 import FilterSelects from './FilterSelects';
-import { ApplicationStatus } from '../../types/interface/postulations/application-status';
+import { PostulationStatus } from '../../types/interface/postulations/postulation';
 import { APP_COLORS } from '../../styles/colors';
 import { useLanguageStore } from '../../store';
 
 interface SearchAndFilterProps {
-  searchTerm: string;
-  setSearchTerm: (term: string) => void;
-  statusFilter: ApplicationStatus | 'all';
-  setStatusFilter: (status: ApplicationStatus | 'all') => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  statusFilter: PostulationStatus | 'all';
+  setStatusFilter: (status: PostulationStatus | 'all') => void;
   companyFilter: string;
   setCompanyFilter: (company: string) => void;
   positionFilter: string;
@@ -19,8 +19,8 @@ interface SearchAndFilterProps {
 }
 
 const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
-  searchTerm,
-  setSearchTerm,
+  searchQuery,
+  setSearchQuery,
   statusFilter,
   setStatusFilter,
   companyFilter,
@@ -47,8 +47,8 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             </div>
             <input
               type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               placeholder={t('dashboard.filters.search')}
               style={{ borderColor: APP_COLORS.lightGray }}
@@ -69,11 +69,11 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         />
 
         {/* Reset button */}
-        {(searchTerm || statusFilter !== 'all' || companyFilter || positionFilter) && (
+        {(searchQuery || statusFilter !== 'all' || companyFilter || positionFilter) && (
           <div className="flex justify-end">
             <button
               onClick={() => {
-                setSearchTerm('');
+                setSearchQuery('');
                 setStatusFilter('all');
                 setCompanyFilter('');
                 setPositionFilter('');

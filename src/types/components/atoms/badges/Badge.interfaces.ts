@@ -1,6 +1,6 @@
-import { ApplicationStatus } from './StatusBadge.interface';
+import { PostulationStatus } from '../../../interface/postulations/postulation';
 
 export interface BadgeProps {
-  status: ApplicationStatus;
+  status: PostulationStatus;
   className?: string;
 }
