@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios";
-import { AuthState } from "../../interfaces";
+import { AuthState } from "../../interfaces/auth/auth.interface";
 import { jwtDecode, type JwtPayload } from "jwt-decode";
 import { User } from "../../interfaces/auth/auth.interface";
 import { authApi } from "../../api";
@@ -63,7 +63,6 @@ export const useAuthStore = create<AuthState>()(
 
           set({
             token: token,
-            isAuthenticated: true,
             loading: false,
             user: {
               id: decoded.id,
@@ -75,13 +74,14 @@ export const useAuthStore = create<AuthState>()(
           });
         } catch (error: any) {
           set({ loading: false });
+          console.error("Error en signIn:", error);
           if (error.response?.status === 401) {
             throw new Error(
-              error.response.data.message || "Credenciales incorrectas",
+              error.response.data.message || "Credenciales incorrectas"
             );
           }
           throw new Error(
-            error.response?.data?.message || "Error en la autenticación",
+            error.response?.data?.message || "Error en la autenticación"
           );
         }
       },
@@ -105,16 +105,21 @@ export const useAuthStore = create<AuthState>()(
           });
 
           const data = response.data;
-          set({ user: data.result, loading: false });
-        } catch (error) {
+          set({
+            user: data.result,
+            loading: false,
+            token: data.result.token
+          });
+        } catch (error: any) {
           set({ loading: false });
+          console.error("Error en signUp:", error);
           if (error.response?.status === 409) {
             throw new Error(
-              error.response.data.message || "El usuario ya existe",
+              error.response.data.message || "El usuario ya existe"
             );
           }
           throw new Error(
-            error.response?.data?.message || "Error en el registro",
+            error.response?.data?.message || "Error en el registro"
           );
         }
       },

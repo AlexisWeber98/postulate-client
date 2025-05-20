@@ -52,8 +52,8 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
         console.log('Llamando signUp con:', d.email, d.password, d.name, d.userName, d.lastName);
         await signUp(d.email, d.password, d.name, d.userName, d.lastName);
       }
-      console.log('Navegando al home después de login/registro exitoso');
-      navigate('/');
+      console.log('Navegando al dashboard después de login/registro exitoso');
+      navigate('/dashboard');
     } catch (e: unknown) {
       console.log('Error capturado en handleSubmit:', e);
       if (e instanceof Error) {
