@@ -152,4 +152,12 @@ export const en = {
   'stats.activeApplications': 'Active Applications',
   'stats.topCompany': 'Top Company',
   'stats.recentApplications': 'Recent Applications',
+  'card1.title': 'Application Tracking',
+  'card1.desc': 'Keep an organized record of all your applications',
+  'card2.title': 'Detailed Statistics',
+  'card2.desc': 'View metrics and trends of your job search',
+  'card3.title': 'Efficient Search',
+  'card3.desc': 'Quickly find the applications you need',
+  'features.title': 'Features',
+  'features.altTitle': 'Why choose Postulate?',
 };

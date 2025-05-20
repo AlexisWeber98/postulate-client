@@ -159,4 +159,5 @@ export const es = {
   'card3.title': 'Búsqueda Eficiente',
   'card3.desc': 'Encuentra rápidamente las postulaciones que necesitas',
   'features.title': 'Características',
+  'features.altTitle': '¿Por qué elegir Postulate?',
 };

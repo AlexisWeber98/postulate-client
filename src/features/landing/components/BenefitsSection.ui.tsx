@@ -1,9 +1,10 @@
 import React from 'react';
 import { CheckCircle2, XCircle, ClipboardList, Eye, Search, Paperclip, HelpCircle, Hourglass } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { TranslationKey } from '../../../i18n';
 
 interface BenefitsSectionProps {
-  t: (key: string) => string;
+  t: (key: TranslationKey) => string;
 }
 
 const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
