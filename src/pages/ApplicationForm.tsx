@@ -5,7 +5,7 @@ import { PostulationStatus, STATUS_LABELS } from "../types/index";
 import Modal from "../components/molecules/Modal";
 import { Save, AlertCircle, ArrowLeft, Info, Loader2, CheckCircle2, XCircle } from "lucide-react";
 import { ValidationHelpers, DateHelpers } from "../lib/helpers";
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguageStore } from '../store';
 import Button from '../components/atoms/Button/Button.ui';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -14,7 +14,7 @@ const ApplicationForm: React.FC = () => {
   const navigate = useNavigate();
   const { addPostulation, updatePostulation, getPostulation, checkDuplicate } =
     usePostulationsStore();
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
 
   const [company, setCompany] = useState("");
   const [position, setPosition] = useState("");

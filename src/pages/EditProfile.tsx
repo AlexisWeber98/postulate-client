@@ -5,11 +5,11 @@ import { isValidEmail, hasContent } from '../lib/helpers/validation.helpers';
 import Button from '../components/atoms/Button/Button.ui';
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguageStore } from '../store';
 
 const EditProfile: React.FC = () => {
   const { user, updateUser } = useAuthStore();
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
   const [success, setSuccess] = useState(false);
