@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Briefcase } from 'lucide-react';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguageStore } from '../../store';
 
 const Footer: React.FC = () => {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   const currentYear = new Date().getFullYear();
 
   return (

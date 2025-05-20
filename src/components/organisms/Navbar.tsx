@@ -5,13 +5,13 @@ import { useAuthStore } from '../../store/auth/authStore';
 import { ThemeToggle } from '../ThemeToggle';
 import LanguageSelector from '../../features/landing/components/LanguageSelector';
 import Avatar from '../atoms/Avatar';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguageStore } from '../../store';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuthStore();
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
 
   const [menuOpen, setMenuOpen] = React.useState(false);
   const avatarRef = React.useRef<HTMLDivElement>(null);

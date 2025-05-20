@@ -1,11 +1,11 @@
 import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../organisms/Navbar';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguageStore } from '../../store';
 import LoadingIndicator from '../atoms/LoadingIndicator';
 
 const Layout: React.FC = () => {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   const currentYear = new Date().getFullYear();
 
   return (

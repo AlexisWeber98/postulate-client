@@ -1,14 +1,11 @@
 import React from 'react';
 import { AuthFormContainer } from './components/AuthForm.container';
-import { AuthBackgroundProvider } from './components/AuthBackgroundContext';
-import { AuthBackgroundImage } from './components/AuthBackgroundImage.ui';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguageStore } from '../../store';
 
 export const AuthPage: React.FC<{ type: 'login' | 'register' }> = ({ type }) => {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   return (
-    <AuthBackgroundProvider>
-      <AuthBackgroundImage />
+    <div className="flex flex-col md:flex-row w-full min-h-screen">
       <div className="hidden md:flex flex-col justify-center items-start w-1/2 relative z-10 pl-16">
         <div className="flex flex-col items-start w-full">
           <div className="bg-white/40 rounded-lg px-6 py-4 flex items-center gap-3 shadow-lg mb-8">
@@ -37,6 +34,6 @@ export const AuthPage: React.FC<{ type: 'login' | 'register' }> = ({ type }) => 
           </h1>
         )}
       </div>
-    </AuthBackgroundProvider>
+    </div>
   );
 };

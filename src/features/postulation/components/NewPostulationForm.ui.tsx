@@ -2,7 +2,7 @@ import React from 'react';
 import FormField from './FormField.ui';
 import { ApplicationStatus, STATUS_LABELS } from '../../../types/interface/postulations/application-status';
 import { NewPostulationFormProps, NewPostulationFormValues } from '../../../types';
-import { useLanguage } from '../../../context/LanguageContext';
+import { useLanguageStore } from '../../../store';
 import Button from '../../../components/atoms/Button/Button.ui';
 import { Save } from 'lucide-react';
 
@@ -27,7 +27,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   loading,
   error,
 }) => {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   return (
     <form
       onSubmit={onSubmit}

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../../../context/LanguageContext';
+import { useLanguageStore } from '../../../store';
 
 function highlightImportant(text: string) {
   const parts = text.split(/(\[\[.*?\]\])/g);
@@ -18,7 +18,7 @@ function highlightImportant(text: string) {
 }
 
 const HeroSection: React.FC = () => {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   return (
     <section className="relative min-h-[calc(100vh-0px)] flex items-center justify-center pt-24 pb-24 px-4">
       <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-2 md:gap-2 text-center md:text-left relative z-10">

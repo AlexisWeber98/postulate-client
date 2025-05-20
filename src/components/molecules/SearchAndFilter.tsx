@@ -3,7 +3,7 @@ import { Search } from 'lucide-react';
 import FilterSelects from './FilterSelects';
 import { ApplicationStatus } from '../../types/interface/postulations/application-status';
 import { APP_COLORS } from '../../styles/colors';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguageStore } from '../../store';
 
 interface SearchAndFilterProps {
   searchTerm: string;
@@ -30,7 +30,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   companies,
   positions
 }) => {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
 
   // Ensure we have arrays even if they're undefined
   const safeCompanies = Array.isArray(companies) ? companies : [];

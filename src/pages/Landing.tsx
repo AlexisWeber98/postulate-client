@@ -4,7 +4,7 @@ import Footer from '../components/organisms/Footer';
 import { ArrowRight, CheckCircle2, Search, ClipboardList, Briefcase } from 'lucide-react';
 import HeroSectionContainer from '../features/landing/components/HeroSection.container';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguageStore } from '../store';
 import HowItWorksSection from '../features/landing/components/HowItWorksSection.ui';
 import FeaturesSectionContainer from '../features/landing/components/FeaturesSection.container';
 import BenefitsSection from '../features/landing/components/BenefitsSection.ui';
@@ -13,7 +13,7 @@ import { motion } from 'framer-motion';
 import SideNavbar from '../components/organisms/SideNavbar';
 
 const Landing: React.FC = () => {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
 
   const sections = [
     { id: 'hero', label: t('landing.hero.title') },

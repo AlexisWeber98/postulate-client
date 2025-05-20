@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from '../../components/ui/select';
 import { ApplicationStatus } from '../../types/components/atoms/badges/StatusBadge.interface';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguageStore } from '../../store';
 
 interface FilterSelectsProps {
   statusFilter: ApplicationStatus | 'all';
@@ -31,7 +31,7 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
   positionFilter,
   setPositionFilter,
 }) => {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
 
   // Manejador tipado para statusFilter
   const handleStatusChange = (value: string) => {
