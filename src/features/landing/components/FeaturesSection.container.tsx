@@ -2,11 +2,12 @@ import React from "react"
 import ThreeCardFocusCarousel, { FeatureCard } from "../../../shared/components/ThreeCardFocusCarousel"
 import { CheckCircle2, BarChart2, Search } from "lucide-react"
 
-interface FeaturesSectionContainerProps {
-  t: (key: string) => string
+
+interface FeaturesSectionProps {
+  t: (key: string) => string;
 }
 
-const FeaturesSectionContainer: React.FC<FeaturesSectionContainerProps> = ({ t }) => {
+const FeaturesSectionContainer: React.FC<FeaturesSectionProps> = ({ t }) => {
   const features: FeatureCard[] = [
     {
       icon: (

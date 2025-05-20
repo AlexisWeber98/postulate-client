@@ -145,5 +145,7 @@ export const en = {
   'dashboard.newApplication': 'New Application',
   'dashboard.noApplications': 'No applications registered',
   'dashboard.noResults': 'No results found',
-  'dashboard.summary': 'Summary'
+  'dashboard.summary': 'Summary',
+  'dashboard.backToDashboard': 'Back to Dashboard',
+  'dashboard.editApplication': 'Edit Application'
 };

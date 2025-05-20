@@ -3,10 +3,6 @@ import { ArrowRight, ArrowLeft } from 'lucide-react';
 import CardFlip from 'react-card-flip';
 import { motion } from 'framer-motion';
 
-interface TrustSectionProps {
-  t: (key: string) => string;
-}
-
 const trustPoints = [
   {
     title: 'Pensado por buscadores',
@@ -71,6 +67,10 @@ const FlipCard: React.FC<{ title: string; explanation: string; delay?: number }>
     </motion.div>
   );
 };
+
+interface TrustSectionProps {
+  t: (key: string) => string;
+}
 
 const TrustSection: React.FC<TrustSectionProps> = ({ t }) => {
   return (

@@ -146,4 +146,6 @@ export const es = {
   'dashboard.noApplications': 'No hay postulaciones registradas',
   'dashboard.noResults': 'No se encontraron resultados',
   'dashboard.summary': 'Resumen',
+  'dashboard.backToDashboard': 'Volver al Dashboard',
+  'dashboard.editApplication': 'Editar Postulación',
 };
