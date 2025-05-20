@@ -94,13 +94,16 @@ const ApplicationStats: React.FC = () => {
     <div className="mb-6">
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
-          <div key={stat.name} className="bg-white overflow-hidden shadow rounded-lg">
+          <div
+            key={stat.name}
+            className="relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 rounded-3xl shadow-xl p-0 overflow-hidden backdrop-blur-md border border-blue-400/20"
+          >
             <div className="px-4 py-5 sm:p-6">
               <div className="flex items-center">
-                <div className="flex-shrink-0">{stat.icon}</div>
+                <div className="flex-shrink-0 text-white">{stat.icon}</div>
                 <div className="ml-5 w-0 flex-1">
-                  <dt className="text-sm font-medium text-gray-500 truncate">{stat.name}</dt>
-                  <dd className="text-lg font-semibold text-gray-900">{stat.value}</dd>
+                  <dt className="text-sm font-medium text-white/80 truncate">{stat.name}</dt>
+                  <dd className="text-lg font-semibold text-white">{stat.value}</dd>
                 </div>
               </div>
             </div>
@@ -108,8 +111,8 @@ const ApplicationStats: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-6 bg-white shadow rounded-lg p-6">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">{t('dashboard.stats.statusDistribution')}</h3>
+      <div className="mt-6 relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 rounded-3xl shadow-xl p-6 overflow-hidden backdrop-blur-md border border-blue-400/20">
+        <h3 className="text-lg font-medium text-white mb-4">{t('dashboard.stats.statusDistribution')}</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {Object.entries(statusLabels).map(([status, label]) => (
             <div key={status} className="text-center">
@@ -121,8 +124,8 @@ const ApplicationStats: React.FC = () => {
                   status === 'rejected' ? 'bg-red-500' :
                   'bg-green-500'}`}
               />
-              <p className="mt-2 text-sm font-medium text-gray-600">{label}</p>
-              <p className="text-xl font-semibold text-gray-900">{statusCounts[status as PostulationStatus] || 0}</p>
+              <p className="mt-2 text-sm font-medium text-white/80">{label}</p>
+              <p className="text-xl font-semibold text-white">{statusCounts[status as PostulationStatus] || 0}</p>
             </div>
           ))}
         </div>
