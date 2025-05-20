@@ -8,7 +8,15 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "echo 'husky v9 configurado manualmente, sin install'",
+    "validate-rules": "node scripts/validateRules.js"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "npm run validate-rules",
+      "git add"
+    ]
   },
   "dependencies": {
     "@radix-ui/react-select": "^2.2.4",
