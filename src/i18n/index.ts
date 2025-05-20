@@ -2,8 +2,8 @@ import { es } from './translations/es';
 import { en } from './translations/en';
 
 export type Language = 'es' | 'en';
-export type Translations = typeof es;
-export type TranslationKey = keyof Translations;
+export type Translations = Record<string, string>;
+export type TranslationKey = keyof typeof es;
 
 const translations: Record<Language, Translations> = {
   es,
