@@ -1,5 +1,5 @@
 import { ApplicationCardGlassProps } from '../../../../interfaces/components/organisms/ApplicationCard.interface';
-import { STATUS_LABELS } from '../../../../types/interface/postulations/postulation';
+import { STATUS_LABELS, STATUS_COLORS } from '../../../../types/interface/postulations/postulation';
 
 export const ApplicationCardGlass = ({ application, onViewDetail, onEdit }: ApplicationCardGlassProps) => {
   const { company, position, status, date, url, notes, createdAt, updatedAt } = application;
@@ -15,7 +15,7 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit }: Appl
       </div>
       {/* Badge de estado destacado */}
       <div className="absolute top-6 left-6">
-        <span className="bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">{STATUS_LABELS[status]}</span>
+        <span className={`text-xs font-bold px-3 py-1 rounded-full shadow ${STATUS_COLORS[status]}`}>{STATUS_LABELS[status]}</span>
       </div>
       {/* Stats */}
       <div className="flex justify-center gap-2 mt-6 mb-2 px-4">
