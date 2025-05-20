@@ -203,5 +203,5 @@ interface AuthBackgroundState {
 
 export const useAuthBackgroundStore = create<AuthBackgroundState>((set) => ({
   backgroundImage: '/images/auth-background.jpg',
-  setBackgroundImage: (image) => set({ backgroundImage: image })
+  setBackgroundImage: (image) => set({ backgroundImage: image }),
 }));
