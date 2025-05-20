@@ -29,6 +29,17 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
     }
   };
 
+  // Arrays de claves de traducción
+  const afterPoints = ['benefits.after.point1', 'benefits.after.point2', 'benefits.after.point3'] as const;
+  const beforePoints = ['benefits.before.point1', 'benefits.before.point2', 'benefits.before.point3'] as const;
+
+  // Función para obtener el texto traducido
+  const getTranslatedText = (key: string) => {
+    const text = t(key as TranslationKey);
+    console.log(`Traducción para ${key}:`, text); // Debug log
+    return text;
+  };
+
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
@@ -40,7 +51,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-            {t('benefits.title')}
+            {getTranslatedText('benefits.title')}
           </h2>
         </motion.div>
 
@@ -54,31 +65,30 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
           {/* Columna "Con Postulate" a la izquierda */}
           <div className="flex flex-col items-center w-full order-1 lg:order-1">
             <div className="flex flex-col items-center mb-4 z-10">
-              <div className="w-14 h-14 flex items-center justify-center rounded-full bg-green-100 mb-2">
-                <CheckCircle2 className="h-7 w-7 text-green-500" />
+              <div className="w-14 h-14 flex items-center justify-center rounded-full bg-white/20 mb-2">
+                <CheckCircle2 className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-green-600 drop-shadow-lg text-center">
-                {t('benefits.after.title')}
+              <h3 className="text-2xl font-bold text-white drop-shadow-lg text-center">
+                {getTranslatedText('benefits.after.title')}
               </h3>
             </div>
             <motion.div
               variants={itemVariants}
               className="relative group w-full max-w-[400px] min-h-[220px] h-[220px]"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-blue-400 rounded-3xl shadow-lg z-0" />
-              <div className="relative bg-transparent p-8 rounded-3xl shadow-xl flex flex-col justify-center min-h-[220px] h-[220px] z-10">
+              <div className="border border-blue-200 shadow-2xl rounded-3xl bg-gradient-to-r from-blue-600 to-violet-600 text-white p-8 transition-transform hover:-translate-y-1">
                 <ul className="space-y-6 text-white font-roboto">
-                  {['benefits.after.point1', 'benefits.after.point2', 'benefits.after.point3'].map((key, idx) => (
+                  {afterPoints.map((key, idx) => (
                     <motion.li
                       key={key}
                       variants={itemVariants}
                       className="flex items-center gap-3 group/item"
                     >
-                      {idx === 0 && <ClipboardList className="w-5 h-5 text-green-300" />}
-                      {idx === 1 && <Eye className="w-5 h-5 text-green-300" />}
-                      {idx === 2 && <Search className="w-5 h-5 text-green-300" />}
-                      <span className="text-lg leading-relaxed font-roboto text-white drop-shadow-md">
-                        {t(key as TranslationKey).replace(/^[^\p{L}\p{N}]+/u, '')}
+                      {idx === 0 && <ClipboardList className="w-5 h-5 text-white flex-shrink-0" />}
+                      {idx === 1 && <Eye className="w-5 h-5 text-white flex-shrink-0" />}
+                      {idx === 2 && <Search className="w-5 h-5 text-white flex-shrink-0" />}
+                      <span className="text-lg leading-relaxed font-roboto text-white font-medium">
+                        {getTranslatedText(key)}
                       </span>
                     </motion.li>
                   ))}
@@ -90,31 +100,30 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
           {/* Columna "Sin Postulate" a la derecha */}
           <div className="flex flex-col items-center w-full order-2 lg:order-2">
             <div className="flex flex-col items-center mb-4 z-10">
-              <div className="w-14 h-14 flex items-center justify-center rounded-full bg-red-100 mb-2">
-                <XCircle className="h-7 w-7 text-red-500" />
+              <div className="w-14 h-14 flex items-center justify-center rounded-full bg-white/20 mb-2">
+                <XCircle className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-red-600 drop-shadow-lg text-center">
-                {t('benefits.before.title')}
+              <h3 className="text-2xl font-bold text-white drop-shadow-lg text-center">
+                {getTranslatedText('benefits.before.title')}
               </h3>
             </div>
             <motion.div
               variants={itemVariants}
               className="relative group w-full max-w-[400px] min-h-[220px] h-[220px]"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-blue-400 rounded-3xl shadow-lg z-0" />
-              <div className="relative bg-transparent p-8 rounded-3xl shadow-xl flex flex-col justify-center min-h-[220px] h-[220px] z-10">
+              <div className="border border-blue-200 shadow-2xl rounded-3xl bg-gradient-to-r from-blue-600 to-violet-600 text-white p-8 transition-transform hover:-translate-y-1">
                 <ul className="space-y-6 text-white font-roboto">
-                  {['benefits.before.point1', 'benefits.before.point2', 'benefits.before.point3'].map((key, idx) => (
+                  {beforePoints.map((key, idx) => (
                     <motion.li
                       key={key}
                       variants={itemVariants}
                       className="flex items-center gap-3 group/item"
                     >
-                      {idx === 0 && <Paperclip className="w-5 h-5 text-red-300" />}
-                      {idx === 1 && <HelpCircle className="w-5 h-5 text-red-300" />}
-                      {idx === 2 && <Hourglass className="w-5 h-5 text-red-300" />}
-                      <span className="text-lg leading-relaxed font-roboto text-white drop-shadow-md">
-                        {t(key as TranslationKey).replace(/^[^\p{L}\p{N}]+/u, '')}
+                      {idx === 0 && <Paperclip className="w-5 h-5 text-white flex-shrink-0" />}
+                      {idx === 1 && <HelpCircle className="w-5 h-5 text-white flex-shrink-0" />}
+                      {idx === 2 && <Hourglass className="w-5 h-5 text-white flex-shrink-0" />}
+                      <span className="text-lg leading-relaxed font-roboto text-white font-medium">
+                        {getTranslatedText(key)}
                       </span>
                     </motion.li>
                   ))}
