@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../components/ui/select';
-import { ApplicationStatus } from '../../interfaces/components/atoms/badges/StatusBadge.interface';
+import { ApplicationStatus } from '../../types/components/atoms/badges/StatusBadge.interface';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface FilterSelectsProps {

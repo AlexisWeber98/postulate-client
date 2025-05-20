@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios";
-import { AuthState, User, ApiResponse, ApiError } from "../../interfaces/auth/auth.interface";
+import { AuthState, User, ApiResponse, ApiError } from "../../types/auth/auth.interface";
 import { jwtDecode, type JwtPayload } from "jwt-decode";
 import { authApi } from "../../api";
 

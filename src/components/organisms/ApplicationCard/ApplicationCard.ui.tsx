@@ -1,14 +1,16 @@
 import React from 'react';
-import { ApplicationCardProps } from '../../../interfaces';
+import { ApplicationCardProps } from '../../../types/components/organisms/ApplicationCardProps.interface';
 import { Edit, Trash2, Calendar, AlertTriangle } from 'lucide-react';
 import { APP_COLORS } from '../../../styles/colors';
 import Modal from '../../molecules/Modal';
 import Card from '../../molecules/Card';
 import Button from '../../atoms/Button';
 import { StatusHelpers } from '../../../lib/helpers';
+import { Postulation } from '../../../types/interface/postulations/postulation';
 
 // Definimos la interfaz para las props del UI
 interface ApplicationCardUIProps extends ApplicationCardProps {
+  application: Postulation;
   formattedDate: string;
   getInitials: (companyName: string) => string;
   getStatusLabel: (status: string) => string;
@@ -19,7 +21,7 @@ interface ApplicationCardUIProps extends ApplicationCardProps {
   isDeleteModalOpen: boolean;
 }
 
-const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
+export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
   application,
   formattedDate,
   getInitials,
@@ -125,5 +127,3 @@ const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
     </>
   );
 };
-
-export default ApplicationCardUI;

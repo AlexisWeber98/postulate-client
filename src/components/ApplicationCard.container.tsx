@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePostulationsStore } from '../store';
 import { Postulation } from '../types/interface/postulations/postulation';
-import ApplicationCardUI from './organisms/ApplicationCard/ApplicationCard.ui';
+import { ApplicationCardUI } from './organisms/ApplicationCard/ApplicationCard.ui';
 
 interface ApplicationCardProps {
   application: Postulation;
