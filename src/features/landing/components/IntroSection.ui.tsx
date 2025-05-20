@@ -7,22 +7,22 @@ const IntroSection: React.FC<IntroSectionProps> = ({ t }) => {
     {
       icon: <CheckCircle2 className="w-10 h-10 text-white mb-2 drop-shadow-lg" />,
       text: t('landing.intro.card1'),
-      image: 'https://images.unsplash.com/photo-1515168833906-d2a3b82b302b?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80'
     },
     {
       icon: <Search className="w-10 h-10 text-white mb-2 drop-shadow-lg" />,
       text: t('landing.intro.card2'),
-      image: 'https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=800&q=80'
     },
     {
       icon: <ClipboardList className="w-10 h-10 text-white mb-2 drop-shadow-lg" />,
       text: t('landing.intro.card3'),
-      image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80'
     },
     {
       icon: <Briefcase className="w-10 h-10 text-white mb-2 drop-shadow-lg" />,
       text: t('landing.intro.card4'),
-      image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80'
     }
   ];
 
@@ -33,14 +33,15 @@ const IntroSection: React.FC<IntroSectionProps> = ({ t }) => {
           {cards.map((card, index) => (
             <div
               key={index}
-              className="relative w-full h-44 md:h-56 rounded-2xl shadow-lg overflow-hidden flex items-center justify-center"
-              style={{
-                backgroundImage: `url(${card.image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}
+              className="relative w-full h-44 md:h-56 rounded-2xl shadow-lg overflow-hidden flex items-center justify-center group hover:scale-105 transition-transform duration-300"
             >
-              <div className="absolute inset-0 bg-black/30" />
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: `url(${card.image})`,
+                }}
+              />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300" />
               <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-4">
                 {card.icon}
                 <span className="text-2xl md:text-3xl font-extrabold text-white text-center drop-shadow-lg">
