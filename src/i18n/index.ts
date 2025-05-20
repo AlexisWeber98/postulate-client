@@ -3,16 +3,16 @@ import { en } from './translations/en';
 
 export type Language = 'es' | 'en';
 export type Translations = typeof es;
-export type TranslationKey = keyof typeof es;
+export type TranslationKey = keyof Translations;
+
+const translations: Record<Language, Translations> = {
+  es,
+  en,
+};
 
 export type Translation = {
   [K in TranslationKey]: string;
 };
-
-const translations = {
-  es,
-  en,
-} as const;
 
 export const getTranslation = (key: TranslationKey, lang: Language): string => {
   const translation = translations[lang][key];
