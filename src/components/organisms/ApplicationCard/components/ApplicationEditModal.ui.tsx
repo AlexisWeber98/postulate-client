@@ -17,6 +17,7 @@ interface ApplicationEditModalUIProps extends ApplicationCardProps {
   onClose: () => void;
   onSave: (updatedApplication: Postulation) => void;
   onDelete: () => void;
+  isLoading?: boolean;
 }
 
 const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
@@ -25,6 +26,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   onClose,
   onSave,
   onDelete,
+  isLoading = false,
 }) => {
   const [estado, setEstado] = React.useState<PostulationStatus>(application?.status || 'applied');
   const [sentCV, setSentCV] = React.useState<boolean>(!!application?.sentCV);
@@ -167,22 +169,25 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-all"
+              disabled={isLoading}
+              className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-all disabled:opacity-50"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all"
+              disabled={isLoading}
+              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all disabled:opacity-50"
             >
-              Guardar
+              {isLoading ? 'Guardando...' : 'Guardar'}
             </button>
             <button
               type="button"
               onClick={onDelete}
-              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all"
+              disabled={isLoading}
+              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all disabled:opacity-50"
             >
-              Eliminar
+              {isLoading ? 'Eliminando...' : 'Eliminar'}
             </button>
           </div>
         </form>

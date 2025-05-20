@@ -6,6 +6,7 @@ import { Postulation } from '../../../types/interface/postulations/postulation';
 import { motion } from 'framer-motion';
 import { usePostulationsStore } from '../../../store';
 import { postulationsApi } from '../../../api/postulations';
+import { toast } from 'react-hot-toast';
 
 interface ApplicationCardProps {
   application: Postulation;
@@ -14,6 +15,7 @@ interface ApplicationCardProps {
 const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application }) => {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { updatePostulation, deletePostulation } = usePostulationsStore();
 
@@ -22,23 +24,38 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const openEditModal = () => setIsEditModalOpen(true);
   const closeEditModal = () => setIsEditModalOpen(false);
 
-  const handleSave = (updatedApplication: Postulation) => {
-    updatePostulation(updatedApplication.id, updatedApplication);
-    closeEditModal();
+  const handleSave = async (updatedApplication: Postulation) => {
+    setIsLoading(true);
+    try {
+      await postulationsApi.update(updatedApplication.id, updatedApplication);
+      updatePostulation(updatedApplication.id, updatedApplication);
+      toast.success('Postulación actualizada correctamente');
+      closeEditModal();
+    } catch (error) {
+      console.error('Error al actualizar la postulación:', error);
+      toast.error('Error al actualizar la postulación');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleDelete = async () => {
-    console.log('🟥 Botón Eliminar presionado');
+    if (!window.confirm('¿Estás seguro de que deseas eliminar esta postulación?')) {
+      return;
+    }
+
+    setIsLoading(true);
     try {
-      console.log('📤 Enviando request DELETE a API con ID:', application.id);
       await postulationsApi.delete(application.id);
-      console.log('✅ Eliminado del servidor exitosamente');
       deletePostulation(application.id);
-      console.log('🗑️ Eliminado del store');
+      toast.success('Postulación eliminada correctamente');
       closeEditModal();
-      console.log('❎ Modal cerrado');
-    } catch (err) {
-      console.error('❌ Error al eliminar la postulación 😓', err);
+      closeDetailModal();
+    } catch (error) {
+      console.error('Error al eliminar la postulación:', error);
+      toast.error('Error al eliminar la postulación');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -66,6 +83,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
         onClose={closeEditModal}
         onSave={handleSave}
         onDelete={handleDelete}
+        isLoading={isLoading}
       />
     </>
   );

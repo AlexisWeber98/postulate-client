@@ -1,9 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios";
-import { AuthState } from "../../interfaces/auth/auth.interface";
+import { AuthState, User, ApiResponse, ApiError } from "../../interfaces/auth/auth.interface";
 import { jwtDecode, type JwtPayload } from "jwt-decode";
-import { User } from "../../interfaces/auth/auth.interface";
 import { authApi } from "../../api";
 
 const isTokenExpired = (token: string): boolean => {
@@ -56,14 +55,13 @@ export const useAuthStore = create<AuthState>()(
 
         try {
           const response = await authApi.login({ email, password });
-
-          console.log("Respuesta de inicio de sesión:", response);
-          const token = response.data.result;
+          const token = (response as unknown as ApiResponse<string>).data.result;
           const decoded = jwtDecode<JwtPayload & User>(token);
 
           set({
             token: token,
             loading: false,
+            isAuthenticated: true,
             user: {
               id: decoded.id,
               name: decoded.name,
@@ -72,16 +70,17 @@ export const useAuthStore = create<AuthState>()(
               email: decoded.email,
             },
           });
-        } catch (error: any) {
+        } catch (error) {
           set({ loading: false });
           console.error("Error en signIn:", error);
-          if (error.response?.status === 401) {
+          const apiError = error as ApiError;
+          if (apiError.response?.status === 401) {
             throw new Error(
-              error.response.data.message || "Credenciales incorrectas"
+              apiError.response.data.message || "Credenciales incorrectas"
             );
           }
           throw new Error(
-            error.response?.data?.message || "Error en la autenticación"
+            apiError.response?.data?.message || "Error en la autenticación"
           );
         }
       },
@@ -103,23 +102,25 @@ export const useAuthStore = create<AuthState>()(
             lastName,
             password,
           });
+          const data = (response as unknown as ApiResponse<User & { token: string }>).data;
 
-          const data = response.data;
           set({
             user: data.result,
             loading: false,
-            token: data.result.token
+            token: data.result.token,
+            isAuthenticated: true
           });
-        } catch (error: any) {
+        } catch (error) {
           set({ loading: false });
           console.error("Error en signUp:", error);
-          if (error.response?.status === 409) {
+          const apiError = error as ApiError;
+          if (apiError.response?.status === 409) {
             throw new Error(
-              error.response.data.message || "El usuario ya existe"
+              apiError.response.data.message || "El usuario ya existe"
             );
           }
           throw new Error(
-            error.response?.data?.message || "Error en el registro"
+            apiError.response?.data?.message || "Error en el registro"
           );
         }
       },

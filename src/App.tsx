@@ -12,6 +12,7 @@ import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthLayout } from './features/auth/AuthLayout';
 import LoadingSpinner from './components/atoms/LoadingSpinner';
+import { Toaster } from 'react-hot-toast';
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading } = useAuthStore();
@@ -44,6 +45,7 @@ const App: React.FC = () => {
     <ThemeProvider>
       <LanguageProvider>
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+          <Toaster position="top-right" />
           <Router>
             <Routes>
               <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />

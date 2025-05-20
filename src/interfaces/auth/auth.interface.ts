@@ -10,6 +10,12 @@ export interface UserWithPassword extends User {
   password: string;
 }
 
+export interface ApiResponse<T> {
+  data: {
+    result: T;
+  };
+}
+
 export interface AuthState {
   user: User | null;
   loading: boolean;
@@ -36,6 +42,11 @@ export interface RegisterRequest {
   lastName: string;
 }
 
-export interface UserWithPassword extends User {
-  password: string;
+export interface ApiError {
+  response?: {
+    status: number;
+    data: {
+      message: string;
+    };
+  };
 }
