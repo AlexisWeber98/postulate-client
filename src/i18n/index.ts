@@ -3,7 +3,11 @@ import { en } from './translations/en';
 
 export type Language = 'es' | 'en';
 export type Translations = typeof es;
-export type TranslationKey = keyof Translations;
+export type TranslationKey = keyof typeof es;
+
+export type Translation = {
+  [K in TranslationKey]: string;
+};
 
 const translations = {
   es,

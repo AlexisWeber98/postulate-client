@@ -85,5 +85,54 @@ export const es = {
   'footer.email': 'contacto@postulate.com',
   'footer.phone': '+54 1234 567890',
   'footer.rights': 'Todos los derechos reservados.',
-  'footer.copyright': '© {year} Postulate. Todos los derechos reservados.'
+  'footer.copyright': '© {year} Postulate. Todos los derechos reservados.',
+
+  landing: {
+    hero: {
+      title: 'Postulate',
+      subtitle: 'Gestiona tus postulaciones de trabajo',
+    },
+    intro: {
+      title: 'Introducción',
+      card1: 'Seguimiento de Postulaciones',
+      card2: 'Búsqueda Eficiente',
+      card3: 'Gestión de Documentos',
+      card4: 'Oportunidades Laborales',
+    },
+    howItWorks: {
+      title: 'Cómo Funciona',
+    },
+    features: {
+      title: 'Características',
+    },
+    benefits: {
+      title: 'Beneficios',
+    },
+    trust: {
+      title: 'Confían en Nosotros',
+    },
+    cta: {
+      title: 'Comienza Ahora',
+      description: 'Únete a nuestra plataforma y optimiza tu búsqueda de trabajo',
+      button: 'Regístrate Gratis',
+    },
+  },
+
+  'landing.hero.title': 'Postulate',
+  'landing.hero.subtitle': 'Gestiona tus postulaciones de trabajo',
+  'landing.intro.title': 'Introducción',
+  'landing.intro.card1': 'Seguimiento de Postulaciones',
+  'landing.intro.card2': 'Búsqueda Eficiente',
+  'landing.intro.card3': 'Gestión de Documentos',
+  'landing.intro.card4': 'Oportunidades Laborales',
+  'landing.howItWorks.title': 'Cómo Funciona',
+  'landing.features.title': 'Características',
+  'landing.benefits.title': 'Beneficios',
+  'landing.trust.title': 'Confían en Nosotros',
+  'landing.cta.title': 'Comienza Ahora',
+  'landing.cta.description': 'Únete a nuestra plataforma y optimiza tu búsqueda de trabajo',
+  'landing.cta.button': 'Regístrate Gratis',
+
+  'successMessage': '¡Postulación creada exitosamente!',
+  'errorMessage': 'Ocurrió un error al guardar la postulación.',
 };
