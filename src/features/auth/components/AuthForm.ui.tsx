@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Save, ArrowLeft, Info, Loader2, CheckCircle2, XCircle } from 'lucide-react';
+import { Save, ArrowLeft, Loader2 } from 'lucide-react';
 import { useLanguageStore } from '../../../store';
 import Button from '../../../components/atoms/Button/Button.ui';
-import { isValidEmail, hasContent } from '../../../lib/helpers/validation.helpers';
+import { FieldWrapper } from './FieldWrapper';
+import { useAuthForm } from '../hooks/useAuthForm';
 
 interface AuthFormProps {
   type: 'login' | 'register';
@@ -13,163 +14,21 @@ interface AuthFormProps {
   error?: string;
 }
 
-export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [userName, setUserName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [fieldStatus, setFieldStatus] = useState<Record<string, { isValid: boolean; message?: string }>>({});
-  const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({});
+export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, error }) => {
   const { t } = useLanguageStore();
-
-  // Validación en tiempo real
-  useEffect(() => {
-    if (!isValidEmail(email)) {
-      setFieldStatus(prev => ({
-        ...prev,
-        email: {
-          isValid: false,
-          message: 'El email no es válido'
-        }
-      }));
-    } else {
-      setFieldStatus(prev => ({
-        ...prev,
-        email: { isValid: true }
-      }));
-    }
-
-    if (password.length < 6) {
-      setFieldStatus(prev => ({
-        ...prev,
-        password: {
-          isValid: false,
-          message: 'La contraseña debe tener al menos 6 caracteres'
-        }
-      }));
-    } else {
-      setFieldStatus(prev => ({
-        ...prev,
-        password: { isValid: true }
-      }));
-    }
-
-    if (type === 'register') {
-      if (!hasContent(name)) {
-        setFieldStatus(prev => ({
-          ...prev,
-          name: {
-            isValid: false,
-            message: 'El nombre es obligatorio'
-          }
-        }));
-      } else {
-        setFieldStatus(prev => ({
-          ...prev,
-          name: { isValid: true }
-        }));
-      }
-
-      if (!hasContent(userName)) {
-        setFieldStatus(prev => ({
-          ...prev,
-          userName: {
-            isValid: false,
-            message: 'El nombre de usuario es obligatorio'
-          }
-        }));
-      } else {
-        setFieldStatus(prev => ({
-          ...prev,
-          userName: { isValid: true }
-        }));
-      }
-
-      if (!hasContent(lastName)) {
-        setFieldStatus(prev => ({
-          ...prev,
-          lastName: {
-            isValid: false,
-            message: 'El apellido es obligatorio'
-          }
-        }));
-      } else {
-        setFieldStatus(prev => ({
-          ...prev,
-          lastName: { isValid: true }
-        }));
-      }
-    }
-  }, [email, password, name, userName, lastName, type]);
-
-  const handleFieldBlur = (name: string) => {
-    setIsBlurred(prev => ({ ...prev, [name]: true }));
-  };
+  const {
+    formData,
+    fieldStatus,
+    isBlurred,
+    handleFieldChange,
+    handleFieldBlur,
+    isFormValid
+  } = useAuthForm(type);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (type === 'register') {
-      onSubmit({ email, password, name, userName, lastName });
-    } else {
-      onSubmit({ email, password });
-    }
+    onSubmit(formData);
   };
-
-  const FieldWrapper: React.FC<{
-    name: string;
-    label: string;
-    required?: boolean;
-    children: React.ReactNode;
-    tooltip?: string;
-  }> = ({ name, label, required, children, tooltip }) => (
-    <div className="relative">
-      <label htmlFor={name} className="block text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
-        {label} {required && <span className="text-red-500">*</span>}
-        {tooltip && (
-          <div className="group relative">
-            <Info className="h-4 w-4 text-blue-500 dark:text-blue-400 cursor-help" />
-            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-48 shadow-lg border border-gray-200 dark:border-gray-700 z-10">
-              {tooltip}
-            </div>
-          </div>
-        )}
-      </label>
-      <div className="relative">
-        {children}
-        <AnimatePresence mode="wait">
-          {isBlurred[name] && fieldStatus[name] && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.2 }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
-            >
-              {fieldStatus[name].isValid ? (
-                <CheckCircle2 className="h-5 w-5 text-green-500" />
-              ) : (
-                <XCircle className="h-5 w-5 text-red-500" />
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-      <AnimatePresence mode="wait">
-        {isBlurred[name] && fieldStatus[name]?.message && (
-          <motion.p
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="mt-2 text-sm text-red-500 dark:text-red-400 overflow-hidden"
-          >
-            {fieldStatus[name].message}
-          </motion.p>
-        )}
-      </AnimatePresence>
-    </div>
-  );
 
   return (
     <motion.div
@@ -199,12 +58,15 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
           label={t('auth.email')}
           required
           tooltip="Ingresa tu correo electrónico"
+          isValid={fieldStatus.email?.isValid}
+          isBlurred={isBlurred.email}
+          errorMessage={fieldStatus.email?.message}
         >
           <input
             type="email"
             id="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={e => handleFieldChange('email', e.target.value)}
             onBlur={() => handleFieldBlur('email')}
             className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.email?.isValid && isBlurred.email ? 'ring-2 ring-red-400' : ''}`}
             placeholder="tu@email.com"
@@ -219,12 +81,15 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
               label={t('auth.name')}
               required
               tooltip="Ingresa tu nombre completo"
+              isValid={fieldStatus.name?.isValid}
+              isBlurred={isBlurred.name}
+              errorMessage={fieldStatus.name?.message}
             >
               <input
                 type="text"
                 id="name"
-                value={name}
-                onChange={e => setName(e.target.value)}
+                value={formData.name}
+                onChange={e => handleFieldChange('name', e.target.value)}
                 onBlur={() => handleFieldBlur('name')}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.name?.isValid && isBlurred.name ? 'ring-2 ring-red-400' : ''}`}
                 placeholder="Tu nombre"
@@ -237,12 +102,15 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
               label={t('auth.userName')}
               required
               tooltip="Ingresa tu nombre de usuario"
+              isValid={fieldStatus.userName?.isValid}
+              isBlurred={isBlurred.userName}
+              errorMessage={fieldStatus.userName?.message}
             >
               <input
                 type="text"
                 id="userName"
-                value={userName}
-                onChange={e => setUserName(e.target.value)}
+                value={formData.userName}
+                onChange={e => handleFieldChange('userName', e.target.value)}
                 onBlur={() => handleFieldBlur('userName')}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.userName?.isValid && isBlurred.userName ? 'ring-2 ring-red-400' : ''}`}
                 placeholder="Tu nombre de usuario"
@@ -255,12 +123,15 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
               label={t('auth.lastName')}
               required
               tooltip="Ingresa tu apellido"
+              isValid={fieldStatus.lastName?.isValid}
+              isBlurred={isBlurred.lastName}
+              errorMessage={fieldStatus.lastName?.message}
             >
               <input
                 type="text"
                 id="lastName"
-                value={lastName}
-                onChange={e => setLastName(e.target.value)}
+                value={formData.lastName}
+                onChange={e => handleFieldChange('lastName', e.target.value)}
                 onBlur={() => handleFieldBlur('lastName')}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.lastName?.isValid && isBlurred.lastName ? 'ring-2 ring-red-400' : ''}`}
                 placeholder="Tu apellido"
@@ -275,12 +146,15 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
           label={t('auth.password')}
           required
           tooltip="Ingresa tu contraseña (mínimo 6 caracteres)"
+          isValid={fieldStatus.password?.isValid}
+          isBlurred={isBlurred.password}
+          errorMessage={fieldStatus.password?.message}
         >
           <input
             type="password"
             id="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={e => handleFieldChange('password', e.target.value)}
             onBlur={() => handleFieldBlur('password')}
             className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.password?.isValid && isBlurred.password ? 'ring-2 ring-red-400' : ''}`}
             placeholder="Tu contraseña"
@@ -298,7 +172,7 @@ export const AuthForm = ({ type, onSubmit, isLoading, error }: AuthFormProps) =>
             type="submit"
             variant="primary"
             size="lg"
-            disabled={isLoading || Object.values(fieldStatus).some(f => !f.isValid)}
+            disabled={isLoading || !isFormValid()}
             className="w-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             icon={isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
           >

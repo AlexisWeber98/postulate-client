@@ -58,7 +58,7 @@ export const es = {
   'dashboard.stats.status.rejected': 'Rechazado',
   'dashboard.stats.status.accepted': 'Aceptado',
 
-  'dashboard.actions.view': 'Ver Detalles',
+  'dashboard.actions.view': 'Ver',
   'dashboard.actions.edit': 'Editar',
   'dashboard.actions.delete': 'Eliminar',
   'dashboard.actions.save': 'Guardar',
@@ -88,6 +88,15 @@ export const es = {
   'recruiterContact.helper': 'Ejemplo: email@empresa.com o +54 1234 567890',
   'recruiterContact.placeholder': 'Ejemplo: email@empresa.com o +54 1234 567890',
   'dashboard.loading': 'Cargando...',
+
+  'dashboard.date': 'Fecha',
+  'dashboard.position': 'Posición',
+  'dashboard.company': 'Empresa',
+  'dashboard.sentCV': 'CV Enviado',
+  'dashboard.sentEmail': 'Email Enviado',
+  'dashboard.notes.none': 'Sin notas',
+  'dashboard.created': 'Creado',
+  'dashboard.updated': 'Actualizado',
 
   // Footer
   'footer.description': 'La plataforma que te ayuda a gestionar y optimizar tu búsqueda de trabajo.',
