@@ -78,7 +78,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
                       {idx === 1 && <Eye className="w-5 h-5 text-green-300" />}
                       {idx === 2 && <Search className="w-5 h-5 text-green-300" />}
                       <span className="text-lg leading-relaxed font-roboto text-white drop-shadow-md">
-                        {t(key).replace(/^[^\p{L}\p{N}]+/u, '')}
+                        {t(key as TranslationKey).replace(/^[^\p{L}\p{N}]+/u, '')}
                       </span>
                     </motion.li>
                   ))}
@@ -114,7 +114,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
                       {idx === 1 && <HelpCircle className="w-5 h-5 text-red-300" />}
                       {idx === 2 && <Hourglass className="w-5 h-5 text-red-300" />}
                       <span className="text-lg leading-relaxed font-roboto text-white drop-shadow-md">
-                        {t(key).replace(/^[^\p{L}\p{N}]+/u, '')}
+                        {t(key as TranslationKey).replace(/^[^\p{L}\p{N}]+/u, '')}
                       </span>
                     </motion.li>
                   ))}

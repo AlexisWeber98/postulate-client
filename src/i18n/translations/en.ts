@@ -159,5 +159,14 @@ export const en = {
   'card3.title': 'Efficient Search',
   'card3.desc': 'Quickly find the applications you need',
   'features.title': 'Features',
-  'features.altTitle': 'Why choose Postulate?',
-};
+  'features.altTitle': 'Features',
+  'benefits.title': 'Why use Postulate?',
+  'benefits.after.title': 'With Postulate',
+  'benefits.after.point1': 'Organize all your applications in one place',
+  'benefits.after.point2': 'Track the status of each selection process',
+  'benefits.after.point3': 'Quickly find the information you need',
+  'benefits.before.title': 'Without Postulate',
+  'benefits.before.point1': 'Applications lost across different platforms',
+  'benefits.before.point2': 'No tracking of your application status',
+  'benefits.before.point3': 'Time wasted searching for information'
+} as const;

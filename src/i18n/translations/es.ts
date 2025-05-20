@@ -160,4 +160,13 @@ export const es = {
   'card3.desc': 'Encuentra rápidamente las postulaciones que necesitas',
   'features.title': 'Características',
   'features.altTitle': '¿Por qué elegir Postulate?',
-};
+  'benefits.title': '¿Por qué usar Postulate?',
+  'benefits.after.title': 'Con Postulate',
+  'benefits.after.point1': 'Organiza todas tus postulaciones en un solo lugar',
+  'benefits.after.point2': 'Sigue el estado de cada proceso de selección',
+  'benefits.after.point3': 'Encuentra rápidamente la información que necesitas',
+  'benefits.before.title': 'Sin Postulate',
+  'benefits.before.point1': 'Postulaciones perdidas en diferentes plataformas',
+  'benefits.before.point2': 'Sin seguimiento del estado de tus aplicaciones',
+  'benefits.before.point3': 'Tiempo perdido buscando información'
+} as const;
