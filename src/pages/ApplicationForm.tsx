@@ -144,7 +144,7 @@ const ApplicationForm: React.FC = () => {
         </h1>
         <form
           onSubmit={handleSubmit}
-          className="relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 border border-blue-400/20 rounded-3xl shadow-2xl p-8 mb-8"
+          className="relative  m-4 "
         >
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
@@ -287,14 +287,14 @@ const ApplicationForm: React.FC = () => {
           </div>
           <div className="flex justify-end mt-6">
             <Button
-              type="submit"
-              variant="primary"
-              size="lg"
-              className="w-full mt-2"
-              icon={<Save className="h-5 w-5" />}
-            >
-              {id ? t('dashboard.editApplication') : t('hero.cta.button')}
-            </Button>
+  type="submit"
+  variant="primary"
+  size="lg"
+  className="w-full mt-2 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0"
+  icon={<Save className="h-5 w-5" />}
+>
+  {id ? t('dashboard.editApplication') : t('hero.cta.button')}
+</Button>
           </div>
         </form>
       </div>
