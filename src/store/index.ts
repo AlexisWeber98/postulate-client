@@ -18,11 +18,14 @@ export { useLanguageStore } from './language/languageStore';
 // Exportar grupos con alias para mayor claridad en importaciones
 import * as AuthStore from './auth/authStore';
 import * as PostulationsStore from './postulations/postulationsStore';
-
+import * as LanguageStore from './language/languageStore';
+import * as ThemeStore from './theme/themeStore';
 // Exportar los grupos completos
 export {
   AuthStore,
-  PostulationsStore
+  PostulationsStore,
+  LanguageStore,
+  ThemeStore,
 };
 
 // You can also export types if needed here
@@ -30,3 +33,5 @@ export {
 export * from './postulations/postulationsStore';
 export * from './auth/authStore';
 export * from './language/languageStore';
+export * from './theme/themeStore';
+
