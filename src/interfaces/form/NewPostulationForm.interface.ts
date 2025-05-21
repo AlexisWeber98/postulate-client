@@ -26,7 +26,7 @@ export interface NewPostulationFormValues {
 
 export interface NewPostulationFormProps {
   initialValues?: Partial<NewPostulationFormValues>;
-  onSubmit: (values: NewPostulationFormValues) => void;
+  onSubmit: (values: NewPostulationFormValues) => void | Promise<void>;
   loading?: boolean;
-  error?: string;
+  error?: string | Error;
 }
