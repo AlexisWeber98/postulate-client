@@ -1,10 +1,10 @@
 import { AuthPage } from '../features/auth/AuthPage';
 import AuthBackground from '../features/auth/components/AuthBackground';
+import { AUTH_IMAGES } from '../constants/images';
 
 export default function Register() {
-  const imagePath = "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2029&auto=format&fit=crop";
   return (
-    <AuthBackground imagePath={imagePath}>
+    <AuthBackground imagePath={AUTH_IMAGES.REGISTER}>
       <AuthPage type="register" />
     </AuthBackground>
   );

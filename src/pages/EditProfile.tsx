@@ -115,7 +115,7 @@ const EditProfile: React.FC = () => {
           className="text-4xl font-extrabold text-gray-900 dark:text-white text-center mb-12 drop-shadow-lg"
         >
           Editar Perfil
-        </motion.h1>
+        </motion.p>
 
         <motion.form
           initial={{ opacity: 0 }}

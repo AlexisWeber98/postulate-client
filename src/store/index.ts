@@ -30,8 +30,9 @@ export {
 
 // You can also export types if needed here
 
-export * from './postulations/postulationsStore';
-export * from './auth/authStore';
-export * from './language/languageStore';
-export * from './theme/themeStore';
+// Re-export specific types and constants
+export type { Postulation, PostulationState } from '../types/interface/postulations/postulation';
+export type { AuthState } from '../types/auth/auth.interface';
+export type { LanguageState } from '../types/interface/language/language.interface';
+export type { ThemeState } from './theme/themeStore';
 

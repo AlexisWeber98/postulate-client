@@ -6,9 +6,13 @@ import { jwtDecode, type JwtPayload } from "jwt-decode";
 import { authApi } from "../../api";
 
 const isTokenExpired = (token: string): boolean => {
-  const decoded = jwtDecode<JwtPayload>(token);
-  return (decoded.exp ?? 0) * 1000 < Date.now();
-};
+  try {
+    const decoded = jwtDecode<JwtPayload>(token);
+    return (decoded.exp ?? 0) * 1000 < Date.now();
+  } catch {
+    return true; // treat undecodable token as expired/invalid
+  }
+ };
 
 export const useAuthStore = create<AuthState>()(
   persist(
@@ -183,7 +187,7 @@ axios.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().token;
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.set('Authorization', `Bearer ${token}`);
     }
     return config;
   },
@@ -198,7 +202,8 @@ axios.interceptors.response.use(
     if (error.response?.status === 401) {
       const authStore = useAuthStore.getState();
       authStore.signOut();
-      window.location.href = "/login";
+      // Emitir un evento personalizado para la redirección
+      window.dispatchEvent(new CustomEvent('auth:unauthorized'));
     }
     return Promise.reject(error);
   },
