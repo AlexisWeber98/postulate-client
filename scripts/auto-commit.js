@@ -13,6 +13,7 @@ const messages = {
     commitSuccess: '✅ Commit completed successfully',
     commitCancelled: '❌ Commit cancelled. Please select files manually and try again.',
     error: '❌ Error performing commit',
+    noChanges: 'No changes to commit',
   },
   es: {
     update: 'actualización de código',
@@ -25,6 +26,7 @@ const messages = {
     commitCancelled:
       '❌ Commit cancelado. Por favor, selecciona los archivos manualmente e intenta nuevamente.',
     error: '❌ Error al realizar el commit',
+    noChanges: 'No hay cambios para commitear',
   },
 };
 
@@ -37,6 +39,12 @@ const getLanguage = () => {
 try {
   // Obtener los cambios pendientes
   const status = execSync('git status --porcelain', { encoding: 'utf-8' });
+
+  // Verificar si hay cambios para commitear
+  if (!status.trim()) {
+    console.log(getLanguage().noChanges);
+    process.exit(0);
+  }
 
   // Determinar qué archivos incluir basado en los argumentos
   const patterns = process.argv.slice(2);
@@ -156,19 +164,22 @@ try {
       };
 
       const commitType = getCommitType(changes);
-      const commitMessage = `${commitType}(update): actualización de código\n\nDescripción: Actualización automática de archivos\n\nCambios realizados:\n${changes}`;
+      const commitMessage = `${commitType}(update): ${lang.update}\n\n${lang.description}: ${lang.automatic}\n\n${lang.changes}:\n${changes}`;
+      // Check if there are any changes to commit
+      if (!status.trim()) {
+        console.log('✅ No changes to commit');
+        process.exit(0);
+      }
 
       execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
 
       console.log('✅ Commit realizado automáticamente');
     } else {
-      console.log(
-        '❌ Commit cancelado. Por favor, selecciona los archivos manualmente e intenta nuevamente.'
-      );
+      console.log(lang.commitCancelled);
     }
     rl.close();
   });
 } catch (error) {
-  console.error('❌ Error al realizar el commit:', error.message);
+  console.error(lang.error + ':', error.message);
   process.exit(1);
 }
