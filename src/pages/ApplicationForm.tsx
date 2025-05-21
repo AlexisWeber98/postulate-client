@@ -218,6 +218,21 @@ const ApplicationForm: React.FC = () => {
     }
   };
 
+  const resetForm = () => {
+    setCompany("");
+    setPosition("");
+    setStatus("applied");
+    setDate(DateHelpers.getCurrentDateISO());
+    setUrl("");
+    setNotes("");
+    setRecruiterContact("");
+    setSendCv(true);
+    setSendEmail(true);
+    setErrors({});
+    setFieldStatus({});
+    setIsBlurred({});
+  };
+
   const handleContinueAnyway = () => {
     setShowDuplicateModal(false);
 
@@ -436,18 +451,22 @@ const ApplicationForm: React.FC = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="flex justify-end mt-8"
+            className="flex justify-end gap-4 mt-8"
           >
-            <Button
-              type="submit"
-              variant="primary"
-              size="lg"
-              disabled={isSubmitting || Object.values(fieldStatus).some(f => !f.isValid)}
-              className="w-full md:w-auto px-8 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-              icon={isSubmitting ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
+            <button
+              type="button"
+              onClick={resetForm}
+              className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl text-gray-700 dark:text-gray-200 font-semibold text-base border-0 transition-all duration-200"
             >
-              {isSubmitting ? 'Guardando...' : (id ? t('dashboard.editApplication') : t('hero.cta.button'))}
-            </Button>
+              {t('common.reset')}
+            </button>
+            <button
+              type="submit"
+              disabled={isSubmitting || Object.values(fieldStatus).some(f => !f.isValid)}
+              className="px-8 py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? t('dashboard.actions.save') : (id ? t('dashboard.editApplication') : t('hero.cta.button'))}
+            </button>
           </motion.div>
         </motion.form>
       </div>

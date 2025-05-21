@@ -148,16 +148,27 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
       {error && (
         <div className="text-red-400 bg-red-900/30 rounded-lg px-4 py-2 text-center mb-4">{error}</div>
       )}
-      <Button
-        type="submit"
-        variant="primary"
-        size="lg"
-        className="w-full mt-2"
-        disabled={loading}
-        icon={<Save className="w-5 h-5" />}
-      >
-        {loading ? t('dashboard.loading') : t('hero.cta.button')}
-      </Button>
+      <div className="flex gap-4 justify-end">
+        <Button
+          type="button"
+          variant="secondary"
+          size="lg"
+          onClick={onReset}
+          className="w-full mt-2"
+        >
+          {t('common.reset')}
+        </Button>
+        <Button
+          type="submit"
+          variant="primary"
+          size="lg"
+          className="w-full mt-2"
+          disabled={loading}
+          icon={<Save className="w-5 h-5" />}
+        >
+          {loading ? t('dashboard.loading') : t('hero.cta.button')}
+        </Button>
+      </div>
     </form>
   );
 };

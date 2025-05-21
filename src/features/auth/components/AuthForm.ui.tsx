@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Save, ArrowLeft, Loader2, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { useLanguageStore } from '../../../store';
-import Button from '../../../components/atoms/Button/Button.ui';
 import { FieldWrapper } from './FieldWrapper';
 import { useAuthForm } from '../hooks/useAuthForm';
 import { TranslationKey } from '../../../i18n';
@@ -24,7 +23,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
     isBlurred,
     handleFieldChange,
     handleFieldBlur,
-    isFormValid
+    isFormValid,
+    resetForm
   } = useAuthForm(type);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -171,16 +171,22 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
           transition={{ delay: 0.3 }}
           className="flex flex-col gap-4"
         >
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            disabled={isLoading || !isFormValid}
-            className="w-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-            icon={isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
-          >
-            {isLoading ? 'Procesando...' : (type === 'login' ? t('auth.continue') : t('auth.register'))}
-          </Button>
+          <div className="flex justify-end gap-4 mt-4">
+            <button
+              type="button"
+              onClick={resetForm}
+              className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl text-gray-700 dark:text-gray-200 font-semibold text-base border-0 transition-all duration-200"
+            >
+              {t('common.reset')}
+            </button>
+            <button
+              type="submit"
+              disabled={!isFormValid || isLoading}
+              className="px-8 py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? t('common.loading') : (type === 'login' ? t('auth.login') : t('auth.register'))}
+            </button>
+          </div>
 
           <div className="text-center text-gray-600 dark:text-gray-300 mt-2">
             {type === 'login'
