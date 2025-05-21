@@ -13,7 +13,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 // Mock del store
-jest.mock('../../../store', () => ({
+jest.mock('../../store', () => ({
   usePostulationsStore: jest.fn(),
 }));
 
@@ -134,6 +134,8 @@ describe('useApplicationForm', () => {
     act(() => {
       result.current.handleFieldChange('company', 'Empresa Duplicada');
       result.current.handleFieldChange('position', 'Puesto Duplicado');
+      result.current.setStatus('applied' as PostulationStatus);
+      result.current.setDate('2024-03-20');
     });
 
     // Simular envío del formulario
@@ -158,5 +160,54 @@ describe('useApplicationForm', () => {
 
     // Verificar que se muestra el modal de duplicado
     expect(result.current.showDuplicateModal).toBe(true);
+  });
+
+  it('debería validar los campos requeridos', async () => {
+    const { result } = renderHook(() => useApplicationForm());
+
+    // Simular envío del formulario sin datos
+    await act(async () => {
+      await result.current.handleSubmit({
+        preventDefault: jest.fn(),
+        nativeEvent: new Event('submit'),
+        currentTarget: document.createElement('form'),
+        target: document.createElement('form'),
+        bubbles: true,
+        cancelable: true,
+        defaultPrevented: false,
+        eventPhase: 0,
+        isTrusted: true,
+        timeStamp: Date.now(),
+        type: 'submit',
+      } as unknown as React.FormEvent);
+    });
+
+    // Verificar que no se llamó a addPostulation
+    expect(mockAddPostulation).not.toHaveBeenCalled();
+
+    // Verificar que hay errores de validación
+    expect(result.current.errors).toHaveProperty('company');
+    expect(result.current.errors).toHaveProperty('position');
+  });
+
+  it('debería resetear el formulario correctamente', () => {
+    const { result } = renderHook(() => useApplicationForm());
+
+    // Configurar el estado del formulario
+    act(() => {
+      result.current.handleFieldChange('company', 'Empresa Test');
+      result.current.handleFieldChange('position', 'Desarrollador');
+      result.current.setStatus('interview' as PostulationStatus);
+    });
+
+    // Resetear el formulario
+    act(() => {
+      result.current.resetForm();
+    });
+
+    // Verificar que los campos se resetean
+    expect(result.current.formData.company).toBe('');
+    expect(result.current.formData.position).toBe('');
+    expect(result.current.formData.status).toBe('applied');
   });
 });

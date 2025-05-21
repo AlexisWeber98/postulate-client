@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, XCircle, Info } from "lucide-react";
 import { PostulationStatus, STATUS_LABELS } from "../../../types";
-import { useLanguageStore } from "../../../store/language/languageStore";
 
 interface ApplicationFormFieldsProps {
   formData: {
@@ -19,6 +18,7 @@ interface ApplicationFormFieldsProps {
   isBlurred: Record<string, boolean>;
   onFieldChange: (name: string, value: string | boolean) => void;
   onFieldBlur: (name: string, value: string) => void;
+  t: (key: string) => string;
 }
 
 const FieldWrapper: React.FC<{
@@ -30,8 +30,6 @@ const FieldWrapper: React.FC<{
   isBlurred: boolean;
   fieldStatus?: { isValid: boolean; message?: string };
 }> = ({ name, label, required, children, tooltip, isBlurred, fieldStatus }) => {
-  const { t } = useLanguageStore();
-
   return (
     <div className="relative">
       <label htmlFor={name} className="text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
@@ -42,7 +40,7 @@ const FieldWrapper: React.FC<{
             <button
               type="button"
               className="sr-only focus:not-sr-only focus:absolute focus:z-10"
-              aria-label={t('tooltip.showInfo')}
+              aria-label="Show Info"
               onFocus={() => {
                 const tooltip = document.querySelector(`[role="tooltip"]`);
                 if (tooltip) tooltip.classList.add('opacity-100');
@@ -52,7 +50,7 @@ const FieldWrapper: React.FC<{
                 if (tooltip) tooltip.classList.remove('opacity-100');
               }}
             >
-              {t('tooltip.showInfo')}
+              Show Info
             </button>
             <div
               role="tooltip"
@@ -106,10 +104,9 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
   fieldStatus,
   isBlurred,
   onFieldChange,
-  onFieldBlur
+  onFieldBlur,
+  t
 }) => {
-  const { t } = useLanguageStore();
-
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
       <FieldWrapper

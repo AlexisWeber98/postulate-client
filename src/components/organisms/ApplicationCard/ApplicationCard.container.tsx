@@ -10,6 +10,10 @@ import { toast } from 'react-hot-toast';
 import { isAxiosError } from 'axios';
 import { useLanguageStore } from '../../../store/language/languageStore';
 
+interface ErrorResponse {
+  message: string;
+}
+
 interface ApplicationCardProps {
   application: Postulation;
 }
@@ -76,12 +80,13 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
       console.error('[ApplicationCard] ❌ Error al eliminar la postulación 😓', error);
 
       if (isAxiosError(error)) {
+        const axiosError = error as import('axios').AxiosError<ErrorResponse>;
         console.error('[ApplicationCard] 📝 Detalles del error:', {
-          status: error.response?.status,
-          data: error.response?.data,
-          headers: error.response?.headers
+          status: axiosError.response?.status,
+          data: axiosError.response?.data,
+          headers: axiosError.response?.headers
         });
-        toast.error(error.response?.data?.message || t('dashboard.actions.deleteError'));
+        toast.error(axiosError.response?.data?.message || t('dashboard.actions.deleteError'));
       } else {
         console.error('[ApplicationCard] ❌ Error inesperado:', error);
         toast.error(t('dashboard.actions.deleteError'));
