@@ -124,7 +124,7 @@ const Dashboard: React.FC = () => {
           </div>
           {/* Botón de nueva postulación */}
           <Link
-            to="/dashboard/add"
+            to="add"
             className="mt-6 md:mt-0 flex items-center px-6 py-3 rounded-xl shadow-lg text-white font-semibold text-lg transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             style={{ boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)' }}
           >

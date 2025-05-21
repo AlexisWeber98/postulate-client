@@ -7,7 +7,7 @@ import { ApplicationFormFields, ApplicationFormHeader, DuplicateModal } from "."
 import { motion } from "framer-motion";
 import { TranslationKey } from "../../../i18n";
 
-const ApplicationForm: React.FC = () => {
+export const ApplicationForm: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addPostulation, updatePostulation, getPostulation, checkDuplicate } = usePostulationsStore();
@@ -227,5 +227,3 @@ const ApplicationForm: React.FC = () => {
     </motion.div>
   );
 };
-
-export default ApplicationForm;
