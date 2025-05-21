@@ -1,15 +1,17 @@
 import React from 'react';
 import { Moon, Sun } from 'lucide-react';
-import { useThemeStore } from '../../store';
+import { useThemeStore, useLanguageStore } from '../../store';
+import { TranslationKey } from '../../i18n';
 
 const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useThemeStore();
+  const { t } = useLanguageStore();
 
   return (
     <button
       onClick={toggleTheme}
       className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-      aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+      aria-label={theme === 'dark' ? t('theme.switchToLight' as TranslationKey) : t('theme.switchToDark' as TranslationKey)}
     >
       {theme === 'dark' ? (
         <Sun className="w-5 h-5 text-yellow-500" />
