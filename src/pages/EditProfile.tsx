@@ -107,7 +107,8 @@ const EditProfile: React.FC = () => {
           </Link>
         </motion.div>
 
-        <motion.h1
+<motion.p
+  id={`${name}-error`}
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
