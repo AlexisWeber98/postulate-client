@@ -5,12 +5,13 @@ import { PostulationStatus } from "../../../types/index";
 import { ValidationHelpers, DateHelpers } from "../../../lib/helpers";
 import { ApplicationFormFields, ApplicationFormHeader, DuplicateModal } from ".";
 import { motion } from "framer-motion";
+import { TranslationKey } from "../../../i18n";
 
 const ApplicationForm: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addPostulation, updatePostulation, getPostulation, checkDuplicate } = usePostulationsStore();
-  const { t } = useLanguageStore();
+  const { t } = useLanguageStore() as { t: (key: TranslationKey) => string };
 
   const [formData, setFormData] = useState({
     company: "",
@@ -70,7 +71,7 @@ const ApplicationForm: React.FC = () => {
       case 'company':
         return {
           isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value) ? 'La empresa es requerida' : undefined
+          message: !ValidationHelpers.hasContent(value) ? t('application.validation.companyRequired') : undefined
         };
       case 'position':
         return {

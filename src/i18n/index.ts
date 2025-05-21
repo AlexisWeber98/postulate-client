@@ -9,7 +9,12 @@ export type TranslationKey =
   | keyof typeof es
   | `trust.point${1 | 2 | 3}`
   | `trust.point${1 | 2 | 3}.explanation`
-  | 'hero.subtitle.rest';
+  | 'hero.subtitle.rest'
+  | 'application.validation.companyRequired'
+  | 'application.validation.positionRequired'
+  | 'application.validation.urlInvalid'
+  | 'dashboard.editApplication'
+  | 'hero.cta.button';
 
 const translations: Record<Language, Translations> = {
   es,
