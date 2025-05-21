@@ -16,7 +16,7 @@ const ApplicationForm: React.FC = () => {
     company: "",
     position: "",
     status: "applied" as PostulationStatus,
-    date: DateHelpers.getCurrentDateISO(),
+    date: "",
     url: "",
     notes: "",
     recruiterContact: "",
@@ -111,11 +111,10 @@ const ApplicationForm: React.FC = () => {
       setIsSubmitting(false);
       return;
     }
- if (!id && checkDuplicate(formData.company, formData.position)) {
-   setShowDuplicateModal(true);
-   setIsSubmitting(false);   // allow user interaction again
-   return;
- }
+
+    try {
+      if (!id && checkDuplicate(formData.company, formData.position)) {
+        setShowDuplicateModal(true);
         setIsSubmitting(false);
         return;
       }
