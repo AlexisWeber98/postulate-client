@@ -2,20 +2,8 @@
 import * as React from "react"
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react"
 import type { EmblaOptionsType, EmblaPluginType } from "embla-carousel"
-
 import { cn } from "../../lib/utils"
-
-const CarouselContext = React.createContext<{
-  embla?: UseEmblaCarouselType[1]
-} | null>(null)
-
-export function useCarousel() {
-  const context = React.useContext(CarouselContext)
-  if (!context) {
-    throw new Error("useCarousel debe usarse dentro de <Carousel />")
-  }
-  return context
-}
+import { CarouselContext, useCarousel } from "./carousel-constants"
 
 export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   opts?: EmblaOptionsType

@@ -50,7 +50,7 @@ const Dashboard: React.FC = () => {
       handleError(error as Error, t('dashboard.errorUniqueCompanies'));
       return [];
     }
-  }, [postulations]);
+  }, [postulations, handleError, t]);
 
   const positions = useMemo(() => {
     try {
@@ -60,7 +60,7 @@ const Dashboard: React.FC = () => {
       handleError(error as Error, t('dashboard.errorUniquePositions'));
       return [];
     }
-  }, [postulations]);
+  }, [postulations, handleError, t]);
 
   // Filter applications based on search and filters
   const filteredApplications = useMemo(() => {
@@ -87,7 +87,7 @@ const Dashboard: React.FC = () => {
       handleError(error as Error, t('dashboard.errorFilterApplications'));
       return [];
     }
-  }, [postulations, searchTerm, statusFilter, companyFilter, positionFilter]);
+  }, [postulations, searchTerm, statusFilter, companyFilter, positionFilter, handleError, t]);
 
   if (loading) {
     return <LoadingSpinner fullScreen message={t('dashboard.loading')} />;
