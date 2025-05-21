@@ -86,6 +86,11 @@ export const en = {
   'dashboard.actions.cancel': 'Cancel',
   'dashboard.actions.deleteSuccess': 'Application deleted successfully',
   'dashboard.actions.deleteError': 'Error deleting application',
+  'dashboard.actions.deleteConfirm': 'Are you sure you want to delete this application?',
+  'dashboard.actions.updateSuccess': 'Application updated successfully',
+  'dashboard.actions.updateError': 'Error updating application',
+  'dashboard.notes': 'Notes',
+  'dashboard.url': 'URL',
 
   // Forms
   'company': 'Company',

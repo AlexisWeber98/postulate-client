@@ -8,6 +8,7 @@ import { usePostulationsStore } from '../../../store';
 import { postulationsApi } from '../../../api/postulations';
 import { toast } from 'react-hot-toast';
 import { isAxiosError } from 'axios';
+import { useLanguageStore } from '../../../store/language/languageStore';
 
 interface ApplicationCardProps {
   application: Postulation;
@@ -17,26 +18,23 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useLanguageStore();
 
   const { updatePostulation, deletePostulation } = usePostulationsStore();
 
   const openDetailModal = () => {
-
     setIsDetailModalOpen(true);
   };
 
   const closeDetailModal = () => {
-
     setIsDetailModalOpen(false);
   };
 
   const openEditModal = () => {
-
     setIsEditModalOpen(true);
   };
 
   const closeEditModal = () => {
-
     setIsEditModalOpen(false);
   };
 
@@ -47,18 +45,18 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
       await postulationsApi.update(updatedApplication.id, updatedApplication);
       updatePostulation(updatedApplication.id, updatedApplication);
       console.log('[ApplicationCard] Postulación actualizada exitosamente:', updatedApplication.id);
-      toast.success('Postulación actualizada correctamente');
+      toast.success(t('dashboard.actions.updateSuccess'));
       closeEditModal();
     } catch (error) {
       console.error('[ApplicationCard] Error al actualizar la postulación:', error);
-      toast.error('Error al actualizar la postulación');
+      toast.error(t('dashboard.actions.updateError'));
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('¿Estás seguro de que deseas eliminar esta postulación?')) {
+    if (!window.confirm(t('dashboard.actions.deleteConfirm'))) {
       console.log('[ApplicationCard] Eliminación cancelada por el usuario');
       return;
     }
@@ -68,28 +66,25 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
     setIsLoading(true);
 
     try {
-      const response = await postulationsApi.delete(application.id);
-      console.log('[ApplicationCard] ✅ Respuesta del servidor:', response);
-
+      await postulationsApi.delete(application.id);
       deletePostulation(application.id);
       console.log('[ApplicationCard] ✅ Postulación eliminada exitosamente:', application.id);
-      toast.success('Postulación eliminada correctamente');
+      toast.success(t('dashboard.actions.deleteSuccess'));
       closeEditModal();
       closeDetailModal();
     } catch (error: unknown) {
       console.error('[ApplicationCard] ❌ Error al eliminar la postulación 😓', error);
 
-      // Log detallado del error
       if (isAxiosError(error)) {
         console.error('[ApplicationCard] 📝 Detalles del error:', {
           status: error.response?.status,
           data: error.response?.data,
           headers: error.response?.headers
         });
-        toast.error(error.response?.data?.message || 'Error al eliminar la postulación');
+        toast.error(error.response?.data?.message || t('dashboard.actions.deleteError'));
       } else {
         console.error('[ApplicationCard] ❌ Error inesperado:', error);
-        toast.error('Error al eliminar la postulación');
+        toast.error(t('dashboard.actions.deleteError'));
       }
     } finally {
       setIsLoading(false);
@@ -107,12 +102,14 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
           application={application}
           onViewDetail={openDetailModal}
           onEdit={openEditModal}
+          onDelete={handleDelete}
         />
       </motion.div>
       <ApplicationDetailModalUI
         application={application}
         isOpen={isDetailModalOpen}
         onClose={closeDetailModal}
+        onDelete={handleDelete}
       />
       <ApplicationEditModalUI
         application={application}

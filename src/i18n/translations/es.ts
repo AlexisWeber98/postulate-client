@@ -90,6 +90,11 @@ export const es = {
   'dashboard.actions.cancel': 'Cancelar',
   'dashboard.actions.deleteSuccess': 'Postulación eliminada correctamente',
   'dashboard.actions.deleteError': 'Error al eliminar la postulación',
+  'dashboard.actions.deleteConfirm': '¿Estás seguro de que deseas eliminar esta postulación?',
+  'dashboard.actions.updateSuccess': 'Postulación actualizada correctamente',
+  'dashboard.actions.updateError': 'Error al actualizar la postulación',
+  'dashboard.notes': 'Notas',
+  'dashboard.url': 'URL',
 
   // Formularios
   'company': 'Empresa',
@@ -97,7 +102,6 @@ export const es = {
   'status': 'Estado',
   'date': 'Fecha',
   'referenceUrl': 'URL de Referencia',
-  'notes': 'Notas',
   'recruiterContact': 'Contacto del Reclutador',
   'sentCV': 'CV Enviado',
   'sentEmail': 'Email Enviado',

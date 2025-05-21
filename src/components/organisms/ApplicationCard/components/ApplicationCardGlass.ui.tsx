@@ -2,7 +2,7 @@ import { ApplicationCardGlassProps } from '../../../../interfaces/components/org
 import { STATUS_LABELS, STATUS_COLORS, STATUS_LABELS_EN } from '../../../../types/interface/postulations/postulation';
 import { useLanguageStore } from '../../../../store/language/languageStore';
 
-export const ApplicationCardGlass = ({ application, onViewDetail, onEdit }: ApplicationCardGlassProps) => {
+export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDelete }: ApplicationCardGlassProps) => {
   const { company, position, status, date, url, notes, createdAt, updatedAt, sentCV, sentEmail } = application;
   const initials = company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
   const { t, lang } = useLanguageStore();
@@ -83,6 +83,13 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit }: Appl
         >
           {t('dashboard.actions.edit')}
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 10-4-4l-8 8v3z" /></svg>
+        </button>
+        <button
+          onClick={onDelete}
+          className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg text-lg transition-all duration-200"
+        >
+          {t('dashboard.actions.delete')}
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
         </button>
       </div>
     </div>
