@@ -37,20 +37,15 @@ const Navbar: React.FC = () => {
     navigate('/landing');
   };
 
-  const handleLogoClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    navigate('/landing');
-  };
-
   // Navbar para usuario autenticado (incluyendo landing page)
   if (user) {
     return (
       <header className="sticky top-0 z-50 w-full shadow-lg bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <a href="/landing" onClick={handleLogoClick} className="flex items-center gap-2 select-none">
+          <Link to="/landing" className="flex items-center gap-2 select-none">
             <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" />
             <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">{t('Postulate')}</span>
-          </a>
+          </Link>
           <div className="flex items-center gap-4">
             <nav className="flex gap-4">
               <Link
@@ -103,10 +98,10 @@ const Navbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 w-full shadow-lg bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="/landing" onClick={handleLogoClick} className="flex items-center gap-2 select-none">
+        <Link to="/landing" className="flex items-center gap-2 select-none">
           <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" />
           <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">{t('Postulate')}</span>
-        </a>
+        </Link>
         <div className="flex items-center gap-4">
           <nav className="flex gap-4">
             <Link

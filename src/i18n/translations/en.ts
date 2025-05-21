@@ -35,6 +35,8 @@ export const en = {
   'auth.loginLink': 'Log in',
   'auth.backToHome': 'Back to homepage',
   'auth.timeoutError': 'The request is taking too long. Please check your connection and try again.',
+  'auth.showPassword': 'Show password',
+  'auth.hidePassword': 'Hide password',
 
   // Dashboard
   'dashboard.filters.search': 'Search applications...',
