@@ -77,6 +77,7 @@ export const en = {
    'dashboard.stats.status.offer': 'Offer',
   'dashboard.stats.status.rejected': 'Rejected',
   'dashboard.stats.status.accepted': 'Accepted',
+  'dashboard.postulationStatus': 'Postulation Status',
 
   'dashboard.actions.view': 'View',
   'dashboard.actions.edit': 'Edit',

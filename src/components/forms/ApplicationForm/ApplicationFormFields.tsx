@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, XCircle, Info } from "lucide-react";
 import { PostulationStatus, STATUS_LABELS } from "../../../types";
+import { useLanguageStore } from "../../../store/language/languageStore";
 
 interface ApplicationFormFieldsProps {
   formData: {
@@ -18,7 +19,6 @@ interface ApplicationFormFieldsProps {
   isBlurred: Record<string, boolean>;
   onFieldChange: (name: string, value: string | boolean) => void;
   onFieldBlur: (name: string, value: string) => void;
-  t: (key: string) => string;
 }
 
 const FieldWrapper: React.FC<{
@@ -29,64 +29,87 @@ const FieldWrapper: React.FC<{
   tooltip?: string;
   isBlurred: boolean;
   fieldStatus?: { isValid: boolean; message?: string };
-}> = ({ name, label, required, children, tooltip, isBlurred, fieldStatus }) => (
-  <div className="relative">
-    <label htmlFor={name} className="text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
-      {label} {required && <span className="text-red-500">*</span>}
-      {tooltip && (
-        <div className="group relative">
-          <Info className="h-4 w-4 text-blue-500 dark:text-blue-400 cursor-help" />
-          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-48 shadow-lg border border-gray-200 dark:border-gray-700 z-10">
-            {tooltip}
-          </div>
-        </div>
-      )}
-    </label>
+}> = ({ name, label, required, children, tooltip, isBlurred, fieldStatus }) => {
+  const { t } = useLanguageStore();
+
+  return (
     <div className="relative">
-      {children}
+      <label htmlFor={name} className="text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
+        {label} {required && <span className="text-red-500">*</span>}
+        {tooltip && (
+          <div className="group relative">
+            <Info className="h-4 w-4 text-blue-500 dark:text-blue-400 cursor-help" aria-hidden="true" />
+            <button
+              type="button"
+              className="sr-only focus:not-sr-only focus:absolute focus:z-10"
+              aria-label={t('tooltip.showInfo')}
+              onFocus={() => {
+                const tooltip = document.querySelector(`[role="tooltip"]`);
+                if (tooltip) tooltip.classList.add('opacity-100');
+              }}
+              onBlur={() => {
+                const tooltip = document.querySelector(`[role="tooltip"]`);
+                if (tooltip) tooltip.classList.remove('opacity-100');
+              }}
+            >
+              {t('tooltip.showInfo')}
+            </button>
+            <div
+              role="tooltip"
+              className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-48 shadow-lg border border-gray-200 dark:border-gray-700 z-10"
+            >
+              {tooltip}
+            </div>
+          </div>
+        )}
+      </label>
+      <div className="relative">
+        {children}
+        <AnimatePresence mode="wait">
+          {isBlurred && fieldStatus && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.2 }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
+            >
+              {fieldStatus.isValid ? (
+                <CheckCircle2 className="h-5 w-5 text-green-500" />
+              ) : (
+                <XCircle className="h-5 w-5 text-red-500" />
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
       <AnimatePresence mode="wait">
-        {isBlurred && fieldStatus && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
+        {isBlurred && fieldStatus?.message && (
+          <motion.p
+            id={`${name}-error`}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
+            className="mt-2 text-sm text-red-500 dark:text-red-400 overflow-hidden"
           >
-            {fieldStatus.isValid ? (
-              <CheckCircle2 className="h-5 w-5 text-green-500" />
-            ) : (
-              <XCircle className="h-5 w-5 text-red-500" />
-            )}
-          </motion.div>
+            {fieldStatus.message}
+          </motion.p>
         )}
       </AnimatePresence>
     </div>
-    <AnimatePresence mode="wait">
-      {isBlurred && fieldStatus?.message && (
-        <motion.p
-          id={`${name}-error`}
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.2 }}
-          className="mt-2 text-sm text-red-500 dark:text-red-400 overflow-hidden"
-        >
-          {fieldStatus.message}
-        </motion.p>
-      )}
-    </AnimatePresence>
-  </div>
-);
+  );
+};
 
 export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
   formData,
   fieldStatus,
   isBlurred,
   onFieldChange,
-  onFieldBlur,
-  t
+  onFieldBlur
 }) => {
+  const { t } = useLanguageStore();
+
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
       <FieldWrapper

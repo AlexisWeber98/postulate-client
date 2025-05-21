@@ -81,6 +81,7 @@ export const es = {
   'dashboard.stats.status.offer': 'Oferta',
   'dashboard.stats.status.rejected': 'Rechazado',
   'dashboard.stats.status.accepted': 'Aceptado',
+  'dashboard.postulationStatus': 'Estado de la Postulación',
 
   'dashboard.actions.view': 'Ver',
   'dashboard.actions.edit': 'Editar',
@@ -225,5 +226,12 @@ export const es = {
   'profile.errors.updateFail': 'Ocurrió un error al actualizar el perfil',
   'profile.messages.updated': '¡Perfil actualizado correctamente!',
   'common.saving': 'Guardando...',
-  'profile.actions.save': 'Guardar Cambios'
+  'profile.actions.save': 'Guardar Cambios',
+  'tooltip.showInfo': 'Mostrar información',
+  'tooltip.company': 'Ingresa el nombre de la empresa',
+  'tooltip.position': 'Ingresa el título del puesto',
+  'tooltip.url': 'Ingresa la URL de la publicación o la página de la empresa',
+  'dashboard.recruiterContactPlaceholder': 'Ejemplo: email@empresa.com o +54 1234 567890',
+  'dashboard.recruiterContactHelper': 'Ingresa el contacto del reclutador (email o teléfono)',
+  'dashboard.applicationStatus': 'Estado de la Postulación'
 } as const;

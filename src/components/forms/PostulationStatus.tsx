@@ -22,7 +22,7 @@ const PostulationStatusForm: React.FC<PostulationStatusFormProps> = ({
     className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-100 dark:border-blue-800/30"
   >
     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-      Estado de la Postulación
+      {t('dashboard.postulationStatus')}
     </h3>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="flex items-center gap-3 p-3 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700/50">

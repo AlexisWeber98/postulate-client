@@ -29,15 +29,16 @@ const CTASection: React.FC<CTASectionProps> = ({ t }) => {
           viewport={{ once: true }}
           className="mt-16 text-center mb-16 md:mb-32"
         >
-          <motion.h3
-            variants={fadeInUpVariants}
-            initial="hidden"
-            whileInView="visible"
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-lg"
-          >
-          </motion.h3>
+<motion.h3
+  variants={fadeInUpVariants}
+  initial="hidden"
+  whileInView="visible"
+  transition={{ duration: 0.8, delay: 0.2 }}
+  viewport={{ once: true }}
+  className="text-4xl md:text-6xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-lg"
+>
+  {t('landing.cta.title')}
+</motion.h3>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
