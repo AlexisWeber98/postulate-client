@@ -25,7 +25,7 @@ const EditProfile: React.FC = () => {
         ...prev,
         name: {
           isValid: false,
-          message: 'El nombre es obligatorio'
+          message: t('profile.validation.nameRequired')
         }
       }));
     } else {
@@ -40,7 +40,7 @@ const EditProfile: React.FC = () => {
         ...prev,
         email: {
           isValid: false,
-          message: 'El email no es válido'
+          message: t('profile.validation.emailInvalid')
         }
       }));
     } else {
@@ -49,7 +49,7 @@ const EditProfile: React.FC = () => {
         email: { isValid: true }
       }));
     }
-  }, [name, email]);
+  }, [name, email, t]);
 
   // Reset form if user changes
   useEffect(() => {

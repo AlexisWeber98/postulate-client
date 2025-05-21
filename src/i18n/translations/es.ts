@@ -46,6 +46,10 @@ export const es = {
   'auth.validation.userName': 'El nombre de usuario es obligatorio',
   'auth.validation.lastName': 'El apellido es obligatorio',
 
+  // Profile Validation
+  'profile.validation.nameRequired': 'El nombre es obligatorio',
+  'profile.validation.emailInvalid': 'El email no es válido',
+
   // Dashboard
   'dashboard.filters.search': 'Buscar postulaciones...',
   'dashboard.filters.status': 'Estado',
