@@ -15,13 +15,13 @@ const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const avatarRef = React.useRef<HTMLDivElement>(null);
 
-  // Cerrar menú al click fuera
-  React.useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (avatarRef.current && !avatarRef.current.contains(event.target as Node)) {
-        setMenuOpen(false);
-      }
+  const handleClickOutside = React.useCallback((event: MouseEvent) => {
+    if (avatarRef.current && !avatarRef.current.contains(event.target as Node)) {
+      setMenuOpen(false);
     }
+  }, []);
+
+  React.useEffect(() => {
     if (menuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     } else {
@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [menuOpen]);
+  }, [menuOpen, handleClickOutside]);
 
   const handleSignOut = () => {
     signOut();
