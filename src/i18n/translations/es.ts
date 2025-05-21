@@ -29,6 +29,7 @@ export const es = {
   'auth.password': 'Contraseña',
   'auth.continue': 'Continuar',
   'auth.register': 'Registrarse',
+  'auth.login': 'Iniciar Sesión',
   'auth.newUser': '¿No tienes una cuenta?',
   'auth.createAccountLink': 'Crear cuenta',
   'auth.alreadyHaveAccount': '¿Ya tienes una cuenta?',
