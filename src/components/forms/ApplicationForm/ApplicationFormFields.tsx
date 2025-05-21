@@ -93,7 +93,7 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
         name="company"
         label={t('dashboard.company')}
         required
-        tooltip="Ingresa el nombre de la empresa donde te postulaste"
+        tooltip={t('tooltip.company')}
         isValid={fieldStatus.company?.isValid}
         isBlurred={isBlurred.company}
         errorMessage={fieldStatus.company?.message}
@@ -216,7 +216,7 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
           className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none"
         />
         <p className="mt-1 text-xs text-blue-200 p-2">
-          * {t('dashboard.recruiterContactHelper')}
+          {t('dashboard.recruiterContactHelper')}
         </p>
       </div>
 
@@ -227,7 +227,7 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
           className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-100 dark:border-blue-800/30"
         >
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Estado de la Postulación
+            {t('dashboard.applicationStatus')}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex items-center gap-3 p-3 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700/50">
