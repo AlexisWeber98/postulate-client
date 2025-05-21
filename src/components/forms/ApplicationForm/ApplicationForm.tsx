@@ -110,12 +110,14 @@ const ApplicationForm: React.FC = () => {
 
     if (!validateForm()) {
       setIsSubmitting(false);
-      return;
-    }
-
-    try {
-      if (!id && checkDuplicate(formData.company, formData.position)) {
-        setShowDuplicateModal(true);
+ if (!id && checkDuplicate(formData.company, formData.position)) {
+   setShowDuplicateModal(true);
+   setIsSubmitting(false);   // allow user interaction again
+   return;
+ }
+   setIsSubmitting(false);   // allow user interaction again
+   return;
+ }
         setIsSubmitting(false);
         return;
       }

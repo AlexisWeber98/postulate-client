@@ -2,7 +2,7 @@
   "path": "cz-conventional-changelog",
   "defaultType": "feat",
   "defaultScope": "general",
-  "defaultSubject": "Actualización automática",
-  "defaultBody": "Cambios realizados automáticamente",
+  "defaultSubject": "",
+  "defaultBody": "",
   "defaultIssues": "none"
 }
