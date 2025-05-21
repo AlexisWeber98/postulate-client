@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { NewPostulationFormProps, NewPostulationFormValues } from '../../../types';
 import { newPostulationSchema } from '../domain/validation';
 import NewPostulationFormUI from './NewPostulationForm.ui';
-import { ApplicationStatus } from '../../../types/interface/postulations/application-status';
 
 const defaultValues: NewPostulationFormValues = {
   company: '',
   position: '',
-  status: ApplicationStatus.PENDING,
+  status: 'applied',
   date: '',
   referenceUrl: '',
   notes: '',

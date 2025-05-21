@@ -1,8 +1,9 @@
 import React from 'react';
 import { HeroBackgroundProps } from '../../../types/components/landing/landing.types';
+import { DEFAULT_HERO_IMAGE } from '../../../constants/images';
 
 const HeroBackground: React.FC<HeroBackgroundProps> = ({
-  imageUrl = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80',
+  imageUrl = DEFAULT_HERO_IMAGE,
   overlayOpacity = 0.6
 }) => {
   return (

@@ -33,12 +33,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
   const afterPoints = ['benefits.after.point1', 'benefits.after.point2', 'benefits.after.point3'] as const;
   const beforePoints = ['benefits.before.point1', 'benefits.before.point2', 'benefits.before.point3'] as const;
 
-  // Función para obtener el texto traducido
-  const getTranslatedText = (key: string) => {
-    const text = t(key as TranslationKey);
-    console.log(`Traducción para ${key}:`, text); // Debug log
-    return text;
-  };
+
 
   return (
     <section className="py-20">
@@ -51,7 +46,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-            {getTranslatedText('benefits.title')}
+            {t('benefits.title')}
           </h2>
         </motion.div>
 
@@ -69,7 +64,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
                 <CheckCircle2 className="h-7 w-7 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-white drop-shadow-lg text-center">
-                {getTranslatedText('benefits.after.title')}
+                {t('benefits.after.title')}
               </h3>
             </div>
             <motion.div
@@ -88,7 +83,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
                       {idx === 1 && <Eye className="w-5 h-5 text-white flex-shrink-0" />}
                       {idx === 2 && <Search className="w-5 h-5 text-white flex-shrink-0" />}
                       <span className="text-lg leading-relaxed font-roboto text-white font-medium">
-                        {getTranslatedText(key)}
+                        {t(key)}
                       </span>
                     </motion.li>
                   ))}
@@ -104,7 +99,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
                 <XCircle className="h-7 w-7 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-white drop-shadow-lg text-center">
-                {getTranslatedText('benefits.before.title')}
+                {t('benefits.before.title')}
               </h3>
             </div>
             <motion.div
@@ -123,7 +118,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
                       {idx === 1 && <HelpCircle className="w-5 h-5 text-white flex-shrink-0" />}
                       {idx === 2 && <Hourglass className="w-5 h-5 text-white flex-shrink-0" />}
                       <span className="text-lg leading-relaxed font-roboto text-white font-medium">
-                        {getTranslatedText(key)}
+                        {t(key)}
                       </span>
                     </motion.li>
                   ))}

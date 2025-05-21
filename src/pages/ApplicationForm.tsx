@@ -3,9 +3,8 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { usePostulationsStore, useLanguageStore } from "../store";
 import { PostulationStatus, STATUS_LABELS } from "../types/index";
 import Modal from "../components/molecules/Modal";
-import { Save, AlertCircle, ArrowLeft, Info, Loader2, CheckCircle2, XCircle } from "lucide-react";
+import { AlertCircle, ArrowLeft, Info, CheckCircle2, XCircle } from "lucide-react";
 import { ValidationHelpers, DateHelpers } from "../lib/helpers";
-import Button from '../components/atoms/Button/Button.ui';
 import { motion, AnimatePresence } from "framer-motion";
 
 const ApplicationForm: React.FC = () => {
