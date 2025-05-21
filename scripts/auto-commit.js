@@ -35,9 +35,87 @@ try {
 
       // Determinar el tipo de cambio basado en los archivos modificados
       const getCommitType = changes => {
-        if (changes.includes('package.json')) return 'chore';
-        if (changes.includes('test') || changes.includes('spec')) return 'test';
-        if (changes.includes('docs') || changes.includes('README')) return 'docs';
+        const lowerChanges = changes.toLowerCase();
+
+        // Dependencias y configuración
+        if (
+          lowerChanges.includes('package.json') ||
+          lowerChanges.includes('package-lock.json') ||
+          lowerChanges.includes('yarn.lock') ||
+          lowerChanges.includes('tsconfig.json')
+        ) {
+          return 'chore';
+        }
+
+        // Tests
+        if (
+          lowerChanges.includes('test') ||
+          lowerChanges.includes('spec') ||
+          lowerChanges.includes('.test.') ||
+          lowerChanges.includes('__tests__')
+        ) {
+          return 'test';
+        }
+
+        // Documentación
+        if (
+          lowerChanges.includes('docs') ||
+          lowerChanges.includes('readme') ||
+          lowerChanges.includes('.md') ||
+          lowerChanges.includes('documentation')
+        ) {
+          return 'docs';
+        }
+
+        // Correcciones de bugs
+        if (
+          lowerChanges.includes('fix') ||
+          lowerChanges.includes('bug') ||
+          lowerChanges.includes('error') ||
+          lowerChanges.includes('issue')
+        ) {
+          return 'fix';
+        }
+
+        // Estilos y CSS
+        if (
+          lowerChanges.includes('style') ||
+          lowerChanges.includes('css') ||
+          lowerChanges.includes('scss') ||
+          lowerChanges.includes('less')
+        ) {
+          return 'style';
+        }
+
+        // Refactorización
+        if (
+          lowerChanges.includes('refactor') ||
+          lowerChanges.includes('restructure') ||
+          lowerChanges.includes('reorganize')
+        ) {
+          return 'refactor';
+        }
+
+        // Mejoras de rendimiento
+        if (
+          lowerChanges.includes('perf') ||
+          lowerChanges.includes('performance') ||
+          lowerChanges.includes('optimize')
+        ) {
+          return 'perf';
+        }
+
+        // Características nuevas
+        if (
+          lowerChanges.includes('feat') ||
+          lowerChanges.includes('feature') ||
+          lowerChanges.includes('add') ||
+          lowerChanges.includes('new')
+        ) {
+          return 'feat';
+        }
+
+        // Por defecto, asumimos que es una característica nueva
         return 'feat';
       };
 
