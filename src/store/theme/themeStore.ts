@@ -9,8 +9,15 @@ export interface ThemeState {
 export const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
-      theme: (localStorage.getItem('theme') as 'light' | 'dark') ||
-             (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
+      theme: (() => {
+        try {
+          const storedTheme = localStorage.getItem('theme') as 'light' | 'dark';
+          if (storedTheme) return storedTheme;
+        } catch {
+          console.warn('localStorage no disponible, usando preferencia del sistema');
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      })(),
       setTheme: (theme) => set(() => ({
         theme: theme
       })),
