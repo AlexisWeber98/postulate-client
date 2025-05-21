@@ -9,7 +9,7 @@ export interface FieldWrapperProps {
   children: React.ReactNode;
   tooltip?: string;
   isBlurred: boolean;
-  fieldStatus: { isValid: boolean; message?: string } | undefined;
+  fieldStatus?: { isValid: boolean; message?: string };
 }
 
 const FieldWrapper: React.FC<FieldWrapperProps> = ({
@@ -27,7 +27,25 @@ const FieldWrapper: React.FC<FieldWrapperProps> = ({
       {tooltip && (
         <div className="group relative">
           <Info className="h-4 w-4 text-blue-500 dark:text-blue-400 cursor-help" />
-          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-48 shadow-lg border border-gray-200 dark:border-gray-700 z-10">
+          <button
+            type="button"
+            className="sr-only focus:not-sr-only focus:absolute focus:z-10"
+            aria-label="Mostrar información del tooltip"
+            onFocus={() => {
+              const tooltip = document.querySelector(`[role="tooltip"]`);
+              if (tooltip) tooltip.classList.add('opacity-100');
+            }}
+            onBlur={() => {
+              const tooltip = document.querySelector(`[role="tooltip"]`);
+              if (tooltip) tooltip.classList.remove('opacity-100');
+            }}
+          >
+            Mostrar información
+          </button>
+          <div
+            role="tooltip"
+            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-48 shadow-lg border border-gray-200 dark:border-gray-700 z-10"
+          >
             {tooltip}
           </div>
         </div>
