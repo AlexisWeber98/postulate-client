@@ -19,5 +19,5 @@ export interface FieldWrapperProps {
   tooltip?: string;
   isValid?: boolean;
   isBlurred?: boolean;
-  errorMessage?: string;
+  errorMessage?: FieldStatus['message'];
 }
