@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Save, ArrowLeft, Loader2 } from 'lucide-react';
+import { Save, ArrowLeft, Loader2, Eye, EyeOff } from 'lucide-react';
 import { useLanguageStore } from '../../../store';
 import Button from '../../../components/atoms/Button/Button.ui';
 import { FieldWrapper } from './FieldWrapper';
@@ -17,6 +17,7 @@ interface AuthFormProps {
 
 export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, error }) => {
   const { t } = useLanguageStore();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     formData,
     fieldStatus,
@@ -142,16 +143,25 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
           isBlurred={isBlurred.password}
           errorMessage={fieldStatus.password?.message}
         >
-          <input
-            type="password"
-            id="password"
-            value={formData.password}
-            onChange={e => handleFieldChange('password', e.target.value)}
-            onBlur={() => handleFieldBlur('password')}
-            className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.password?.isValid && isBlurred.password ? 'ring-2 ring-red-400' : ''}`}
-            placeholder="Tu contraseña"
-            required
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              value={formData.password}
+              onChange={e => handleFieldChange('password', e.target.value)}
+              onBlur={() => handleFieldBlur('password')}
+              className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.password?.isValid && isBlurred.password ? 'ring-2 ring-red-400' : ''}`}
+              placeholder="Tu contraseña"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200"
+            >
+              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            </button>
+          </div>
         </FieldWrapper>
 
         <motion.div
