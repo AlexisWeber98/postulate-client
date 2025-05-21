@@ -38,6 +38,13 @@ export const en = {
   'auth.showPassword': 'Show password',
   'auth.hidePassword': 'Hide password',
 
+  // Auth Validation
+  'auth.validation.email': 'Please enter a valid email',
+  'auth.validation.password': 'Password must be at least 8 characters long and include uppercase, lowercase, numbers and special characters',
+  'auth.validation.name': 'Name is required',
+  'auth.validation.userName': 'Username is required',
+  'auth.validation.lastName': 'Last name is required',
+
   // Dashboard
   'dashboard.filters.search': 'Search applications...',
   'dashboard.filters.status': 'Status',

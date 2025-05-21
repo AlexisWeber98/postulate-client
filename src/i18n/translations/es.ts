@@ -38,6 +38,13 @@ export const es = {
   'auth.showPassword': 'Mostrar contraseña',
   'auth.hidePassword': 'Ocultar contraseña',
 
+  // Auth Validation
+  'auth.validation.email': 'Por favor ingresa un email válido',
+  'auth.validation.password': 'La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas, números y caracteres especiales',
+  'auth.validation.name': 'El nombre es obligatorio',
+  'auth.validation.userName': 'El nombre de usuario es obligatorio',
+  'auth.validation.lastName': 'El apellido es obligatorio',
+
   // Dashboard
   'dashboard.filters.search': 'Buscar postulaciones...',
   'dashboard.filters.status': 'Estado',

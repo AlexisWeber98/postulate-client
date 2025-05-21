@@ -24,7 +24,11 @@ export type TranslationKey =
   | 'common.reset'
   | 'auth.login'
   | 'auth.register'
-  | 'applicationForm.duplicateTitle'
+  | 'auth.validation.email'
+  | 'auth.validation.password'
+  | 'auth.validation.name'
+  | 'auth.validation.userName'
+  | 'auth.validation.lastName'
   | 'applicationForm.duplicateMessage'
   | 'applicationForm.continueAnyway'
   | 'cancel';

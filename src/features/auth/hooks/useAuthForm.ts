@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { isValidEmail, hasContent } from '../../../lib/helpers/validation.helpers';
 import { AuthFormData, FieldStatus } from '../types/auth.types';
+import { useLanguageStore } from '../../../store';
 
 // Constantes para validación de contraseña
 const PASSWORD_REQUIREMENTS = {
@@ -9,19 +10,19 @@ const PASSWORD_REQUIREMENTS = {
   HAS_LOWERCASE: /[a-z]/,
   HAS_NUMBER: /[0-9]/,
   HAS_SPECIAL_CHAR: /[^A-Za-z0-9]/
-};
+} as const;
 
 export const useAuthForm = (type: 'login' | 'register') => {
+  const { t } = useLanguageStore();
   const [formData, setFormData] = useState<AuthFormData>({
     email: '',
     password: '',
-   ...(type === 'register' && {
-     name: '',
-     userName: '',
-     lastName: ''
-   })
+    ...(type === 'register' && {
+      name: '',
+      userName: '',
+      lastName: ''
+    })
   });
-
   const [fieldStatus, setFieldStatus] = useState<Record<string, FieldStatus>>({});
   const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({});
 
@@ -32,7 +33,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
       if (!isValidEmail(formData.email)) {
         newFieldStatus.email = {
           isValid: false,
-          message: 'El email no es válido'
+          message: t('auth.validation.email')
         };
       } else {
         newFieldStatus.email = { isValid: true };
@@ -45,7 +46,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
           !PASSWORD_REQUIREMENTS.HAS_SPECIAL_CHAR.test(formData.password)) {
         newFieldStatus.password = {
           isValid: false,
-          message: 'La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas, números y caracteres especiales'
+          message: t('auth.validation.password')
         };
       } else {
         newFieldStatus.password = { isValid: true };
@@ -55,7 +56,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
         if (!formData.name || !hasContent(formData.name)) {
           newFieldStatus.name = {
             isValid: false,
-            message: 'El nombre es obligatorio'
+            message: t('auth.validation.name')
           };
         } else {
           newFieldStatus.name = { isValid: true };
@@ -64,7 +65,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
         if (!formData.userName || !hasContent(formData.userName)) {
           newFieldStatus.userName = {
             isValid: false,
-            message: 'El nombre de usuario es obligatorio'
+            message: t('auth.validation.userName')
           };
         } else {
           newFieldStatus.userName = { isValid: true };
@@ -73,7 +74,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
         if (!formData.lastName || !hasContent(formData.lastName)) {
           newFieldStatus.lastName = {
             isValid: false,
-            message: 'El apellido es obligatorio'
+            message: t('auth.validation.lastName')
           };
         } else {
           newFieldStatus.lastName = { isValid: true };
@@ -84,9 +85,9 @@ export const useAuthForm = (type: 'login' | 'register') => {
     };
 
     validateFields();
-  }, [formData, type]);
+  }, [formData, type, t]);
 
-  const handleFieldChange = (name: string, value: string) => {
+  const handleFieldChange = (name: keyof AuthFormData, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
@@ -95,14 +96,12 @@ export const useAuthForm = (type: 'login' | 'register') => {
   };
 
   const isFormValid = useMemo(() => {
-    // Obtener campos requeridos según el tipo de formulario
     const requiredFields = type === 'login'
       ? ['email', 'password']
       : ['email', 'password', 'name', 'userName', 'lastName'];
 
-    // Verificar si todos los campos requeridos tienen un estado válido
     return requiredFields.every(field =>
-      fieldStatus[field] && fieldStatus[field].isValid
+      fieldStatus[field]?.isValid
     );
   }, [fieldStatus, type]);
 
