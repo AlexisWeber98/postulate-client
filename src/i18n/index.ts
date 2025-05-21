@@ -19,7 +19,11 @@ export type TranslationKey =
   | 'dashboard.actions.deleteError'
   | `dashboard.stats.status.${string}`
   | 'common.loading'
-  | 'common.delete';
+  | 'common.delete'
+  | 'applicationForm.duplicateTitle'
+  | 'applicationForm.duplicateMessage'
+  | 'applicationForm.continueAnyway'
+  | 'cancel';
 
 const translations: Record<Language, Translations> = {
   es,
