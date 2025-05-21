@@ -32,7 +32,7 @@ const FieldWrapper: React.FC<{
   errorMessage?: string;
 }> = ({ name, label, required, children, tooltip, isValid, isBlurred, errorMessage }) => (
   <div className="relative">
-    <label htmlFor={name} className="block text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
+    <label htmlFor={name} className="text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
       {label} {required && <span className="text-red-500">*</span>}
       {tooltip && (
         <div className="group relative">
@@ -136,7 +136,7 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
       </FieldWrapper>
 
       <div>
-        <label htmlFor="status" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+        <label htmlFor="status" className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
           {t('status')} *
         </label>
         <select
@@ -155,7 +155,7 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
       </div>
 
       <div>
-        <label htmlFor="date" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+        <label htmlFor="date" className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
           {t('dashboard.date')} *
         </label>
         <input
@@ -190,7 +190,7 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
       </div>
 
       <div className="md:col-span-2">
-        <label htmlFor="notes" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+        <label htmlFor="notes" className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
           {t('notes')}
         </label>
         <textarea
@@ -204,7 +204,7 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
       </div>
 
       <div className="col-span-2">
-        <label htmlFor="recruiterContact" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+        <label htmlFor="recruiterContact" className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
           {t('recruiterContact')}
         </label>
         <input

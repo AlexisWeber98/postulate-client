@@ -1,7 +1,5 @@
 import { AlertCircle } from "lucide-react";
 import Modal from "../../molecules/Modal";
-import { useLanguageStore } from "../../../store";
-
 
 interface DuplicateModalProps {
   isOpen: boolean;
