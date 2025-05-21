@@ -1,4 +1,4 @@
-import { execSync } from 'child_process';
+import { execSync, spawnSync } from 'child_process';
 import readline from 'readline';
 
 // Configuración de mensajes por idioma
@@ -63,7 +63,7 @@ try {
   });
 
   rl.question(`${lang.confirmQuestion} ${filesToStage}? (s/n): `, answer => {
-    if (answer.toLowerCase() === 's') {
+    if (['s', 'y'].includes(answer.toLowerCase())) {
       // Añadir los cambios especificados
       execSync(`git add ${filesToStage}`, { stdio: 'inherit' });
 
@@ -165,21 +165,17 @@ try {
 
       const commitType = getCommitType(changes);
       const commitMessage = `${commitType}(update): ${lang.update}\n\n${lang.description}: ${lang.automatic}\n\n${lang.changes}:\n${changes}`;
-      // Check if there are any changes to commit
-      if (!status.trim()) {
-        console.log('✅ No changes to commit');
-        process.exit(0);
-      }
 
-      execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
+      spawnSync('git', ['commit', '-m', commitMessage], { stdio: 'inherit' });
 
-      console.log('✅ Commit realizado automáticamente');
+      console.log(lang.commitSuccess);
     } else {
       console.log(lang.commitCancelled);
     }
     rl.close();
   });
 } catch (error) {
-  console.error(lang.error + ':', error.message);
+  const safeLang = getLanguage();
+  console.error(`${safeLang.error}:`, error.message);
   process.exit(1);
 }

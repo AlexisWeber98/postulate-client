@@ -45,7 +45,9 @@ const App: React.FC = () => {
 
   // Log the authentication state for debugging
   useEffect(() => {
-    console.log('Auth state:', { user });
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('Auth state:', { user });
+    }
   }, [user]);
 
   return (
