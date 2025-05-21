@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "validate-rules": "node scripts/validateRules.js",
     "commit": "git-cz",
-    "commit:all": "git add . && git-cz",
+    "commit:all": "run-s add-all commit",
+    "add-all": "git add .",
     "commit:auto": "node scripts/auto-commit.js",
     "prepare": "husky install"
   },
@@ -67,10 +68,12 @@
     "globals": "^15.9.0",
     "husky": "^8.0.3",
     "lint-staged": "^16.0.0",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.35",
     "prettier": "^3.5.3",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "vite": "^4.4.9"
   },
   "config": {
     "commitizen": {
