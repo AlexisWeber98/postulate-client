@@ -175,7 +175,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
             type="submit"
             variant="primary"
             size="lg"
-            disabled={isLoading || !isFormValid()}
+            disabled={isLoading || !isFormValid}
             className="w-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             icon={isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
           >

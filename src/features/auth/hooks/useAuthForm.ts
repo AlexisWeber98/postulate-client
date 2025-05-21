@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { isValidEmail, hasContent } from '../../../lib/helpers/validation.helpers';
 import { AuthFormData, FieldStatus } from '../types/auth.types';
 
@@ -83,9 +83,9 @@ export const useAuthForm = (type: 'login' | 'register') => {
     setIsBlurred(prev => ({ ...prev, [name]: true }));
   };
 
-  const isFormValid = () => {
+  const isFormValid = useMemo(() => {
     return Object.values(fieldStatus).every(field => field.isValid);
-  };
+  }, [fieldStatus]);
 
   return {
     formData,
