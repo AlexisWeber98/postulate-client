@@ -46,7 +46,9 @@ export interface ApiError {
   response?: {
     status: number;
     data: {
-      message: string;
+      message: string | string[];
+      errors?: Record<string, string[]>;
     };
   };
+  message?: string;
 }
