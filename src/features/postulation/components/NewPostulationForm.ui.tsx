@@ -6,6 +6,7 @@ import { useLanguageStore } from '../../../store';
 import Button from '../../../components/atoms/Button/Button.ui';
 import { Save } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
+import CheckboxGroup from '../../../components/molecules/CheckboxGroup';
 
 interface UIProps extends Omit<NewPostulationFormProps, 'onSubmit'> {
   values: NewPostulationFormValues;
@@ -147,31 +148,23 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
           placeholder={t('recruiterContact.placeholder') || 'Ejemplo: email@empresa.com o +1 123 456 7890'}
         />
       </FormField>
-      <div className="flex gap-6 justify-center mb-6 mt-2">
-        <label className="flex items-center gap-2 text-white/90 text-base">
-          <input
-            type="checkbox"
-            name="sentCV"
-            checked={values.sentCV}
-            onChange={onCheckboxChange}
-            className="accent-blue-500 w-5 h-5"
-          />
-          {t('sentCV') || 'Envié CV'}
-        </label>
-        <label className="flex items-center gap-2 text-white/90 text-base">
-          <input
-            type="checkbox"
-            name="sentEmail"
-            checked={values.sentEmail}
-            onChange={onCheckboxChange}
-            className="accent-blue-500 w-5 h-5"
-          />
-          {t('sentEmail') || 'Envié Email'}
-        </label>
-      </div>
-      {error && (
-        <div className="text-red-400 bg-red-900/30 rounded-lg px-4 py-2 text-center mb-4">{error}</div>
-      )}
+      <CheckboxGroup
+        className="mb-6 mt-2"
+        options={[
+          { name: 'sentCV', checked: values.sentCV ?? false, label: t('sentCV') || 'Envié CV' },
+          { name: 'sentEmail', checked: values.sentEmail ?? false, label: t('sentEmail') || 'Envié Email' }
+        ]}
+        onChange={onCheckboxChange}
+      />
+{error && (
+  <div
+    className="text-red-400 bg-red-900/30 rounded-lg px-4 py-2 text-center mb-4"
+    role="alert"
+    aria-live="polite"
+  >
+    {error}
+  </div>
+)}
       <div className="flex gap-4 justify-end">
         <Button
           type="button"
