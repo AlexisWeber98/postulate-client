@@ -7,16 +7,22 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "validate-rules": "node scripts/validateRules.js",
     "commit": "git-cz",
     "commit:all": "git add . && git-cz",
-    "commit:auto": "node scripts/auto-commit.js"
+    "commit:auto": "node scripts/auto-commit.js",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
-      "eslint --fix",
+      "eslint --fix --max-warnings=0",
       "npm run validate-rules",
+      "git add"
+    ],
+    "*.{json,md}": [
+      "prettier --write",
       "git add"
     ]
   },
@@ -62,6 +68,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^16.0.0",
     "postcss": "^8.4.35",
+    "prettier": "^3.5.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
