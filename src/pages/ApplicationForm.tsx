@@ -105,7 +105,7 @@ const ApplicationForm: React.FC = () => {
     tooltip?: string;
   }> = useCallback(({ name, label, required, children, tooltip }) => (
     <div className="relative">
-      <label htmlFor={name} className="block text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
+      <label htmlFor={name} className=" text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
         {label} {required && <span className="text-red-500">*</span>}
         {tooltip && (
           <div className="group relative">
