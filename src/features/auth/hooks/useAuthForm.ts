@@ -95,8 +95,30 @@ export const useAuthForm = (type: 'login' | 'register') => {
   };
 
   const isFormValid = useMemo(() => {
-    return Object.values(fieldStatus).every(field => field.isValid);
-  }, [fieldStatus]);
+    // Obtener campos requeridos según el tipo de formulario
+    const requiredFields = type === 'login'
+      ? ['email', 'password']
+      : ['email', 'password', 'name', 'userName', 'lastName'];
+
+    // Verificar si todos los campos requeridos tienen un estado válido
+    return requiredFields.every(field =>
+      fieldStatus[field] && fieldStatus[field].isValid
+    );
+  }, [fieldStatus, type]);
+
+  const resetForm = () => {
+    setFormData({
+      email: '',
+      password: '',
+      ...(type === 'register' && {
+        name: '',
+        userName: '',
+        lastName: ''
+      })
+    });
+    setFieldStatus({});
+    setIsBlurred({});
+  };
 
   return {
     formData,
@@ -104,6 +126,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
     isBlurred,
     handleFieldChange,
     handleFieldBlur,
-    isFormValid
+    isFormValid,
+    resetForm
   };
 };
