@@ -4,42 +4,19 @@ import { en } from './translations/en';
 export type Language = 'es' | 'en';
 export type Translations = Record<string, string>;
 
-// Definir el tipo TranslationKey para incluir las claves anidadas
-export type TranslationKey =
-  | keyof typeof es
-  | `trust.point${1 | 2 | 3}`
-  | `trust.point${1 | 2 | 3}.explanation`
-  | 'hero.subtitle.rest'
-  | 'application.validation.companyRequired'
-  | 'application.validation.positionRequired'
-  | 'application.validation.urlInvalid'
-  | 'dashboard.editApplication'
-  | 'hero.cta.button'
-  | 'dashboard.actions.deleteSuccess'
-  | 'dashboard.actions.deleteError'
-  | `dashboard.stats.status.${string}`
-  | 'common.loading'
-  | 'common.delete'
-  | 'common.closeModal'
-  | 'common.reset'
-  | 'auth.login'
-  | 'auth.register'
-  | 'auth.validation.email'
-  | 'auth.validation.password'
-  | 'auth.validation.name'
-  | 'auth.validation.userName'
-  | 'auth.validation.lastName'
-  | 'applicationForm.duplicateMessage'
-  | 'applicationForm.continueAnyway'
-  | 'cancel';
+// Tipo para inferir todas las posibles rutas en el objeto de traducción
+type DotNotationKeys<T extends Record<string, unknown>, Prefix extends string = ''> = {
+  [K in keyof T]: T[K] extends Record<string, unknown>
+    ? DotNotationKeys<T[K], `${Prefix}${K & string}.`>
+    : `${Prefix}${K & string}`;
+}[keyof T];
+
+// Inferir las claves de traducción desde los objetos de traducción
+export type TranslationKey = DotNotationKeys<typeof es>;
 
 const translations: Record<Language, Translations> = {
   es,
   en,
-};
-
-export type Translation = {
-  [K in TranslationKey]: string;
 };
 
 export const getTranslation = (key: TranslationKey, lang: Language): string => {
@@ -53,12 +30,26 @@ export const getTranslation = (key: TranslationKey, lang: Language): string => {
 
 export const replacePlaceholders = (text: string, placeholders: Record<string, string>): string => {
   return Object.entries(placeholders).reduce(
-    (acc, [key, value]) => acc.replace(`{${key}}`, value),
+    (acc, [key, value]) => acc.replace(new RegExp(`\\{${key}\\}`, 'g'), value),
     text
   );
 };
 
-export const t = (key: TranslationKey, lang: Language, placeholders?: Record<string, string>): string => {
+// Helper type to extract placeholder keys from a translation string
+type PlaceholderKeys<T extends string> = T extends `${string}{${infer K}}${infer Rest}`
+  ? K | PlaceholderKeys<Rest>
+  : never;
+
+// Type to get the translation string for a given key
+type GetTranslationType<K extends TranslationKey, T extends Translations> = T[K] extends string
+  ? T[K]
+  : never;
+
+export const t = <K extends TranslationKey>(
+  key: K,
+  lang: Language,
+  placeholders?: Record<PlaceholderKeys<GetTranslationType<K, typeof translations[Language]>>, string>
+): string => {
   const translation = getTranslation(key, lang);
   if (placeholders) {
     return replacePlaceholders(translation, placeholders);

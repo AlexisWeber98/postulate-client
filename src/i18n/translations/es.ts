@@ -196,6 +196,7 @@ export const es = {
   'common.loading': 'Cargando...',
   'common.delete': 'Eliminar',
   'common.closeModal': 'Cerrar modal',
+  'common.reset': 'Reiniciar',
   'applicationForm.duplicateTitle': 'Postulación Duplicada',
   'applicationForm.duplicateMessage': 'Ya existe una postulación para {position} en {company}. ¿Deseas continuar de todos modos?',
   'applicationForm.continueAnyway': 'Continuar de todos modos',

@@ -196,5 +196,6 @@ export const en = {
   'common.loading': 'Loading...',
   'common.delete': 'Delete',
   'common.closeModal': 'Close modal',
+  'common.reset': 'Reset',
   'applicationForm.duplicateTitle': 'Duplicate Application',
 } as const;
