@@ -27,6 +27,7 @@ export const es = {
   'auth.loginTitle': 'Iniciar Sesión',
   'auth.registerTitle': 'Crear Cuenta',
   'auth.email': 'Correo Electrónico',
+  'auth.email.tooltip': 'Ingresa tu correo electrónico para iniciar sesión',
   'auth.name': 'Nombre',
   'auth.userName': 'Nombre de Usuario',
   'auth.lastName': 'Apellido',
@@ -237,5 +238,8 @@ export const es = {
   'tooltip.url': 'Ingresa la URL de la publicación o la página de la empresa',
   'dashboard.recruiterContactPlaceholder': 'Ejemplo: email@empresa.com o +54 1234 567890',
   'dashboard.recruiterContactHelper': 'Ingresa el contacto del reclutador (email o teléfono)',
-  'dashboard.applicationStatus': 'Estado de la Postulación'
+  'dashboard.applicationStatus': 'Estado de la Postulación',
+  'referenceUrl.placeholder': 'https://example.com/job',
+  'notes': 'Notas',
+  'notes.placeholder': 'Añade cualquier información relevante sobre esta postulación',
 } as const;

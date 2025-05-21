@@ -159,30 +159,22 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
         return;
       }
 
-      if (id) {
-        await updatePostulation(id, {
-           company,
-           position,
-           status,
-           date,
-           url,
-           notes,
-          recruiterContact,
-          sentCV: sentCV,
-          sentEmail: sentEmail,
-         });
+      const payload = {
+        company,
+        position,
+        status,
+        date,
+        url,
+        notes,
+        recruiterContact,
+        sentCV,
+        sentEmail,
+      };
 
-        await addPostulation({
-           company,
-           position,
-           status,
-           date,
-           url,
-           notes,
-          recruiterContact,
-          sentCV: sentCV,
-          sentEmail: sentEmail,
-         });
+      if (id) {
+        await updatePostulation(id, payload);
+      } else {
+        await addPostulation(payload);
       }
 
       navigate("/");

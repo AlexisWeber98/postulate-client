@@ -13,6 +13,7 @@ interface UIProps extends Omit<NewPostulationFormProps, 'onSubmit'> {
   errors: Partial<Record<keyof NewPostulationFormValues, string>>;
   touched: Partial<Record<keyof NewPostulationFormValues, boolean>>;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  onStatusChange: (status: PostulationStatus) => void;
   onCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
   onReset: () => void;
@@ -25,6 +26,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   errors,
   touched,
   onChange,
+  onStatusChange,
   onCheckboxChange,
   onSubmit,
   onReset,
@@ -33,16 +35,35 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
 }) => {
   const { t } = useLanguageStore();
   const [isOpen, setIsOpen] = React.useState(false);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
 
   const handleSelectChange = (status: PostulationStatus) => {
-    const event = {
-      target: {
-        name: 'status',
-        value: status
-      }
-    } as React.ChangeEvent<HTMLSelectElement>;
-    onChange(event);
+    onStatusChange(status);
     setIsOpen(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setIsOpen(false);
+    }
+  };
+
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleItemKeyDown = (e: React.KeyboardEvent, status: PostulationStatus) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleSelectChange(status);
+    }
   };
 
   return (
@@ -77,23 +98,37 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
           />
         </FormField>
         <FormField label={t('status') || 'Status'} htmlFor="status" required error={touched.status && errors.status ? errors.status : ''}>
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
+              onKeyDown={handleKeyDown}
               className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none flex justify-between items-center"
+              aria-haspopup="listbox"
+              aria-expanded={isOpen}
+              aria-controls="status-listbox"
+              id="status-button"
             >
               <span>{values.status ? STATUS_LABELS[values.status] : t('selectStatus')}</span>
               <ChevronDown className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
             </button>
             {isOpen && (
-              <div className="absolute z-10 w-full mt-1 bg-white rounded-xl shadow-lg border border-gray-200">
+              <div
+                id="status-listbox"
+                role="listbox"
+                className="absolute z-10 w-full mt-1 bg-white rounded-xl shadow-lg border border-gray-200"
+                aria-labelledby="status-button"
+              >
                 <ul className="py-1 max-h-60 overflow-auto">
                   {statusOptions.map((status) => (
                     <li
                       key={status}
+                      role="option"
+                      aria-selected={values.status === status}
                       onClick={() => handleSelectChange(status)}
-                      className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-900"
+                      onKeyDown={(e) => handleItemKeyDown(e, status)}
+                      tabIndex={0}
+                      className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-900 focus:bg-blue-50 focus:outline-none"
                     >
                       {STATUS_LABELS[status]}
                     </li>

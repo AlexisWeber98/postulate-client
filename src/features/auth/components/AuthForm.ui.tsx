@@ -50,7 +50,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
           name="email"
           label={t('auth.email')}
           required
-          tooltip="Ingresa tu correo electrónico"
+          tooltip={t('auth.email.tooltip')}
           isBlurred={isBlurred.email}
           fieldStatus={fieldStatus.email}
         >
@@ -153,7 +153,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
     type="button"
     aria-label={showPassword ? t('auth.hidePassword') : t('auth.showPassword')}
     onClick={() => setShowPassword(!showPassword)}
-    className="absolute right-3 top-1/2 -translate-y-1/2 ..."
+    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700
+            dark:text-gray-300 dark:hover:text-gray-100 transition-colors"
   >
               {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>

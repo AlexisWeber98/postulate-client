@@ -22,14 +22,22 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
             type="button"
             className="sr-only focus:not-sr-only focus:absolute focus:z-10"
             aria-label="Show tooltip information"
-            onFocus={() => {/* Show tooltip */}}
-            onBlur={() => {/* Hide tooltip */}}
+            aria-describedby={`${name}-tooltip`}
+            onFocus={() => {
+              const tooltip = document.querySelector(`[aria-hidden="true"][role="tooltip"]`);
+              if (tooltip) tooltip.setAttribute('aria-hidden', 'false');
+            }}
+            onBlur={() => {
+              const tooltip = document.querySelector(`[role="tooltip"][aria-hidden="false"]`);
+              if (tooltip) tooltip.setAttribute('aria-hidden', 'true');
+            }}
           >
             Show information
           </button>
           <div
-            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-48 shadow-lg border border-gray-200 dark:border-gray-700 z-10"
+            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200 w-48 shadow-lg border border-gray-200 dark:border-gray-700 z-10"
             role="tooltip"
+            id={`${name}-tooltip`}
             aria-hidden="true"
           >
             {tooltip}

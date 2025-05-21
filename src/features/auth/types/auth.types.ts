@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 export interface AuthFormData {
   email: string;
   password: string;
@@ -15,7 +16,7 @@ export interface FieldWrapperProps {
   name: string;
   label: string;
   required?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
   tooltip?: string;
   isBlurred: boolean;
   fieldStatus?: FieldStatus;

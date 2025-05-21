@@ -27,6 +27,7 @@ export const en = {
   'auth.loginTitle': 'Login',
   'auth.registerTitle': 'Create Account',
   'auth.email': 'Email',
+  'auth.email.tooltip': 'Enter your email address to log in',
   'auth.name': 'Name',
   'auth.userName': 'Username',
   'auth.lastName': 'Last Name',
@@ -225,4 +226,7 @@ export const en = {
   'profile.messages.updated': 'Profile updated successfully!',
   'common.saving': 'Saving...',
   'profile.actions.save': 'Save Changes',
+
+  'referenceUrl.placeholder': 'https://example.com/job',
+  'notes.placeholder': 'Add any relevant information about this application',
 } as const;
