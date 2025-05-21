@@ -14,7 +14,12 @@ export type TranslationKey =
   | 'application.validation.positionRequired'
   | 'application.validation.urlInvalid'
   | 'dashboard.editApplication'
-  | 'hero.cta.button';
+  | 'hero.cta.button'
+  | 'dashboard.actions.deleteSuccess'
+  | 'dashboard.actions.deleteError'
+  | `dashboard.stats.status.${string}`
+  | 'common.loading'
+  | 'common.delete';
 
 const translations: Record<Language, Translations> = {
   es,

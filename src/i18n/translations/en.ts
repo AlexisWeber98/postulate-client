@@ -67,6 +67,8 @@ export const en = {
   'dashboard.actions.delete': 'Delete',
   'dashboard.actions.save': 'Save',
   'dashboard.actions.cancel': 'Cancel',
+  'dashboard.actions.deleteSuccess': 'Application deleted successfully',
+  'dashboard.actions.deleteError': 'Error deleting application',
 
   // Forms
   'company': 'Company',
@@ -181,5 +183,7 @@ export const en = {
   'trust.point2': 'Your Data is Secure',
   'trust.point2.explanation': 'Your personal and job search data is protected and only you can access it.',
   'trust.point3': 'Continuous Improvement',
-  'trust.point3.explanation': 'We listen to users and continuously improve the platform for you.'
+  'trust.point3.explanation': 'We listen to users and continuously improve the platform for you.',
+  'common.loading': 'Loading...',
+  'common.delete': 'Delete'
 } as const;

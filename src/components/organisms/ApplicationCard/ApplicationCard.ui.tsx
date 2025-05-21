@@ -7,6 +7,7 @@ import Card from '../../molecules/Card';
 import Button from '../../atoms/Button';
 import { StatusHelpers } from '../../../lib/helpers';
 import { Postulation } from '../../../types/interface/postulations/postulation';
+import { useLanguageStore } from '../../../store/language/languageStore';
 
 // Definimos la interfaz para las props del UI
 interface ApplicationCardUIProps extends ApplicationCardProps {
@@ -19,6 +20,7 @@ interface ApplicationCardUIProps extends ApplicationCardProps {
   closeDeleteModal: () => void;
   confirmDelete: () => void;
   isDeleteModalOpen: boolean;
+  isLoading: boolean;
 }
 
 export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
@@ -31,8 +33,10 @@ export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
   closeDeleteModal,
   confirmDelete,
   isDeleteModalOpen,
+  isLoading,
 }) => {
   const { company, position, status, notes } = application;
+  const { t } = useLanguageStore();
 
   const bgColor = APP_COLORS.cardColors[status as keyof typeof APP_COLORS.cardColors] || 'white';
   const statusClassName = StatusHelpers.getStatusClasses(status);
@@ -118,8 +122,9 @@ export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
             <Button
               variant="danger"
               onClick={confirmDelete}
+              disabled={isLoading}
             >
-              Eliminar
+              {isLoading ? t('common.loading') : t('common.delete')}
             </Button>
           </div>
         </div>

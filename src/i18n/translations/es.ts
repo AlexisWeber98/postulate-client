@@ -67,6 +67,8 @@ export const es = {
   'dashboard.actions.delete': 'Eliminar',
   'dashboard.actions.save': 'Guardar',
   'dashboard.actions.cancel': 'Cancelar',
+  'dashboard.actions.deleteSuccess': 'Postulación eliminada correctamente',
+  'dashboard.actions.deleteError': 'Error al eliminar la postulación',
 
   // Formularios
   'company': 'Empresa',
@@ -181,5 +183,7 @@ export const es = {
   'trust.point2': 'Tus datos seguros',
   'trust.point2.explanation': 'Tus datos personales y de búsqueda laboral están protegidos y solo vos podés acceder a ellos.',
   'trust.point3': 'Mejora continua',
-  'trust.point3.explanation': 'Escuchamos a los usuarios y mejoramos la plataforma continuamente para vos.'
+  'trust.point3.explanation': 'Escuchamos a los usuarios y mejoramos la plataforma continuamente para vos.',
+  'common.loading': 'Cargando...',
+  'common.delete': 'Eliminar'
 } as const;
