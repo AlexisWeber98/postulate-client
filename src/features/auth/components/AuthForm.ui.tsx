@@ -202,7 +202,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
             {t('auth.backToHome')}
           </Link>
         </motion.div>
-
         <AnimatePresence mode="wait">
           {error && (
             <motion.div
