@@ -12,8 +12,8 @@ console.log("API_KEY", API_KEY);
 export const client: AxiosInstance = axios.create({
   baseURL: API_URL,
   headers: {
-    "Content-Type": "application/json",
-    "x-api-key": API_KEY,
+    'Content-Type': 'application/json',
+    ...(API_KEY ? { 'x-api-key': API_KEY } : {}),
   },
   timeout: 30000, // 30 segundos de timeout
   timeoutErrorMessage: "La solicitud está tardando demasiado. Por favor, intenta nuevamente.",
@@ -37,9 +37,10 @@ client.interceptors.request.use(
 client.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.code === 'ECONNABORTED') {
-      throw new Error('auth.timeoutError');
-    }
+if (error.code === 'ECONNABORTED') {
+  error.name = 'TimeoutError';
+  return Promise.reject(error);
+}
 
     if (error.response?.status === 401) {
       useAuthStore.getState().signOut();
@@ -51,11 +52,11 @@ client.interceptors.response.use(
 
 // Cliente HTTP con métodos tipados
 export const httpClient = {
-  get: async <T>(url: string) => {
-    const response = await client.get<T>(url);
-    return response.data;
-  },
-
+get: async <T>(url: string, config?: AxiosRequestConfig) => {
+  const response = await client.get<T>(url, config);
+   return response.data;
+ },
+ // …repeat for post / put / patch / delete
   post: async <T>(url: string, data: unknown) => {
     const response = await client.post<T>(url, data);
     return response.data;
