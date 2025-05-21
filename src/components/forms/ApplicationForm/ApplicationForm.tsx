@@ -81,7 +81,7 @@ const ApplicationForm: React.FC = () => {
       case 'position':
         return {
           isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value) ? 'El puesto es requerido' : undefined
+          message: !ValidationHelpers.hasContent(value) ? t('application.validation.positionRequired') : undefined
         };
       case 'url':
         return {
