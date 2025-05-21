@@ -2,7 +2,14 @@ import { useState, useEffect, useMemo } from 'react';
 import { isValidEmail, hasContent } from '../../../lib/helpers/validation.helpers';
 import { AuthFormData, FieldStatus } from '../types/auth.types';
 
-
+// Constantes para validación de contraseña
+const PASSWORD_REQUIREMENTS = {
+  MIN_LENGTH: 8,
+  HAS_UPPERCASE: /[A-Z]/,
+  HAS_LOWERCASE: /[a-z]/,
+  HAS_NUMBER: /[0-9]/,
+  HAS_SPECIAL_CHAR: /[^A-Za-z0-9]/
+};
 
 export const useAuthForm = (type: 'login' | 'register') => {
   const [formData, setFormData] = useState<AuthFormData>({
@@ -31,10 +38,14 @@ export const useAuthForm = (type: 'login' | 'register') => {
         newFieldStatus.email = { isValid: true };
       }
 
-      if (formData.password.length < 6) {
+      if (formData.password.length < PASSWORD_REQUIREMENTS.MIN_LENGTH ||
+          !PASSWORD_REQUIREMENTS.HAS_UPPERCASE.test(formData.password) ||
+          !PASSWORD_REQUIREMENTS.HAS_LOWERCASE.test(formData.password) ||
+          !PASSWORD_REQUIREMENTS.HAS_NUMBER.test(formData.password) ||
+          !PASSWORD_REQUIREMENTS.HAS_SPECIAL_CHAR.test(formData.password)) {
         newFieldStatus.password = {
           isValid: false,
-          message: 'La contraseña debe tener al menos 6 caracteres'
+          message: 'La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas, números y caracteres especiales'
         };
       } else {
         newFieldStatus.password = { isValid: true };
