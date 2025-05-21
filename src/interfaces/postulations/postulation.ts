@@ -1,23 +1,15 @@
 export type PostulationStatus = 'applied' | 'interview' | 'technical' | 'offer' | 'rejected' | 'accepted';
 
-export const STATUS_LABELS: Record<PostulationStatus, string> = {
-  applied: 'Aplicado',
-  interview: 'Entrevista',
-  technical: 'Técnica',
-  offer: 'Oferta',
-  rejected: 'Rechazado',
-  accepted: 'Aceptado'
-};
 
-export const STATUS_LABELS_EN: Record<PostulationStatus, string> = {
-  applied: 'Applied',
-  interview: 'Interview',
-  technical: 'Technical',
-  offer: 'Offer',
-  rejected: 'Rejected',
-  accepted: 'Accepted'
+// Add translation keys to use with the i18n system instead
+export const STATUS_TRANSLATION_KEYS: Record<PostulationStatus, string> = {
+  applied: 'dashboard.stats.status.applied',
+  interview: 'dashboard.stats.status.interview',
+  technical: 'dashboard.stats.status.technical',
+  offer: 'dashboard.stats.status.offer',
+  rejected: 'dashboard.stats.status.rejected',
+  accepted: 'dashboard.stats.status.accepted'
 };
-
 export interface Postulation {
   id: string;
   company: string;
