@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Briefcase, Building2, ListFilter } from 'lucide-react';
 import {
   Select,
@@ -43,8 +43,6 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
 }) => {
   const { t } = useLanguageStore();
 
-
-  // ...
   // Manejador tipado para statusFilter
   const handleStatusChange = (value: string) => {
     setStatusFilter(value as PostulationStatus | 'all');
@@ -56,7 +54,6 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
       setCompanyFilter(value === "all" ? "" : value);
     } catch (error) {
       console.error("Error al cambiar el filtro de empresa:", error);
-      // Restablecer el filtro en caso de error
       setCompanyFilter("");
     }
   };
@@ -65,16 +62,15 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
     try {
       setPositionFilter(value === "all" ? "" : value);
     } catch (error) {
-      console.error("Error al cambiar el filtro de puesto:", error);
-      // Restablecer el filtro en caso de error
+      console.error("Error al cambiar el filtro de posición:", error);
       setPositionFilter("");
     }
   };
 
   // Badge counter para mostrar cuántos elementos hay en cada categoría
-  const getBadgeCounter = (items: string[]) => {
+  const getBadgeCounter = useCallback((items: string[]) => {
     return items.length > 0 ? `(${items.length})` : '';
-  };
+  }, []);
 
   // Valores seguros para los selects que nunca deben ser undefined
   const safeCompanyValue = companyFilter === "" ? "all" : companyFilter;
@@ -94,7 +90,7 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{t('dashboard.filters.all')}</SelectItem>
-            {statusOptions.map((status) => (
+            {statusOptions.filter(status => status !== 'all').map((status) => (
               <SelectItem key={status} value={status}>{status}</SelectItem>
             ))}
           </SelectContent>
