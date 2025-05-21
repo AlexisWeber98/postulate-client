@@ -8,13 +8,18 @@ interface AuthBackgroundProps {
 export function AuthBackground({ imagePath, children }: AuthBackgroundProps) {
   const [imageLoaded, setImageLoaded] = useState(true);
 
-  useEffect(() => {
-    if (!imagePath) return;
-    const img = new window.Image();
-    img.src = imagePath;
-    img.onload = () => setImageLoaded(true);
-    img.onerror = () => setImageLoaded(false);
-  }, [imagePath]);
+useEffect(() => {
+  if (!imagePath) return;
+  const img = new window.Image();
+  img.src = imagePath;
+  img.onload = () => setImageLoaded(true);
+  img.onerror = () => setImageLoaded(false);
+
+ return () => {
+   img.onload = null;
+   img.onerror = null;
+ };
+}, [imagePath]);
 
   return (
     <div

@@ -7,6 +7,10 @@ export const es = {
   'profile': 'Perfil',
   'signOut': 'Cerrar Sesión',
 
+  // Cambio de tema
+  'theme.switchToLight': 'Cambiar a modo claro',
+  'theme.switchToDark': 'Cambiar a modo oscuro',
+
   // Hero
   'hero.title': 'Gestiona tus postulaciones laborales',
   'hero.subtitle.rest': 'tu búsqueda de trabajo',

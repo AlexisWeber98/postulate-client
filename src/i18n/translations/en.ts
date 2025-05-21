@@ -7,6 +7,10 @@ export const en = {
   'profile': 'Profile',
   'signOut': 'Sign Out',
 
+  // Theme toggle
+  'theme.switchToLight': 'Switch to light mode',
+  'theme.switchToDark': 'Switch to dark mode',
+
   // Hero
   'hero.title': 'Manage your job applications',
   'hero.subtitle.rest': 'your job search',
