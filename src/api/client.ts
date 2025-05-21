@@ -38,7 +38,7 @@ client.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.code === 'ECONNABORTED') {
-      throw new Error('La solicitud está tardando demasiado. Por favor, verifica tu conexión e intenta nuevamente.');
+      throw new Error('auth.timeoutError');
     }
 
     if (error.response?.status === 401) {

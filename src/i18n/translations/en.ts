@@ -32,8 +32,9 @@ export const en = {
   'auth.newUser': 'Don\'t have an account?',
   'auth.createAccountLink': 'Create account',
   'auth.alreadyHaveAccount': 'Already have an account?',
-  'auth.loginLink': 'Login',
-  'auth.backToHome': 'Back to home',
+  'auth.loginLink': 'Log in',
+  'auth.backToHome': 'Back to homepage',
+  'auth.timeoutError': 'The request is taking too long. Please check your connection and try again.',
 
   // Dashboard
   'dashboard.filters.search': 'Search applications...',

@@ -34,6 +34,7 @@ export const es = {
   'auth.alreadyHaveAccount': '¿Ya tienes una cuenta?',
   'auth.loginLink': 'Iniciar sesión',
   'auth.backToHome': 'Volver al inicio',
+  'auth.timeoutError': 'La solicitud está tardando demasiado. Por favor, verifica tu conexión e intenta nuevamente.',
 
   // Dashboard
   'dashboard.filters.search': 'Buscar postulaciones...',

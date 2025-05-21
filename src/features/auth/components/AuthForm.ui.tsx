@@ -6,6 +6,7 @@ import { useLanguageStore } from '../../../store';
 import Button from '../../../components/atoms/Button/Button.ui';
 import { FieldWrapper } from './FieldWrapper';
 import { useAuthForm } from '../hooks/useAuthForm';
+import { TranslationKey } from '../../../i18n';
 
 interface AuthFormProps {
   type: 'login' | 'register';
@@ -201,7 +202,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
               className="mt-2 text-center"
             >
               <p className="text-red-600 dark:text-red-400 font-medium">
-                {error}
+                {error.startsWith('auth.') ? t(error as TranslationKey) : error}
               </p>
             </motion.div>
           )}

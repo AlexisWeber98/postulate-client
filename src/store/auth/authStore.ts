@@ -76,7 +76,7 @@ export const useAuthStore = create<AuthState>()(
 
           if (error instanceof Error) {
             if (error.message.includes('timeout')) {
-              throw new Error('La conexión está tardando demasiado. Por favor, verifica tu conexión a internet e intenta nuevamente.');
+              throw new Error('auth.timeoutError');
             }
             throw error;
           }
