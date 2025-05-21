@@ -1,6 +1,39 @@
 import { execSync } from 'child_process';
 import readline from 'readline';
 
+// Configuración de mensajes por idioma
+const messages = {
+  en: {
+    update: 'code update',
+    description: 'Description',
+    automatic: 'Automatic file update',
+    changes: 'Changes made',
+    filesToInclude: 'Files to be included in commit',
+    confirmQuestion: 'Do you want to include changes in',
+    commitSuccess: '✅ Commit completed successfully',
+    commitCancelled: '❌ Commit cancelled. Please select files manually and try again.',
+    error: '❌ Error performing commit',
+  },
+  es: {
+    update: 'actualización de código',
+    description: 'Descripción',
+    automatic: 'Actualización automática de archivos',
+    changes: 'Cambios realizados',
+    filesToInclude: 'Archivos a ser incluidos en el commit',
+    confirmQuestion: '¿Deseas incluir los cambios en',
+    commitSuccess: '✅ Commit realizado automáticamente',
+    commitCancelled:
+      '❌ Commit cancelado. Por favor, selecciona los archivos manualmente e intenta nuevamente.',
+    error: '❌ Error al realizar el commit',
+  },
+};
+
+// Obtener el idioma preferido (por defecto: inglés)
+const getLanguage = () => {
+  const lang = process.env.COMMIT_LANG || 'en';
+  return messages[lang] || messages.en;
+};
+
 try {
   // Obtener los cambios pendientes
   const status = execSync('git status --porcelain', { encoding: 'utf-8' });
@@ -9,8 +42,11 @@ try {
   const patterns = process.argv.slice(2);
   const filesToStage = patterns.length > 0 ? patterns.join(' ') : '.';
 
+  // Obtener mensajes en el idioma configurado
+  const lang = getLanguage();
+
   // Mostrar los cambios y pedir confirmación
-  console.log('Archivos a ser incluidos en el commit:');
+  console.log(lang.filesToInclude + ':');
   console.log(status);
 
   const rl = readline.createInterface({
@@ -18,7 +54,7 @@ try {
     output: process.stdout,
   });
 
-  rl.question(`¿Deseas incluir los cambios en ${filesToStage}? (s/n): `, answer => {
+  rl.question(`${lang.confirmQuestion} ${filesToStage}? (s/n): `, answer => {
     if (answer.toLowerCase() === 's') {
       // Añadir los cambios especificados
       execSync(`git add ${filesToStage}`, { stdio: 'inherit' });
