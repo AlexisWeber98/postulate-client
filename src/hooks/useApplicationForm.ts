@@ -217,10 +217,13 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
       date,
       url,
       notes,
+      recruiterContact,
+      sentCV,
+      sentEmail,
     });
     setIsSubmitting(false);
     navigate("/");
-  }, [company, position, status, date, url, notes, addPostulation, navigate]);
+  }, [company, position, status, date, url, notes, recruiterContact, sentCV, sentEmail, addPostulation, navigate]);
 
   return {
     formData: {
