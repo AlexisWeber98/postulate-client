@@ -5,6 +5,10 @@ try {
   // Obtener los cambios pendientes
   const status = execSync('git status --porcelain', { encoding: 'utf-8' });
 
+  // Determinar qué archivos incluir basado en los argumentos
+  const patterns = process.argv.slice(2);
+  const filesToStage = patterns.length > 0 ? patterns.join(' ') : '.';
+
   // Mostrar los cambios y pedir confirmación
   console.log('Archivos a ser incluidos en el commit:');
   console.log(status);
@@ -14,10 +18,10 @@ try {
     output: process.stdout,
   });
 
-  rl.question('¿Deseas incluir todos estos cambios en el commit? (s/n): ', answer => {
+  rl.question(`¿Deseas incluir los cambios en ${filesToStage}? (s/n): `, answer => {
     if (answer.toLowerCase() === 's') {
-      // Añadir todos los cambios
-      execSync('git add .', { stdio: 'inherit' });
+      // Añadir los cambios especificados
+      execSync(`git add ${filesToStage}`, { stdio: 'inherit' });
 
       // Crear el mensaje del commit con los cambios específicos
       const changes = status
