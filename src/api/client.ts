@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { useAuthStore } from "../store/auth/authStore";
 
 // Configuración base para las peticiones HTTP
