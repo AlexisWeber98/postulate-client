@@ -19,6 +19,4 @@ dist
 bun.lock
 package-lock.json
 
-.cursor
-.cursor/rules
-.cursor-rules
+.cursor*

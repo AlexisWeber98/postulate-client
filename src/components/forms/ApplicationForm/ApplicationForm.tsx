@@ -115,6 +115,7 @@ const ApplicationForm: React.FC = () => {
     try {
       if (!id && checkDuplicate(formData.company, formData.position)) {
         setShowDuplicateModal(true);
+        setIsSubmitting(false);
         return;
       }
 
