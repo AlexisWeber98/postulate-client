@@ -60,7 +60,7 @@ const ApplicationDetailModalUI: React.FC<ApplicationDetailModalUIProps> = ({
       <div className="flex justify-between mb-5 text-white text-sm gap-2">
         <div className="flex-1 text-center bg-white/10 py-2 rounded-xl">
           <div className="text-sm font-semibold">
-            {new Date(date).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: '2-digit' })}
+            {new Date(date).toLocaleDateString(navigator.language || 'es-ES', { day: '2-digit', month: 'short', year: '2-digit' })}
           </div>
           <div className="text-white/50 text-[11px]">{t('dashboard.date')}</div>
         </div>
@@ -113,8 +113,8 @@ const ApplicationDetailModalUI: React.FC<ApplicationDetailModalUIProps> = ({
 
       {/* Fechas */}
       <div className="flex justify-between text-blue-200 text-[11px]">
-        <span>{t('dashboard.created')}: {new Date(createdAt).toLocaleDateString('es-ES')}</span>
-        <span>{t('dashboard.updated')}: {new Date(updatedAt).toLocaleDateString('es-ES')}</span>
+        <span>{t('dashboard.created')}: {new Date(createdAt).toLocaleDateString(navigator.language || 'es-ES')}</span>
+        <span>{t('dashboard.updated')}: {new Date(updatedAt).toLocaleDateString(navigator.language || 'es-ES')}</span>
       </div>
 
     </StyledModalContainer>
