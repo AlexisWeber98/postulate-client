@@ -5,8 +5,7 @@ import { useAuthStore } from "../store/auth/authStore";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:6001";
 const API_KEY = import.meta.env.VITE_API_KEY; //|| "your-api-key";
 
-console.log("API_URL", API_URL);
-console.log("API_KEY", API_KEY);
+
 
 // Crear instancia de axios con configuración base
 export const client: AxiosInstance = axios.create({
@@ -22,10 +21,10 @@ export const client: AxiosInstance = axios.create({
 // Interceptor para agregar el token de autenticación
 client.interceptors.request.use(
   (config) => {
-    const token = useAuthStore.getState().token;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+const token = useAuthStore.getState().token;
+if (token) {
+  config.headers.set('Authorization', `Bearer ${token}`);
+}
     return config;
   },
   (error) => {
@@ -57,8 +56,8 @@ get: async <T>(url: string, config?: AxiosRequestConfig) => {
    return response.data;
  },
  // …repeat for post / put / patch / delete
-  post: async <T>(url: string, data: unknown) => {
-    const response = await client.post<T>(url, data);
+post: async <T>(url: string, data: unknown, config?: AxiosRequestConfig) => {
+  const response = await client.post<T>(url, data, config);
     return response.data;
   },
 
