@@ -16,6 +16,6 @@ export interface AuthState {
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, name: string, userName: string, lastName: string) => Promise<void>;
   signOut: () => void;
-  updateUser: (data: { name?: string; email?: string }) => void;
+  updateUser: (data: Partial<Omit<User, 'id'>>) => void;
 
 }
