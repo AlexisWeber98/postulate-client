@@ -21,6 +21,16 @@ interface FilterSelectsProps {
   setPositionFilter: (value: string) => void;
 }
 
+const statusOptions: (PostulationStatus | 'all')[] = [
+  'all',
+  'applied',
+  'interview',
+  'technical',
+  'offer',
+  'rejected',
+  'accepted'
+];
+
 const FilterSelects: React.FC<FilterSelectsProps> = ({
   statusFilter,
   setStatusFilter,
@@ -33,16 +43,8 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
 }) => {
   const { t } = useLanguageStore();
 
-  const statusOptions: (PostulationStatus | 'all')[] = [
-    'all',
-    'applied',
-    'interview',
-    'technical',
-    'offer',
-    'rejected',
-    'accepted'
-  ];
 
+  // ...
   // Manejador tipado para statusFilter
   const handleStatusChange = (value: string) => {
     setStatusFilter(value as PostulationStatus | 'all');
