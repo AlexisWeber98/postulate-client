@@ -20,6 +20,7 @@ export type TranslationKey =
   | `dashboard.stats.status.${string}`
   | 'common.loading'
   | 'common.delete'
+  | 'common.closeModal'
   | 'applicationForm.duplicateTitle'
   | 'applicationForm.duplicateMessage'
   | 'applicationForm.continueAnyway'

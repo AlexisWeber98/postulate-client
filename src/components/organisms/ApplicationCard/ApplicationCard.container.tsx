@@ -21,22 +21,22 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const { updatePostulation, deletePostulation } = usePostulationsStore();
 
   const openDetailModal = () => {
-    console.log('[ApplicationCard] Abriendo modal de detalles para postulación:', application.id);
+
     setIsDetailModalOpen(true);
   };
 
   const closeDetailModal = () => {
-    console.log('[ApplicationCard] Cerrando modal de detalles');
+
     setIsDetailModalOpen(false);
   };
 
   const openEditModal = () => {
-    console.log('[ApplicationCard] Abriendo modal de edición para postulación:', application.id);
+
     setIsEditModalOpen(true);
   };
 
   const closeEditModal = () => {
-    console.log('[ApplicationCard] Cerrando modal de edición');
+
     setIsEditModalOpen(false);
   };
 

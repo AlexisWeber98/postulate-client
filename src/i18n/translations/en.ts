@@ -185,5 +185,7 @@ export const en = {
   'trust.point3': 'Continuous Improvement',
   'trust.point3.explanation': 'We listen to users and continuously improve the platform for you.',
   'common.loading': 'Loading...',
-  'common.delete': 'Delete'
+  'common.delete': 'Delete',
+  'common.closeModal': 'Close modal',
+  'applicationForm.duplicateTitle': 'Duplicate Application',
 } as const;

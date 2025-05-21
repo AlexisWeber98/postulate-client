@@ -186,6 +186,7 @@ export const es = {
   'trust.point3.explanation': 'Escuchamos a los usuarios y mejoramos la plataforma continuamente para vos.',
   'common.loading': 'Cargando...',
   'common.delete': 'Eliminar',
+  'common.closeModal': 'Cerrar modal',
   'applicationForm.duplicateTitle': 'Postulación Duplicada',
   'applicationForm.duplicateMessage': 'Ya existe una postulación para {position} en {company}. ¿Deseas continuar de todos modos?',
   'applicationForm.continueAnyway': 'Continuar de todos modos',
