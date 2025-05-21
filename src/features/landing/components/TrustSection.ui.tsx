@@ -4,7 +4,7 @@ import CardFlip from 'react-card-flip';
 import { motion } from 'framer-motion';
 import { TranslationKey } from '../../../i18n';
 
-const trustPoints = [
+const trustPoints: { textKey: TranslationKey }[] = [
   { textKey: 'trust.point1' },
   { textKey: 'trust.point2' },
   { textKey: 'trust.point3' },
@@ -71,8 +71,8 @@ const TrustSection: React.FC<TrustSectionProps> = ({ t }) => {
         {trustPoints.map((point, idx) => (
           <FlipCard
             key={idx}
-            title={t(point.textKey as TranslationKey)}
-            explanation={t(point.textKey + '.explanation' as TranslationKey)}
+            title={t(point.textKey)}
+            explanation={t(`${point.textKey}.explanation` as TranslationKey)}
             delay={0.15 * idx}
           />
         ))}
