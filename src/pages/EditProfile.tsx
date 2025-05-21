@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthStore } from '../store/auth/authStore';
-import { Save, ArrowLeft, Info, Loader2, CheckCircle2, XCircle } from 'lucide-react';
+import { Save, ArrowLeft, Loader2 } from 'lucide-react';
 import { isValidEmail, hasContent } from '../lib/helpers/validation.helpers';
 import Button from '../components/atoms/Button/Button.ui';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
 import { useLanguageStore } from '../store';
+import FieldWrapper from '../components/molecules/FieldWrapper/FieldWrapper';
 
 const EditProfile: React.FC = () => {
   const { user, updateUser } = useAuthStore();
@@ -83,61 +84,6 @@ const EditProfile: React.FC = () => {
     }
   };
 
-  const FieldWrapper: React.FC<{
-    name: string;
-    label: string;
-    required?: boolean;
-    children: React.ReactNode;
-    tooltip?: string;
-  }> = ({ name, label, required, children, tooltip }) => (
-    <div className="relative">
-      <label htmlFor={name} className="text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
-        {label} {required && <span className="text-red-500">*</span>}
-        {tooltip && (
-          <div className="group relative">
-            <Info className="h-4 w-4 text-blue-500 dark:text-blue-400 cursor-help" />
-            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-48 shadow-lg border border-gray-200 dark:border-gray-700 z-10">
-              {tooltip}
-            </div>
-          </div>
-        )}
-      </label>
-      <div className="relative">
-        {children}
-        <AnimatePresence mode="wait">
-          {isBlurred[name] && fieldStatus[name] && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.2 }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
-            >
-              {fieldStatus[name].isValid ? (
-                <CheckCircle2 className="h-5 w-5 text-green-500" />
-              ) : (
-                <XCircle className="h-5 w-5 text-red-500" />
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-      <AnimatePresence mode="wait">
-        {isBlurred[name] && fieldStatus[name]?.message && (
-          <motion.p
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="mt-2 text-sm text-red-500 dark:text-red-400 overflow-hidden"
-          >
-            {fieldStatus[name].message}
-          </motion.p>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -183,6 +129,8 @@ const EditProfile: React.FC = () => {
               label="Nombre"
               required
               tooltip="Ingresa tu nombre completo"
+              isBlurred={isBlurred.name}
+              fieldStatus={fieldStatus.name}
             >
               <input
                 type="text"
@@ -203,6 +151,8 @@ const EditProfile: React.FC = () => {
               label="Email"
               required
               tooltip="Ingresa tu correo electrónico"
+              isBlurred={isBlurred.email}
+              fieldStatus={fieldStatus.email}
             >
               <input
                 type="email"
