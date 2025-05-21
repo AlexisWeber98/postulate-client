@@ -1,9 +1,9 @@
 export interface AuthFormData {
   email: string;
   password: string;
-  name: string;
-  userName: string;
-  lastName: string;
+  name?: string;
+  userName?: string;
+  lastName?: string;
 }
 
 export interface FieldStatus {

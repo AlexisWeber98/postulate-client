@@ -8,9 +8,11 @@ export const useAuthForm = (type: 'login' | 'register') => {
   const [formData, setFormData] = useState<AuthFormData>({
     email: '',
     password: '',
-    name: '',
-    userName: '',
-    lastName: ''
+   ...(type === 'register' && {
+     name: '',
+     userName: '',
+     lastName: ''
+   })
   });
 
   const [fieldStatus, setFieldStatus] = useState<Record<string, FieldStatus>>({});
@@ -39,7 +41,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
       }
 
       if (type === 'register') {
-        if (!hasContent(formData.name)) {
+        if (!formData.name || !hasContent(formData.name)) {
           newFieldStatus.name = {
             isValid: false,
             message: 'El nombre es obligatorio'
@@ -48,7 +50,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
           newFieldStatus.name = { isValid: true };
         }
 
-        if (!hasContent(formData.userName)) {
+        if (!formData.userName || !hasContent(formData.userName)) {
           newFieldStatus.userName = {
             isValid: false,
             message: 'El nombre de usuario es obligatorio'
@@ -57,7 +59,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
           newFieldStatus.userName = { isValid: true };
         }
 
-        if (!hasContent(formData.lastName)) {
+        if (!formData.lastName || !hasContent(formData.lastName)) {
           newFieldStatus.lastName = {
             isValid: false,
             message: 'El apellido es obligatorio'
