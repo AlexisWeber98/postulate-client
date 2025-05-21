@@ -5,6 +5,7 @@ import { NewPostulationFormProps, NewPostulationFormValues } from '../../../type
 import { useLanguageStore } from '../../../store';
 import Button from '../../../components/atoms/Button/Button.ui';
 import { Save } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 interface UIProps extends Omit<NewPostulationFormProps, 'onSubmit'> {
   values: NewPostulationFormValues;
@@ -30,6 +31,19 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   error,
 }) => {
   const { t } = useLanguageStore();
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const handleSelectChange = (status: PostulationStatus) => {
+    const event = {
+      target: {
+        name: 'status',
+        value: status
+      }
+    } as React.ChangeEvent<HTMLSelectElement>;
+    onChange(event);
+    setIsOpen(false);
+  };
+
   return (
     <form
       onSubmit={onSubmit}
@@ -62,21 +76,31 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
           />
         </FormField>
         <FormField label={t('status') || 'Status'} htmlFor="status" required error={touched.status && errors.status ? errors.status : ''}>
-          <select
-            id="status"
-            name="status"
-            value={values.status}
-            onChange={onChange}
-            className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none"
-            required
-          >
-            <option value="" className="text-black bg-white">{t('selectStatus') || 'Seleccionar estado'}</option>
-            {statusOptions.map((status) => (
-              <option key={status} value={status} className="text-black bg-white">
-                {STATUS_LABELS[status as PostulationStatus]}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+              className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none flex justify-between items-center"
+            >
+              <span>{values.status ? STATUS_LABELS[values.status] : t('selectStatus')}</span>
+              <ChevronDown className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {isOpen && (
+              <div className="absolute z-10 w-full mt-1 bg-white rounded-xl shadow-lg border border-gray-200">
+                <ul className="py-1 max-h-60 overflow-auto">
+                  {statusOptions.map((status) => (
+                    <li
+                      key={status}
+                      onClick={() => handleSelectChange(status)}
+                      className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-900"
+                    >
+                      {STATUS_LABELS[status]}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </FormField>
         <FormField label={t('date') || 'Date'} htmlFor="date" required error={touched.date && errors.date ? errors.date : ''}>
           <input
