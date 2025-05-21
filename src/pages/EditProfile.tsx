@@ -16,8 +16,14 @@ const EditProfile: React.FC = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [fieldStatus, setFieldStatus] = useState<Record<string, { isValid: boolean; message?: string }>>({});
-  const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({});
+  const [fieldStatus, setFieldStatus] = useState<Record<string, { isValid: boolean; message?: string }>>({
+    name: { isValid: false },
+    email: { isValid: false },
+  });
+  const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({
+    name: false,
+    email: false,
+  });
 
   // Validación en tiempo real
   useEffect(() => {
@@ -107,8 +113,8 @@ const EditProfile: React.FC = () => {
           </Link>
         </motion.div>
 
-<motion.p
-  id={`${name}-error`}
+        <motion.p
+          id="name-error"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}

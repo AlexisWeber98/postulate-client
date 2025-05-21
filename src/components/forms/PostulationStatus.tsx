@@ -2,16 +2,16 @@ import { motion } from "framer-motion";
 import { TranslationKey } from "../../i18n";
 
 interface PostulationStatusFormProps {
-  sendCv: boolean;
-  sendEmail: boolean;
+  sentCV: boolean;
+  sentEmail: boolean;
   onSendCvChange: (checked: boolean) => void;
   onSendEmailChange: (checked: boolean) => void;
   t: (key: TranslationKey, placeholders?: Record<string, string | number>) => string;
 }
 
 const PostulationStatusForm: React.FC<PostulationStatusFormProps> = ({
-  sendCv,
-  sendEmail,
+  sentCV,
+  sentEmail,
   onSendCvChange,
   onSendEmailChange,
   t
@@ -28,24 +28,24 @@ const PostulationStatusForm: React.FC<PostulationStatusFormProps> = ({
       <div className="flex items-center gap-3 p-3 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700/50">
         <input
           type="checkbox"
-          id="sendCv"
-          checked={sendCv}
+          id="sentCV"
+          checked={sentCV}
           onChange={(e) => onSendCvChange(e.target.checked)}
           className="accent-blue-500 w-5 h-5 rounded"
         />
-        <label htmlFor="sendCv" className="text-gray-700 dark:text-white/90 text-base cursor-pointer">
+        <label htmlFor="sentCV" className="text-gray-700 dark:text-white/90 text-base cursor-pointer">
           {t('dashboard.sentCV')}
         </label>
       </div>
       <div className="flex items-center gap-3 p-3 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700/50">
         <input
           type="checkbox"
-          id="sendEmail"
-          checked={sendEmail}
+          id="sentEmail"
+          checked={sentEmail}
           onChange={(e) => onSendEmailChange(e.target.checked)}
           className="accent-blue-500 w-5 h-5 rounded"
         />
-        <label htmlFor="sendEmail" className="text-gray-700 dark:text-white/90 text-base cursor-pointer">
+        <label htmlFor="sentEmail" className="text-gray-700 dark:text-white/90 text-base cursor-pointer">
           {t('dashboard.sentEmail')}
         </label>
       </div>

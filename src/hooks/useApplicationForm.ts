@@ -13,8 +13,8 @@ interface UseApplicationFormReturn {
     url: string;
     notes: string;
     recruiterContact: string;
-    sendCv: boolean;
-    sendEmail: boolean;
+    sentCV: boolean;
+    sentEmail: boolean;
   };
   fieldStatus: Record<string, { isValid: boolean; message?: string }>;
   isBlurred: Record<string, boolean>;
@@ -31,8 +31,8 @@ interface UseApplicationFormReturn {
   setDate: (date: string) => void;
   setNotes: (notes: string) => void;
   setRecruiterContact: (contact: string) => void;
-  setSendCv: (send: boolean) => void;
-  setSendEmail: (send: boolean) => void;
+  setSentCV: (send: boolean) => void;
+  setSentEmail: (send: boolean) => void;
   validateForm: () => boolean;
 }
 
@@ -46,8 +46,8 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
   const [status, setStatus] = useState<PostulationStatus>("applied");
   const [date, setDate] = useState("");
   const [url, setUrl] = useState("");
-  const [sendCv, setSendCv] = useState(true);
-  const [sendEmail, setSendEmail] = useState(true);
+  const [sentCV, setSentCV] = useState(true);
+  const [sentEmail, setSentEmail] = useState(true);
   const [notes, setNotes] = useState("");
   const [recruiterContact, setRecruiterContact] = useState("");
 
@@ -68,17 +68,17 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
       case 'position':
         return {
           isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value) ? 'El puesto es requerido' : undefined
+          message: !ValidationHelpers.hasContent(value) ? 'dashboard.validation.positionRequired' : undefined
         };
       case 'url':
         return {
           isValid: !value || ValidationHelpers.isValidUrl(value),
-          message: value && !ValidationHelpers.isValidUrl(value) ? 'La URL debe ser válida' : undefined
+          message: value && !ValidationHelpers.isValidUrl(value) ? 'dashboard.validation.urlInvalid' : undefined
         };
       case 'date':
         return {
           isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value) ? 'La fecha es requerida' : undefined
+          message: !ValidationHelpers.hasContent(value) ? 'dashboard.validation.dateRequired' : undefined
         };
       default:
         return { isValid: true };
@@ -161,22 +161,28 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
 
       if (id) {
         await updatePostulation(id, {
-          company,
-          position,
-          status,
-          date,
-          url,
-          notes,
-        });
-      } else {
+           company,
+           position,
+           status,
+           date,
+           url,
+           notes,
+          recruiterContact,
+          sentCV: sentCV,
+          sentEmail: sentEmail,
+         });
+
         await addPostulation({
-          company,
-          position,
-          status,
-          date,
-          url,
-          notes,
-        });
+           company,
+           position,
+           status,
+           date,
+           url,
+           notes,
+          recruiterContact,
+          sentCV: sentCV,
+          sentEmail: sentEmail,
+         });
       }
 
       navigate("/");
@@ -195,8 +201,8 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     setUrl("");
     setNotes("");
     setRecruiterContact("");
-    setSendCv(true);
-    setSendEmail(true);
+    setSentCV(true);
+    setSentEmail(true);
     setErrors({});
     setFieldStatus({});
     setIsBlurred({});
@@ -225,8 +231,8 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
       url,
       notes,
       recruiterContact,
-      sendCv,
-      sendEmail,
+      sentCV,
+      sentEmail,
     },
     fieldStatus,
     isBlurred,
@@ -243,8 +249,8 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     setDate,
     setNotes,
     setRecruiterContact,
-    setSendCv,
-    setSendEmail,
+    setSentCV,
+    setSentEmail,
     validateForm,
   };
 };

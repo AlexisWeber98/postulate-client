@@ -51,9 +51,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
           label={t('auth.email')}
           required
           tooltip="Ingresa tu correo electrónico"
-          isValid={fieldStatus.email?.isValid}
           isBlurred={isBlurred.email}
-          errorMessage={fieldStatus.email?.message}
+          fieldStatus={fieldStatus.email}
         >
           <input
             type="email"
@@ -74,9 +73,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
               label={t('auth.name')}
               required
               tooltip="Ingresa tu nombre completo"
-              isValid={fieldStatus.name?.isValid}
               isBlurred={isBlurred.name}
-              errorMessage={fieldStatus.name?.message}
+              fieldStatus={fieldStatus.name}
             >
               <input
                 type="text"
@@ -95,9 +93,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
               label={t('auth.userName')}
               required
               tooltip="Ingresa tu nombre de usuario"
-              isValid={fieldStatus.userName?.isValid}
               isBlurred={isBlurred.userName}
-              errorMessage={fieldStatus.userName?.message}
+              fieldStatus={fieldStatus.userName}
             >
               <input
                 type="text"
@@ -116,9 +113,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
               label={t('auth.lastName')}
               required
               tooltip="Ingresa tu apellido"
-              isValid={fieldStatus.lastName?.isValid}
               isBlurred={isBlurred.lastName}
-              errorMessage={fieldStatus.lastName?.message}
+              fieldStatus={fieldStatus.lastName}
             >
               <input
                 type="text"
@@ -139,9 +135,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
           label={t('auth.password')}
           required
           tooltip="Ingresa tu contraseña (mínimo 6 caracteres)"
-          isValid={fieldStatus.password?.isValid}
           isBlurred={isBlurred.password}
-          errorMessage={fieldStatus.password?.message}
+          fieldStatus={fieldStatus.password}
         >
           <div className="relative">
             <input

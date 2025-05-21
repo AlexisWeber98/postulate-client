@@ -11,8 +11,8 @@ interface ApplicationFormFieldsProps {
     url: string;
     notes: string;
     recruiterContact: string;
-    sendCv: boolean;
-    sendEmail: boolean;
+    sentCV: boolean;
+    sentEmail: boolean;
   };
   fieldStatus: Record<string, { isValid: boolean; message?: string }>;
   isBlurred: Record<string, boolean>;
@@ -27,10 +27,9 @@ const FieldWrapper: React.FC<{
   required?: boolean;
   children: React.ReactNode;
   tooltip?: string;
-  isValid?: boolean;
-  isBlurred?: boolean;
-  errorMessage?: string;
-}> = ({ name, label, required, children, tooltip, isValid, isBlurred, errorMessage }) => (
+  isBlurred: boolean;
+  fieldStatus?: { isValid: boolean; message?: string };
+}> = ({ name, label, required, children, tooltip, isBlurred, fieldStatus }) => (
   <div className="relative">
     <label htmlFor={name} className="text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
       {label} {required && <span className="text-red-500">*</span>}
@@ -46,7 +45,7 @@ const FieldWrapper: React.FC<{
     <div className="relative">
       {children}
       <AnimatePresence mode="wait">
-        {isBlurred && (
+        {isBlurred && fieldStatus && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -54,7 +53,7 @@ const FieldWrapper: React.FC<{
             transition={{ duration: 0.2 }}
             className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
           >
-            {isValid ? (
+            {fieldStatus.isValid ? (
               <CheckCircle2 className="h-5 w-5 text-green-500" />
             ) : (
               <XCircle className="h-5 w-5 text-red-500" />
@@ -64,7 +63,7 @@ const FieldWrapper: React.FC<{
       </AnimatePresence>
     </div>
     <AnimatePresence mode="wait">
-      {isBlurred && errorMessage && (
+      {isBlurred && fieldStatus?.message && (
         <motion.p
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
@@ -72,7 +71,7 @@ const FieldWrapper: React.FC<{
           transition={{ duration: 0.2 }}
           className="mt-2 text-sm text-red-500 dark:text-red-400 overflow-hidden"
         >
-          {errorMessage}
+          {fieldStatus.message}
         </motion.p>
       )}
     </AnimatePresence>
@@ -94,9 +93,8 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
         label={t('dashboard.company')}
         required
         tooltip={t('tooltip.company')}
-        isValid={fieldStatus.company?.isValid}
         isBlurred={isBlurred.company}
-        errorMessage={fieldStatus.company?.message}
+        fieldStatus={fieldStatus.company}
       >
         <input
           type="text"
@@ -117,9 +115,8 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
         label={t('dashboard.position')}
         required
         tooltip="Ingresa el título del puesto al que te postulaste"
-        isValid={fieldStatus.position?.isValid}
         isBlurred={isBlurred.position}
-        errorMessage={fieldStatus.position?.message}
+        fieldStatus={fieldStatus.position}
       >
         <input
           type="text"
@@ -173,9 +170,8 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
           name="url"
           label={t('referenceUrl')}
           tooltip="Ingresa la URL de la publicación o la página de la empresa"
-          isValid={fieldStatus.url?.isValid}
           isBlurred={isBlurred.url}
-          errorMessage={fieldStatus.url?.message}
+          fieldStatus={fieldStatus.url}
         >
           <input
             type="url"
@@ -234,8 +230,8 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
               <input
                 type="checkbox"
                 id="sendCv"
-                checked={formData.sendCv}
-                onChange={(e) => onFieldChange('sendCv', e.target.checked)}
+                checked={formData.sentCV}
+                onChange={(e) => onFieldChange('sentCV', e.target.checked)}
                 className="accent-blue-500 w-5 h-5 rounded"
               />
               <label htmlFor="sendCv" className="text-gray-700 dark:text-white/90 text-base cursor-pointer">
@@ -246,8 +242,8 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
               <input
                 type="checkbox"
                 id="sendEmail"
-                checked={formData.sendEmail}
-                onChange={(e) => onFieldChange('sendEmail', e.target.checked)}
+                checked={formData.sentEmail}
+                onChange={(e) => onFieldChange('sentEmail', e.target.checked)}
                 className="accent-blue-500 w-5 h-5 rounded"
               />
               <label htmlFor="sendEmail" className="text-gray-700 dark:text-white/90 text-base cursor-pointer">

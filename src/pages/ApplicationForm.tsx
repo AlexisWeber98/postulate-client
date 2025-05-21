@@ -29,8 +29,8 @@ const ApplicationForm: React.FC = () => {
     setDate,
     setNotes,
     setRecruiterContact,
-    setSendCv,
-    setSendEmail,
+    setSentCV,
+    setSentEmail,
     validateForm,
   } = useApplicationForm();
 
@@ -213,10 +213,10 @@ const ApplicationForm: React.FC = () => {
 
             <div className="md:col-span-2">
               <PostulationStatusForm
-                sendCv={formData.sendCv}
-                sendEmail={formData.sendEmail}
-                onSendCvChange={setSendCv}
-                onSendEmailChange={setSendEmail}
+                sentCV={formData.sentCV}
+                sentEmail={formData.sentEmail}
+                onSendCvChange={setSentCV}
+                onSendEmailChange={setSentEmail}
                 t={t}
               />
             </div>

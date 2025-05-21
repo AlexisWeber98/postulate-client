@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders } from "axios";
 import { useAuthStore } from "../store/auth/authStore";
 
 // Configuración base para las peticiones HTTP
@@ -23,7 +23,10 @@ client.interceptors.request.use(
   (config) => {
 const token = useAuthStore.getState().token;
 if (token) {
-  config.headers.set('Authorization', `Bearer ${token}`);
+  config.headers = {
+    ...config.headers as Record<string, string>,
+    Authorization: `Bearer ${token}`,
+  } as AxiosRequestHeaders;
 }
     return config;
   },

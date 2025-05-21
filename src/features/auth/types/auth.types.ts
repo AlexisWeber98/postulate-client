@@ -17,7 +17,6 @@ export interface FieldWrapperProps {
   required?: boolean;
   children: React.ReactNode;
   tooltip?: string;
-  isValid?: boolean;
-  isBlurred?: boolean;
-  errorMessage?: FieldStatus['message'];
+  isBlurred: boolean;
+  fieldStatus?: FieldStatus;
 }

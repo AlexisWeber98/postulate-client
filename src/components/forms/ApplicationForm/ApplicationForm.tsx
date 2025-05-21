@@ -21,8 +21,8 @@ const ApplicationForm: React.FC = () => {
     url: "",
     notes: "",
     recruiterContact: "",
-    sendCv: true,
-    sendEmail: true
+    sentCV: true,
+    sentEmail: true
   });
 
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
@@ -49,8 +49,8 @@ const ApplicationForm: React.FC = () => {
             url: postulation.url || "",
             notes: postulation.notes || "",
             recruiterContact: "",
-            sendCv: true,
-            sendEmail: true
+            sentCV: true,
+            sentEmail: true
           });
         } else {
           navigate("/");
@@ -76,17 +76,17 @@ const ApplicationForm: React.FC = () => {
       case 'company':
         return {
           isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value) ? t('application.validation.companyRequired') : undefined
+          message: !ValidationHelpers.hasContent(value) ? t('dashboard.validation.companyRequired') : undefined
         };
       case 'position':
         return {
           isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value) ? t('application.validation.positionRequired') : undefined
+          message: !ValidationHelpers.hasContent(value) ? t('dashboard.validation.positionRequired') : undefined
         };
       case 'url':
         return {
           isValid: !value || ValidationHelpers.isValidUrl(value),
-          message: value && !ValidationHelpers.isValidUrl(value) ? t('application.validation.urlInvalid') : undefined
+          message: value && !ValidationHelpers.isValidUrl(value) ? t('dashboard.validation.urlInvalid') : undefined
         };
       default:
         return { isValid: true };
@@ -133,6 +133,9 @@ const ApplicationForm: React.FC = () => {
           date: formData.date,
           url: formData.url,
           notes: formData.notes,
+          recruiterContact: formData.recruiterContact,
+          sentCV: formData.sentCV,
+          sentEmail: formData.sentEmail
         });
       } else {
         await addPostulation({
@@ -142,6 +145,9 @@ const ApplicationForm: React.FC = () => {
           date: formData.date,
           url: formData.url,
           notes: formData.notes,
+          recruiterContact: formData.recruiterContact,
+          sentCV: formData.sentCV,
+          sentEmail: formData.sentEmail
         });
       }
       navigate("/");
@@ -161,6 +167,9 @@ const ApplicationForm: React.FC = () => {
       date: formData.date,
       url: formData.url,
       notes: formData.notes,
+      recruiterContact: formData.recruiterContact,
+      sentCV: formData.sentCV,
+      sentEmail: formData.sentEmail
     });
     navigate("/");
   };

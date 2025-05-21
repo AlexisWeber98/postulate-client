@@ -30,8 +30,16 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ t }) => {
   };
 
   // Arrays de claves de traducción
-  const afterPoints = ['benefits.after.point1', 'benefits.after.point2', 'benefits.after.point3'] as const;
-  const beforePoints = ['benefits.before.point1', 'benefits.before.point2', 'benefits.before.point3'] as const;
+  const afterPoints: TranslationKey[] = [
+    'benefits.after.point1',
+    'benefits.after.point2',
+    'benefits.after.point3'
+  ];
+  const beforePoints: TranslationKey[] = [
+    'benefits.before.point1',
+    'benefits.before.point2',
+    'benefits.before.point3'
+  ];
 
 
 

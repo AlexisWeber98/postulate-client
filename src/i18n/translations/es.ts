@@ -208,5 +208,9 @@ export const es = {
   'applicationForm.duplicateTitle': 'Postulación Duplicada',
   'applicationForm.duplicateMessage': 'Ya existe una postulación para {position} en {company}. ¿Deseas continuar de todos modos?',
   'applicationForm.continueAnyway': 'Continuar de todos modos',
-  'cancel': 'Cancelar'
+  'cancel': 'Cancelar',
+  'dashboard.validation.companyRequired': 'La empresa es requerida',
+  'dashboard.validation.positionRequired': 'El puesto es requerido',
+  'dashboard.validation.urlInvalid': 'La URL debe ser válida',
+  'dashboard.validation.dateRequired': 'La fecha es requerida'
 } as const;
