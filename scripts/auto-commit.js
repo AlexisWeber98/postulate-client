@@ -166,7 +166,11 @@ try {
       const commitType = getCommitType(changes);
       const commitMessage = `${commitType}(update): ${lang.update}\n\n${lang.description}: ${lang.automatic}\n\n${lang.changes}:\n${changes}`;
 
-      spawnSync('git', ['commit', '-m', commitMessage], { stdio: 'inherit' });
+      const commitResult = spawnSync('git', ['commit', '-m', commitMessage], { stdio: 'pipe' });
+      if (commitResult.status !== 0) {
+        console.error(`${lang.error}: ${commitResult.stderr.toString()}`);
+        process.exit(1);
+      }
 
       console.log(lang.commitSuccess);
     } else {

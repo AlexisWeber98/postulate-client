@@ -1,5 +1,7 @@
+import type { InputHTMLAttributes } from 'react';
+
 export interface PasswordToggleProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
    value: string;
    onChange: (value: string) => void;
    placeholder?: string;

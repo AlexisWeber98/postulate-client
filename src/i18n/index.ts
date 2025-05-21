@@ -41,14 +41,14 @@ type PlaceholderKeys<T extends string> = T extends `${string}{${infer K}}${infer
   : never;
 
 // Type to get the translation string for a given key
-type GetTranslationType<K extends TranslationKey, T extends Translations> = T[K] extends string
-  ? T[K]
-  : never;
+type TranslationFor<K extends TranslationKey> =
+  K extends keyof typeof es ? (typeof es)[K] // es and en have same keys
+  : string;
 
 export const t = <K extends TranslationKey>(
   key: K,
   lang: Language,
-  placeholders?: Record<PlaceholderKeys<GetTranslationType<K, typeof translations[Language]>>, string>
+  placeholders?: Record<PlaceholderKeys<TranslationFor<K>>, string>
 ): string => {
   const translation = getTranslation(key, lang);
   if (placeholders) {

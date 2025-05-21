@@ -201,4 +201,18 @@ export const en = {
   'dashboard.validation.positionRequired': 'Position is required',
   'dashboard.validation.urlInvalid': 'URL must be valid',
   'dashboard.validation.dateRequired': 'Date is required',
+
+  // Profile
+  'profile.title': 'Edit Profile',
+  'profile.fields.name': 'Name',
+  'profile.fields.email': 'Email',
+  'profile.tooltips.fullName': 'Enter your full name',
+  'profile.tooltips.email': 'Enter your email address',
+  'profile.placeholders.name': 'Your name',
+  'profile.placeholders.email': 'your@email.com',
+  'profile.validation.formInvalid': 'Please fix the highlighted fields',
+  'profile.errors.updateFail': 'An error occurred while updating the profile',
+  'profile.messages.updated': 'Profile updated successfully!',
+  'common.saving': 'Saving...',
+  'profile.actions.save': 'Save Changes',
 } as const;

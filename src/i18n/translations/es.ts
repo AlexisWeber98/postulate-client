@@ -102,11 +102,6 @@ export const es = {
   'dashboard.positionPlaceholder': 'Título del puesto',
   'dashboard.referenceUrlPlaceholder': 'https://ejemplo.com/trabajo',
   'dashboard.notesPlaceholder': 'Añade información relevante sobre esta postulación',
-  'dashboard.recruiterContactHelper': 'Ejemplo: email@empresa.com o +54 1234 567890',
-  'dashboard.recruiterContactPlaceholder': 'Ejemplo: email@empresa.com o +54 1234 567890',
-
-  'referenceUrl.placeholder': 'https://ejemplo.com/trabajo',
-  'notes.placeholder': 'Añade información relevante sobre esta postulación',
   'recruiterContact.helper': 'Ejemplo: email@empresa.com o +54 1234 567890',
   'recruiterContact.placeholder': 'Ejemplo: email@empresa.com o +54 1234 567890',
   'dashboard.loading': 'Cargando...',
@@ -212,5 +207,19 @@ export const es = {
   'dashboard.validation.companyRequired': 'La empresa es requerida',
   'dashboard.validation.positionRequired': 'El puesto es requerido',
   'dashboard.validation.urlInvalid': 'La URL debe ser válida',
-  'dashboard.validation.dateRequired': 'La fecha es requerida'
+  'dashboard.validation.dateRequired': 'La fecha es requerida',
+
+  // Profile
+  'profile.title': 'Editar Perfil',
+  'profile.fields.name': 'Nombre',
+  'profile.fields.email': 'Email',
+  'profile.tooltips.fullName': 'Ingresa tu nombre completo',
+  'profile.tooltips.email': 'Ingresa tu correo electrónico',
+  'profile.placeholders.name': 'Tu nombre',
+  'profile.placeholders.email': 'tu@email.com',
+  'profile.validation.formInvalid': 'Por favor corrige los campos resaltados',
+  'profile.errors.updateFail': 'Ocurrió un error al actualizar el perfil',
+  'profile.messages.updated': '¡Perfil actualizado correctamente!',
+  'common.saving': 'Guardando...',
+  'profile.actions.save': 'Guardar Cambios'
 } as const;

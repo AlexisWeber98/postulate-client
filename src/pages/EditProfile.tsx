@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import { useLanguageStore } from '../store';
 import FieldWrapper from '../components/molecules/FieldWrapper/FieldWrapper';
 
+type FieldName = 'name' | 'email';
+
 const EditProfile: React.FC = () => {
   const { user, updateUser } = useAuthStore();
   const { t } = useLanguageStore();
@@ -16,11 +18,11 @@ const EditProfile: React.FC = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [fieldStatus, setFieldStatus] = useState<Record<string, { isValid: boolean; message?: string }>>({
+  const [fieldStatus, setFieldStatus] = useState<Record<FieldName, { isValid: boolean; message?: string }>>({
     name: { isValid: false },
     email: { isValid: false },
   });
-  const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({
+  const [isBlurred, setIsBlurred] = useState<Record<FieldName, boolean>>({
     name: false,
     email: false,
   });
@@ -75,6 +77,7 @@ const EditProfile: React.FC = () => {
     setError(null);
 
     if (!hasContent(name) || !isValidEmail(email)) {
+      setError(t('profile.validation.formInvalid'));
       return;
     }
 
@@ -84,7 +87,7 @@ const EditProfile: React.FC = () => {
       setSuccess(true);
       setTimeout(() => setSuccess(false), 2000);
     } catch {
-      setError('Ocurrió un error al actualizar el perfil.');
+      setError(t('profile.errors.updateFail'));
     } finally {
       setIsLoading(false);
     }
@@ -113,15 +116,15 @@ const EditProfile: React.FC = () => {
           </Link>
         </motion.div>
 
-        <motion.p
-          id="name-error"
+        <motion.h1
+          id="profile-title"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
           className="text-4xl font-extrabold text-gray-900 dark:text-white text-center mb-12 drop-shadow-lg"
         >
-          Editar Perfil
-        </motion.p>
+          {t('profile.title')}
+        </motion.h1>
 
         <motion.form
           initial={{ opacity: 0 }}
@@ -133,9 +136,9 @@ const EditProfile: React.FC = () => {
           <div className="grid grid-cols-1 gap-8">
             <FieldWrapper
               name="name"
-              label="Nombre"
+              label={t('profile.fields.name')}
               required
-              tooltip="Ingresa tu nombre completo"
+              tooltip={t('profile.tooltips.fullName')}
               isBlurred={isBlurred.name}
               fieldStatus={fieldStatus.name}
             >
@@ -146,7 +149,7 @@ const EditProfile: React.FC = () => {
                 onChange={(e) => setName(e.target.value)}
                 onBlur={() => handleFieldBlur('name')}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.name?.isValid && isBlurred.name ? 'ring-2 ring-red-400' : ''}`}
-                placeholder="Tu nombre"
+                placeholder={t('profile.placeholders.name')}
                 required
                 aria-invalid={!fieldStatus.name?.isValid}
                 aria-describedby={!fieldStatus.name?.isValid ? 'name-error' : undefined}
@@ -155,9 +158,9 @@ const EditProfile: React.FC = () => {
 
             <FieldWrapper
               name="email"
-              label="Email"
+              label={t('profile.fields.email')}
               required
-              tooltip="Ingresa tu correo electrónico"
+              tooltip={t('profile.tooltips.email')}
               isBlurred={isBlurred.email}
               fieldStatus={fieldStatus.email}
             >
@@ -168,7 +171,7 @@ const EditProfile: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={() => handleFieldBlur('email')}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.email?.isValid && isBlurred.email ? 'ring-2 ring-red-400' : ''}`}
-                placeholder="tu@email.com"
+                placeholder={t('profile.placeholders.email')}
                 required
                 aria-invalid={!fieldStatus.email?.isValid}
                 aria-describedby={!fieldStatus.email?.isValid ? 'email-error' : undefined}
@@ -190,7 +193,7 @@ const EditProfile: React.FC = () => {
               className="w-full md:w-auto px-8 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               icon={isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
             >
-              {isLoading ? 'Guardando...' : 'Guardar Cambios'}
+              {isLoading ? t('common.saving') : t('profile.actions.save')}
             </Button>
           </motion.div>
 
@@ -201,7 +204,7 @@ const EditProfile: React.FC = () => {
               className="mt-4 text-center"
             >
               <p className="text-green-600 dark:text-green-400 font-medium">
-                ¡Perfil actualizado correctamente!
+                {t('profile.messages.updated')}
               </p>
             </motion.div>
           )}
@@ -213,7 +216,7 @@ const EditProfile: React.FC = () => {
               className="mt-4 text-center"
             >
               <p className="text-red-600 dark:text-red-400 font-medium">
-                {error}
+                {t(error)}
               </p>
             </motion.div>
           )}
