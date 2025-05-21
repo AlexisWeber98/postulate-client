@@ -65,6 +65,7 @@ const FieldWrapper: React.FC<{
     <AnimatePresence mode="wait">
       {isBlurred && fieldStatus?.message && (
         <motion.p
+          id={`${name}-error`}
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
@@ -114,7 +115,7 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
         name="position"
         label={t('dashboard.position')}
         required
-        tooltip="Ingresa el título del puesto al que te postulaste"
+        tooltip={t('tooltip.position')}
         isBlurred={isBlurred.position}
         fieldStatus={fieldStatus.position}
       >
@@ -169,7 +170,7 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
         <FieldWrapper
           name="url"
           label={t('referenceUrl')}
-          tooltip="Ingresa la URL de la publicación o la página de la empresa"
+          tooltip={t('tooltip.url')}
           isBlurred={isBlurred.url}
           fieldStatus={fieldStatus.url}
         >

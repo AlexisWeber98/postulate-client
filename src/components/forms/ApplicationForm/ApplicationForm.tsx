@@ -28,7 +28,13 @@ export const ApplicationForm: React.FC = () => {
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fieldStatus, setFieldStatus] = useState<Record<string, { isValid: boolean; message?: string }>>({});
-  const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({});
+  const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({
+    company: false,
+    position: false,
+    url: false,
+    notes: false,
+    recruiterContact: false
+  });
 
   useEffect(() => {
     if (!formData.date) {
@@ -158,20 +164,24 @@ export const ApplicationForm: React.FC = () => {
     }
   };
 
-  const handleContinueAnyway = () => {
+  const handleContinueAnyway = async () => {
     setShowDuplicateModal(false);
-    addPostulation({
-      company: formData.company,
-      position: formData.position,
-      status: formData.status,
-      date: formData.date,
-      url: formData.url,
-      notes: formData.notes,
-      recruiterContact: formData.recruiterContact,
-      sentCV: formData.sentCV,
-      sentEmail: formData.sentEmail
-    });
-    navigate("/");
+    try {
+      await addPostulation({
+        company: formData.company,
+        position: formData.position,
+        status: formData.status,
+        date: formData.date,
+        url: formData.url,
+        notes: formData.notes,
+        recruiterContact: formData.recruiterContact,
+        sentCV: formData.sentCV,
+        sentEmail: formData.sentEmail
+      });
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

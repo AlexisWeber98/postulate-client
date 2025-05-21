@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { usePostulationsStore } from '../../../store';
 import { postulationsApi } from '../../../api/postulations';
 import { toast } from 'react-hot-toast';
-import { AxiosError } from 'axios';
+import { isAxiosError } from 'axios';
 
 interface ApplicationCardProps {
   application: Postulation;
@@ -80,7 +80,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
       console.error('[ApplicationCard] ❌ Error al eliminar la postulación 😓', error);
 
       // Log detallado del error
-      if (error instanceof AxiosError) {
+      if (isAxiosError(error)) {
         console.error('[ApplicationCard] 📝 Detalles del error:', {
           status: error.response?.status,
           data: error.response?.data,
