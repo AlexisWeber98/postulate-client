@@ -13,6 +13,7 @@ interface UIProps extends Omit<NewPostulationFormProps, 'onSubmit'> {
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
   onCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
+  onReset: () => void;
 }
 
 const statusOptions: PostulationStatus[] = ['applied', 'interview', 'technical', 'offer', 'rejected', 'accepted'];
@@ -24,6 +25,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   onChange,
   onCheckboxChange,
   onSubmit,
+  onReset,
   loading,
   error,
 }) => {

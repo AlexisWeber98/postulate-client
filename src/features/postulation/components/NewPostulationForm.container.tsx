@@ -58,6 +58,12 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
     }
   };
 
+  const resetForm = () => {
+    setValues(defaultValues);
+    setErrors({});
+    setTouched({});
+  };
+
   return (
     <NewPostulationFormUI
       values={values}
@@ -68,6 +74,7 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
       onSubmit={handleSubmit}
       loading={loading}
       error={error}
+      onReset={resetForm}
     />
   );
 };
