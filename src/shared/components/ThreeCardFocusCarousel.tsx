@@ -1,23 +1,10 @@
 import React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useIsMobile } from "./useIsMobile"
-
-export interface FeatureCard {
-  icon: React.ReactNode
-  title: string
-  desc: string
-}
-
-interface ThreeCardFocusCarouselProps {
-  features: FeatureCard[]
-  cardClassName?: string
-  cardWidth?: number
-  cardHeight?: number
-}
+import { ThreeCardFocusCarouselProps } from "../../interfaces/components/cards/ThreeCardFocusCarouselProps.interface"
 
 const DEFAULT_CARD_WIDTH = 320 // px (w-80)
 const DEFAULT_CARD_HEIGHT = 320
-
 
 const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ features, cardClassName, cardWidth = DEFAULT_CARD_WIDTH, cardHeight = DEFAULT_CARD_HEIGHT }) => {
   const [centerIdx, setCenterIdx] = React.useState(1)
@@ -55,7 +42,7 @@ const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ feature
         {/* Flecha izquierda */}
         <button
           onClick={handlePrev}
-          className="z-20 w-20 h-20 flex items-center justify-center rounded-full bg-white/95 hover:bg-white shadow-[0_8px_32px_rgba(80,112,255,0.25)] absolute -left-12 top-1/2 -translate-y-1/2 hidden md:flex"
+          className="z-20 w-20 h-20 items-center justify-center rounded-full bg-white/95 hover:bg-white shadow-[0_8px_32px_rgba(80,112,255,0.25)] absolute -left-12 top-1/2 -translate-y-1/2 hidden md:flex"
           aria-label="Anterior"
         >
           <ChevronLeft className="w-9 h-9 text-blue-500" />
@@ -96,7 +83,7 @@ const ThreeCardFocusCarousel: React.FC<ThreeCardFocusCarouselProps> = ({ feature
         {/* Flecha derecha */}
         <button
           onClick={handleNext}
-          className="z-20 w-20 h-20 flex items-center justify-center rounded-full bg-white/95 hover:bg-white shadow-[0_8px_32px_rgba(80,112,255,0.25)] absolute -right-12 top-1/2 -translate-y-1/2 hidden md:flex"
+          className="z-20 w-20 h-20 items-center justify-center rounded-full bg-white/95 hover:bg-white shadow-[0_8px_32px_rgba(80,112,255,0.25)] absolute -right-12 top-1/2 -translate-y-1/2 hidden md:flex"
           aria-label="Siguiente"
         >
           <ChevronRight className="w-9 h-9 text-blue-500" />
