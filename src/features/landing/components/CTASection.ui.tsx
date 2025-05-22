@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { CTASectionProps } from '../../../types/components/landing/landing.types';
 import { motion } from 'framer-motion';
 
-const CTASection: React.FC<CTASectionProps> = ({ translate}) => {
+const CTASection: React.FC<CTASectionProps> = ({translate}) => {
 
   const fadeInUpVariants = {
     hidden: { opacity: 0, y: 20 },
