@@ -12,7 +12,7 @@ type FieldName = 'name' | 'email';
 
 const EditProfile: React.FC = () => {
   const { user, updateUser } = useAuthStore();
-  const { t } = useLanguageStore();
+  const { translate } = useLanguageStore();
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
   const [success, setSuccess] = useState(false);
@@ -34,7 +34,7 @@ const EditProfile: React.FC = () => {
         ...prev,
         name: {
           isValid: false,
-          message: t('profile.validation.nameRequired')
+          message: translate('profile.validation.nameRequired')
         }
       }));
     } else {
@@ -49,7 +49,7 @@ const EditProfile: React.FC = () => {
         ...prev,
         email: {
           isValid: false,
-          message: t('profile.validation.emailInvalid')
+          message: translate('profile.validation.emailInvalid')
         }
       }));
     } else {
@@ -58,7 +58,7 @@ const EditProfile: React.FC = () => {
         email: { isValid: true }
       }));
     }
-  }, [name, email, t]);
+  }, [name, email, translate]);
 
   // Reset form if user changes
   useEffect(() => {
@@ -77,7 +77,7 @@ const EditProfile: React.FC = () => {
     setError(null);
 
     if (!hasContent(name) || !isValidEmail(email)) {
-      setError(t('profile.validation.formInvalid'));
+      setError(translate('profile.validation.formInvalid'));
       return;
     }
 
@@ -87,7 +87,7 @@ const EditProfile: React.FC = () => {
       setSuccess(true);
       setTimeout(() => setSuccess(false), 2000);
     } catch {
-      setError(t('profile.errors.updateFail'));
+      setError(translate('profile.errors.updateFail'));
     } finally {
       setIsLoading(false);
     }
@@ -112,7 +112,7 @@ const EditProfile: React.FC = () => {
             className="inline-flex items-center px-4 py-2 rounded-lg text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 font-medium transition-all duration-200 hover:scale-105"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            {t('dashboard.backToDashboard')}
+            {translate('dashboard.backToDashboard')}
           </Link>
         </motion.div>
 
@@ -123,7 +123,7 @@ const EditProfile: React.FC = () => {
           transition={{ duration: 0.3 }}
           className="text-4xl font-extrabold text-gray-900 dark:text-white text-center mb-12 drop-shadow-lg"
         >
-          {t('profile.title')}
+          {translate('profile.title')}
         </motion.h1>
 
         <motion.form
@@ -136,9 +136,9 @@ const EditProfile: React.FC = () => {
           <div className="grid grid-cols-1 gap-8">
             <FieldWrapper
               name="name"
-              label={t('profile.fields.name')}
+              label={translate('profile.fields.name')}
               required
-              tooltip={t('profile.tooltips.fullName')}
+              tooltip={translate('profile.tooltips.fullName')}
               isBlurred={isBlurred.name}
               fieldStatus={fieldStatus.name}
             >
@@ -149,7 +149,7 @@ const EditProfile: React.FC = () => {
                 onChange={(e) => setName(e.target.value)}
                 onBlur={() => handleFieldBlur('name')}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.name?.isValid && isBlurred.name ? 'ring-2 ring-red-400' : ''}`}
-                placeholder={t('profile.placeholders.name')}
+                placeholder={translate('profile.placeholders.name')}
                 required
                 aria-invalid={!fieldStatus.name?.isValid}
                 aria-describedby={!fieldStatus.name?.isValid ? 'name-error' : undefined}
@@ -158,9 +158,9 @@ const EditProfile: React.FC = () => {
 
             <FieldWrapper
               name="email"
-              label={t('profile.fields.email')}
+              label={translate('profile.fields.email')}
               required
-              tooltip={t('profile.tooltips.email')}
+              tooltip={translate('profile.tooltips.email')}
               isBlurred={isBlurred.email}
               fieldStatus={fieldStatus.email}
             >
@@ -171,7 +171,7 @@ const EditProfile: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={() => handleFieldBlur('email')}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.email?.isValid && isBlurred.email ? 'ring-2 ring-red-400' : ''}`}
-                placeholder={t('profile.placeholders.email')}
+                placeholder={translate('profile.placeholders.email')}
                 required
                 aria-invalid={!fieldStatus.email?.isValid}
                 aria-describedby={!fieldStatus.email?.isValid ? 'email-error' : undefined}
@@ -193,7 +193,7 @@ const EditProfile: React.FC = () => {
               className="w-full md:w-auto px-8 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               icon={isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
             >
-              {isLoading ? t('common.saving') : t('profile.actions.save')}
+              {isLoading ? translate('common.saving') : translate('profile.actions.save')}
             </Button>
           </motion.div>
 
@@ -204,7 +204,7 @@ const EditProfile: React.FC = () => {
               className="mt-4 text-center"
             >
               <p className="text-green-600 dark:text-green-400 font-medium">
-                {t('profile.messages.updated')}
+                {translate('profile.messages.updated')}
               </p>
             </motion.div>
           )}
@@ -216,7 +216,7 @@ const EditProfile: React.FC = () => {
               className="mt-4 text-center"
             >
               <p className="text-red-600 dark:text-red-400 font-medium">
-                {t(error as TranslationKey)}
+                {translate(error as TranslationKey)}
               </p>
             </motion.div>
           )}

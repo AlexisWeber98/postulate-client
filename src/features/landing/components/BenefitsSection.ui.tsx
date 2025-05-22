@@ -1,7 +1,8 @@
 import React from 'react';
 import { CheckCircle2, XCircle, ClipboardList, Eye, Search, Paperclip, HelpCircle, Hourglass } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useLanguageStore } from '../../../store/languageStore';
+import { TranslationKey } from '@/i18n';
+import { useLanguageStore } from '@/store';
 
 const BenefitsSection: React.FC = () => {
   const containerVariants = {
