@@ -12,7 +12,14 @@ const isTokenExpired = (token: string): boolean => {
   } catch {
     return true; // treat undecodable token as expired/invalid
   }
- };
+};
+
+const getErrorMessage = (message: string | string[] | undefined): string => {
+  if (Array.isArray(message)) {
+    return message[0];
+  }
+  return message || '';
+};
 
 export const useAuthStore = create<AuthState>()(
   persist(
@@ -88,11 +95,11 @@ export const useAuthStore = create<AuthState>()(
           const apiError = error as ApiError;
           if (apiError.response?.status === 401) {
             throw new Error(
-              apiError.response.data.message || "Credenciales incorrectas"
+              getErrorMessage(apiError.response.data.message) || "Credenciales incorrectas"
             );
           }
           throw new Error(
-            apiError.response?.data?.message || "Error en la autenticación"
+            getErrorMessage(apiError.response?.data?.message) || "Error en la autenticación"
           );
         }
       },
@@ -128,11 +135,11 @@ export const useAuthStore = create<AuthState>()(
           const apiError = error as ApiError;
           if (apiError.response?.status === 409) {
             throw new Error(
-              apiError.response.data.message || "El usuario ya existe"
+              getErrorMessage(apiError.response.data.message) || "El usuario ya existe"
             );
           }
           throw new Error(
-            apiError.response?.data?.message || "Error en el registro"
+            getErrorMessage(apiError.response?.data?.message) || "Error en el registro"
           );
         }
       },

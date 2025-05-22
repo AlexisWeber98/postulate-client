@@ -1,8 +1,8 @@
 import React from "react"
-import ThreeCardFocusCarousel, { FeatureCard } from "../../../shared/components/ThreeCardFocusCarousel"
 import { CheckCircle2, BarChart2, Search } from "lucide-react"
 import { TranslationKey } from "../../../i18n";
-
+import { FeatureCard } from "@/interfaces/components/cards/FeatureCard.interface";
+import ThreeCardFocusCarousel from "../../../shared/components/ThreeCardFocusCarousel";
 
 interface FeaturesSectionProps {
   t: (key: TranslationKey) => string;
