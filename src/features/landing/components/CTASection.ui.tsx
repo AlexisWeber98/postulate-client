@@ -16,7 +16,7 @@ const CTASection: React.FC<CTASectionProps> = ({translate}) => {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url(${import.meta.env.VITE_CTA_BACKGROUND_IMAGE || '/assets/images/cta-background.jpg'})`
+          backgroundImage: `url(${import.meta.env.VITE_CTA_BACKGROUND_IMAGE || 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop'})`
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
