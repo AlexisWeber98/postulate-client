@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NewPostulationFormProps, NewPostulationFormValues } from '../../../types';
 import { newPostulationSchema } from '../domain/validation';
 import NewPostulationFormUI from './NewPostulationForm.ui';
+import { PostulationStatus } from '../../../types';
 
 const defaultValues: NewPostulationFormValues = {
   company: '',
@@ -33,6 +34,11 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
     const { name, checked } = e.target;
     setValues((prev) => ({ ...prev, [name]: checked }));
     setTouched((prev) => ({ ...prev, [name]: true }));
+  };
+
+  const handleStatusChange = (status: PostulationStatus) => {
+    setValues((prev) => ({ ...prev, status }));
+    setTouched((prev) => ({ ...prev, status: true }));
   };
 
   const validate = () => {
@@ -74,6 +80,7 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
       loading={loading}
       error={error}
       onReset={resetForm}
+      onStatusChange={handleStatusChange}
     />
   );
 };

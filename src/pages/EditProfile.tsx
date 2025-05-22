@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
 import { useLanguageStore } from '../store';
 import FieldWrapper from '../components/molecules/FieldWrapper/FieldWrapper';
-
+import { TranslationKey } from '../i18n';
 type FieldName = 'name' | 'email';
 
 const EditProfile: React.FC = () => {
@@ -216,7 +216,7 @@ const EditProfile: React.FC = () => {
               className="mt-4 text-center"
             >
               <p className="text-red-600 dark:text-red-400 font-medium">
-                {t(error)}
+                {t(error as TranslationKey)}
               </p>
             </motion.div>
           )}
