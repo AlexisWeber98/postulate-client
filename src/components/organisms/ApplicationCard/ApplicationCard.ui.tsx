@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApplicationCardProps } from '../../../types/components/organisms/ApplicationCardProps.interface';
+import { ApplicationCardProps } from '../../../interfaces/components/organisms/ApplicationCard.interface';
 import { Edit, Trash2, Calendar, AlertTriangle } from 'lucide-react';
 import { APP_COLORS } from '../../../styles/colors';
 import Modal from '../../molecules/Modal';
