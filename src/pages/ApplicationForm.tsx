@@ -217,7 +217,7 @@ const ApplicationForm: React.FC = () => {
                 sentEmail={formData.sentEmail}
                 onSendCvChange={setSentCV}
                 onSendEmailChange={setSentEmail}
-                t={t}
+                translate={t}
               />
             </div>
           </div>

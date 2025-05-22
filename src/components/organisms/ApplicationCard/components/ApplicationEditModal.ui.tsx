@@ -10,14 +10,13 @@ import {
   SelectContent,
   SelectItem
 } from '../../../ui/select';
-import { useLanguageStore } from '../../../../store/language/languageStore';
 
 interface ApplicationEditModalUIProps extends ApplicationCardProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (updatedApplication: Postulation) => void;
-  onDelete: () => void;
-  isLoading?: boolean;
+  onDelete: () => Promise<void>;
+  isLoading: boolean;
 }
 
 const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
@@ -26,12 +25,9 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   onClose,
   onSave,
   onDelete,
-  isLoading = false,
+  isLoading,
 }) => {
   const [estado, setEstado] = React.useState<PostulationStatus>(application?.status || 'applied');
-  const [sentCV, setSentCV] = React.useState<boolean>(!!application?.sentCV);
-  const [sentEmail, setSentEmail] = React.useState<boolean>(!!application?.sentEmail);
-  const { t } = useLanguageStore();
   if (!application) return null;
   const { company, position, date, url, notes } = application;
 
@@ -46,8 +42,6 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
       date: formData.get('date') as string,
       url: formData.get('url') as string,
       notes: formData.get('notes') as string,
-      sentCV,
-      sentEmail,
     };
     onSave(updatedApplication);
   };
@@ -140,28 +134,6 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               />
             </div>
-
-            {/* Checkboxes de Envié CV y Envié Email */}
-            <div className="flex gap-6 mt-2">
-              <label className="flex items-center gap-2 text-white/90 text-sm">
-                <input
-                  type="checkbox"
-                  checked={sentCV}
-                  onChange={e => setSentCV(e.target.checked)}
-                  className="accent-blue-500 w-4 h-4"
-                />
-                {t('dashboard.sentCV')}
-              </label>
-              <label className="flex items-center gap-2 text-white/90 text-sm">
-                <input
-                  type="checkbox"
-                  checked={sentEmail}
-                  onChange={e => setSentEmail(e.target.checked)}
-                  className="accent-blue-500 w-4 h-4"
-                />
-                {t('dashboard.sentEmail')}
-              </label>
-            </div>
           </div>
 
           {/* Botones de acción */}
@@ -169,25 +141,15 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
             <button
               type="button"
               onClick={onClose}
-              disabled={isLoading}
-              className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-all disabled:opacity-50"
+              className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-all"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              disabled={isLoading}
-              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all disabled:opacity-50"
+              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all"
             >
-              {isLoading ? 'Guardando...' : 'Guardar'}
-            </button>
-            <button
-              type="button"
-              onClick={onDelete}
-              disabled={isLoading}
-              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all disabled:opacity-50"
-            >
-              {isLoading ? 'Eliminando...' : 'Eliminar'}
+              Guardar
             </button>
           </div>
         </form>

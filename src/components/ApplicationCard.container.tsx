@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePostulationsStore } from '../store';
-import { Postulation } from '../types/interface/postulations/postulation';
+import { Postulation, PostulationStatus } from '../types/interface/postulations/postulation';
 import { ApplicationCardUI } from './organisms/ApplicationCard/ApplicationCard.ui';
 import { useLanguageStore } from '../store/language/languageStore';
 import { toast } from 'react-hot-toast';
@@ -57,7 +57,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
     return companyName.split(' ').map(word => word[0]).join('').toUpperCase().substring(0, 2);
   };
 
-  const getStatusLabel = (status: string) => {
+  const getStatusLabel = (status: PostulationStatus) => {
     return t(`dashboard.stats.status.${status}`);
   };
 

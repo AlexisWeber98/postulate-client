@@ -6,7 +6,7 @@ import Modal from '../../molecules/Modal';
 import Card from '../../molecules/Card';
 import Button from '../../atoms/Button';
 import { StatusHelpers } from '../../../lib/helpers';
-import { Postulation } from '../../../types/interface/postulations/postulation';
+import { Postulation, PostulationStatus } from '../../../types/interface/postulations/postulation';
 import { useLanguageStore } from '../../../store/language/languageStore';
 
 // Definimos la interfaz para las props del UI
@@ -14,7 +14,7 @@ interface ApplicationCardUIProps extends ApplicationCardProps {
   application: Postulation;
   formattedDate: string;
   getInitials: (companyName: string) => string;
-  getStatusLabel: (status: string) => string;
+  getStatusLabel: (status: PostulationStatus) => string;
   handleEdit: () => void;
   openDeleteModal: () => void;
   closeDeleteModal: () => void;
