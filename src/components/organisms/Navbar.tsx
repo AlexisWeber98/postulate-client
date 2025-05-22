@@ -10,7 +10,7 @@ import { useLanguageStore } from '../../store';
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuthStore();
-  const { t } = useLanguageStore();
+  const { translate } = useLanguageStore();
 
   const [menuOpen, setMenuOpen] = React.useState(false);
   const avatarRef = React.useRef<HTMLDivElement>(null);
@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link to="/landing" className="flex items-center gap-2 select-none">
             <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-            <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">{t('Postulate')}</span>
+            <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">{translate('Postulate')}</span>
           </Link>
           <div className="flex items-center gap-4">
             <nav className="flex gap-4">
@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
                 to="/dashboard"
                 className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
-                {t('auth.dashboard')}
+                {translate('auth.dashboard')}
               </Link>
               <div className="relative" ref={avatarRef}>
                 <button
@@ -74,13 +74,13 @@ const Navbar: React.FC = () => {
                       className="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-green-100 dark:hover:bg-gray-700 rounded transition"
                       onClick={() => setMenuOpen(false)}
                     >
-                      {t('auth.profile')}
+                      {translate('auth.profile')}
                     </Link>
                     <button
                       onClick={() => { setMenuOpen(false); handleSignOut(); }}
                       className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900 rounded transition"
                     >
-                      {t('auth.signOut')}
+                      {translate('auth.signOut')}
                     </button>
                   </div>
                 )}
@@ -100,7 +100,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link to="/landing" className="flex items-center gap-2 select-none">
           <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-          <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">{t('Postulate')}</span>
+          <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">{translate('Postulate')}</span>
         </Link>
         <div className="flex items-center gap-4">
           <nav className="flex gap-4">
@@ -108,13 +108,13 @@ const Navbar: React.FC = () => {
               to="/login"
               className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[160px]"
             >
-              {t('login')}
+              {translate('login')}
             </Link>
             <Link
               to="/register"
               className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-blue-700 dark:text-blue-300 font-semibold text-base transition bg-white dark:bg-gray-700 border border-blue-300 dark:border-blue-600 hover:bg-blue-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[160px]"
             >
-              {t('register')}
+              {translate('register')}
             </Link>
           </nav>
           <ThemeToggle />

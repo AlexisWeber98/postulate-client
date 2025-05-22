@@ -1,33 +1,31 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { UserPlus, ClipboardList, BarChart2 } from 'lucide-react';
-import { TranslationKey } from '../../../i18n';
+import { useLanguageStore } from '@/store/language/languageStore';
 
-interface HowItWorksSectionProps {
-  t: (key: TranslationKey) => string;
-}
+const HowItWorksSection: React.FC = () => {
+  const translate = useLanguageStore(state=>state.translate);
 
-const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ t }) => {
   return (
     <div className="text-center">
       <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-        {t('landing.howItWorks.title')}
+        {translate('landing.howItWorks.title')}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <Step
           icon={<UserPlus className="w-8 h-8" />}
-          title={t('landing.howItWorks.step1.title')}
-          description={t('landing.howItWorks.step1.description')}
+          title={translate('landing.howItWorks.step1.title')}
+          description={translate('landing.howItWorks.step1.description')}
         />
         <Step
           icon={<ClipboardList className="w-8 h-8" />}
-          title={t('landing.howItWorks.step2.title')}
-          description={t('landing.howItWorks.step2.description')}
+          title={translate('landing.howItWorks.step2.title')}
+          description={translate('landing.howItWorks.step2.description')}
         />
         <Step
           icon={<BarChart2 className="w-8 h-8" />}
-          title={t('landing.howItWorks.step3.title')}
-          description={t('landing.howItWorks.step3.description')}
+          title={translate('landing.howItWorks.step3.title')}
+          description={translate('landing.howItWorks.step3.description')}
         />
       </div>
     </div>

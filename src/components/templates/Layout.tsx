@@ -5,7 +5,7 @@ import { useLanguageStore } from '../../store';
 import LoadingIndicator from '../atoms/LoadingIndicator';
 
 const Layout: React.FC = () => {
-  const { t } = useLanguageStore();
+  const { translate } = useLanguageStore();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -18,7 +18,7 @@ const Layout: React.FC = () => {
       </main>
       <footer className="bg-white dark:bg-gray-800 shadow-inner py-4 transition-colors duration-200">
         <div className="container mx-auto px-4 text-center text-gray-800 dark:text-gray-200 text-sm font-medium">
-          {t('footer.copyright').replace('{year}', currentYear.toString())}
+          {translate('footer.copyright').replace('{year}', currentYear.toString())}
         </div>
       </footer>
     </div>

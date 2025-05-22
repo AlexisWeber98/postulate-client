@@ -14,13 +14,13 @@ import { MdAccountCircle } from 'react-icons/md';
 const Dashboard: React.FC = () => {
   const { postulations, loading } = usePostulationsStore();
   const { user } = useAuthStore();
-  const { t } = useLanguageStore();
+  const { translate } = useLanguageStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<PostulationStatus | 'all'>('all');
   const [companyFilter, setCompanyFilter] = useState('');
   const [positionFilter, setPositionFilter] = useState('');
   const { error, handleError } = useErrorHandler({
-    defaultMessage: t('dashboard.errorMessage')
+    defaultMessage: translate('dashboard.errorMessage')
   });
 
   // Manejadores de filtro seguros
@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
     try {
       setCompanyFilter(value);
     } catch (error) {
-      handleError(error as Error, t('dashboard.errorCompanyFilter'));
+      handleError(error as Error, translate('dashboard.errorCompanyFilter'));
       // Restablecer el filtro en caso de error
       setCompanyFilter('');
     }
@@ -38,7 +38,7 @@ const Dashboard: React.FC = () => {
     try {
       setPositionFilter(value);
     } catch (error) {
-      handleError(error as Error, t('dashboard.errorPositionFilter'));
+      handleError(error as Error, translate('dashboard.errorPositionFilter'));
     }
   };
 
@@ -47,20 +47,20 @@ const Dashboard: React.FC = () => {
       const uniqueCompanies = new Set(postulations.map((app: Postulation) => app.company));
       return Array.from(uniqueCompanies).sort();
     } catch (error) {
-      handleError(error as Error, t('dashboard.errorUniqueCompanies'));
+      handleError(error as Error, translate('dashboard.errorUniqueCompanies'));
       return [];
     }
-  }, [postulations, handleError, t]);
+  }, [postulations, handleError, translate]);
 
   const positions = useMemo(() => {
     try {
       const uniquePositions = new Set(postulations.map((app: Postulation) => app.position));
       return Array.from(uniquePositions).sort();
     } catch (error) {
-      handleError(error as Error, t('dashboard.errorUniquePositions'));
+      handleError(error as Error, translate('dashboard.errorUniquePositions'));
       return [];
     }
-  }, [postulations, handleError, t]);
+  }, [postulations, handleError, translate]);
 
   // Filter applications based on search and filters
   const filteredApplications = useMemo(() => {
@@ -84,13 +84,13 @@ const Dashboard: React.FC = () => {
         return searchMatch && statusMatch && companyMatch && positionMatch;
       });
     } catch (error) {
-      handleError(error as Error, t('dashboard.errorFilterApplications'));
+      handleError(error as Error, translate('dashboard.errorFilterApplications'));
       return [];
     }
-  }, [postulations, searchTerm, statusFilter, companyFilter, positionFilter, handleError, t]);
+  }, [postulations, searchTerm, statusFilter, companyFilter, positionFilter, handleError, translate]);
 
   if (loading) {
-    return <LoadingSpinner fullScreen message={t('dashboard.loading')} />;
+    return <LoadingSpinner fullScreen message={translate('dashboard.loading')} />;
   }
 
   if (error) {
@@ -98,10 +98,10 @@ const Dashboard: React.FC = () => {
       <ActionModal
         isOpen={true}
         onClose={() => window.location.reload()}
-        title={t('dashboard.error')}
+        title={translate('dashboard.error')}
         message={error}
         onConfirm={() => window.location.reload()}
-        confirmText={t('dashboard.reload')}
+        confirmText={translate('dashboard.reload')}
         variant="danger"
         icon={<AlertCircle className="h-6 w-6" />}
       />
@@ -117,9 +117,9 @@ const Dashboard: React.FC = () => {
             <MdAccountCircle className="text-7xl text-blue-500 dark:text-blue-400 drop-shadow-lg bg-white/30 dark:bg-gray-800/30 rounded-full p-1" />
             <div>
               <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 text-transparent bg-clip-text mb-1">
-                {t('dashboard.welcome').replace('{name}', user?.name || 'Usuario')}
+                {translate('dashboard.welcome').replace('{name}', user?.name || 'Usuario')}
               </h2>
-              <span className="text-lg text-gray-700 dark:text-gray-300 font-semibold tracking-wide">{t('dashboard.title')}</span>
+              <span className="text-lg text-gray-700 dark:text-gray-300 font-semibold tracking-wide">{translate('dashboard.title')}</span>
             </div>
           </div>
           {/* Botón de nueva postulación */}
@@ -129,7 +129,7 @@ const Dashboard: React.FC = () => {
             style={{ boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)' }}
           >
             <PlusCircle className="mr-2 h-6 w-6" />
-            {t('dashboard.newApplication')}
+            {translate('dashboard.newApplication')}
           </Link>
         </header>
         <div className="border-b border-white/30 mb-10" />
@@ -162,7 +162,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="ml-4">
                   <p className="text-base text-blue-700 dark:text-blue-300">
-                    {t('dashboard.noApplications')}
+                    {translate('dashboard.noApplications')}
                   </p>
                 </div>
               </div>
@@ -175,7 +175,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="ml-4">
                   <p className="text-base text-yellow-700 dark:text-yellow-300">
-                    {t('dashboard.noResults')}
+                    {translate('dashboard.noResults')}
                   </p>
                 </div>
               </div>
@@ -191,7 +191,7 @@ const Dashboard: React.FC = () => {
 
         {/* Sección de estadísticas */}
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">{t('dashboard.summary')}</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">{translate('dashboard.summary')}</h2>
           <div className="rounded-2xl shadow-md bg-white/0 dark:bg-gray-800/0 backdrop-blur-none">
             <ApplicationStats />
           </div>

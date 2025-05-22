@@ -242,4 +242,5 @@ export const es = {
   'referenceUrl.placeholder': 'https://example.com/job',
   'notes': 'Notas',
   'notes.placeholder': 'Añade cualquier información relevante sobre esta postulación',
+  'common.cancel': 'Cancelar',
 } as const;

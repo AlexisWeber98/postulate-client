@@ -7,7 +7,7 @@ const cardGradient = 'bg-gradient-to-br from-[#c2e9fb] to-[#a1c4fd]';
 
 const ApplicationStats: React.FC = () => {
   const { postulations } = usePostulationsStore();
-  const { t } = useLanguageStore();
+  const translate = useLanguageStore(state=>state.translate);
 
   // Total count
   const totalApplications = postulations.length;
@@ -53,7 +53,7 @@ const ApplicationStats: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}>
             <div>
-              <p className="text-base text-gray-700 font-medium mb-1">{t('stats.totalApplications')}</p>
+              <p className="text-base text-gray-700 font-medium mb-1">{translate('stats.totalApplications')}</p>
               <p className="text-2xl font-bold text-gray-900">{totalApplications}</p>
             </div>
             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
@@ -62,7 +62,7 @@ const ApplicationStats: React.FC = () => {
           </div>
           <div className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}>
             <div>
-              <p className="text-base text-gray-700 font-medium mb-1">{t('stats.activeApplications')}</p>
+              <p className="text-base text-gray-700 font-medium mb-1">{translate('stats.activeApplications')}</p>
               <p className="text-2xl font-bold text-gray-900">{activeApplications}</p>
             </div>
             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
@@ -71,7 +71,7 @@ const ApplicationStats: React.FC = () => {
           </div>
           <div className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}>
             <div>
-              <p className="text-base text-gray-700 font-medium mb-1">{t('stats.topCompany')}</p>
+              <p className="text-base text-gray-700 font-medium mb-1">{translate('stats.topCompany')}</p>
               <p className="text-2xl font-bold text-gray-900">{topCompany.name || '-'}</p>
             </div>
             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
@@ -80,7 +80,7 @@ const ApplicationStats: React.FC = () => {
           </div>
           <div className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}>
             <div>
-              <p className="text-base text-gray-700 font-medium mb-1">{t('stats.recentApplications')}</p>
+              <p className="text-base text-gray-700 font-medium mb-1">{translate('stats.recentApplications')}</p>
               <p className="text-2xl font-bold text-gray-900">{recentApplications}</p>
             </div>
             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
@@ -94,22 +94,22 @@ const ApplicationStats: React.FC = () => {
             <div className="w-14 h-14 flex items-center justify-center rounded-full mb-4 bg-white/80">
               <CheckCircle2 className="h-8 w-8 text-blue-500" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">{t('card1.title')}</h3>
-            <p className="text-gray-700 text-base font-medium">{t('card1.desc')}</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{translate('card1.title')}</h3>
+            <p className="text-gray-700 text-base font-medium">{translate('card1.desc')}</p>
           </div>
           <div className={`${cardGradient} rounded-2xl shadow-lg p-8 flex flex-col items-center text-center`}>
             <div className="w-14 h-14 flex items-center justify-center rounded-full mb-4 bg-white/80">
               <BarChart2 className="h-8 w-8 text-blue-500" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">{t('card2.title')}</h3>
-            <p className="text-gray-700 text-base font-medium">{t('card2.desc')}</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{translate('card2.title')}</h3>
+            <p className="text-gray-700 text-base font-medium">{translate('card2.desc')}</p>
           </div>
           <div className={`${cardGradient} rounded-2xl shadow-lg p-8 flex flex-col items-center text-center`}>
             <div className="w-14 h-14 flex items-center justify-center rounded-full mb-4 bg-white/80">
               <Search className="h-8 w-8 text-blue-500" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">{t('card3.title')}</h3>
-            <p className="text-gray-700 text-base font-medium">{t('card3.desc')}</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{translate('card3.title')}</h3>
+            <p className="text-gray-700 text-base font-medium">{translate('card3.desc')}</p>
           </div>
         </div>
       </div>

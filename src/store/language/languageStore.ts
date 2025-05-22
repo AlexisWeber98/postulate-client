@@ -29,9 +29,9 @@ export const useLanguageStore = create<LanguageState>()(
     (set, get) => ({
       language: getStoredLanguage(),
       lang: getStoredLanguage(),
-      t: <K extends TranslationKey>(
+      translate: <K extends TranslationKey>(
         key: K,
-        placeholders?: Record<PlaceholderKeys<TranslationFor<K>>, string>
+        placeholders?: Record<PlaceholderKeys<TranslationFor<K>>, string> 
       ) => t(key, get().language, placeholders),
       setLanguage: (lang: Language) => {
         localStorage.setItem('lang', lang);

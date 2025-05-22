@@ -1,7 +1,7 @@
 import { TranslationKey } from '../../../i18n';
 
 export interface LandingSectionProps {
-  t: (key: TranslationKey) => string;
+  translate: (key: TranslationKey) => string;
 }
 
 export interface CardProps {

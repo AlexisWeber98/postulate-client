@@ -14,7 +14,7 @@ interface ApplicationCardProps {
 const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application }) => {
   const navigate = useNavigate();
   const { deletePostulation } = usePostulationsStore();
-  const { language, t } = useLanguageStore();
+  const { language, translate } = useLanguageStore();
   const { id, date } = application;
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -43,11 +43,11 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
     try {
       await postulationsApi.delete(id);
       deletePostulation(id);
-      toast.success(t('dashboard.actions.deleteSuccess'));
+      toast.success(translate('dashboard.actions.deleteSuccess'));
       closeDeleteModal();
     } catch (error) {
       console.error('Error deleting postulation:', error);
-      toast.error(t('dashboard.actions.deleteError'));
+      toast.error(translate('dashboard.actions.deleteError'));
     } finally {
       setIsLoading(false);
     }
@@ -58,7 +58,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   };
 
   const getStatusLabel = (status: PostulationStatus) => {
-    return t(`dashboard.stats.status.${status}`);
+    return translate(`dashboard.stats.status.${status}`);
   };
 
   return (

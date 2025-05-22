@@ -5,13 +5,13 @@ import { useLanguageStore } from '../../store';
 import { TranslationKey } from '../../i18n';
 
 const StatusBadge: React.FC<BadgeProps> = ({ status, className = '' }) => {
-  const { t } = useLanguageStore();
+  const translate = useLanguageStore(state=>state.translate);
 
   return (
     <span
       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${STATUS_COLORS[status]} ${className}`}
     >
-      {t(`application.status.${status}` as TranslationKey)}
+      {translate(`application.status.${status}` as TranslationKey)}
     </span>
   );
 };

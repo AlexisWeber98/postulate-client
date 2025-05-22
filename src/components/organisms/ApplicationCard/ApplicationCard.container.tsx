@@ -22,7 +22,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { t } = useLanguageStore();
+  const translate = useLanguageStore(state=>state.translate);
 
   const { updatePostulation, deletePostulation } = usePostulationsStore();
 
@@ -49,18 +49,18 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
       await postulationsApi.update(updatedApplication.id, updatedApplication);
       updatePostulation(updatedApplication.id, updatedApplication);
       console.log('[ApplicationCard] Postulación actualizada exitosamente:', updatedApplication.id);
-      toast.success(t('dashboard.actions.updateSuccess'));
+      toast.success(translate('dashboard.actions.updateSuccess'));
       closeEditModal();
     } catch (error) {
       console.error('[ApplicationCard] Error al actualizar la postulación:', error);
-      toast.error(t('dashboard.actions.updateError'));
+      toast.error(translate('dashboard.actions.updateError'));
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm(t('dashboard.actions.deleteConfirm'))) {
+    if (!window.confirm(translate('dashboard.actions.deleteConfirm'))) {
       console.log('[ApplicationCard] Eliminación cancelada por el usuario');
       return;
     }
@@ -73,7 +73,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
       await postulationsApi.delete(application.id);
       deletePostulation(application.id);
       console.log('[ApplicationCard] ✅ Postulación eliminada exitosamente:', application.id);
-      toast.success(t('dashboard.actions.deleteSuccess'));
+      toast.success(translate('dashboard.actions.deleteSuccess'));
       closeEditModal();
       closeDetailModal();
     } catch (error: unknown) {
@@ -86,10 +86,10 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
           data: axiosError.response?.data,
           headers: axiosError.response?.headers
         });
-        toast.error(axiosError.response?.data?.message || t('dashboard.actions.deleteError'));
+        toast.error(axiosError.response?.data?.message || translate('dashboard.actions.deleteError'));
       } else {
         console.error('[ApplicationCard] ❌ Error inesperado:', error);
-        toast.error(t('dashboard.actions.deleteError'));
+        toast.error(translate('dashboard.actions.deleteError'));
       }
     } finally {
       setIsLoading(false);

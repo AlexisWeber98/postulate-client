@@ -30,7 +30,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   companies,
   positions
 }) => {
-  const { t } = useLanguageStore();
+  const translate = useLanguageStore(state=>state.translate);
 
   // Ensure we have arrays even if they're undefined
   const safeCompanies = Array.isArray(companies) ? companies : [];
@@ -50,7 +50,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              placeholder={t('dashboard.filters.search')}
+              placeholder={translate('dashboard.filters.search')}
               style={{ borderColor: APP_COLORS.lightGray }}
             />
           </div>
@@ -80,7 +80,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
               }}
               className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 focus:outline-none"
             >
-              {t('dashboard.filters.clear')}
+              {translate('dashboard.filters.clear')}
             </button>
           </div>
         )}

@@ -28,16 +28,16 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   companies,
   positions
 }) => {
-  const { t } = useLanguageStore();
+  const  translate  = useLanguageStore(state=>state.translate);
 
   const statusOptions: { value: PostulationStatus | 'all'; label: string }[] = [
-    { value: 'all', label: t('dashboard.filters.status') },
-    { value: 'applied', label: t('dashboard.stats.status.applied') },
-    { value: 'interview', label: t('dashboard.stats.status.interview') },
-    { value: 'technical', label: t('dashboard.stats.status.technical') },
-    { value: 'offer', label: t('dashboard.stats.status.offer') },
-    { value: 'rejected', label: t('dashboard.stats.status.rejected') },
-    { value: 'accepted', label: t('dashboard.stats.status.accepted') }
+    { value: 'all', label: translate('dashboard.filters.status') },
+    { value: 'applied', label: translate('dashboard.stats.status.applied') },
+    { value: 'interview', label: translate('dashboard.stats.status.interview') },
+    { value: 'technical', label: translate('dashboard.stats.status.technical') },
+    { value: 'offer', label: translate('dashboard.stats.status.offer') },
+    { value: 'rejected', label: translate('dashboard.stats.status.rejected') },
+    { value: 'accepted', label: translate('dashboard.stats.status.accepted') }
   ];
 
   return (
@@ -51,7 +51,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder={t('dashboard.filters.search')}
+          placeholder={translate('dashboard.filters.search')}
           className="block w-full pl-10 pr-10 py-3 rounded-2xl border border-blue-200 bg-white/80 shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 placeholder-gray-600 transition-all duration-200 hover:shadow-2xl"
         />
         {searchTerm && (
@@ -91,7 +91,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             onChange={(e) => setCompanyFilter(e.target.value)}
             className="appearance-none block w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 bg-white/80 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-xl cursor-pointer"
           >
-            <option value="">{t('dashboard.filters.selectCompany')}</option>
+            <option value="">{translate('dashboard.filters.selectCompany')}</option>
             {companies.map(company => (
               <option key={company} value={company}>
                 {company}
@@ -110,7 +110,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             onChange={(e) => setPositionFilter(e.target.value)}
             className="appearance-none block w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 bg-white/80 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-xl cursor-pointer"
           >
-            <option value="">{t('dashboard.filters.selectPosition')}</option>
+            <option value="">{translate('dashboard.filters.selectPosition')}</option>
             {positions.map(position => (
               <option key={position} value={position}>
                 {position}
