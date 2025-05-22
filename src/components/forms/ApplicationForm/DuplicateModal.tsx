@@ -17,12 +17,12 @@ export const DuplicateModal: React.FC<DuplicateModalProps> = ({
   company,
   position
 }) => {
-  const t = useLanguageStore(state => state.t);
+  const translate = useLanguageStore(state=> state.translate);
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={t('applicationForm.duplicateTitle')}
+      title={translate('applicationForm.duplicateTitle')}
     >
       <div className="flex items-start p-4">
         <div className="flex-shrink-0">

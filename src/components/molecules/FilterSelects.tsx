@@ -41,7 +41,7 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
   positionFilter,
   setPositionFilter,
 }) => {
-  const { t } = useLanguageStore();
+  const translate = useLanguageStore(state=>state.translate);
 
   // Manejador tipado para statusFilter
   const handleStatusChange = (value: string) => {
@@ -82,14 +82,14 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
       <div className="w-full md:w-64">
         <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
           <ListFilter className="h-4 w-4" />
-          <span>{t('dashboard.filters.status')}</span>
+          <span>{translate('dashboard.filters.status')}</span>
         </div>
         <Select value={statusFilter} onValueChange={handleStatusChange}>
           <SelectTrigger className="w-full">
-            <SelectValue placeholder={t('dashboard.filters.all')} />
+            <SelectValue placeholder={translate('dashboard.filters.all')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t('dashboard.filters.all')}</SelectItem>
+            <SelectItem value="all">{translate('dashboard.filters.all')}</SelectItem>
             {statusOptions.filter(status => status !== 'all').map((status) => (
               <SelectItem key={status} value={status}>{status}</SelectItem>
             ))}
@@ -101,7 +101,7 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
       <div className="w-full md:w-64">
         <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
           <Building2 className="h-4 w-4" />
-          <span>{t('dashboard.filters.company')} {getBadgeCounter(companies)}</span>
+          <span>{translate('dashboard.filters.company')} {getBadgeCounter(companies)}</span>
         </div>
         <Select
           value={safeCompanyValue}
@@ -109,16 +109,16 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
           defaultValue="all"
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder={t('dashboard.filters.selectCompany')} />
+            <SelectValue placeholder={translate('dashboard.filters.selectCompany')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t('dashboard.filters.selectCompany')}</SelectItem>
+            <SelectItem value="all">{translate('dashboard.filters.selectCompany')}</SelectItem>
             {companies && companies.length > 0 ? (
               companies.map((company) => (
                 <SelectItem key={company} value={company}>{company}</SelectItem>
               ))
             ) : (
-              <SelectItem value="all" disabled>{t('dashboard.filters.noCompanies')}</SelectItem>
+              <SelectItem value="all" disabled>{translate('dashboard.filters.noCompanies')}</SelectItem>
             )}
           </SelectContent>
         </Select>
@@ -128,7 +128,7 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
       <div className="w-full md:w-64">
         <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
           <Briefcase className="h-4 w-4" />
-          <span>{t('dashboard.filters.position')} {getBadgeCounter(positions)}</span>
+          <span>{translate('dashboard.filters.position')} {getBadgeCounter(positions)}</span>
         </div>
         <Select
           value={safePositionValue}
@@ -136,16 +136,16 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
           defaultValue="all"
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder={t('dashboard.filters.selectPosition')} />
+            <SelectValue placeholder={translate('dashboard.filters.selectPosition')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t('dashboard.filters.selectPosition')}</SelectItem>
+            <SelectItem value="all">{translate('dashboard.filters.selectPosition')}</SelectItem>
             {positions && positions.length > 0 ? (
               positions.map((position) => (
                 <SelectItem key={position} value={position}>{position}</SelectItem>
               ))
             ) : (
-              <SelectItem value="all" disabled>{t('dashboard.filters.noPositions')}</SelectItem>
+              <SelectItem value="all" disabled>{translate('dashboard.filters.noPositions')}</SelectItem>
             )}
           </SelectContent>
         </Select>

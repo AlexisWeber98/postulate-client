@@ -58,21 +58,22 @@ const FlipCard: React.FC<{ title: string; explanation: string; delay?: number }>
 };
 
 interface TrustSectionProps {
-  t: (key: TranslationKey) => string;
+  translate: (key: TranslationKey) => string;
 }
 
-const TrustSection: React.FC<TrustSectionProps> = ({ t }) => {
+const TrustSection: React.FC<TrustSectionProps> = ({ translate }) => {
+
   return (
     <section className="py-20 flex flex-col items-center">
       <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-        {t('trust.title')}
+        {translate('trust.title')}
       </h2>
       <div className="flex flex-col md:flex-row gap-10 w-full justify-center">
         {trustPoints.map((point, idx) => (
           <FlipCard
             key={idx}
-            title={t(point.textKey)}
-            explanation={t(`${point.textKey}.explanation` as TranslationKey)}
+            title={translate(point.textKey)}
+            explanation={translate(`${point.textKey}.explanation` as TranslationKey)}
             delay={0.15 * idx}
           />
         ))}

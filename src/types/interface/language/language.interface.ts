@@ -4,7 +4,7 @@ import { es } from '../../../i18n/translations/es';
 export interface LanguageState {
   language: Language;
   lang: Language;
-  t: <K extends TranslationKey>(
+  translate: <K extends TranslationKey>(
     key: K,
     placeholders?: Record<PlaceholderKeys<TranslationFor<K>>, string>
   ) => string;

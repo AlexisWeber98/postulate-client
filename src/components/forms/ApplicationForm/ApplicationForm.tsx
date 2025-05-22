@@ -5,13 +5,12 @@ import { PostulationStatus } from "../../../types/index";
 import { ValidationHelpers, DateHelpers } from "../../../lib/helpers";
 import { ApplicationFormFields, ApplicationFormHeader, DuplicateModal } from ".";
 import { motion } from "framer-motion";
-import { TranslationKey } from "../../../i18n";
 
 export const ApplicationForm: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addPostulation, updatePostulation, getPostulation, checkDuplicate } = usePostulationsStore();
-  const { t } = useLanguageStore() as { t: (key: TranslationKey) => string };
+  const { translate } = useLanguageStore();
 
   const [formData, setFormData] = useState({
     company: "",
@@ -82,17 +81,17 @@ export const ApplicationForm: React.FC = () => {
       case 'company':
         return {
           isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value) ? t('dashboard.validation.companyRequired') : undefined
+          message: !ValidationHelpers.hasContent(value) ? translate('dashboard.validation.companyRequired') : undefined
         };
       case 'position':
         return {
           isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value) ? t('dashboard.validation.positionRequired') : undefined
+          message: !ValidationHelpers.hasContent(value) ? translate('dashboard.validation.positionRequired') : undefined
         };
       case 'url':
         return {
           isValid: !value || ValidationHelpers.isValidUrl(value),
-          message: value && !ValidationHelpers.isValidUrl(value) ? t('dashboard.validation.urlInvalid') : undefined
+          message: value && !ValidationHelpers.isValidUrl(value) ? translate('dashboard.validation.urlInvalid') : undefined
         };
       default:
         return { isValid: true };
@@ -192,7 +191,7 @@ export const ApplicationForm: React.FC = () => {
       className="flex flex-col min-h-[calc(100vh-200px)] bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800"
     >
       <div className="max-w-4xl mx-auto w-full px-4 py-8">
-        <ApplicationFormHeader id={id} t={t as (key: string) => string} />
+        <ApplicationFormHeader id={id} t={translate as (key: string) => string} />
 
         <motion.form
           initial={{ opacity: 0 }}
@@ -207,7 +206,7 @@ export const ApplicationForm: React.FC = () => {
             isBlurred={isBlurred}
             onFieldChange={handleFieldChange}
             onFieldBlur={handleFieldBlur}
-            t={t as (key: string) => string}
+            translate={translate as (key: string) => string}
           />
 
           <motion.div
@@ -221,7 +220,7 @@ export const ApplicationForm: React.FC = () => {
               disabled={isSubmitting || Object.values(fieldStatus).some(f => !f.isValid)}
               className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? t('dashboard.actions.save') : (id ? t('dashboard.editApplication') : t('hero.cta.button'))}
+              {isSubmitting ? translate('dashboard.actions.save') : (id ? translate('dashboard.editApplication') : translate('hero.cta.button'))}
             </button>
           </motion.div>
         </motion.form>

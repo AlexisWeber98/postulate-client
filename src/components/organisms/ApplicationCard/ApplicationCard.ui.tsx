@@ -36,7 +36,7 @@ export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
   isLoading,
 }) => {
   const { company, position, status, notes } = application;
-  const { t } = useLanguageStore();
+  const translate = useLanguageStore(state=>state.translate);
 
   const bgColor = APP_COLORS.cardColors[status as keyof typeof APP_COLORS.cardColors] || 'white';
   const statusClassName = StatusHelpers.getStatusClasses(status);
@@ -117,14 +117,14 @@ export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
               variant="secondary"
               onClick={closeDeleteModal}
             >
-              Cancelar
+              {translate('common.cancel')}
             </Button>
             <Button
               variant="danger"
               onClick={confirmDelete}
               disabled={isLoading}
             >
-              {isLoading ? t('common.loading') : t('common.delete')}
+              {isLoading ? translate('common.loading') : translate('common.delete')}
             </Button>
           </div>
         </div>

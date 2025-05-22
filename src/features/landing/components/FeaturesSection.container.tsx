@@ -5,10 +5,10 @@ import { FeatureCard } from "@/interfaces/components/cards/FeatureCard.interface
 import ThreeCardFocusCarousel from "../../../shared/components/ThreeCardFocusCarousel";
 
 interface FeaturesSectionProps {
-  t: (key: TranslationKey) => string;
+  translate: (key: TranslationKey) => string;
 }
 
-const FeaturesSectionContainer: React.FC<FeaturesSectionProps> = ({ t }) => {
+const FeaturesSectionContainer: React.FC<FeaturesSectionProps> = ({ translate }) => {
   const features: FeatureCard[] = [
     {
       icon: (
@@ -16,8 +16,8 @@ const FeaturesSectionContainer: React.FC<FeaturesSectionProps> = ({ t }) => {
           <CheckCircle2 className="h-7 w-7 text-blue-500" />
         </span>
       ),
-      title: t('card1.title'),
-      desc: t('card1.desc'),
+      title: translate('card1.title'),
+      desc: translate('card1.desc'),
     },
     {
       icon: (
@@ -25,8 +25,8 @@ const FeaturesSectionContainer: React.FC<FeaturesSectionProps> = ({ t }) => {
           <BarChart2 className="h-7 w-7 text-blue-500" />
         </span>
       ),
-      title: t('card2.title'),
-      desc: t('card2.desc'),
+      title: translate('card2.title'),
+      desc: translate('card2.desc'),
     },
     {
       icon: (
@@ -34,13 +34,13 @@ const FeaturesSectionContainer: React.FC<FeaturesSectionProps> = ({ t }) => {
           <Search className="h-7 w-7 text-blue-500" />
         </span>
       ),
-      title: t('card3.title'),
-      desc: t('card3.desc'),
+      title: translate('card3.title'),
+      desc: translate('card3.desc'),
     },
   ]
-  const sectionTitle = t('features.title') && t('features.title') !== 'features.title'
-    ? t('features.title')
-    : t('features.altTitle')
+  const sectionTitle = translate('features.title') && translate('features.title') !== 'features.title'
+    ? translate('features.title')
+    : translate('features.altTitle')
   return (
     <section className="py-20 flex flex-col items-center">
       <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">

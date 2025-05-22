@@ -33,7 +33,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   loading,
   error,
 }) => {
-  const { t } = useLanguageStore();
+  const translate = useLanguageStore(state => state.translate);
   const [isOpen, setIsOpen] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
@@ -71,9 +71,9 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
       onSubmit={onSubmit}
       className="relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 border border-blue-400/20 rounded-3xl shadow-2xl p-8 max-w-lg mx-auto mt-10"
     >
-      <h2 className="text-3xl font-extrabold text-white text-center mb-8 drop-shadow">{t('hero.title')}</h2>
+      <h2 className="text-3xl font-extrabold text-white text-center mb-8 drop-shadow">{translate('hero.title')}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-        <FormField label={t('company') || 'Company'} htmlFor="company" required error={touched.company && errors.company ? errors.company : ''}>
+        <FormField label={translate('company') || 'Company'} htmlFor="company" required error={touched.company && errors.company ? errors.company : ''}>
           <input
             id="company"
             name="company"
@@ -82,10 +82,10 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             onChange={onChange}
             className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
             required
-            placeholder={t('dashboard.companyPlaceholder') || 'Nombre de la empresa'}
+            placeholder={translate('dashboard.companyPlaceholder') || 'Nombre de la empresa'}
           />
         </FormField>
-        <FormField label={t('position') || 'Position'} htmlFor="position" required error={touched.position && errors.position ? errors.position : ''}>
+        <FormField label={translate('position') || 'Position'} htmlFor="position" required error={touched.position && errors.position ? errors.position : ''}>
           <input
             id="position"
             name="position"
@@ -94,10 +94,10 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             onChange={onChange}
             className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
             required
-            placeholder={t('dashboard.positionPlaceholder') || 'Título del puesto'}
+            placeholder={translate('dashboard.positionPlaceholder') || 'Título del puesto'}
           />
         </FormField>
-        <FormField label={t('status') || 'Status'} htmlFor="status" required error={touched.status && errors.status ? errors.status : ''}>
+        <FormField label={translate('status') || 'Status'} htmlFor="status" required error={touched.status && errors.status ? errors.status : ''}>
           <div className="relative" ref={dropdownRef}>
             <button
               type="button"
@@ -109,7 +109,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
               aria-controls="status-listbox"
               id="status-button"
             >
-              <span>{values.status ? STATUS_LABELS[values.status] : t('selectStatus')}</span>
+              <span>{values.status ? STATUS_LABELS[values.status] : translate('selectStatus')}</span>
               <ChevronDown className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
             </button>
             {isOpen && (
@@ -138,7 +138,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             )}
           </div>
         </FormField>
-        <FormField label={t('date') || 'Date'} htmlFor="date" required error={touched.date && errors.date ? errors.date : ''}>
+        <FormField label={translate('date') || 'Date'} htmlFor="date" required error={touched.date && errors.date ? errors.date : ''}>
           <input
             id="date"
             name="date"
@@ -150,7 +150,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
           />
         </FormField>
       </div>
-      <FormField label={t('referenceUrl') || 'Reference URL'} htmlFor="referenceUrl" error={touched.referenceUrl && errors.referenceUrl ? errors.referenceUrl : ''}>
+      <FormField label={translate('referenceUrl') || 'Reference URL'} htmlFor="referenceUrl" error={touched.referenceUrl && errors.referenceUrl ? errors.referenceUrl : ''}>
         <input
           id="referenceUrl"
           name="referenceUrl"
@@ -158,10 +158,10 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
           value={values.referenceUrl || ''}
           onChange={onChange}
           className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
-          placeholder={t('referenceUrl.placeholder') || 'https://example.com/job'}
+          placeholder={translate('referenceUrl.placeholder') || 'https://example.com/job'}
         />
       </FormField>
-      <FormField label={t('notes') || 'Notes'} htmlFor="notes" error={touched.notes && errors.notes ? errors.notes : ''}>
+      <FormField label={translate('notes') || 'Notes'} htmlFor="notes" error={touched.notes && errors.notes ? errors.notes : ''}>
         <textarea
           id="notes"
           name="notes"
@@ -169,10 +169,10 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
           onChange={onChange}
           className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
           rows={3}
-          placeholder={t('notes.placeholder') || 'Añade cualquier información relevante sobre esta postulación'}
+          placeholder={translate('notes.placeholder') || 'Añade cualquier información relevante sobre esta postulación'}
         />
       </FormField>
-      <FormField label={t('recruiterContact') || 'Recruiter or company contact'} htmlFor="recruiterContact" helperText={t('recruiterContact.helper') || 'Ejemplo: email@empresa.com o +1 123 456 7890'} error={touched.recruiterContact && errors.recruiterContact ? errors.recruiterContact : ''}>
+      <FormField label={translate('recruiterContact') || 'Recruiter or company contact'} htmlFor="recruiterContact" helperText={translate('recruiterContact.helper') || 'Ejemplo: email@empresa.com o +1 123 456 7890'} error={touched.recruiterContact && errors.recruiterContact ? errors.recruiterContact : ''}>
         <input
           id="recruiterContact"
           name="recruiterContact"
@@ -180,14 +180,14 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
           value={values.recruiterContact || ''}
           onChange={onChange}
           className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
-          placeholder={t('recruiterContact.placeholder') || 'Ejemplo: email@empresa.com o +1 123 456 7890'}
+          placeholder={translate('recruiterContact.placeholder') || 'Ejemplo: email@empresa.com o +1 123 456 7890'}
         />
       </FormField>
       <CheckboxGroup
         className="mb-6 mt-2"
         options={[
-          { name: 'sentCV', checked: values.sentCV ?? false, label: t('sentCV') || 'Envié CV' },
-          { name: 'sentEmail', checked: values.sentEmail ?? false, label: t('sentEmail') || 'Envié Email' }
+          { name: 'sentCV', checked: values.sentCV ?? false, label: translate('sentCV') || 'Envié CV' },
+          { name: 'sentEmail', checked: values.sentEmail ?? false, label: translate('sentEmail') || 'Envié Email' }
         ]}
         onChange={onCheckboxChange}
       />
@@ -208,7 +208,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
           onClick={onReset}
           className="w-full mt-2"
         >
-          {t('common.reset')}
+          {translate('common.reset')}
         </Button>
         <Button
           type="submit"
@@ -218,7 +218,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
           disabled={loading}
           icon={<Save className="w-5 h-5" />}
         >
-          {loading ? t('dashboard.loading') : t('hero.cta.button')}
+          {loading ? translate('dashboard.loading') : translate('hero.cta.button')}
         </Button>
       </div>
     </form>

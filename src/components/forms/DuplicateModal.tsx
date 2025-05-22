@@ -17,13 +17,13 @@ const DuplicateModal: React.FC<DuplicateModalProps> = ({
   company,
   position
 }) => {
-  const { t } = useLanguageStore();
+  const translate = useLanguageStore(state=>state.translate);
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={t('applicationForm.duplicateTitle')}
+      title={translate('applicationForm.duplicateTitle')}
     >
       <div className="flex items-start p-4">
         <div className="flex-shrink-0">
@@ -31,7 +31,7 @@ const DuplicateModal: React.FC<DuplicateModalProps> = ({
         </div>
         <div className="ml-4">
           <p className="text-sm text-gray-700 dark:text-gray-300">
-            {t('applicationForm.duplicateMessage', { position, company })}
+            {translate('applicationForm.duplicateMessage', { position, company })}
           </p>
           <div className="mt-6 flex justify-end space-x-3">
             <button
@@ -39,14 +39,14 @@ const DuplicateModal: React.FC<DuplicateModalProps> = ({
               onClick={onClose}
               className="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700"
             >
-              {t('cancel')}
+              {translate('cancel')}
             </button>
             <button
               type="button"
               onClick={onContinue}
               className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-yellow-500 border border-transparent rounded-lg shadow-sm hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all duration-200"
             >
-              {t('applicationForm.continueAnyway')}
+              {translate('applicationForm.continueAnyway')}
             </button>
           </div>
         </div>

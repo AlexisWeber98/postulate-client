@@ -11,7 +11,7 @@ import DuplicateModal from "../components/forms/DuplicateModal";
 import { useApplicationForm } from "../hooks/useApplicationForm";
 
 const ApplicationForm: React.FC = () => {
-  const { t } = useLanguageStore();
+  const { translate } = useLanguageStore();
   const {
     formData,
     fieldStatus,
@@ -59,7 +59,7 @@ const ApplicationForm: React.FC = () => {
             className="inline-flex items-center px-4 py-2 rounded-lg text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 font-medium transition-all duration-200 hover:scale-105"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            {t('dashboard.backToDashboard')}
+            {translate('dashboard.backToDashboard')}
           </Link>
         </motion.div>
 
@@ -69,7 +69,7 @@ const ApplicationForm: React.FC = () => {
           transition={{ duration: 0.3 }}
           className="text-4xl font-extrabold text-gray-900 dark:text-white text-center mb-12 drop-shadow-lg"
         >
-          {t('dashboard.newApplication')}
+          {translate('dashboard.newApplication')}
         </motion.h1>
 
         <motion.form
@@ -82,7 +82,7 @@ const ApplicationForm: React.FC = () => {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <FieldWrapper
               name="company"
-              label={t('dashboard.company')}
+              label={translate('dashboard.company')}
               required
               tooltip="Ingresa el nombre de la empresa donde te postulaste"
               isBlurred={isBlurred.company}
@@ -95,7 +95,7 @@ const ApplicationForm: React.FC = () => {
                 onChange={(e) => handleFieldChange('company', e.target.value)}
                 onBlur={(e) => handleFieldBlur('company', e.target.value)}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.company?.isValid && isBlurred.company ? 'ring-2 ring-red-400' : ''}`}
-                placeholder={t('dashboard.companyPlaceholder')}
+                placeholder={translate('dashboard.companyPlaceholder')}
                 required
                 aria-invalid={!fieldStatus.company?.isValid}
                 aria-describedby={!fieldStatus.company?.isValid ? 'company-error' : undefined}
@@ -104,7 +104,7 @@ const ApplicationForm: React.FC = () => {
 
             <FieldWrapper
               name="position"
-              label={t('dashboard.position')}
+              label={translate('dashboard.position')}
               required
               tooltip="Ingresa el título del puesto al que te postulaste"
               isBlurred={isBlurred.position}
@@ -117,7 +117,7 @@ const ApplicationForm: React.FC = () => {
                 onChange={(e) => handleFieldChange('position', e.target.value)}
                 onBlur={(e) => handleFieldBlur('position', e.target.value)}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.position?.isValid && isBlurred.position ? 'ring-2 ring-red-400' : ''}`}
-                placeholder={t('dashboard.positionPlaceholder')}
+                placeholder={translate('dashboard.positionPlaceholder')}
                 required
                 aria-invalid={!fieldStatus.position?.isValid}
                 aria-describedby={!fieldStatus.position?.isValid ? 'position-error' : undefined}
@@ -126,7 +126,7 @@ const ApplicationForm: React.FC = () => {
 
             <div>
               <label htmlFor="status" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
-                {t('status')} *
+                {translate('status')} *
               </label>
               <select
                 id="status"
@@ -145,7 +145,7 @@ const ApplicationForm: React.FC = () => {
 
             <div>
               <label htmlFor="date" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
-                {t('dashboard.date')} *
+                {translate('dashboard.date')} *
               </label>
               <input
                 type="date"
@@ -163,7 +163,7 @@ const ApplicationForm: React.FC = () => {
             <div className="md:col-span-2">
               <FieldWrapper
                 name="url"
-                label={t('referenceUrl')}
+                label={translate('referenceUrl')}
                 tooltip="Ingresa la URL de la publicación o la página de la empresa"
                 isBlurred={isBlurred.url}
                 fieldStatus={fieldStatus.url}
@@ -175,14 +175,14 @@ const ApplicationForm: React.FC = () => {
                   onChange={(e) => handleFieldChange('url', e.target.value)}
                   onBlur={(e) => handleFieldBlur('url', e.target.value)}
                   className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.url?.isValid && isBlurred.url ? 'ring-2 ring-red-400' : ''}`}
-                  placeholder={t('dashboard.referenceUrlPlaceholder')}
+                  placeholder={translate('dashboard.referenceUrlPlaceholder')}
                 />
               </FieldWrapper>
             </div>
 
             <div className="md:col-span-2">
               <label htmlFor="notes" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
-                {t('notes')}
+                {translate('notes')}
               </label>
               <textarea
                 id="notes"
@@ -190,24 +190,24 @@ const ApplicationForm: React.FC = () => {
                 onChange={(e) => setNotes(e.target.value)}
                 rows={5}
                 className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none"
-                placeholder={t('dashboard.notesPlaceholder')}
+                placeholder={translate('dashboard.notesPlaceholder')}
               />
             </div>
 
             <div className="col-span-2">
               <label htmlFor="recruiterContact" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
-                {t('recruiterContact')}
+                {translate('recruiterContact')}
               </label>
               <input
                 type="text"
                 id="recruiterContact"
                 value={formData.recruiterContact}
                 onChange={(e) => setRecruiterContact(e.target.value)}
-                placeholder={t('dashboard.recruiterContactPlaceholder')}
+                placeholder={translate('dashboard.recruiterContactPlaceholder')}
                 className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none"
               />
               <p className="mt-1 text-xs text-blue-200 p-2">
-                * {t('dashboard.recruiterContactHelper')}
+                * {translate('dashboard.recruiterContactHelper')}
               </p>
             </div>
 
@@ -217,7 +217,7 @@ const ApplicationForm: React.FC = () => {
                 sentEmail={formData.sentEmail}
                 onSendCvChange={setSentCV}
                 onSendEmailChange={setSentEmail}
-                translate={t}
+                translate={translate}
               />
             </div>
           </div>
@@ -233,14 +233,14 @@ const ApplicationForm: React.FC = () => {
               onClick={resetForm}
               className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl text-gray-700 dark:text-gray-200 font-semibold text-base border-0 transition-all duration-200"
             >
-              {t('common.reset')}
+              {translate('common.reset')}
             </button>
             <button
               type="submit"
               disabled={isSubmitting || !validateForm()}
               className="px-8 py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? t('dashboard.actions.save') : t('hero.cta.button')}
+              {isSubmitting ? translate('dashboard.actions.save') : translate   ('hero.cta.button')}
             </button>
           </motion.div>
         </motion.form>

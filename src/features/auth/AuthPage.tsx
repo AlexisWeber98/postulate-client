@@ -3,7 +3,7 @@ import { AuthFormContainer } from './components/AuthForm.container';
 import { useLanguageStore } from '../../store';
 
 export const AuthPage: React.FC<{ type: 'login' | 'register' }> = ({ type }) => {
-  const { t } = useLanguageStore();
+  const translate = useLanguageStore(state=>state.translate);
 
   return (
     <div className="flex flex-col lg:flex-row w-full min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -15,7 +15,7 @@ export const AuthPage: React.FC<{ type: 'login' | 'register' }> = ({ type }) => 
             <span className="text-3xl font-semibold text-white drop-shadow">Postulate</span>
           </div>
           <h1 className="text-7xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent drop-shadow-lg w-full text-left" style={{ minHeight: '45vh' }}>
-            {type === 'register' ? t('auth.createAccount') : t('auth.loginTitle')}
+            {type === 'register' ? translate('auth.createAccount') : translate('auth.loginTitle')}
           </h1>
         </div>
       </div>
@@ -30,7 +30,7 @@ export const AuthPage: React.FC<{ type: 'login' | 'register' }> = ({ type }) => 
               <span className="text-3xl font-semibold text-white drop-shadow">Postulate</span>
             </div>
             <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent drop-shadow-lg text-center">
-              {t('auth.createAccount')}
+              {translate('auth.createAccount')}
             </h1>
           </div>
         )}
