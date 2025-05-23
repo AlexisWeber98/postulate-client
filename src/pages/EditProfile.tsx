@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthStore } from '../store/auth/authStore';
-import { Save, ArrowLeft, Loader2 } from 'lucide-react';
+import { Save, Loader2 } from 'lucide-react';
 import { isValidEmail, hasContent } from '../lib/helpers/validation.helpers';
 import Button from '../components/atoms/Button/Button.ui';
 import { motion } from "framer-motion";
-import { Link } from 'react-router-dom';
 import { useLanguageStore } from '../store';
 import FieldWrapper from '../components/molecules/FieldWrapper/FieldWrapper';
 import { TranslationKey } from '../i18n';
 import Footer from '../components/organisms/Footer';
+import { MdAccountCircle } from 'react-icons/md';
+
 type FieldName = 'name' | 'email';
 
 const EditProfile: React.FC = () => {
@@ -102,21 +103,6 @@ const EditProfile: React.FC = () => {
       className="flex flex-col min-h-[calc(100vh-200px)] bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
     >
       <div className="max-w-4xl mx-auto w-full px-4 py-8">
-        <motion.div
-          initial={{ x: -20, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="mb-6"
-        >
-          <Link
-            to="/dashboard"
-            className="inline-flex items-center px-4 py-2 rounded-lg text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 font-medium transition-all duration-200 hover:scale-105"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            {translate('dashboard.backToDashboard')}
-          </Link>
-        </motion.div>
-
         <motion.h1
           id="profile-title"
           initial={{ y: -20, opacity: 0 }}
@@ -126,6 +112,10 @@ const EditProfile: React.FC = () => {
         >
           {translate('profile.title')}
         </motion.h1>
+
+        <div className="flex flex-col items-center mb-8">
+          <MdAccountCircle className="text-7xl text-blue-500 dark:text-blue-400 drop-shadow-lg bg-white/30 dark:bg-gray-800/30 rounded-full p-1" />
+        </div>
 
         <motion.form
           initial={{ opacity: 0 }}
