@@ -10,6 +10,7 @@ import { useErrorHandler } from '../hooks/useErrorHandler';
 import ActionModal from '../components/molecules/ActionModal';
 import LoadingSpinner from '../components/atoms/LoadingSpinner';
 import { MdAccountCircle } from 'react-icons/md';
+import Footer from '../components/organisms/Footer';
 
 const Dashboard: React.FC = () => {
   const { postulations, loading } = usePostulationsStore();
@@ -191,12 +192,13 @@ const Dashboard: React.FC = () => {
 
         {/* Sección de estadísticas */}
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">{translate('dashboard.summary')}</h2>
-          <div className="rounded-2xl shadow-md bg-white/0 dark:bg-gray-800/0 backdrop-blur-none">
+
+          <div>
             <ApplicationStats />
           </div>
         </section>
       </div>
+      <Footer />
     </div>
   );
 };

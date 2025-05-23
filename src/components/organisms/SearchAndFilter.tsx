@@ -65,7 +65,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
       </div>
 
       {/* Filtros */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
         {/* Filtro de estado */}
         <div className="relative w-full">
           <select
@@ -120,6 +120,21 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
           <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
             <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
           </span>
+        </div>
+
+        {/* Botón de reset */}
+        <div className="w-full flex items-center">
+          <button
+            onClick={() => {
+              setSearchTerm('');
+              setStatusFilter('all');
+              setCompanyFilter('');
+              setPositionFilter('');
+            }}
+            className="w-full px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-violet-500 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:from-blue-600 hover:to-violet-600 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            {translate('dashboard.filters.clear')}
+          </button>
         </div>
       </div>
     </div>

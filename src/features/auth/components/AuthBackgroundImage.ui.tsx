@@ -1,15 +1,7 @@
-import { useAuthBackgroundStore } from '../../../store/auth/authStore';
-
 export const AuthBackgroundImage = () => {
-  const { backgroundImage } = useAuthBackgroundStore();
-
   return (
     <div className="absolute inset-0 -z-10">
-      <img
-        src={backgroundImage}
-        alt="Background"
-        className="w-full h-full object-cover"
-      />
+      <div className="w-full h-full bg-[url('/images/auth-background.jpg')] bg-cover bg-center" />
       <div className="absolute inset-0 bg-black/50" />
     </div>
   );

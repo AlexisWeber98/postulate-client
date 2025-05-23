@@ -14,16 +14,16 @@ import CTASection from '../features/landing/components/CTASection.ui';
 import HeroBackground from '../features/landing/components/HeroBackground.ui';
 
 const Landing: React.FC = () => {
-  const { t } = useLanguageStore();
+  const { translate } = useLanguageStore();
 
   const sections = [
-    { id: 'hero', label: t('landing.hero.title') },
-    { id: 'intro', label: t('landing.intro.title') },
-    { id: 'how-it-works', label: t('landing.howItWorks.title') },
-    { id: 'features', label: t('landing.features.title') },
-    { id: 'benefits', label: t('landing.benefits.title') },
-    { id: 'trust', label: t('landing.trust.title') },
-    { id: 'cta', label: t('landing.cta.title') },
+    { id: 'hero', label: translate('landing.hero.title') },
+    { id: 'intro', label: translate('landing.intro.title') },
+    { id: 'how-it-works', label: translate('landing.howItWorks.title') },
+    { id: 'features', label: translate('landing.features.title') },
+    { id: 'benefits', label: translate('landing.benefits.title') },
+    { id: 'trust', label: translate('landing.trust.title') },
+    { id: 'cta', label: translate('landing.cta.title') },
   ];
 
   return (
@@ -38,7 +38,7 @@ const Landing: React.FC = () => {
       <SideNavbar sections={sections} />
 
       <div id="intro">
-        <IntroSection t={t} />
+        <IntroSection translate={translate} />
       </div>
 
       <main className="flex-grow">
@@ -51,12 +51,12 @@ const Landing: React.FC = () => {
             <div className="absolute inset-0 bg-black/60" />
           </div>
           <div className="relative z-10 container mx-auto px-4 sm:px-8">
-            <HowItWorksSection t={t} />
+            <HowItWorksSection translate={translate} />
           </div>
         </motion.div>
 
         <motion.div id="features" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }} className="container mx-auto px-4 sm:px-8">
-          <FeaturesSectionContainer t={t} />
+          <FeaturesSectionContainer translate={translate} />
         </motion.div>
 
         <motion.div id="benefits" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="relative w-full py-20">
@@ -64,16 +64,16 @@ const Landing: React.FC = () => {
             <div className="absolute inset-0 bg-black/60" />
           </div>
           <div className="relative z-10 container mx-auto px-4 sm:px-8">
-            <BenefitsSection t={t} />
+            <BenefitsSection translate={translate} />
           </div>
         </motion.div>
 
         <motion.div id="trust" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.3 }} className="container mx-auto px-4 sm:px-8">
-          <TrustSection t={t} />
+          <TrustSection translate={translate} />
         </motion.div>
 
         <motion.div id="cta" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.4 }}>
-          <CTASection t={t} />
+          <CTASection translate={translate} />
         </motion.div>
       </main>
 

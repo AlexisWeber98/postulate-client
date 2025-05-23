@@ -1,5 +1,5 @@
 import { AuthPage } from '../features/auth/AuthPage';
-import AuthBackground from '../features/auth/components/AuthBackground';
+import { AuthBackground } from '../components/AuthBackground';
 import { AUTH_IMAGES } from '../constants/images';
 
 export default function Register() {

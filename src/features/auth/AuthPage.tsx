@@ -7,28 +7,20 @@ export const AuthPage: React.FC<{ type: 'login' | 'register' }> = ({ type }) => 
 
   return (
     <div className="flex flex-col lg:flex-row w-full min-h-screen bg-gray-100 dark:bg-gray-900">
-      {/* Columna izquierda (desktop): logo y título */}
+      {/* Columna izquierda (desktop): título */}
       <div className="hidden lg:flex flex-col justify-center items-start w-1/2 relative z-10 pl-16">
         <div className="flex flex-col items-start w-full">
-          <div className="bg-white/40 rounded-lg px-6 py-4 flex items-center gap-3 shadow-lg mb-8">
-            <span className="bg-blue-900 text-white font-bold px-2 py-1 rounded mr-2">Be</span>
-            <span className="text-3xl font-semibold text-white drop-shadow">Postulate</span>
-          </div>
           <h1 className="text-7xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent drop-shadow-lg w-full text-left" style={{ minHeight: '45vh' }}>
             {type === 'register' ? translate('auth.createAccount') : translate('auth.loginTitle')}
           </h1>
         </div>
       </div>
 
-      {/* Columna derecha (formulario + mobile title/logo) */}
+      {/* Columna derecha (formulario + mobile title) */}
       <div className="flex flex-col justify-center items-center w-full lg:w-1/2 min-h-screen relative z-10">
-        {/* Mobile: logo y título */}
+        {/* Mobile: título */}
         {type === 'register' && (
           <div className="lg:hidden flex flex-col items-center w-full mb-8">
-            <div className="bg-white/40 rounded-lg px-6 py-4 flex items-center gap-3 shadow-lg mb-6">
-              <span className="bg-blue-900 text-white font-bold px-2 py-1 rounded mr-2">Be</span>
-              <span className="text-3xl font-semibold text-white drop-shadow">Postulate</span>
-            </div>
             <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent drop-shadow-lg text-center">
               {translate('auth.createAccount')}
             </h1>

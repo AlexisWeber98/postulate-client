@@ -167,43 +167,45 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
           transition={{ delay: 0.3 }}
           className="flex flex-col gap-4"
         >
-          <div className="flex justify-end gap-4 mt-4">
-            <button
-              type="button"
-              onClick={resetForm}
-              className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl text-gray-700 dark:text-gray-200 font-semibold text-base border-0 transition-all duration-200"
-            >
-              {translate('common.reset')}
-            </button>
-            <button
-              type="submit"
-              disabled={!isFormValid || isLoading}
-              className="px-8 py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? translate('common.loading') : (type === 'login' ? translate('auth.login') : translate('auth.register'))}
-            </button>
-          </div>
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-center gap-4 mt-4">
+              <button
+                type="button"
+                onClick={resetForm}
+                className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl text-gray-700 dark:text-gray-200 font-semibold text-base border-0 transition-all duration-200"
+              >
+                {translate('common.reset')}
+              </button>
+              <button
+                type="submit"
+                disabled={!isFormValid || isLoading}
+                className="px-8 py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? translate('common.loading') : (type === 'login' ? translate('auth.login') : translate('auth.register'))}
+              </button>
+            </div>
 
-          <div className="text-center text-gray-600 dark:text-gray-300 mt-2">
-            {type === 'login'
-              ? <>
-                  {translate('auth.newUser')}{' '}
-                  <Link to="/register" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">{translate('auth.createAccountLink')}</Link>
-                </>
-              : <>
-                  {translate('auth.alreadyHaveAccount')}{' '}
-                  <Link to="/login" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">{translate('auth.loginLink')}</Link>
-                </>
-            }
-          </div>
+            <div className="text-center text-gray-600 dark:text-gray-300 mt-2">
+              {type === 'login'
+                ? <>
+                    {translate('auth.newUser')}{' '}
+                    <Link to="/register" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">{translate('auth.createAccountLink')}</Link>
+                  </>
+                : <>
+                    {translate('auth.alreadyHaveAccount')}{' '}
+                    <Link to="/login" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">{translate('auth.loginLink')}</Link>
+                  </>
+              }
+            </div>
 
-          <Link
-            to="/landing"
-            className="inline-flex items-center justify-center px-4 py-2 rounded-lg text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 font-medium transition-all duration-200 hover:scale-105"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            {translate('auth.backToHome')}
-          </Link>
+            <Link
+              to="/landing"
+              className="inline-flex items-center justify-center px-4 py-2 rounded-lg text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 font-medium transition-all duration-200 hover:scale-105"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              {translate('auth.backToHome')}
+            </Link>
+          </div>
         </motion.div>
         <AnimatePresence mode="wait">
           {error && (

@@ -1,5 +1,17 @@
-import { client } from "./client";
+import { httpClient } from "./client";
 import { Postulation } from "../types/interface/postulations/postulation";
+import { postulationRequestInterceptor, postulationResponseInterceptor } from "./interceptors/postulation.interceptor";
+
+// Agregar interceptores específicos para postulaciones
+httpClient.client.interceptors.request.use(
+  postulationRequestInterceptor.onFulfilled,
+  postulationRequestInterceptor.onRejected
+);
+
+httpClient.client.interceptors.response.use(
+  postulationResponseInterceptor.onFulfilled,
+  postulationResponseInterceptor.onRejected
+);
 
 // Definir los tipos para las solicitudes
 type CreatePostulationRequest = Omit<
@@ -13,19 +25,19 @@ type UpdatePostulationRequest = Partial<
 // Servicio para aplicaciones
 export const postulationsApi = {
   // Obtener todas las aplicaciones
-  getAll: () => client.get<Postulation[]>("/postulations"),
+  getAll: () => httpClient.get<Postulation[]>("/postulations"),
 
   // Obtener una aplicación por ID
-  getById: (id: string) => client.get<Postulation>(`/postulations/user/${id}`),
+  getById: (id: string) => httpClient.get<Postulation>(`/postulations/user/${id}`),
 
   // Crear una nueva aplicación
   create: (data: CreatePostulationRequest) =>
-    client.post<Postulation>("/postulations", data),
+    httpClient.post<Postulation>("/postulations", data),
 
   // Actualizar una aplicación existente
   update: (id: string, data: UpdatePostulationRequest) =>
-    client.patch<Postulation>(`/postulations/${id}`, data),
+    httpClient.patch<Postulation>(`/postulations/${id}`, data),
 
   // Eliminar una aplicación
-  delete: (id: string) => client.delete<void>(`/postulations/${id}`),
+  delete: (id: string) => httpClient.delete<void>(`/postulations/${id}`),
 };

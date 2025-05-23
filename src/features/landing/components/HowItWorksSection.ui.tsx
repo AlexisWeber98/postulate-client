@@ -1,11 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { UserPlus, ClipboardList, BarChart2 } from 'lucide-react';
-import { useLanguageStore } from '@/store/language/languageStore';
+import { TranslationKey } from '@/i18n';
 
-const HowItWorksSection: React.FC = () => {
-  const translate = useLanguageStore(state=>state.translate);
+interface HowItWorksSectionProps {
+  translate: (key: TranslationKey) => string;
+}
 
+const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ translate }) => {
   return (
     <div className="text-center">
       <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">

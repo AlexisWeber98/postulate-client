@@ -2,8 +2,8 @@ import React from 'react';
 import { IntroSectionProps, CardProps } from '../../../types/components/landing/landing.types';
 import { getIntroCards } from '../data/introCards';
 
-const IntroSection: React.FC<IntroSectionProps> = ({ t }) => {
-  const cards = getIntroCards(t);
+const IntroSection: React.FC<IntroSectionProps> = ({ translate }) => {
+  const cards = getIntroCards(translate);
 
   if (!cards || cards.length === 0) {
     return (
