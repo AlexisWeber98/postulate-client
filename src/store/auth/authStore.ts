@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import axios from "axios";
 import { AuthState, User, ApiResponse, ApiError } from "../../types/auth/auth.interface";
 import { jwtDecode, type JwtPayload } from "jwt-decode";
 import { authApi } from "../../api";
@@ -66,7 +65,8 @@ export const useAuthStore = create<AuthState>()(
 
         try {
           const response = await authApi.login({ email, password });
-          const token = (response as unknown as ApiResponse<string>).data.result;
+          console.log('Respuesta del login:', response);
+          const token = response.result;
           const decoded = jwtDecode<JwtPayload & User>(token);
 
           set({
@@ -121,12 +121,12 @@ export const useAuthStore = create<AuthState>()(
             lastName,
             password,
           });
-          const data = (response as unknown as ApiResponse<User & { token: string }>).data;
+          const { user, token } = response.result;
 
           set({
-            user: data.result,
+            user,
             loading: false,
-            token: data.result.token,
+            token,
             isAuthenticated: true
           });
         } catch (error) {
@@ -188,40 +188,3 @@ export const useAuthStore = create<AuthState>()(
     },
   ),
 );
-
-// Configurar el interceptor de axios para incluir el token en todas las peticiones
-axios.interceptors.request.use(
-  (config) => {
-    const token = useAuthStore.getState().token;
-    if (token) {
-      config.headers.set('Authorization', `Bearer ${token}`);
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  },
-);
-
-axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      const authStore = useAuthStore.getState();
-      authStore.signOut();
-      // Emitir un evento personalizado para la redirección
-      window.dispatchEvent(new CustomEvent('auth:unauthorized'));
-    }
-    return Promise.reject(error);
-  },
-);
-
-interface AuthBackgroundState {
-  backgroundImage: string;
-  setBackgroundImage: (image: string) => void;
-}
-
-export const useAuthBackgroundStore = create<AuthBackgroundState>((set) => ({
-  backgroundImage: '/images/auth-background.jpg',
-  setBackgroundImage: (image) => set({ backgroundImage: image }),
-}));

@@ -1,10 +1,6 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders } from "axios";
-import { useAuthStore } from "../store/auth/authStore";
-
-// Configuración base para las peticiones HTTP
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:6001";
-const API_KEY = import.meta.env.VITE_API_KEY; //|| "your-api-key";
-
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import { requestInterceptor, responseInterceptor } from "./interceptors/auth.interceptors";
+import { API_URL, API_KEY } from "./apiAxios";
 
 
 // Crear instancia de axios con configuración base
@@ -13,54 +9,30 @@ export const client: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
     ...(API_KEY ? { 'x-api-key': API_KEY } : {}),
-  },
-  timeout: 30000, // 30 segundos de timeout
-  timeoutErrorMessage: "La solicitud está tardando demasiado. Por favor, intenta nuevamente.",
+  }
 });
 
-// Interceptor para agregar el token de autenticación
+// Agregar interceptores base
 client.interceptors.request.use(
-  (config) => {
-const token = useAuthStore.getState().token;
-if (token) {
-  config.headers = {
-    ...config.headers as Record<string, string>,
-    Authorization: `Bearer ${token}`,
-  } as AxiosRequestHeaders;
-}
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  },
+  requestInterceptor.onFulfilled,
+  requestInterceptor.onRejected
 );
 
-// Interceptor para manejar errores de autenticación
 client.interceptors.response.use(
-  (response) => response,
-  (error) => {
-if (error.code === 'ECONNABORTED') {
-  error.name = 'TimeoutError';
-  return Promise.reject(error);
-}
-
-    if (error.response?.status === 401) {
-      useAuthStore.getState().signOut();
-      window.location.href = "/login";
-    }
-    return Promise.reject(error);
-  },
+  responseInterceptor.onFulfilled,
+  responseInterceptor.onRejected
 );
 
 // Cliente HTTP con métodos tipados
 export const httpClient = {
-get: async <T>(url: string, config?: AxiosRequestConfig) => {
-  const response = await client.get<T>(url, config);
-   return response.data;
- },
- // …repeat for post / put / patch / delete
-post: async <T>(url: string, data: unknown, config?: AxiosRequestConfig) => {
-  const response = await client.post<T>(url, data, config);
+  client, // Exponer el cliente base para interceptores específicos
+  get: async <T>(url: string, config?: AxiosRequestConfig) => {
+    const response = await client.get<T>(url, config);
+    return response.data;
+  },
+
+  post: async <T>(url: string, data: unknown, config?: AxiosRequestConfig) => {
+    const response = await client.post<T>(url, data, config);
     return response.data;
   },
 
