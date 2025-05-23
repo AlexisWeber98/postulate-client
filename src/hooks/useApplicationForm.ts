@@ -112,8 +112,18 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
       date: validateField('date', date),
       url: validateField('url', url)
     };
-    setFieldStatus(initialValidation);
-  }, [company, position, date, url, validateField]);
+
+    const hasChanges = Object.keys(initialValidation).some(
+      (key) => {
+        const typedKey = key as keyof typeof initialValidation;
+        return JSON.stringify(initialValidation[typedKey]) !== JSON.stringify(fieldStatus[typedKey]);
+      }
+    );
+
+    if (hasChanges) {
+      setFieldStatus(initialValidation);
+    }
+  }, [company, position, date, url, validateField, fieldStatus]);
 
   const validateForm = useCallback(() => {
     const newErrors: Record<string, string> = {};
@@ -123,8 +133,6 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     newFieldStatus.position = validateField('position', position);
     newFieldStatus.date = validateField('date', date);
     newFieldStatus.url = validateField('url', url);
-
-    setFieldStatus(newFieldStatus);
 
     if (!newFieldStatus.company.isValid) {
       newErrors.company = newFieldStatus.company.message || 'La empresa es requerida';
@@ -139,9 +147,18 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
       newErrors.url = newFieldStatus.url.message || 'La URL debe ser válida';
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  }, [company, position, date, url, validateField]);
+    const hasErrors = Object.keys(newErrors).length > 0;
+    const hasStatusChanges = Object.keys(newFieldStatus).some(
+      key => JSON.stringify(newFieldStatus[key]) !== JSON.stringify(fieldStatus[key])
+    );
+
+    if (hasErrors || hasStatusChanges) {
+      setErrors(newErrors);
+      setFieldStatus(newFieldStatus);
+    }
+
+    return !hasErrors;
+  }, [company, position, date, url, validateField, fieldStatus]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

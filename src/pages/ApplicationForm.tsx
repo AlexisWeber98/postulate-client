@@ -237,10 +237,10 @@ const ApplicationForm: React.FC = () => {
             </button>
             <button
               type="submit"
-              disabled={isSubmitting || !validateForm()}
+              disabled={isSubmitting}
               className="px-8 py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? translate('dashboard.actions.save') : translate   ('hero.cta.button')}
+              {isSubmitting ? translate('dashboard.actions.save') : translate('hero.cta.button')}
             </button>
           </motion.div>
         </motion.form>
