@@ -13,7 +13,7 @@ const PASSWORD_REQUIREMENTS = {
 } as const;
 
 export const useAuthForm = (type: 'login' | 'register') => {
-  const { t } = useLanguageStore();
+  const { translate } = useLanguageStore();
   const [formData, setFormData] = useState<AuthFormData>({
     email: '',
     password: '',
@@ -33,7 +33,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
       if (!isValidEmail(formData.email)) {
         newFieldStatus.email = {
           isValid: false,
-          message: t('auth.validation.email')
+          message: translate('auth.validation.email')
         };
       } else {
         newFieldStatus.email = { isValid: true };
@@ -46,7 +46,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
           !PASSWORD_REQUIREMENTS.HAS_SPECIAL_CHAR.test(formData.password)) {
         newFieldStatus.password = {
           isValid: false,
-          message: t('auth.validation.password')
+          message: translate('auth.validation.password')
         };
       } else {
         newFieldStatus.password = { isValid: true };
@@ -56,7 +56,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
         if (!formData.name || !hasContent(formData.name)) {
           newFieldStatus.name = {
             isValid: false,
-            message: t('auth.validation.name')
+            message: translate('auth.validation.name')
           };
         } else {
           newFieldStatus.name = { isValid: true };
@@ -65,7 +65,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
         if (!formData.userName || !hasContent(formData.userName)) {
           newFieldStatus.userName = {
             isValid: false,
-            message: t('auth.validation.userName')
+            message: translate('auth.validation.userName')
           };
         } else {
           newFieldStatus.userName = { isValid: true };
@@ -74,7 +74,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
         if (!formData.lastName || !hasContent(formData.lastName)) {
           newFieldStatus.lastName = {
             isValid: false,
-            message: t('auth.validation.lastName')
+            message: translate('auth.validation.lastName')
           };
         } else {
           newFieldStatus.lastName = { isValid: true };
@@ -85,7 +85,7 @@ export const useAuthForm = (type: 'login' | 'register') => {
     };
 
     validateFields();
-  }, [formData, type, t]);
+  }, [formData, type, translate]);
 
   const handleFieldChange = (name: keyof AuthFormData, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
