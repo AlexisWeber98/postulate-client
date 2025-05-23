@@ -118,6 +118,7 @@ export const en = {
   'dashboard.sentCV': 'CV Sent',
   'dashboard.sentEmail': 'Email Sent',
   'dashboard.notes.none': 'No notes',
+  'dashboard.url.none': 'No link',
   'dashboard.created': 'Created',
   'dashboard.updated': 'Updated',
 

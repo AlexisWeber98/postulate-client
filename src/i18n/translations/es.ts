@@ -122,6 +122,7 @@ export const es = {
   'dashboard.sentCV': 'CV Enviado',
   'dashboard.sentEmail': 'Email Enviado',
   'dashboard.notes.none': 'Sin notas',
+  'dashboard.url.none': 'Sin link',
   'dashboard.created': 'Creado',
   'dashboard.updated': 'Actualizado',
 
