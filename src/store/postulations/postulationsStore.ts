@@ -27,13 +27,20 @@ export const usePostulationsStore = create<PostulationState>()(
             data: newPostulation,
             baseURL: API_URL
           });
-          const response = await postulationsApi.create(newPostulation);
+
+          // Asegurarnos que la fecha está en el formato correcto
+          const postulationData = {
+            ...newPostulation,
+            date: newPostulation.date || new Date().toISOString().split('T')[0]
+          };
+
+          const response = await postulationsApi.create(postulationData);
           console.log('✅ Postulación creada exitosamente:', response);
           set((state: PostulationState) => ({
-            postulations: [response, ...state.postulations],
+            postulations: [response.data, ...state.postulations],
             loading: false
           }));
-          return response.id;
+          return response.data.id;
         } catch (error) {
           console.error('❌ Error al crear postulación:', error);
           if (axios.isAxiosError(error)) {
@@ -82,7 +89,7 @@ export const usePostulationsStore = create<PostulationState>()(
           console.log('✅ Postulación actualizada exitosamente:', response);
           set((state: PostulationState) => ({
             postulations: state.postulations.map((app: Postulation) =>
-              app.id === id ? response : app
+              app.id === id ? response.data : app
             ),
             loading: false
           }));
@@ -167,7 +174,7 @@ export const usePostulationsStore = create<PostulationState>()(
           const response = await postulationsApi.getAll();
           console.log('✅ Postulaciones obtenidas exitosamente:', response);
           set({
-            postulations: response,
+            postulations: response.data,
             loading: false
           });
         } catch (error) {

@@ -28,6 +28,13 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
     console.log('[NewPostulationFormContainer] Valores iniciales:', initialValues);
   }, [initialValues]);
 
+  // Efecto para revalidar en tiempo real cuando values cambie y haya campos tocados
+  useEffect(() => {
+    if (Object.keys(touched).length > 0) {
+      validate();
+    }
+  }, [values]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     console.log(`[handleChange] Cambio en el campo "${name}":`, value);

@@ -1,38 +1,27 @@
-import { httpClient } from "./client";
+import axios, { AxiosInstance } from 'axios';
 import { Postulation } from "../types/interface/postulations/postulation";
 import { postulationRequestInterceptor, postulationResponseInterceptor } from "./interceptors/postulation.interceptor";
-import { client } from "./client";
+import { API_URL, API_KEY } from "./apiAxios";
 
 
-// import axios from "axios";
-// import { API_URL, API_KEY } from "./apiAxios";
-/*
- const token = useAuthStore.getState().token;
-
-if(token){
-  console.log('token instanciado', token);
-} else {
-  console.log('no token instanciado');
-}
- */
-/* export const client: AxiosInstance = axios.create({
+export const postulationsClient: AxiosInstance = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json' ,
     ...(API_KEY ? { 'x-api-key': API_KEY } : {}),
-    //token instanciado
-    ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
-  }
-}); */
 
+  }
+});
+
+console.log('[postulationsClient] Axios instance created with baseURL:', API_URL);
 
 // Agregar interceptores específicos para postulaciones
-client.interceptors.request.use(
+postulationsClient.interceptors.request.use(
   postulationRequestInterceptor.onFulfilled,
   postulationRequestInterceptor.onRejected
 );
 
-client.interceptors.response.use(
+postulationsClient.interceptors.response.use(
   postulationResponseInterceptor.onFulfilled,
   postulationResponseInterceptor.onRejected
 );
@@ -49,19 +38,19 @@ type UpdatePostulationRequest = Partial<
 // Servicio para aplicaciones
 export const postulationsApi = {
   // Obtener todas las aplicaciones
-  getAll: () => httpClient.get<Postulation[]>("/postulations"),
+  getAll: () => postulationsClient.get<Postulation[]>("/postulations"),
 
   // Obtener una aplicación por ID
-  getById: (id: string) => httpClient.get<Postulation>(`/postulations/user/${id}`),
+  getById: (id: string) => postulationsClient.get<Postulation>(`/postulations/user/${id}`),
 
   // Crear una nueva aplicación
   create: (data: CreatePostulationRequest) =>
-    httpClient.post<Postulation>("/postulations", data),
+    postulationsClient.post<Postulation>("/postulations", data),
 
   // Actualizar una aplicación existente
   patch: (id: string, data: UpdatePostulationRequest) =>
-    httpClient.patch<Postulation>(`/postulations/${id}`, data),
+      postulationsClient.patch<Postulation>(`/postulations/${id}`, data),
 
   // Eliminar una aplicación
-  delete: (id: string) => httpClient.delete<void>(`/postulations/${id}`),
+  delete: (id: string) => postulationsClient.delete<void>(`/postulations/${id}`),
 };
