@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { useLanguageStore } from '../store';
 import FieldWrapper from '../components/molecules/FieldWrapper/FieldWrapper';
 import { TranslationKey } from '../i18n';
+import Footer from '../components/organisms/Footer';
 type FieldName = 'name' | 'email';
 
 const EditProfile: React.FC = () => {
@@ -98,7 +99,7 @@ const EditProfile: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="flex flex-col min-h-[calc(100vh-200px)] bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800"
+      className="flex flex-col min-h-[calc(100vh-200px)] bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
     >
       <div className="max-w-4xl mx-auto w-full px-4 py-8">
         <motion.div
@@ -222,6 +223,7 @@ const EditProfile: React.FC = () => {
           )}
         </motion.form>
       </div>
+      <Footer />
     </motion.div>
   );
 };

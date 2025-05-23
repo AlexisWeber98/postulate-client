@@ -10,6 +10,7 @@ import { useErrorHandler } from '../hooks/useErrorHandler';
 import ActionModal from '../components/molecules/ActionModal';
 import LoadingSpinner from '../components/atoms/LoadingSpinner';
 import { MdAccountCircle } from 'react-icons/md';
+import Footer from '../components/organisms/Footer';
 
 const Dashboard: React.FC = () => {
   const { postulations, loading } = usePostulationsStore();
@@ -197,6 +198,7 @@ const Dashboard: React.FC = () => {
           </div>
         </section>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -34,6 +34,7 @@ export const en = {
   'auth.password': 'Password',
   'auth.continue': 'Continue',
   'auth.register': 'Register',
+  'auth.login': 'Log in',
   'auth.newUser': 'Don\'t have an account?',
   'auth.createAccountLink': 'Create account',
   'auth.alreadyHaveAccount': 'Already have an account?',
