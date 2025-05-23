@@ -4,7 +4,7 @@ import { useLanguageStore } from '../../../../store/language/languageStore';
 
 export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDelete }: ApplicationCardGlassProps) => {
   const { company, position, status, date, url, notes, createdAt, updatedAt, sentCV, sentEmail } = application;
-  const initials = company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  const initials = company ? company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) : 'NA';
   const { lang } = useLanguageStore();
   const translate = useLanguageStore(state=>state.translate);
 

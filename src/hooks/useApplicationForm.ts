@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { usePostulationsStore } from "../store";
 import { PostulationStatus } from "../types/index";
 import { ValidationHelpers, DateHelpers } from "../lib/helpers";
+import axios from "axios";
 
 interface UseApplicationFormReturn {
   formData: {
@@ -163,14 +164,17 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    console.log('[DEBUG] Iniciando envío del formulario');
 
     if (!validateForm()) {
+      console.log('[DEBUG] Validación del formulario falló');
       setIsSubmitting(false);
       return;
     }
 
     try {
       if (!id && checkDuplicate(company, position)) {
+        console.log('[DEBUG] Se detectó una postulación duplicada');
         setShowDuplicateModal(true);
         setIsSubmitting(false);
         return;
@@ -188,15 +192,32 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
         sentEmail,
       };
 
+      console.log('[DEBUG] Payload a enviar:', payload);
+
       if (id) {
+        console.log('[DEBUG] Actualizando postulación existente:', id);
         await updatePostulation(id, payload);
       } else {
+        console.log('[DEBUG] Creando nueva postulación');
         await addPostulation(payload);
       }
 
+      console.log('[DEBUG] Operación completada exitosamente');
       navigate("/");
     } catch (error) {
-      console.error(error);
+      console.error('[DEBUG] Error en handleSubmit:', error);
+      if (axios.isAxiosError(error)) {
+        console.error('[DEBUG] Detalles del error Axios:', {
+          status: error.response?.status,
+          data: error.response?.data,
+          message: error.message,
+          config: {
+            url: error.config?.url,
+            method: error.config?.method,
+            baseURL: error.config?.baseURL
+          }
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }

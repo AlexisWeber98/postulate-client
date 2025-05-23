@@ -115,6 +115,8 @@ export const es = {
   'recruiterContact.helper': 'Ejemplo: email@empresa.com o +54 1234 567890',
   'recruiterContact.placeholder': 'Ejemplo: email@empresa.com o +54 1234 567890',
   'dashboard.loading': 'Cargando...',
+  'submit': 'Enviar',
+  'reset': 'Reiniciar',
 
   'dashboard.date': 'Fecha',
   'dashboard.position': 'Posición',
@@ -245,4 +247,6 @@ export const es = {
   'notes': 'Notas',
   'notes.placeholder': 'Añade cualquier información relevante sobre esta postulación',
   'common.cancel': 'Cancelar',
+  'dashboard.urlPlaceholder': 'URL de la oferta',
+  'dashboard.notesPlaceholder': 'Notas adicionales',
 } as const;

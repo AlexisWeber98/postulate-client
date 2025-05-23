@@ -233,4 +233,6 @@ export const en = {
 
   'referenceUrl.placeholder': 'https://example.com/job',
   'notes.placeholder': 'Add any relevant information about this application',
+  'dashboard.urlPlaceholder': 'Job posting URL',
+  'dashboard.notesPlaceholder': 'Additional notes',
 } as const;

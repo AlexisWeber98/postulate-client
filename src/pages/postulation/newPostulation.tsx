@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NewPostulationFormContainer from '../../features/postulation/components/NewPostulationForm.container';
 import { postulationsApi } from '../../api/postulations';
 import { usePostulationsStore, useLanguageStore } from '../../store';
@@ -6,10 +6,11 @@ import { NewPostulationFormValues } from '../../types';
 import { PostulationStatus, PostulationState } from '../../types/interface/postulations/postulation';
 import { ApplicationStatus } from '../../interfaces/postulations/application-status';
 
-
+console.log('[NuevaPostulacionPage] Componente cargado');
 
 // Mapeo entre ApplicationStatus y PostulationStatus
 const mapApplicationToPostulationStatus = (status: ApplicationStatus): PostulationStatus => {
+  console.log('[mapApplicationToPostulationStatus] Estado recibido:', status);
   switch (status) {
     case ApplicationStatus.PENDING:
       return 'applied';
@@ -31,40 +32,82 @@ const NuevaPostulacionPage: React.FC = () => {
   const [success, setSuccess] = useState(false);
   const addPostulation = usePostulationsStore((state: PostulationState) => state.addPostulation);
 
+  useEffect(() => {
+    console.log('[NuevaPostulacionPage] Componente montado');
+    return () => {
+      console.log('[NuevaPostulacionPage] Componente desmontado');
+    };
+  }, []);
+
   const handleSubmit = async (values: NewPostulationFormValues) => {
+    console.log('[handleSubmit] Valores del formulario recibidos:', values);
+
     setLoading(true);
     setFormError(undefined);
     setSuccess(false);
+
     try {
-      // Llamada a la API para crear la postulación
-      const { company, position, status, date, referenceUrl, notes, recruiterContact, sentCV, sentEmail } = values;
-      await postulationsApi.create({
+      const {
         company,
         position,
-        status: mapApplicationToPostulationStatus(status as ApplicationStatus),
+        status,
+        date,
+        referenceUrl,
+        notes,
+        recruiterContact,
+        sentCV,
+        sentEmail,
+      } = values;
+
+      const mappedStatus = mapApplicationToPostulationStatus(status as ApplicationStatus);
+
+      console.log('[handleSubmit] Llamando a la API con:', {
+        company,
+        position,
+        status: mappedStatus,
         date,
         url: referenceUrl,
         notes,
         sentCV,
         sentEmail,
       });
-      // Actualizar Zustand store local
-      addPostulation({
+
+      await postulationsApi.create({
         company,
         position,
-        status: mapApplicationToPostulationStatus(status as ApplicationStatus),
+        status: mappedStatus,
+        date,
+        url: referenceUrl,
+        notes,
+        sentCV,
+        sentEmail,
+      });
+
+      console.log('[handleSubmit] Postulación enviada exitosamente a la API');
+
+      const newPostulation = {
+        company,
+        position,
+        status: mappedStatus,
         date,
         url: referenceUrl,
         notes,
         recruiterContact,
         sentCV,
         sentEmail,
-      });
+      };
+
+      console.log('[handleSubmit] Agregando postulación al store:', newPostulation);
+      addPostulation(newPostulation);
+
       setSuccess(true);
-    } catch {
+      console.log('[handleSubmit] Postulación procesada con éxito');
+    } catch (error) {
+      console.error('[handleSubmit] Error al guardar la postulación:', error);
       setFormError(translate('errorMessage') || 'An error occurred while saving the application.');
     } finally {
       setLoading(false);
+      console.log('[handleSubmit] Finaliza manejo del formulario');
     }
   };
 

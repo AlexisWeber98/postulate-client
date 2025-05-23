@@ -9,4 +9,5 @@ export interface ButtonProps {
   disabled?: boolean;
   className?: string;
   icon?: React.ReactNode;
+  loading?: boolean;
 }

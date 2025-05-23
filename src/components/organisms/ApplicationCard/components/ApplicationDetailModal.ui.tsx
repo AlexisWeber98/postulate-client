@@ -35,7 +35,7 @@ const ApplicationDetailModalUI: React.FC<ApplicationDetailModalUIProps> = ({
         {/* Avatar + Puesto */}
         <div className="flex flex-col items-center gap-1 mb-5">
           <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-blue-400 to-blue-700 flex items-center justify-center text-white text-2xl font-bold border-4 border-blue-300/40 shadow-md">
-            {company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)}
+            {company ? company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) : 'NA'}
           </div>
           <span className="text-white/60 text-sm">{position}</span>
         </div>

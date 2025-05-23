@@ -31,7 +31,7 @@ const ApplicationForm: React.FC = () => {
     setRecruiterContact,
     setSentCV,
     setSentEmail,
-    validateForm,
+
   } = useApplicationForm();
 
   useEffect(() => {

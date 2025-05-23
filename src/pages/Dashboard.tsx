@@ -4,7 +4,7 @@ import ApplicationCard from '../components/organisms/ApplicationCard';
 import SearchAndFilter from '../components/organisms/SearchAndFilter';
 import ApplicationStats from '../components/organisms/ApplicationStats';
 import { Postulation, PostulationStatus } from '../types/interface/postulations/postulation';
-import { AlertCircle, PlusCircle } from 'lucide-react';
+import { AlertCircle, PlusCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useErrorHandler } from '../hooks/useErrorHandler';
 import ActionModal from '../components/molecules/ActionModal';
@@ -20,6 +20,8 @@ const Dashboard: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState<PostulationStatus | 'all'>('all');
   const [companyFilter, setCompanyFilter] = useState('');
   const [positionFilter, setPositionFilter] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
   const { error, handleError } = useErrorHandler({
     defaultMessage: translate('dashboard.errorMessage')
   });
@@ -89,6 +91,23 @@ const Dashboard: React.FC = () => {
       return [];
     }
   }, [postulations, searchTerm, statusFilter, companyFilter, positionFilter, handleError, translate]);
+
+  // Calcular el total de páginas
+  const totalPages = useMemo(() => {
+    return Math.ceil(filteredApplications.length / itemsPerPage);
+  }, [filteredApplications]);
+
+  // Obtener las aplicaciones para la página actual
+  const currentApplications = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredApplications.slice(startIndex, endIndex);
+  }, [filteredApplications, currentPage]);
+
+  // Manejador para cambiar de página
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   if (loading) {
     return <LoadingSpinner fullScreen message={translate('dashboard.loading')} />;
@@ -182,11 +201,48 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {filteredApplications.map((application: Postulation) => (
-                <ApplicationCard key={application.id} application={application} />
-              ))}
-            </div>
+            <>
+              <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {currentApplications.map((application: Postulation) => (
+                  <ApplicationCard key={application.id} application={application} />
+                ))}
+              </div>
+
+              {/* Componente de paginación */}
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center mt-8 gap-2">
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="p-2 rounded-lg bg-white/30 dark:bg-gray-800/30 hover:bg-white/50 dark:hover:bg-gray-700/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                      className={`px-4 py-2 rounded-lg ${
+                        currentPage === page
+                          ? 'bg-blue-500 text-white'
+                          : 'bg-white/30 dark:bg-gray-800/30 hover:bg-white/50 dark:hover:bg-gray-700/50'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="p-2 rounded-lg bg-white/30 dark:bg-gray-800/30 hover:bg-white/50 dark:hover:bg-gray-700/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </section>
 

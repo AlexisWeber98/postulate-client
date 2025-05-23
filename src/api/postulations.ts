@@ -1,14 +1,38 @@
 import { httpClient } from "./client";
 import { Postulation } from "../types/interface/postulations/postulation";
 import { postulationRequestInterceptor, postulationResponseInterceptor } from "./interceptors/postulation.interceptor";
+import { client } from "./client";
+
+
+// import axios from "axios";
+// import { API_URL, API_KEY } from "./apiAxios";
+/*
+ const token = useAuthStore.getState().token;
+
+if(token){
+  console.log('token instanciado', token);
+} else {
+  console.log('no token instanciado');
+}
+ */
+/* export const client: AxiosInstance = axios.create({
+  baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json' ,
+    ...(API_KEY ? { 'x-api-key': API_KEY } : {}),
+    //token instanciado
+    ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+  }
+}); */
+
 
 // Agregar interceptores específicos para postulaciones
-httpClient.client.interceptors.request.use(
+client.interceptors.request.use(
   postulationRequestInterceptor.onFulfilled,
   postulationRequestInterceptor.onRejected
 );
 
-httpClient.client.interceptors.response.use(
+client.interceptors.response.use(
   postulationResponseInterceptor.onFulfilled,
   postulationResponseInterceptor.onRejected
 );
@@ -35,7 +59,7 @@ export const postulationsApi = {
     httpClient.post<Postulation>("/postulations", data),
 
   // Actualizar una aplicación existente
-  update: (id: string, data: UpdatePostulationRequest) =>
+  patch: (id: string, data: UpdatePostulationRequest) =>
     httpClient.patch<Postulation>(`/postulations/${id}`, data),
 
   // Eliminar una aplicación
