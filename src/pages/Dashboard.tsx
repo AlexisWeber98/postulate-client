@@ -191,8 +191,8 @@ const Dashboard: React.FC = () => {
 
         {/* Sección de estadísticas */}
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">{translate('dashboard.summary')}</h2>
-          <div className="rounded-2xl shadow-md bg-white/0 dark:bg-gray-800/0 backdrop-blur-none">
+
+          <div>
             <ApplicationStats />
           </div>
         </section>
