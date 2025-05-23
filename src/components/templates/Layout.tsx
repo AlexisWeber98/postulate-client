@@ -1,12 +1,9 @@
 import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../organisms/Navbar';
-import { useLanguageStore } from '../../store';
 import LoadingIndicator from '../atoms/LoadingIndicator';
 
 const Layout: React.FC = () => {
-  const { translate } = useLanguageStore();
-  const currentYear = new Date().getFullYear();
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
