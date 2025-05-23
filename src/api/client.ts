@@ -1,16 +1,23 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { requestInterceptor, responseInterceptor } from "./interceptors/auth.interceptors";
+import { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios from "axios";
 import { API_URL, API_KEY } from "./apiAxios";
 
 
-// Crear instancia de axios con configuración base
+
+
+
+
 export const client: AxiosInstance = axios.create({
   baseURL: API_URL,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json' ,
     ...(API_KEY ? { 'x-api-key': API_KEY } : {}),
+
   }
 });
+
+
 
 // Agregar interceptores base
 client.interceptors.request.use(

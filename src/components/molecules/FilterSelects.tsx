@@ -45,7 +45,17 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
 
   // Manejador tipado para statusFilter
   const handleStatusChange = (value: string) => {
-    setStatusFilter(value as PostulationStatus | 'all');
+    if (value.startsWith('company-')) {
+      setCompanyFilter(value.replace('company-', ''));
+      setStatusFilter('all');
+      setPositionFilter('all');
+    } else if (value.startsWith('position-')) {
+      setPositionFilter(value.replace('position-', ''));
+      setStatusFilter('all');
+      setCompanyFilter('all');
+    } else {
+      setStatusFilter(value as PostulationStatus | 'all');
+    }
   };
 
   // Handlers para convertir valores "all" a cadenas vacías y viceversa
@@ -92,6 +102,15 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
             <SelectItem value="all">{translate('dashboard.filters.all')}</SelectItem>
             {statusOptions.filter(status => status !== 'all').map((status) => (
               <SelectItem key={status} value={status}>{status}</SelectItem>
+            ))}
+            {/* Separador visual */}
+            <div className="px-2 py-1 text-xs text-gray-400 select-none cursor-default">{translate('dashboard.filters.company')}</div>
+            {companies && companies.length > 0 && companies.map((company) => (
+              <SelectItem key={`company-${company}`} value={`company-${company}`}>{company}</SelectItem>
+            ))}
+            <div className="px-2 py-1 text-xs text-gray-400 select-none cursor-default">{translate('dashboard.filters.position')}</div>
+            {positions && positions.length > 0 && positions.map((position) => (
+              <SelectItem key={`position-${position}`} value={`position-${position}`}>{position}</SelectItem>
             ))}
           </SelectContent>
         </Select>

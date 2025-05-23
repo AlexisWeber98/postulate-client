@@ -1,18 +1,16 @@
 import { z } from 'zod';
-import { ApplicationStatus } from '../../../interfaces/postulations/application-status';
+import { PostulationStatus } from '../../../types/interface/postulations/postulation';
 
 export const newPostulationSchema = z.object({
-  company: z.string().min(2, 'La empresa es obligatoria'),
-  position: z.string().min(2, 'El puesto es obligatorio'),
-  status: z.nativeEnum(ApplicationStatus, {
-    errorMap: () => ({ message: 'El estado es obligatorio' })
-  }),
-  date: z.string().min(1, 'La fecha es obligatoria'),
-  referenceUrl: z.string().url('Debe ser una URL válida').optional().or(z.literal('')),
-  notes: z.string().max(1000, 'Máximo 1000 caracteres').optional(),
-  recruiterContact: z.string().max(100, 'Máximo 100 caracteres').optional(),
-  sentCV: z.boolean(),
-  sentEmail: z.boolean(),
+  company: z.string().min(1, 'El nombre de la empresa es requerido'),
+  position: z.string().min(1, 'El título del puesto es requerido'),
+  status: z.enum(['applied', 'interview', 'technical', 'offer', 'rejected', 'accepted'] as const),
+  date: z.string().min(1, 'La fecha de aplicación es requerida'),
+  url: z.string().url('Debe ser una URL válida').optional(),
+  notes: z.string().optional(),
+  recruiterContact: z.string().optional(),
+  sentCV: z.boolean().optional(),
+  sentEmail: z.boolean().optional(),
 });
 
 export type NewPostulationFormSchema = z.infer<typeof newPostulationSchema>;

@@ -35,9 +35,10 @@ export interface Postulation {
   date: string;
   url?: string;
   notes?: string;
-  recruiterContact?: string;
   sentCV?: boolean;
   sentEmail?: boolean;
+  recruiterContact?: string;
+  userId: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -45,9 +46,10 @@ export interface Postulation {
 export interface PostulationState {
   postulations: Postulation[];
   loading: boolean;
-  addPostulation: (newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>) => string;
-  updatePostulation: (id: string, updatedFields: Partial<Postulation>) => void;
-  deletePostulation: (id: string) => void;
+  addPostulation: (newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>) => Promise<string>;
+  updatePostulation: (id: string, updatedFields: Partial<Postulation>) => Promise<void>;
+  deletePostulation: (id: string) => Promise<void>;
   getPostulation: (id: string) => Postulation | undefined;
   checkDuplicate: (company: string, position: string) => boolean;
+  fetchPostulations: () => Promise<void>;
 }

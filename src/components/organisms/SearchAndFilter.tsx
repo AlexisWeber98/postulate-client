@@ -91,9 +91,9 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             onChange={(e) => setCompanyFilter(e.target.value)}
             className="appearance-none block w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 bg-white/80 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-xl cursor-pointer"
           >
-            <option value="">{translate('dashboard.filters.selectCompany')}</option>
-            {companies.map(company => (
-              <option key={company} value={company}>
+            <option key="all" value="">{translate('dashboard.filters.selectCompany')}</option>
+            {companies.map((company, index) => (
+              <option key={`company-${company}-${index}`} value={company}>
                 {company}
               </option>
             ))}

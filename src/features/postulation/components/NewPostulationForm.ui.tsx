@@ -33,11 +33,13 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   loading,
   error,
 }) => {
+  console.log('[NewPostulationFormUI] Componente renderizado con valores:', values);
   const translate = useLanguageStore(state => state.translate);
   const [isOpen, setIsOpen] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
   const handleSelectChange = (status: PostulationStatus) => {
+    console.log('Status seleccionado:', status);
     onStatusChange(status);
     setIsOpen(false);
   };
@@ -66,9 +68,27 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
     }
   };
 
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    console.log('Cambio en input:', e.target.name, '->', e.target.value);
+    onChange(e);
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('Cambio en checkbox:', e.target.name, '->', e.target.checked);
+    onCheckboxChange(e);
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    console.log('Formulario enviado');
+    console.log('Valores:', values);
+    console.log('Errores:', errors);
+    console.log('Touched:', touched);
+    onSubmit(e);
+  };
+
   return (
     <form
-      onSubmit={onSubmit}
+      onSubmit={handleFormSubmit}
       className="relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 border border-blue-400/20 rounded-3xl shadow-2xl p-8 max-w-lg mx-auto mt-10"
     >
       <h2 className="text-3xl font-extrabold text-white text-center mb-8 drop-shadow">{translate('hero.title')}</h2>
@@ -79,7 +99,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             name="company"
             type="text"
             value={values.company}
-            onChange={onChange}
+            onChange={handleFormChange}
             className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
             required
             placeholder={translate('dashboard.companyPlaceholder') || 'Nombre de la empresa'}
@@ -91,7 +111,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             name="position"
             type="text"
             value={values.position}
-            onChange={onChange}
+            onChange={handleFormChange}
             className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
             required
             placeholder={translate('dashboard.positionPlaceholder') || 'Título del puesto'}
@@ -144,83 +164,53 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             name="date"
             type="date"
             value={values.date}
-            onChange={onChange}
+            onChange={handleFormChange}
             className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none"
             required
+            pattern="\d{4}-\d{2}-\d{2}"
+            max={new Date().toISOString().split('T')[0]}
+          />
+        </FormField>
+        <FormField label={translate('dashboard.url') || 'URL'} htmlFor="url" error={touched.url && errors.url ? errors.url : ''}>
+          <input
+            id="url"
+            name="url"
+            type="url"
+            value={values.url}
+            onChange={handleFormChange}
+            className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
+            placeholder={translate('dashboard.urlPlaceholder') || 'URL de la oferta'}
+          />
+        </FormField>
+        <FormField label={translate('notes') || 'Notes'} htmlFor="notes" error={touched.notes && errors.notes ? errors.notes : ''}>
+          <textarea
+            id="notes"
+            name="notes"
+            value={values.notes}
+            onChange={handleFormChange}
+            className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
+            placeholder={translate('dashboard.notesPlaceholder') || 'Notas adicionales'}
+            rows={3}
           />
         </FormField>
       </div>
-      <FormField label={translate('referenceUrl') || 'Reference URL'} htmlFor="referenceUrl" error={touched.referenceUrl && errors.referenceUrl ? errors.referenceUrl : ''}>
-        <input
-          id="referenceUrl"
-          name="referenceUrl"
-          type="url"
-          value={values.referenceUrl || ''}
-          onChange={onChange}
-          className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
-          placeholder={translate('referenceUrl.placeholder') || 'https://example.com/job'}
-        />
-      </FormField>
-      <FormField label={translate('notes') || 'Notes'} htmlFor="notes" error={touched.notes && errors.notes ? errors.notes : ''}>
-        <textarea
-          id="notes"
-          name="notes"
-          value={values.notes || ''}
-          onChange={onChange}
-          className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
-          rows={3}
-          placeholder={translate('notes.placeholder') || 'Añade cualquier información relevante sobre esta postulación'}
-        />
-      </FormField>
-      <FormField label={translate('recruiterContact') || 'Recruiter or company contact'} htmlFor="recruiterContact" helperText={translate('recruiterContact.helper') || 'Ejemplo: email@empresa.com o +1 123 456 7890'} error={touched.recruiterContact && errors.recruiterContact ? errors.recruiterContact : ''}>
-        <input
-          id="recruiterContact"
-          name="recruiterContact"
-          type="text"
-          value={values.recruiterContact || ''}
-          onChange={onChange}
-          className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
-          placeholder={translate('recruiterContact.placeholder') || 'Ejemplo: email@empresa.com o +1 123 456 7890'}
-        />
-      </FormField>
+
+      {/* Acá podés agregar otros campos como notes, recruiterContact, etc. con los mismos handlers */}
+
       <CheckboxGroup
-        className="mb-6 mt-2"
-        options={[
-          { name: 'sentCV', checked: values.sentCV ?? false, label: translate('sentCV') || 'Envié CV' },
-          { name: 'sentEmail', checked: values.sentEmail ?? false, label: translate('sentEmail') || 'Envié Email' }
-        ]}
-        onChange={onCheckboxChange}
+        values={values}
+        onChange={handleCheckboxChange}
       />
-{error && (
-  <div
-    className="text-red-400 bg-red-900/30 rounded-lg px-4 py-2 text-center mb-4"
-    role="alert"
-    aria-live="polite"
-  >
-    {error}
-  </div>
-)}
-      <div className="flex gap-4 justify-end">
-        <Button
-          type="button"
-          variant="secondary"
-          size="lg"
-          onClick={onReset}
-          className="w-full mt-2"
-        >
-          {translate('common.reset')}
+
+      <div className="flex justify-between mt-6">
+        <Button type="reset" onClick={onReset} variant="secondary">
+          {translate('reset') || 'Reset'}
         </Button>
-        <Button
-          type="submit"
-          variant="primary"
-          size="lg"
-          className="w-full mt-2"
-          disabled={loading}
-          icon={<Save className="w-5 h-5" />}
-        >
-          {loading ? translate('dashboard.loading') : translate('hero.cta.button')}
+        <Button type="submit" loading={loading} icon={<Save />}>
+          {translate('submit') || 'Submit'}
         </Button>
       </div>
+      {error && <p className="mt-4 text-red-500">{error}</p>}
     </form>
   );
 };

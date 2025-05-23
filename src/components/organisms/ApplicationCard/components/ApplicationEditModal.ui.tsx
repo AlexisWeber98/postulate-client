@@ -65,7 +65,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
           {/* Avatar grande */}
           <div className="flex justify-center items-center mb-6">
             <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-blue-400 to-blue-700 flex items-center justify-center text-white text-3xl font-bold shadow-lg border-4 border-blue-300/40">
-              {company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)}
+              {company ? company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) : 'NA'}
             </div>
           </div>
 

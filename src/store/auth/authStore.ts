@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { AuthState, User, ApiResponse, ApiError } from "../../types/auth/auth.interface";
+import { AuthState, User, ApiError } from "../../types/auth/auth.interface";
 import { jwtDecode, type JwtPayload } from "jwt-decode";
 import { authApi } from "../../api";
 

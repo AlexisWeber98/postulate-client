@@ -1,32 +1,41 @@
 import React from 'react';
-
-interface CheckboxOption {
-  name: string;
-  label: string;
-  checked: boolean;
-}
+import { NewPostulationFormValues } from '../../types';
 
 interface CheckboxGroupProps {
-  options: CheckboxOption[];
+  values: NewPostulationFormValues;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
 }
 
-const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ options, onChange, className = '' }) => {
+const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ values, onChange, className = '' }) => {
   return (
-    <div className={`flex gap-6 justify-center ${className}`}>
-      {options.map((option) => (
-        <label key={option.name} className="flex items-center gap-2 text-white/90 text-base">
-          <input
-            type="checkbox"
-            name={option.name}
-            checked={option.checked}
-            onChange={onChange}
-            className="accent-blue-500 w-5 h-5"
-          />
-          {option.label}
+    <div className={`space-y-4 ${className}`}>
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          id="sendCv"
+          name="sendCv"
+          checked={values.sendCv}
+          onChange={onChange}
+          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+        />
+        <label htmlFor="sendCv" className="ml-2 block text-sm text-gray-700">
+          CV Enviado
         </label>
-      ))}
+      </div>
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          id="sendEmail"
+          name="sendEmail"
+          checked={values.sendEmail}
+          onChange={onChange}
+          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+        />
+        <label htmlFor="sendEmail" className="ml-2 block text-sm text-gray-700">
+          Email Enviado
+        </label>
+      </div>
     </div>
   );
 };

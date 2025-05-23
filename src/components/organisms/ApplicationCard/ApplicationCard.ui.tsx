@@ -35,7 +35,7 @@ export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
   isDeleteModalOpen,
   isLoading,
 }) => {
-  const { company, position, status, notes } = application;
+  const { company, position, status, description } = application;
   const translate = useLanguageStore(state=>state.translate);
 
   const bgColor = APP_COLORS.cardColors[status as keyof typeof APP_COLORS.cardColors] || 'white';
@@ -68,8 +68,8 @@ export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
             <span>Aplicado: {formattedDate}</span>
           </div>
 
-          {notes && (
-            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{notes}</p>
+          {description && (
+            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{description}</p>
           )}
         </div>
 
