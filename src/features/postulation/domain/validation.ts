@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ApplicationStatus } from '../../../types/interface/postulations/application-status';
+import { ApplicationStatus } from '../../../interfaces/postulations/application-status';
 
 export const newPostulationSchema = z.object({
   company: z.string().min(2, 'La empresa es obligatoria'),

@@ -4,7 +4,7 @@ import { postulationsApi } from '../../api/postulations';
 import { usePostulationsStore, useLanguageStore } from '../../store';
 import { NewPostulationFormValues } from '../../types';
 import { PostulationStatus, PostulationState } from '../../types/interface/postulations/postulation';
-import { ApplicationStatus } from '../../types/interface/postulations/application-status';
+import { ApplicationStatus } from '../../interfaces/postulations/application-status';
 
 
 
@@ -25,7 +25,7 @@ const mapApplicationToPostulationStatus = (status: ApplicationStatus): Postulati
 };
 
 const NuevaPostulacionPage: React.FC = () => {
-  const { t } = useLanguageStore();
+  const { translate } = useLanguageStore();
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState<string | undefined>();
   const [success, setSuccess] = useState(false);
@@ -62,7 +62,7 @@ const NuevaPostulacionPage: React.FC = () => {
       });
       setSuccess(true);
     } catch {
-      setFormError(t('errorMessage') || 'An error occurred while saving the application.');
+      setFormError(translate('errorMessage') || 'An error occurred while saving the application.');
     } finally {
       setLoading(false);
     }
@@ -78,7 +78,7 @@ const NuevaPostulacionPage: React.FC = () => {
         />
         {success && (
           <div className="mt-4 text-green-600 text-center font-semibold">
-            {t('successMessage') || 'Application created successfully!'}
+            {translate('successMessage') || 'Application created successfully!'}
           </div>
         )}
       </div>
