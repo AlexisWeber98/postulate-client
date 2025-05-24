@@ -7,6 +7,7 @@ import {
 import { postulationsApi } from "../../api/postulations";
 import axios from 'axios';
 import { API_URL } from "../../api/apiAxios";
+import { useAuthStore } from "../auth/authStore";
 
 export const usePostulationsStore = create<PostulationState>()(
   persist(
@@ -37,10 +38,10 @@ export const usePostulationsStore = create<PostulationState>()(
           const response = await postulationsApi.create(postulationData);
           console.log('✅ Postulación creada exitosamente:', response);
           set((state: PostulationState) => ({
-            postulations: [response.data, ...state.postulations],
+            postulations: [response.data.result, ...state.postulations],
             loading: false
           }));
-          return response.data.id;
+          return response.data.result.id;
         } catch (error) {
           console.error('❌ Error al crear postulación:', error);
           if (axios.isAxiosError(error)) {
@@ -89,7 +90,7 @@ export const usePostulationsStore = create<PostulationState>()(
           console.log('✅ Postulación actualizada exitosamente:', response);
           set((state: PostulationState) => ({
             postulations: state.postulations.map((app: Postulation) =>
-              app.id === id ? response.data : app
+              app.id === id ? response.data.result : app
             ),
             loading: false
           }));
@@ -166,17 +167,61 @@ export const usePostulationsStore = create<PostulationState>()(
         return isDuplicate;
       },
 
-      fetchPostulations: async () => {
-        console.log('🔄 Iniciando fetchPostulations');
+      getAllPostulations: async () => {
+        console.log('🔄 Iniciando getAllPostulations');
         try {
+          const token = useAuthStore.getState().token;
+          console.log('🔑 Token actual:', token);
+
+          if (!token) {
+            console.error('❌ No se encontró el token de autenticación');
+            throw new Error('No se encontró el token de autenticación');
+          }
+
+          const [, payload] = token.split('.');
+          const decodedPayload = JSON.parse(atob(payload));
+          console.log('📝 Payload decodificado:', decodedPayload);
+
+          const userId = decodedPayload.id || decodedPayload.userId;
+          console.log('👤 UserId obtenido del token:', userId);
+
+          if (!userId) {
+            console.error('❌ No se encontró el ID del usuario en el token');
+            throw new Error('No se encontró el ID del usuario en el token');
+          }
+
           set({ loading: true });
           console.log('📤 Enviando petición al servidor...');
-          const response = await postulationsApi.getAll();
-          console.log('✅ Postulaciones obtenidas exitosamente:', response);
-          set({
-            postulations: response.data,
-            loading: false
-          });
+          const response = await postulationsApi.getByUserId(userId);
+          console.log('✅ Respuesta del servidor:', response);
+
+          // Verificar que la respuesta tiene la estructura esperada
+          if (response?.result?.postulations) {
+            console.log('📦 Datos de postulaciones:', response.result.postulations);
+            // Verificar que las postulaciones pertenecen al usuario actual
+            const filteredPostulations = response.result.postulations.filter(
+              (postulation: Postulation) => {
+                console.log('🔍 Comparando postulación:', {
+                  postulationUserId: postulation.userId,
+                  currentUserId: userId,
+                  match: postulation.userId === userId
+                });
+                return postulation.userId === userId;
+              }
+            );
+            console.log('🔍 Postulaciones filtradas por userId:', filteredPostulations);
+
+            set({
+              postulations: Array.isArray(filteredPostulations) ? filteredPostulations : [],
+              loading: false
+            });
+          } else {
+            console.error('❌ Estructura de respuesta inválida:', response);
+            set({
+              postulations: [],
+              loading: false
+            });
+          }
         } catch (error) {
           console.error('❌ Error al obtener postulaciones:', error);
           if (axios.isAxiosError(error)) {
@@ -186,11 +231,13 @@ export const usePostulationsStore = create<PostulationState>()(
               message: error.message,
               config: {
                 url: error.config?.url,
-                method: error.config?.method
+                method: error.config?.method,
+                headers: error.config?.headers,
+                baseURL: error.config?.baseURL
               }
             });
           }
-          set({ loading: false });
+          set({ loading: false, postulations: [] });
           throw error;
         }
       }

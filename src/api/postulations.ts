@@ -3,6 +3,16 @@ import { Postulation } from "../types/interface/postulations/postulation";
 import { postulationRequestInterceptor, postulationResponseInterceptor } from "./interceptors/postulation.interceptor";
 import { API_URL, API_KEY } from "./apiAxios";
 
+// Interfaces para la respuesta de la API
+interface ApiResponse<T> {
+  statusResponse: string;
+  result: T;
+}
+
+interface PostulationsResponse {
+  postulations: Postulation[];
+}
+
 // Constantes reutilizables
 const ENDPOINT = '/postulations';
 const DEFAULT_HEADERS = {
@@ -42,18 +52,27 @@ export const postulationsClient: AxiosInstance = createApiClient();
 
 // Servicio de postulaciones
 export const postulationsApi = {
-  getAll: () => postulationsClient.get<Postulation[]>(ENDPOINT),
+  getAll: () => postulationsClient.get<ApiResponse<Postulation[]>>(ENDPOINT),
 
-  getById: (id: string) => postulationsClient.get<Postulation>(`${ENDPOINT}/${id}`),
+  getById: (id: string) => postulationsClient.get<ApiResponse<Postulation>>(`${ENDPOINT}/${id}`),
 
-  getByUserId: (userId: string) =>
-    postulationsClient.get<Postulation[]>(`${ENDPOINT}/user/${userId}`),
+  getByUserId: async (userId: string): Promise<ApiResponse<Postulation[]>> => {
+    try {
+      console.log('🔄 PostulationsApi: Obteniendo postulaciones para usuario:', userId);
+      const response = await postulationsClient.get<ApiResponse<Postulation[]>>(`${ENDPOINT}/user/${userId}`);
+      console.log('📥 PostulationsApi: Respuesta del servidor:', response);
+      return response.data;
+    } catch (error) {
+      console.error('❌ PostulationsApi: Error al obtener postulaciones:', error);
+      throw error;
+    }
+  },
 
   create: (data: CreatePostulationRequest) =>
-    postulationsClient.post<Postulation>(ENDPOINT, data),
+    postulationsClient.post<ApiResponse<Postulation>>(ENDPOINT, data),
 
   update: (id: string, data: UpdatePostulationRequest) =>
-    postulationsClient.patch<Postulation>(`${ENDPOINT}/${id}`, data),
+    postulationsClient.patch<ApiResponse<Postulation>>(`${ENDPOINT}/${id}`, data),
 
   delete: (id: string) => postulationsClient.delete<void>(`${ENDPOINT}/${id}`),
 };

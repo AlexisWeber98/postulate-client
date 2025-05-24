@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { usePostulationsStore, useLanguageStore } from '../../store';
 import { Postulation } from '../../types/interface/postulations/postulation';
 import { PieChart, Activity, Users, Calendar, CheckCircle2, BarChart2, Search, Clock, XCircle, CheckCircle, FileText, Briefcase } from 'lucide-react';
@@ -6,25 +6,50 @@ import { PieChart, Activity, Users, Calendar, CheckCircle2, BarChart2, Search, C
 const cardGradient = 'bg-gradient-to-r from-blue-500 to-violet-500';
 
 const ApplicationStats: React.FC = () => {
-  const { postulations } = usePostulationsStore();
+  const { postulations = [] } = usePostulationsStore();
   const translate = useLanguageStore(state=>state.translate);
 
+  // Log para verificar los datos recibidos
+  useEffect(() => {
+    console.log('📊 ApplicationStats: Datos recibidos:', {
+      total: postulations.length,
+      postulations
+    });
+  }, [postulations]);
+
   // Total count
-  const totalApplications = postulations.length;
+  const totalApplications = useMemo(() => {
+    if (!Array.isArray(postulations)) {
+      console.warn('⚠️ ApplicationStats: postulations no es un array:', postulations);
+      return 0;
+    }
+    return postulations.length;
+  }, [postulations]);
 
   // Active applications (not rejected or accepted)
   const activeApplications = useMemo(() => {
+    if (!Array.isArray(postulations)) {
+      console.warn('⚠️ ApplicationStats: postulations no es un array:', postulations);
+      return 0;
+    }
     return postulations.filter(
-      (app: Postulation) => app.status !== 'rejected' && app.status !== 'accepted'
+      (app: Postulation) => app && app.status && app.status !== 'rejected' && app.status !== 'accepted'
     ).length;
   }, [postulations]);
 
   // Get company with most applications
   const topCompany = useMemo(() => {
-    const companyCount = postulations.reduce((acc: Record<string, number>, app: Postulation) => {
-      acc[app.company] = (acc[app.company] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    if (!Array.isArray(postulations)) {
+      console.warn('⚠️ ApplicationStats: postulations no es un array:', postulations);
+      return { name: '', count: 0 };
+    }
+
+    const companyCount = postulations
+      .filter((app: Postulation) => app && app.company)
+      .reduce((acc: Record<string, number>, app: Postulation) => {
+        acc[app.company] = (acc[app.company] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
 
     let topCompany = { name: '', count: 0 };
     (Object.entries(companyCount) as [string, number][]).forEach(([company, count]) => {
@@ -38,20 +63,39 @@ const ApplicationStats: React.FC = () => {
 
   // Applications in the last 30 days
   const recentApplications = useMemo(() => {
+    if (!Array.isArray(postulations)) {
+      console.warn('⚠️ ApplicationStats: postulations no es un array:', postulations);
+      return 0;
+    }
+
     const last30Days = new Date();
     last30Days.setDate(last30Days.getDate() - 30);
 
     return postulations.filter(
-      (app: Postulation) => new Date(app.date) >= last30Days
+      (app: Postulation) => app && app.date && new Date(app.date) >= last30Days
     ).length;
   }, [postulations]);
 
   // Applications by status
   const applicationsByStatus = useMemo(() => {
-    const statusCount = postulations.reduce((acc: Record<string, number>, app: Postulation) => {
-      acc[app.status] = (acc[app.status] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    if (!Array.isArray(postulations)) {
+      console.warn('⚠️ ApplicationStats: postulations no es un array:', postulations);
+      return {
+        applied: 0,
+        interview: 0,
+        technical: 0,
+        offer: 0,
+        rejected: 0,
+        accepted: 0,
+      };
+    }
+
+    const statusCount = postulations
+      .filter((app: Postulation) => app && app.status)
+      .reduce((acc: Record<string, number>, app: Postulation) => {
+        acc[app.status] = (acc[app.status] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
 
     return {
       applied: statusCount['applied'] || 0,
@@ -71,6 +115,17 @@ const ApplicationStats: React.FC = () => {
     rejected: 'bg-red-500',
     accepted: 'bg-emerald-500'
   };
+
+  // Log para verificar los cálculos
+  useEffect(() => {
+    console.log('📊 ApplicationStats: Cálculos realizados:', {
+      totalApplications,
+      activeApplications,
+      topCompany,
+      recentApplications,
+      applicationsByStatus
+    });
+  }, [totalApplications, activeApplications, topCompany, recentApplications, applicationsByStatus]);
 
   return (
     <div className="w-full ">

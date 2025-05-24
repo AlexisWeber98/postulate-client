@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { usePostulationsStore, useAuthStore, useLanguageStore } from '../store';
 import ApplicationCard from '../components/organisms/ApplicationCard';
 import SearchAndFilter from '../components/organisms/SearchAndFilter';
@@ -13,7 +13,7 @@ import { MdAccountCircle } from 'react-icons/md';
 import Footer from '../components/organisms/Footer';
 
 const Dashboard: React.FC = () => {
-  const { postulations, loading } = usePostulationsStore();
+  const { postulations = [], loading, getAllPostulations } = usePostulationsStore();
   const { user } = useAuthStore();
   const { translate } = useLanguageStore();
   const [searchTerm, setSearchTerm] = useState('');
@@ -26,13 +26,29 @@ const Dashboard: React.FC = () => {
     defaultMessage: translate('dashboard.errorMessage')
   });
 
+  useEffect(() => {
+    console.log('🔄 Dashboard: Iniciando carga de postulaciones');
+    getAllPostulations().catch(error => {
+      console.error('❌ Dashboard: Error al cargar postulaciones:', error);
+      handleError(error as Error, 'dashboard.errorMessage');
+    });
+  }, []);
+
+  // Log para verificar el estado de las postulaciones
+  useEffect(() => {
+    console.log('📊 Dashboard: Estado actual de postulaciones:', {
+      total: postulations.length,
+      loading,
+      postulations
+    });
+  }, [postulations, loading]);
+
   // Manejadores de filtro seguros
   const handleSetCompanyFilter = (value: string) => {
     try {
       setCompanyFilter(value);
     } catch (error) {
       handleError(error as Error, translate('dashboard.errorCompanyFilter'));
-      // Restablecer el filtro en caso de error
       setCompanyFilter('');
     }
   };
@@ -47,7 +63,15 @@ const Dashboard: React.FC = () => {
 
   const companies = useMemo(() => {
     try {
-      const uniqueCompanies = new Set(postulations.map((app: Postulation) => app.company));
+      if (!Array.isArray(postulations)) {
+        console.warn('⚠️ Dashboard: postulations no es un array:', postulations);
+        return [];
+      }
+      const uniqueCompanies = new Set(
+        postulations
+          .filter((app: Postulation) => app && app.company)
+          .map((app: Postulation) => app.company)
+      );
       return Array.from(uniqueCompanies).sort();
     } catch (error) {
       handleError(error as Error, translate('dashboard.errorUniqueCompanies'));
@@ -57,7 +81,15 @@ const Dashboard: React.FC = () => {
 
   const positions = useMemo(() => {
     try {
-      const uniquePositions = new Set(postulations.map((app: Postulation) => app.position));
+      if (!Array.isArray(postulations)) {
+        console.warn('⚠️ Dashboard: postulations no es un array:', postulations);
+        return [];
+      }
+      const uniquePositions = new Set(
+        postulations
+          .filter((app: Postulation) => app && app.position)
+          .map((app: Postulation) => app.position)
+      );
       return Array.from(uniquePositions).sort();
     } catch (error) {
       handleError(error as Error, translate('dashboard.errorUniquePositions'));
@@ -68,12 +100,25 @@ const Dashboard: React.FC = () => {
   // Filter applications based on search and filters
   const filteredApplications = useMemo(() => {
     try {
+      if (!Array.isArray(postulations)) {
+        console.warn('⚠️ Dashboard: postulations no es un array:', postulations);
+        return [];
+      }
+      console.log('🔍 Dashboard: Filtrando aplicaciones:', {
+        total: postulations.length,
+        searchTerm,
+        statusFilter,
+        companyFilter,
+        positionFilter
+      });
       return postulations.filter((app: Postulation) => {
+        if (!app) return false;
+
         // Text search
         const searchMatch = searchTerm === '' ||
-          app.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          app.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          (app.notes && app.notes.toLowerCase().includes(searchTerm.toLowerCase()));
+          (app.company?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false) ||
+          (app.position?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false) ||
+          (app.notes?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false);
 
         // Status filter
         const statusMatch = statusFilter === 'all' || app.status === statusFilter;
@@ -201,10 +246,12 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
           ) : (
-            <>
+            <div key="applications-grid-container">
               <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {currentApplications.map((application: Postulation) => (
-                  <ApplicationCard key={application.id} application={application} />
+                  application && application.id ? (
+                    <ApplicationCard key={application.id} application={application} />
+                  ) : null
                 ))}
               </div>
 
@@ -221,7 +268,7 @@ const Dashboard: React.FC = () => {
 
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                     <button
-                      key={page}
+                      key={`page-${page}`}
                       onClick={() => handlePageChange(page)}
                       className={`px-4 py-2 rounded-lg ${
                         currentPage === page
@@ -242,7 +289,7 @@ const Dashboard: React.FC = () => {
                   </button>
                 </div>
               )}
-            </>
+            </div>
           )}
         </section>
 

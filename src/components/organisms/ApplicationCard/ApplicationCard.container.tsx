@@ -97,7 +97,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   };
 
   return (
-    <>
+    <div key={`application-card-container-${application.id}`}>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -124,7 +124,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
         onDelete={handleDelete}
         isLoading={isLoading}
       />
-    </>
+    </div>
   );
 };
 

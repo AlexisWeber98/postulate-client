@@ -41,13 +41,13 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDele
       {(sentCV || sentEmail) && (
         <div className="flex justify-center gap-2 mb-2 px-4">
           {sentCV && (
-            <span className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
+            <span key={`cv-badge-${application.id}`} className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
               <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               {translate('dashboard.sentCV')}
             </span>
           )}
           {sentEmail && (
-            <span className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
+            <span key={`email-badge-${application.id}`} className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
               <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               {translate('dashboard.sentEmail')}
             </span>
