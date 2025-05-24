@@ -234,6 +234,7 @@ export const es = {
   'profile.validation.formInvalid': 'Por favor corrige los campos resaltados',
   'profile.errors.updateFail': 'Ocurrió un error al actualizar el perfil',
   'profile.messages.updated': '¡Perfil actualizado correctamente!',
+  'profile.description': 'Actualiza tu información personal para mantener tu perfil al día.',
   'common.saving': 'Guardando...',
   'profile.actions.save': 'Guardar Cambios',
   'tooltip.showInfo': 'Mostrar información',
@@ -248,5 +249,4 @@ export const es = {
   'notes.placeholder': 'Añade cualquier información relevante sobre esta postulación',
   'common.cancel': 'Cancelar',
   'dashboard.urlPlaceholder': 'URL de la oferta',
-  'dashboard.notesPlaceholder': 'Notas adicionales',
 } as const;

@@ -228,6 +228,7 @@ export const en = {
   'profile.validation.formInvalid': 'Please fix the highlighted fields',
   'profile.errors.updateFail': 'An error occurred while updating the profile',
   'profile.messages.updated': 'Profile updated successfully!',
+  'profile.description': 'Update your personal information to keep your profile up to date.',
   'common.saving': 'Saving...',
   'profile.actions.save': 'Save Changes',
 

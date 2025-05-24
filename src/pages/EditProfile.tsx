@@ -151,7 +151,7 @@ const EditProfile: React.FC = () => {
         >
           {translate('profile.title')}
         </motion.h1>
-        <p className="text-gray-600 dark:text-gray-300 text-center mb-6 text-base">Actualiza tu información personal para mantener tu perfil al día.</p>
+        <p className="text-gray-600 dark:text-gray-300 text-center mb-6 text-base">{translate('profile.description')}</p>
 
         <div className="flex flex-col items-center mb-6">
           <button type="button" className="relative group focus:outline-none">
@@ -161,7 +161,6 @@ const EditProfile: React.FC = () => {
             </span>
           </button>
           <span className="text-base text-gray-700 dark:text-gray-200 font-semibold mt-2">{user?.name}</span>
-          <span className="text-xs text-gray-500 mt-1">Haz clic para cambiar tu avatar</span>
         </div>
 
         <motion.form
