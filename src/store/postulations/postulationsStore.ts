@@ -85,7 +85,7 @@ export const usePostulationsStore = create<PostulationState>()(
         try {
           set({ loading: true });
           console.log('📤 Enviando petición al servidor...');
-          const response = await postulationsApi.patch(id, updatedFields);
+          const response = await postulationsApi.update(id, updatedFields);
           console.log('✅ Postulación actualizada exitosamente:', response);
           set((state: PostulationState) => ({
             postulations: state.postulations.map((app: Postulation) =>
