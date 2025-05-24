@@ -38,7 +38,7 @@ const EditProfile: React.FC = () => {
 
   // Validación en tiempo real
   useEffect(() => {
-    if (!hasContent(name)) {
+    if (name && !hasContent(name)) {
       setFieldStatus(prev => ({
         ...prev,
         name: {
@@ -53,7 +53,7 @@ const EditProfile: React.FC = () => {
       }));
     }
 
-    if (!isValidEmail(email)) {
+    if (email && !isValidEmail(email)) {
       setFieldStatus(prev => ({
         ...prev,
         email: {
@@ -68,7 +68,7 @@ const EditProfile: React.FC = () => {
       }));
     }
 
-    if (!hasContent(lastName)) {
+    if (lastName && !hasContent(lastName)) {
       setFieldStatus(prev => ({
         ...prev,
         lastName: {
@@ -83,7 +83,7 @@ const EditProfile: React.FC = () => {
       }));
     }
 
-    if (!hasContent(userName)) {
+    if (userName && !hasContent(userName)) {
       setFieldStatus(prev => ({
         ...prev,
         userName: {
@@ -117,7 +117,7 @@ const EditProfile: React.FC = () => {
     e.preventDefault();
     setError(null);
 
-    if (!hasContent(name) || !isValidEmail(email) || !hasContent(lastName) || !hasContent(userName)) {
+    if ((name && !hasContent(name)) || (email && !isValidEmail(email)) || (lastName && !hasContent(lastName)) || (userName && !hasContent(userName))) {
       setError(translate('profile.validation.formInvalid'));
       return;
     }
@@ -127,7 +127,8 @@ const EditProfile: React.FC = () => {
       await updateUser({ name, email, lastName, userName });
       setSuccess(true);
       setTimeout(() => setSuccess(false), 2000);
-    } catch {
+    } catch (error) {
+      console.error('Error al actualizar perfil:', error);
       setError(translate('profile.errors.updateFail'));
     } finally {
       setIsLoading(false);
@@ -174,7 +175,6 @@ const EditProfile: React.FC = () => {
             <FieldWrapper
               name="name"
               label={translate('profile.fields.name')}
-              required
               tooltip={translate('profile.tooltips.fullName')}
               isBlurred={isBlurred.name}
               fieldStatus={fieldStatus.name}
@@ -187,7 +187,6 @@ const EditProfile: React.FC = () => {
                 onBlur={() => handleFieldBlur('name')}
                 className={`w-full bg-white/80 dark:bg-white/10 text-gray-900 dark:text-white rounded-2xl px-5 py-4 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner transition-all duration-200 ${!fieldStatus.name?.isValid && isBlurred.name ? 'ring-2 ring-red-400' : ''}`}
                 placeholder={translate('profile.placeholders.name')}
-                required
                 aria-invalid={!fieldStatus.name?.isValid}
                 aria-describedby={!fieldStatus.name?.isValid ? 'name-error' : undefined}
               />
@@ -196,7 +195,6 @@ const EditProfile: React.FC = () => {
             <FieldWrapper
               name="lastName"
               label={translate('auth.lastName')}
-              required
               tooltip="Ingresa tu apellido"
               isBlurred={isBlurred.lastName}
               fieldStatus={fieldStatus.lastName}
@@ -209,7 +207,6 @@ const EditProfile: React.FC = () => {
                 onBlur={() => handleFieldBlur('lastName')}
                 className={`w-full bg-white/80 dark:bg-white/10 text-gray-900 dark:text-white rounded-2xl px-5 py-4 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner transition-all duration-200 ${!fieldStatus.lastName?.isValid && isBlurred.lastName ? 'ring-2 ring-red-400' : ''}`}
                 placeholder="Tu apellido"
-                required
                 aria-invalid={!fieldStatus.lastName?.isValid}
                 aria-describedby={!fieldStatus.lastName?.isValid ? 'lastName-error' : undefined}
               />
@@ -218,7 +215,6 @@ const EditProfile: React.FC = () => {
             <FieldWrapper
               name="userName"
               label={translate('auth.userName')}
-              required
               tooltip="Ingresa tu nombre de usuario"
               isBlurred={isBlurred.userName}
               fieldStatus={fieldStatus.userName}
@@ -231,7 +227,6 @@ const EditProfile: React.FC = () => {
                 onBlur={() => handleFieldBlur('userName')}
                 className={`w-full bg-white/80 dark:bg-white/10 text-gray-900 dark:text-white rounded-2xl px-5 py-4 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner transition-all duration-200 ${!fieldStatus.userName?.isValid && isBlurred.userName ? 'ring-2 ring-red-400' : ''}`}
                 placeholder="Tu nombre de usuario"
-                required
                 aria-invalid={!fieldStatus.userName?.isValid}
                 aria-describedby={!fieldStatus.userName?.isValid ? 'userName-error' : undefined}
               />
@@ -240,7 +235,6 @@ const EditProfile: React.FC = () => {
             <FieldWrapper
               name="email"
               label={translate('profile.fields.email')}
-              required
               tooltip={translate('profile.tooltips.email')}
               isBlurred={isBlurred.email}
               fieldStatus={fieldStatus.email}
@@ -253,7 +247,6 @@ const EditProfile: React.FC = () => {
                 onBlur={() => handleFieldBlur('email')}
                 className={`w-full bg-white/80 dark:bg-white/10 text-gray-900 dark:text-white rounded-2xl px-5 py-4 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner transition-all duration-200 ${!fieldStatus.email?.isValid && isBlurred.email ? 'ring-2 ring-red-400' : ''}`}
                 placeholder={translate('profile.placeholders.email')}
-                required
                 aria-invalid={!fieldStatus.email?.isValid}
                 aria-describedby={!fieldStatus.email?.isValid ? 'email-error' : undefined}
               />
