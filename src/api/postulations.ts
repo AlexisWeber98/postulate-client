@@ -1,67 +1,59 @@
-import { httpClient } from "./client";
+import axios, { AxiosInstance } from 'axios';
 import { Postulation } from "../types/interface/postulations/postulation";
 import { postulationRequestInterceptor, postulationResponseInterceptor } from "./interceptors/postulation.interceptor";
-import { client } from "./client";
+import { API_URL, API_KEY } from "./apiAxios";
 
+// Constantes reutilizables
+const ENDPOINT = '/postulations';
+const DEFAULT_HEADERS = {
+  'Content-Type': 'application/json'
+};
 
-// import axios from "axios";
-// import { API_URL, API_KEY } from "./apiAxios";
-/*
- const token = useAuthStore.getState().token;
+// Configuración común del cliente
+const createApiClient = (): AxiosInstance => {
+  const client = axios.create({
+    baseURL: API_URL,
+    headers: {
+      ...DEFAULT_HEADERS,
+      ...(API_KEY && { 'x-api-key': API_KEY })
+    }
+  });
 
-if(token){
-  console.log('token instanciado', token);
-} else {
-  console.log('no token instanciado');
-}
- */
-/* export const client: AxiosInstance = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json' ,
-    ...(API_KEY ? { 'x-api-key': API_KEY } : {}),
-    //token instanciado
-    ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
-  }
-}); */
+  client.interceptors.request.use(
+    postulationRequestInterceptor.onFulfilled,
+    postulationRequestInterceptor.onRejected
+  );
 
+  client.interceptors.response.use(
+    postulationResponseInterceptor.onFulfilled,
+    postulationResponseInterceptor.onRejected
+  );
 
-// Agregar interceptores específicos para postulaciones
-client.interceptors.request.use(
-  postulationRequestInterceptor.onFulfilled,
-  postulationRequestInterceptor.onRejected
-);
+  return client;
+};
 
-client.interceptors.response.use(
-  postulationResponseInterceptor.onFulfilled,
-  postulationResponseInterceptor.onRejected
-);
+// Tipos de solicitudes
+type PostulationBase = Omit<Postulation, "id" | "createdAt" | "updatedAt">;
+type CreatePostulationRequest = PostulationBase;
+type UpdatePostulationRequest = Partial<PostulationBase>;
 
-// Definir los tipos para las solicitudes
-type CreatePostulationRequest = Omit<
-  Postulation,
-  "id" | "createdAt" | "updatedAt"
->;
-type UpdatePostulationRequest = Partial<
-  Omit<Postulation, "id" | "createdAt" | "updatedAt">
->;
+// Cliente de API específico
+export const postulationsClient: AxiosInstance = createApiClient();
 
-// Servicio para aplicaciones
+// Servicio de postulaciones
 export const postulationsApi = {
-  // Obtener todas las aplicaciones
-  getAll: () => httpClient.get<Postulation[]>("/postulations"),
+  getAll: () => postulationsClient.get<Postulation[]>(ENDPOINT),
 
-  // Obtener una aplicación por ID
-  getById: (id: string) => httpClient.get<Postulation>(`/postulations/user/${id}`),
+  getById: (id: string) => postulationsClient.get<Postulation>(`${ENDPOINT}/${id}`),
 
-  // Crear una nueva aplicación
+  getByUserId: (userId: string) =>
+    postulationsClient.get<Postulation[]>(`${ENDPOINT}/user/${userId}`),
+
   create: (data: CreatePostulationRequest) =>
-    httpClient.post<Postulation>("/postulations", data),
+    postulationsClient.post<Postulation>(ENDPOINT, data),
 
-  // Actualizar una aplicación existente
-  patch: (id: string, data: UpdatePostulationRequest) =>
-    httpClient.patch<Postulation>(`/postulations/${id}`, data),
+  update: (id: string, data: UpdatePostulationRequest) =>
+    postulationsClient.patch<Postulation>(`${ENDPOINT}/${id}`, data),
 
-  // Eliminar una aplicación
-  delete: (id: string) => httpClient.delete<void>(`/postulations/${id}`),
+  delete: (id: string) => postulationsClient.delete<void>(`${ENDPOINT}/${id}`),
 };

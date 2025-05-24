@@ -1,6 +1,5 @@
 import { requestInterceptor, responseInterceptor } from "./interceptors/auth.interceptors";
-import { AxiosInstance, AxiosRequestConfig } from "axios";
-import axios from "axios";
+import axios ,{ AxiosInstance, AxiosRequestConfig } from "axios";
 import { API_URL, API_KEY } from "./apiAxios";
 
 
@@ -17,7 +16,7 @@ export const client: AxiosInstance = axios.create({
   }
 });
 
-
+console.log('[client] Axios instance created with baseURL:', API_URL);
 
 // Agregar interceptores base
 client.interceptors.request.use(

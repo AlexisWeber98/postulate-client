@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePostulationsStore } from "../store";
+import { useAuthStore } from "../store/auth/authStore";
 import { PostulationStatus } from "../types/index";
 import { ValidationHelpers, DateHelpers } from "../lib/helpers";
 import axios from "axios";
@@ -41,6 +42,7 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addPostulation, updatePostulation, checkDuplicate } = usePostulationsStore();
+  const { user } = useAuthStore();
 
   const [company, setCompany] = useState("");
   const [position, setPosition] = useState("");
@@ -173,6 +175,10 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     }
 
     try {
+      if (!user || !user.id) {
+        throw new Error('Usuario no autenticado');
+      }
+
       if (!id && checkDuplicate(company, position)) {
         console.log('[DEBUG] Se detectó una postulación duplicada');
         setShowDuplicateModal(true);
@@ -180,16 +186,19 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
         return;
       }
 
+      const formattedDate = date ? date : DateHelpers.getCurrentDateISO();
+
       const payload = {
         company,
         position,
         status,
-        date,
-        url,
-        notes,
-        recruiterContact,
+        date: formattedDate,
+        url: url || '',
+        notes: notes || '',
+        recruiterContact: recruiterContact || '',
         sentCV,
         sentEmail,
+        userId: user.id
       };
 
       console.log('[DEBUG] Payload a enviar:', payload);
@@ -239,6 +248,9 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
   }, []);
 
   const handleContinueAnyway = useCallback(() => {
+    if (!user || !user.id) {
+      throw new Error('Usuario no autenticado');
+    }
     setShowDuplicateModal(false);
     addPostulation({
       company,
@@ -250,10 +262,11 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
       recruiterContact,
       sentCV,
       sentEmail,
+      userId: user.id
     });
     setIsSubmitting(false);
     navigate("/");
-  }, [company, position, status, date, url, notes, recruiterContact, sentCV, sentEmail, addPostulation, navigate]);
+  }, [company, position, status, date, url, notes, recruiterContact, sentCV, sentEmail, addPostulation, navigate, user]);
 
   return {
     formData: {
