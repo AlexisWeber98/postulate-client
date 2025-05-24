@@ -147,7 +147,7 @@ const EditProfile: React.FC = () => {
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className="text-4xl font-extrabold text-gray-900 dark:text-white text-center mb-2 drop-shadow-lg"
+          className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-violet-500 text-center mb-2 drop-shadow-lg"
         >
           {translate('profile.title')}
         </motion.h1>
@@ -160,7 +160,7 @@ const EditProfile: React.FC = () => {
               <FaCamera className="h-3 w-3" />
             </span>
           </button>
-          <span className="text-base text-gray-700 dark:text-gray-200 font-semibold mt-2">{user?.name}</span>
+          <span className="text-2xl text-gray-700 dark:text-gray-200 font-semibold mt-2">{user?.name}</span>
         </div>
 
         <motion.form
