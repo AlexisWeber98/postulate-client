@@ -74,7 +74,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             className="appearance-none block w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 bg-white/80 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-xl cursor-pointer"
           >
             {statusOptions.map(option => (
-              <option key={option.value} value={option.value}>
+              <option key={`status-${option.value}`} value={option.value}>
                 {option.label}
               </option>
             ))}
@@ -91,7 +91,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             onChange={(e) => setCompanyFilter(e.target.value)}
             className="appearance-none block w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 bg-white/80 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-xl cursor-pointer"
           >
-            <option key="all" value="">{translate('dashboard.filters.selectCompany')}</option>
+            <option key="default-company" value="">{translate('dashboard.filters.selectCompany')}</option>
             {companies.map((company, index) => (
               <option key={`company-${company}-${index}`} value={company}>
                 {company}
@@ -110,9 +110,9 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             onChange={(e) => setPositionFilter(e.target.value)}
             className="appearance-none block w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 bg-white/80 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-xl cursor-pointer"
           >
-            <option value="">{translate('dashboard.filters.selectPosition')}</option>
-            {positions.map(position => (
-              <option key={position} value={position}>
+            <option key="default-position" value="">{translate('dashboard.filters.selectPosition')}</option>
+            {positions.map((position, index) => (
+              <option key={`position-${position}-${index}`} value={position}>
                 {position}
               </option>
             ))}

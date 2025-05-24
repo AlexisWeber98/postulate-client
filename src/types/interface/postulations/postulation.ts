@@ -51,5 +51,5 @@ export interface PostulationState {
   deletePostulation: (id: string) => Promise<void>;
   getPostulation: (id: string) => Postulation | undefined;
   checkDuplicate: (company: string, position: string) => boolean;
-  fetchPostulations: () => Promise<void>;
+  getAllPostulations: () => Promise<void>;
 }
