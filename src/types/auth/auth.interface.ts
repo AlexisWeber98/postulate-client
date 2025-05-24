@@ -4,6 +4,7 @@ export interface User {
   name: string;
   userName: string;
   lastName: string;
+  profileImage?: string;
 }
 
 export interface UserWithPassword extends User {

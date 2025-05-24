@@ -6,10 +6,11 @@ import Button from '../components/atoms/Button/Button.ui';
 import { motion } from "framer-motion";
 import { useLanguageStore } from '../store';
 import FieldWrapper from '../components/molecules/FieldWrapper/FieldWrapper';
-import { TranslationKey } from '../i18n';
+import type { TranslationKey } from '../i18n/types';
 import Footer from '../components/organisms/Footer';
 import { MdAccountCircle } from 'react-icons/md';
 import { FaCamera } from 'react-icons/fa';
+import { CloudinaryService } from '../services/cloudinary.service';
 
 type FieldName = 'name' | 'email' | 'lastName' | 'userName';
 
@@ -20,6 +21,9 @@ const EditProfile: React.FC = () => {
   const [email, setEmail] = useState(user?.email || '');
   const [lastName, setLastName] = useState(user?.lastName || '');
   const [userName, setUserName] = useState(user?.userName || '');
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>(user?.profileImage || '');
+  const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -113,6 +117,25 @@ const EditProfile: React.FC = () => {
     setIsBlurred(prev => ({ ...prev, [name]: true }));
   };
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    setError(null);
+
+    try {
+      const imageUrl = await CloudinaryService.uploadImage(file);
+      setPreviewUrl(imageUrl);
+      setProfileImage(file);
+    } catch (error) {
+      console.error('Error al subir la imagen:', error);
+      setError(error instanceof Error ? error.message : translate('profile.errors.uploadFailed'));
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -124,7 +147,13 @@ const EditProfile: React.FC = () => {
 
     setIsLoading(true);
     try {
-      await updateUser({ name, email, lastName, userName });
+      await updateUser({
+        name,
+        email,
+        lastName,
+        userName,
+        profileImage: previewUrl
+      });
       setSuccess(true);
       setTimeout(() => setSuccess(false), 2000);
     } catch (error) {
@@ -156,10 +185,32 @@ const EditProfile: React.FC = () => {
 
         <div className="flex flex-col items-center mb-6">
           <button type="button" className="relative group focus:outline-none">
-            <MdAccountCircle className="text-8xl text-blue-500 dark:text-blue-400 drop-shadow-lg bg-white/30 dark:bg-gray-800/30 rounded-full p-1 transition-all duration-200 group-hover:scale-105" />
-            <span className="absolute bottom-2 right-2 bg-blue-500 text-white rounded-full p-2 text-xs shadow-lg group-hover:bg-blue-600 transition flex items-center justify-center">
-              <FaCamera className="h-3 w-3" />
-            </span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+              id="profile-image-input"
+              disabled={isUploading}
+            />
+            <label htmlFor="profile-image-input" className="cursor-pointer">
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt="Profile"
+                  className="w-32 h-32 rounded-full object-cover shadow-lg"
+                />
+              ) : (
+                <MdAccountCircle className="text-8xl text-blue-500 dark:text-blue-400 drop-shadow-lg bg-white/30 dark:bg-gray-800/30 rounded-full p-1 transition-all duration-200 group-hover:scale-105" />
+              )}
+              <span className="absolute bottom-2 right-2 bg-blue-500 text-white rounded-full p-2 text-xs shadow-lg group-hover:bg-blue-600 transition flex items-center justify-center">
+                {isUploading ? (
+                  <Loader2 className="h-3 w-3 animate-spin" />
+                ) : (
+                  <FaCamera className="h-3 w-3" />
+                )}
+              </span>
+            </label>
           </button>
           <span className="text-2xl text-gray-700 dark:text-gray-200 font-semibold mt-2">{user?.name}</span>
         </div>

@@ -249,4 +249,10 @@ export const es = {
   'notes.placeholder': 'Añade cualquier información relevante sobre esta postulación',
   'common.cancel': 'Cancelar',
   'dashboard.urlPlaceholder': 'URL de la oferta',
+  'profile.errors': {
+    uploadFailed: 'Error al subir la imagen',
+    imageTooLarge: 'La imagen es demasiado grande',
+    invalidImageType: 'Tipo de imagen no válido',
+    updateFail: 'Error al actualizar el perfil'
+  }
 } as const;
