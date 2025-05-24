@@ -1,4 +1,5 @@
 import { CLOUDINARY_CONFIG, CLOUDINARY_UPLOAD_URL, CLOUDINARY_DEFAULTS } from '../config/cloudinary.config';
+import { compressImage } from '../lib/helpers/image.helpers';
 
 export class CloudinaryService {
   static async uploadImage(file: File): Promise<string> {
@@ -6,16 +7,19 @@ export class CloudinaryService {
       throw new Error('Archivo no válido');
     }
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', CLOUDINARY_CONFIG.uploadPreset);
-
-    // Agregar transformaciones
-    Object.entries(CLOUDINARY_DEFAULTS.imageTransformations).forEach(([key, value]) => {
-      formData.append(key, value.toString());
-    });
-
     try {
+      // Comprimir la imagen antes de subirla
+      const compressedFile = await compressImage(file);
+
+      const formData = new FormData();
+      formData.append('file', compressedFile);
+      formData.append('upload_preset', CLOUDINARY_CONFIG.uploadPreset);
+
+      // Agregar transformaciones
+      Object.entries(CLOUDINARY_DEFAULTS.imageTransformations).forEach(([key, value]) => {
+        formData.append(key, value.toString());
+      });
+
       const response = await fetch(CLOUDINARY_UPLOAD_URL, {
         method: 'POST',
         body: formData,
