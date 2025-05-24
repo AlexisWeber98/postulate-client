@@ -82,31 +82,88 @@ export const usePostulationsStore = create<PostulationState>()(
       },
 
       updatePostulation: async (id: string, updatedFields: Partial<Postulation>) => {
-        console.log('🔄 Iniciando updatePostulation:', { id, updatedFields });
+        console.log('🔄 [PostulationsStore] Iniciando updatePostulation:', {
+          id,
+          updatedFields,
+          currentPostulations: get().postulations.length,
+          postulationExists: get().postulations.some(p => p.id === id)
+        });
+
         try {
           set({ loading: true });
-          console.log('📤 Enviando petición al servidor...');
+
+          // Validación de campos requeridos
+          const requiredFields = ['company', 'position', 'status', 'date'];
+          const missingFields = requiredFields.filter(field => !updatedFields[field as keyof Postulation]);
+
+          if (missingFields.length > 0) {
+            console.error('❌ [PostulationsStore] Campos requeridos faltantes:', missingFields);
+            throw new Error(`Campos requeridos faltantes: ${missingFields.join(', ')}`);
+          }
+
+          console.log('📤 [PostulationsStore] Enviando petición al servidor...', {
+            url: `${API_URL}/postulations/${id}`,
+            method: 'PATCH',
+            data: updatedFields,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+
           const response = await postulationsApi.update(id, updatedFields);
-          console.log('✅ Postulación actualizada exitosamente:', response);
-          set((state: PostulationState) => ({
-            postulations: state.postulations.map((app: Postulation) =>
+          console.log('✅ [PostulationsStore] Respuesta del servidor:', {
+            status: response.status,
+            data: response.data,
+            result: response.data.result
+          });
+
+          set((state: PostulationState) => {
+            const updatedPostulations = state.postulations.map((app: Postulation) =>
               app.id === id ? response.data.result : app
-            ),
-            loading: false
-          }));
+            );
+            console.log('📦 [PostulationsStore] Estado actualizado:', {
+              totalPostulations: updatedPostulations.length,
+              updatedPostulation: response.data.result,
+              postulationUpdated: updatedPostulations.some(p => p.id === id)
+            });
+            return {
+              postulations: updatedPostulations,
+              loading: false
+            };
+          });
         } catch (error) {
-          console.error('❌ Error al actualizar postulación:', error);
+          console.error('❌ [PostulationsStore] Error al actualizar postulación:', error);
           if (axios.isAxiosError(error)) {
-            console.error('📝 Detalles del error:', {
+            console.error('📝 [PostulationsStore] Detalles del error:', {
               status: error.response?.status,
               data: error.response?.data,
               message: error.message,
               config: {
                 url: error.config?.url,
                 method: error.config?.method,
-                data: error.config?.data
+                data: error.config?.data,
+                headers: error.config?.headers,
+                baseURL: error.config?.baseURL
               }
             });
+
+            // Logs adicionales para debugging
+            console.error('[DEBUG] Respuesta del servidor:', {
+              status: error.response?.status,
+              statusText: error.response?.statusText,
+              headers: error.response?.headers,
+              data: error.response?.data
+            });
+
+            console.error('[DEBUG] Datos enviados:', {
+              url: error.config?.url,
+              method: error.config?.method,
+              data: error.config?.data,
+              headers: error.config?.headers,
+              baseURL: error.config?.baseURL
+            });
+
+            console.error('[DEBUG] Stack trace:', error.stack);
           }
           set({ loading: false });
           throw error;

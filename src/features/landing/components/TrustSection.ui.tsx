@@ -72,7 +72,7 @@ const TrustSection: React.FC<TrustSectionProps> = ({ translate }) => {
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 sm:mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent px-4">
         {translate('trust.title')}
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full max-w-7xl px-4 sm:px-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 w-full max-w-7xl px-4 sm:px-6 sm:flex sm:flex-col sm:items-center lg:grid lg:items-start">
         {trustPoints.map((point, idx) => (
           <FlipCard
             key={idx}

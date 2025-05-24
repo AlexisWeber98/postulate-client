@@ -31,7 +31,6 @@ const ApplicationForm: React.FC = () => {
     setRecruiterContact,
     setSentCV,
     setSentEmail,
-
   } = useApplicationForm();
 
   useEffect(() => {
@@ -47,16 +46,16 @@ const ApplicationForm: React.FC = () => {
       transition={{ duration: 0.3 }}
       className="flex flex-col min-h-[calc(100vh-200px)] bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800"
     >
-      <div className="max-w-4xl mx-auto w-full px-4 py-8">
+      <div className="max-w-4xl mx-auto w-full px-4 py-4 sm:py-8">
         <motion.div
           initial={{ x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className="mb-6"
+          className="mb-4 sm:mb-6"
         >
           <Link
             to="/dashboard"
-            className="inline-flex items-center px-4 py-2 rounded-lg text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 font-medium transition-all duration-200 hover:scale-105"
+            className="inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 font-medium transition-all duration-200 hover:scale-105 text-sm sm:text-base"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             {translate('dashboard.backToDashboard')}
@@ -67,7 +66,7 @@ const ApplicationForm: React.FC = () => {
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className="text-4xl font-extrabold text-gray-900 dark:text-white text-center mb-12 drop-shadow-lg"
+          className="text-2xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-violet-500 text-center mb-6 sm:mb-12 drop-shadow-lg"
         >
           {translate('dashboard.newApplication')}
         </motion.h1>
@@ -77,9 +76,9 @@ const ApplicationForm: React.FC = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
           onSubmit={handleSubmit}
-          className="relative bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-200 dark:border-gray-700/50"
+          className="relative bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-3 sm:p-8 shadow-xl border border-gray-200 dark:border-gray-700/50"
         >
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-8">
             <FieldWrapper
               name="company"
               label={translate('dashboard.company')}
@@ -94,7 +93,7 @@ const ApplicationForm: React.FC = () => {
                 value={formData.company}
                 onChange={(e) => handleFieldChange('company', e.target.value)}
                 onBlur={(e) => handleFieldBlur('company', e.target.value)}
-                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.company?.isValid && isBlurred.company ? 'ring-2 ring-red-400' : ''}`}
+                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.company?.isValid && isBlurred.company ? 'ring-2 ring-red-400' : ''}`}
                 placeholder={translate('dashboard.companyPlaceholder')}
                 required
                 aria-invalid={!fieldStatus.company?.isValid}
@@ -116,7 +115,7 @@ const ApplicationForm: React.FC = () => {
                 value={formData.position}
                 onChange={(e) => handleFieldChange('position', e.target.value)}
                 onBlur={(e) => handleFieldBlur('position', e.target.value)}
-                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.position?.isValid && isBlurred.position ? 'ring-2 ring-red-400' : ''}`}
+                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.position?.isValid && isBlurred.position ? 'ring-2 ring-red-400' : ''}`}
                 placeholder={translate('dashboard.positionPlaceholder')}
                 required
                 aria-invalid={!fieldStatus.position?.isValid}
@@ -124,15 +123,15 @@ const ApplicationForm: React.FC = () => {
               />
             </FieldWrapper>
 
-            <div>
-              <label htmlFor="status" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+            <div className="space-y-1">
+              <label htmlFor="status" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
                 {translate('status')} *
               </label>
               <select
                 id="status"
                 value={formData.status}
                 onChange={(e) => setStatus(e.target.value as PostulationStatus)}
-                className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none"
+                className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base"
                 required
               >
                 {Object.entries(STATUS_LABELS).map(([value, label]) => (
@@ -143,8 +142,8 @@ const ApplicationForm: React.FC = () => {
               </select>
             </div>
 
-            <div>
-              <label htmlFor="date" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+            <div className="space-y-1">
+              <label htmlFor="date" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
                 {translate('dashboard.date')} *
               </label>
               <input
@@ -152,7 +151,7 @@ const ApplicationForm: React.FC = () => {
                 id="date"
                 value={formData.date}
                 onChange={(e) => setDate(e.target.value)}
-                className={`w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none ${errors.date ? 'ring-2 ring-red-400' : ''}`}
+                className={`w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base ${errors.date ? 'ring-2 ring-red-400' : ''}`}
                 required
               />
               {errors.date && (
@@ -174,28 +173,28 @@ const ApplicationForm: React.FC = () => {
                   value={formData.url}
                   onChange={(e) => handleFieldChange('url', e.target.value)}
                   onBlur={(e) => handleFieldBlur('url', e.target.value)}
-                  className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.url?.isValid && isBlurred.url ? 'ring-2 ring-red-400' : ''}`}
+                  className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.url?.isValid && isBlurred.url ? 'ring-2 ring-red-400' : ''}`}
                   placeholder={translate('dashboard.referenceUrlPlaceholder')}
                 />
               </FieldWrapper>
             </div>
 
-            <div className="md:col-span-2">
-              <label htmlFor="notes" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+            <div className="md:col-span-2 space-y-1">
+              <label htmlFor="notes" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
                 {translate('notes')}
               </label>
               <textarea
                 id="notes"
                 value={formData.notes}
                 onChange={(e) => setNotes(e.target.value)}
-                rows={5}
-                className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none"
+                rows={3}
+                className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
                 placeholder={translate('dashboard.notesPlaceholder')}
               />
             </div>
 
-            <div className="col-span-2">
-              <label htmlFor="recruiterContact" className="block text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+            <div className="col-span-2 space-y-1">
+              <label htmlFor="recruiterContact" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
                 {translate('recruiterContact')}
               </label>
               <input
@@ -204,9 +203,9 @@ const ApplicationForm: React.FC = () => {
                 value={formData.recruiterContact}
                 onChange={(e) => setRecruiterContact(e.target.value)}
                 placeholder={translate('dashboard.recruiterContactPlaceholder')}
-                className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none"
+                className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
               />
-              <p className="mt-1 text-xs text-blue-200 p-2">
+              <p className="mt-1 text-xs text-blue-200 p-1 sm:p-2">
                 * {translate('dashboard.recruiterContactHelper')}
               </p>
             </div>
@@ -226,19 +225,19 @@ const ApplicationForm: React.FC = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="flex justify-end gap-4 mt-8"
+            className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-4 mt-4 sm:mt-8"
           >
             <button
               type="button"
               onClick={resetForm}
-              className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl text-gray-700 dark:text-gray-200 font-semibold text-base border-0 transition-all duration-200"
+              className="w-full sm:w-auto px-4 py-2.5 sm:px-6 sm:py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl text-gray-700 dark:text-gray-200 font-semibold text-sm sm:text-base border-0 transition-all duration-200"
             >
               {translate('common.reset')}
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-8 py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full sm:w-auto px-4 py-2.5 sm:px-8 sm:py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-sm sm:text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? translate('dashboard.actions.save') : translate('hero.cta.button')}
             </button>

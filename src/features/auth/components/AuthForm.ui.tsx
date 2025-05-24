@@ -89,26 +89,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
             </FieldWrapper>
 
             <FieldWrapper
-              name="userName"
-              label={translate('auth.userName')}
-              required
-              tooltip="Ingresa tu nombre de usuario"
-              isBlurred={isBlurred.userName}
-              fieldStatus={fieldStatus.userName}
-            >
-              <input
-                type="text"
-                id="userName"
-                value={formData.userName}
-                onChange={e => handleFieldChange('userName', e.target.value)}
-                onBlur={() => handleFieldBlur('userName')}
-                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.userName?.isValid && isBlurred.userName ? 'ring-2 ring-red-400' : ''}`}
-                placeholder="Tu nombre de usuario"
-                required
-              />
-            </FieldWrapper>
-
-            <FieldWrapper
               name="lastName"
               label={translate('auth.lastName')}
               required
@@ -124,6 +104,26 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
                 onBlur={() => handleFieldBlur('lastName')}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.lastName?.isValid && isBlurred.lastName ? 'ring-2 ring-red-400' : ''}`}
                 placeholder="Tu apellido"
+                required
+              />
+            </FieldWrapper>
+
+            <FieldWrapper
+              name="userName"
+              label={translate('auth.userName')}
+              required
+              tooltip="Ingresa tu nombre de usuario"
+              isBlurred={isBlurred.userName}
+              fieldStatus={fieldStatus.userName}
+            >
+              <input
+                type="text"
+                id="userName"
+                value={formData.userName}
+                onChange={e => handleFieldChange('userName', e.target.value)}
+                onBlur={() => handleFieldBlur('userName')}
+                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.userName?.isValid && isBlurred.userName ? 'ring-2 ring-red-400' : ''}`}
+                placeholder="Tu nombre de usuario"
                 required
               />
             </FieldWrapper>
