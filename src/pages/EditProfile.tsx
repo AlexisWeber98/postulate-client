@@ -11,23 +11,29 @@ import Footer from '../components/organisms/Footer';
 import { MdAccountCircle } from 'react-icons/md';
 import { FaCamera } from 'react-icons/fa';
 
-type FieldName = 'name' | 'email';
+type FieldName = 'name' | 'email' | 'lastName' | 'userName';
 
 const EditProfile: React.FC = () => {
   const { user, updateUser } = useAuthStore();
   const { translate } = useLanguageStore();
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
+  const [lastName, setLastName] = useState(user?.lastName || '');
+  const [userName, setUserName] = useState(user?.userName || '');
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [fieldStatus, setFieldStatus] = useState<Record<FieldName, { isValid: boolean; message?: string }>>({
     name: { isValid: false },
     email: { isValid: false },
+    lastName: { isValid: false },
+    userName: { isValid: false }
   });
   const [isBlurred, setIsBlurred] = useState<Record<FieldName, boolean>>({
     name: false,
     email: false,
+    lastName: false,
+    userName: false
   });
 
   // Validación en tiempo real
@@ -61,13 +67,45 @@ const EditProfile: React.FC = () => {
         email: { isValid: true }
       }));
     }
-  }, [name, email, translate]);
+
+    if (!hasContent(lastName)) {
+      setFieldStatus(prev => ({
+        ...prev,
+        lastName: {
+          isValid: false,
+          message: translate('auth.validation.lastName')
+        }
+      }));
+    } else {
+      setFieldStatus(prev => ({
+        ...prev,
+        lastName: { isValid: true }
+      }));
+    }
+
+    if (!hasContent(userName)) {
+      setFieldStatus(prev => ({
+        ...prev,
+        userName: {
+          isValid: false,
+          message: translate('auth.validation.userName')
+        }
+      }));
+    } else {
+      setFieldStatus(prev => ({
+        ...prev,
+        userName: { isValid: true }
+      }));
+    }
+  }, [name, email, lastName, userName, translate]);
 
   // Reset form if user changes
   useEffect(() => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
+      setLastName(user.lastName || '');
+      setUserName(user.userName || '');
     }
   }, [user]);
 
@@ -79,14 +117,14 @@ const EditProfile: React.FC = () => {
     e.preventDefault();
     setError(null);
 
-    if (!hasContent(name) || !isValidEmail(email)) {
+    if (!hasContent(name) || !isValidEmail(email) || !hasContent(lastName) || !hasContent(userName)) {
       setError(translate('profile.validation.formInvalid'));
       return;
     }
 
     setIsLoading(true);
     try {
-      await updateUser({ name, email });
+      await updateUser({ name, email, lastName, userName });
       setSuccess(true);
       setTimeout(() => setSuccess(false), 2000);
     } catch {
@@ -153,6 +191,50 @@ const EditProfile: React.FC = () => {
                 required
                 aria-invalid={!fieldStatus.name?.isValid}
                 aria-describedby={!fieldStatus.name?.isValid ? 'name-error' : undefined}
+              />
+            </FieldWrapper>
+
+            <FieldWrapper
+              name="lastName"
+              label={translate('auth.lastName')}
+              required
+              tooltip="Ingresa tu apellido"
+              isBlurred={isBlurred.lastName}
+              fieldStatus={fieldStatus.lastName}
+            >
+              <input
+                type="text"
+                id="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                onBlur={() => handleFieldBlur('lastName')}
+                className={`w-full bg-white/80 dark:bg-white/10 text-gray-900 dark:text-white rounded-2xl px-5 py-4 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner transition-all duration-200 ${!fieldStatus.lastName?.isValid && isBlurred.lastName ? 'ring-2 ring-red-400' : ''}`}
+                placeholder="Tu apellido"
+                required
+                aria-invalid={!fieldStatus.lastName?.isValid}
+                aria-describedby={!fieldStatus.lastName?.isValid ? 'lastName-error' : undefined}
+              />
+            </FieldWrapper>
+
+            <FieldWrapper
+              name="userName"
+              label={translate('auth.userName')}
+              required
+              tooltip="Ingresa tu nombre de usuario"
+              isBlurred={isBlurred.userName}
+              fieldStatus={fieldStatus.userName}
+            >
+              <input
+                type="text"
+                id="userName"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                onBlur={() => handleFieldBlur('userName')}
+                className={`w-full bg-white/80 dark:bg-white/10 text-gray-900 dark:text-white rounded-2xl px-5 py-4 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner transition-all duration-200 ${!fieldStatus.userName?.isValid && isBlurred.userName ? 'ring-2 ring-red-400' : ''}`}
+                placeholder="Tu nombre de usuario"
+                required
+                aria-invalid={!fieldStatus.userName?.isValid}
+                aria-describedby={!fieldStatus.userName?.isValid ? 'userName-error' : undefined}
               />
             </FieldWrapper>
 
