@@ -217,6 +217,23 @@ const EditProfile: React.FC = () => {
             </label>
           </button>
           <span className="text-2xl text-gray-700 dark:text-gray-200 font-semibold mt-2">{user?.name}</span>
+
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg w-full max-w-xs"
+            >
+              <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-sm font-medium text-center">
+                  {translate(error as TranslationKey)}
+                </p>
+              </div>
+            </motion.div>
+          )}
         </div>
 
         <motion.form
@@ -336,23 +353,6 @@ const EditProfile: React.FC = () => {
               <p className="text-green-600 dark:text-green-400 font-medium">
                 {translate('profile.messages.updated')}
               </p>
-            </motion.div>
-          )}
-
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="w-full mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl"
-            >
-              <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <p className="text-sm font-medium">
-                  {translate(error as TranslationKey)}
-                </p>
-              </div>
             </motion.div>
           )}
         </motion.form>
