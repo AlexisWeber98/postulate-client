@@ -4,8 +4,10 @@ import { AuthBackground } from '../components/AuthBackground';
 
 export default function Login() {
   return (
-    <AuthBackground imagePath={AUTH_IMAGES.LOGIN}>
-      <AuthPage type="login" />
-    </AuthBackground>
+    <div className="w-full min-h-screen">
+      <AuthBackground imagePath={AUTH_IMAGES.LOGIN}>
+        <AuthPage type="login" />
+      </AuthBackground>
+    </div>
   );
 }

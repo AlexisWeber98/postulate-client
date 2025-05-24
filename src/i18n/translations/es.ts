@@ -234,6 +234,7 @@ export const es = {
   'profile.validation.formInvalid': 'Por favor corrige los campos resaltados',
   'profile.errors.updateFail': 'Ocurrió un error al actualizar el perfil',
   'profile.messages.updated': '¡Perfil actualizado correctamente!',
+  'profile.description': 'Actualiza tu información personal para mantener tu perfil al día.',
   'common.saving': 'Guardando...',
   'profile.actions.save': 'Guardar Cambios',
   'tooltip.showInfo': 'Mostrar información',
@@ -248,5 +249,13 @@ export const es = {
   'notes.placeholder': 'Añade cualquier información relevante sobre esta postulación',
   'common.cancel': 'Cancelar',
   'dashboard.urlPlaceholder': 'URL de la oferta',
-  'dashboard.notesPlaceholder': 'Notas adicionales',
+  'profile.errors': {
+    uploadFailed: 'No se pudo subir la imagen. Por favor, verifica tu conexión e intenta nuevamente.',
+    imageTooLarge: 'La imagen es demasiado grande. El tamaño máximo permitido es 10MB. Por favor, selecciona una imagen más pequeña.',
+    invalidImageType: 'Tipo de imagen no válido. Solo se permiten imágenes en formato JPG, PNG, GIF o WEBP.',
+    updateFail: 'Error al actualizar el perfil. Por favor, intenta nuevamente.',
+    uploadError: 'Error al subir la imagen. Por favor, intenta nuevamente más tarde.',
+    uploadTimeout: 'La subida de la imagen está tardando demasiado. Por favor, intenta nuevamente.',
+    uploadNetworkError: 'Error de conexión al subir la imagen. Por favor, verifica tu conexión a internet.'
+  }
 } as const;

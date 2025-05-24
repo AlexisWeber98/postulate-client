@@ -72,7 +72,9 @@ export const postulationRequestInterceptor = {
         sendCv: data.sentCV ?? true,
         sendEmail: data.sentEmail ?? true,
         recruiterContact: data.recruiterContact || '',
-        userId
+        userId,
+        // Agregar el ID para el PATCH
+        ...(config.method === 'patch' && { id: data.id })
       };
 
       console.log('[DEBUG] Datos formateados:', formattedData);
@@ -80,6 +82,12 @@ export const postulationRequestInterceptor = {
       // Convertir a string y asignar de nuevo
       config.data = JSON.stringify(formattedData);
       console.log('[DEBUG] Datos finales serializados:', config.data);
+
+      // Agregar el ID en la URL para el PATCH
+      if (config.method === 'patch' && data.id) {
+        config.url = `${config.url}/${data.id}`;
+        console.log('[DEBUG] URL actualizada para PATCH:', config.url);
+      }
     }
 
     const token = useAuthStore.getState().token;

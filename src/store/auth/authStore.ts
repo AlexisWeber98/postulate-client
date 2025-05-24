@@ -154,11 +154,21 @@ export const useAuthStore = create<AuthState>()(
         });
       },
 
-      updateUser: (data: { name?: string; email?: string }) => {
+      updateUser: async (data: { name?: string; email?: string; lastName?: string; userName?: string }) => {
         console.log("Actualizando usuario:", data);
-        set((state) => ({
-          user: state.user ? { ...state.user, ...data } : null,
-        }));
+        try {
+          const userId = get().user?.id;
+          if (!userId) {
+            throw new Error('No se encontró el ID del usuario');
+          }
+          const response = await authApi.updateProfile(userId, data);
+          set((state) => ({
+            user: state.user ? { ...state.user, ...response.result } : null,
+          }));
+        } catch (error) {
+          console.error("Error al actualizar usuario:", error);
+          throw error;
+        }
       },
 
       initialize: () => {
