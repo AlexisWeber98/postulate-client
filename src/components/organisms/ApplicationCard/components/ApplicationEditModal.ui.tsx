@@ -29,7 +29,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
 }) => {
   const [estado, setEstado] = React.useState<PostulationStatus>(application?.status || 'applied');
   if (!application) return null;
-  const { company, position, date, url, notes } = application;
+  const { company, position, date, url, notes, recruiterContact, sentCV, sentEmail } = application;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,6 +42,9 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
       date: formData.get('date') as string,
       url: formData.get('url') as string,
       notes: formData.get('notes') as string,
+      recruiterContact: formData.get('recruiterContact') as string,
+      sentCV: formData.get('sentCV') === 'true',
+      sentEmail: formData.get('sentEmail') === 'true',
     };
     onSave(updatedApplication);
   };
@@ -126,6 +129,16 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
             </div>
 
             <div>
+              <label className="block text-white/90 text-sm mb-1">Contacto del Reclutador</label>
+              <input
+                type="text"
+                name="recruiterContact"
+                defaultValue={recruiterContact}
+                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+              />
+            </div>
+
+            <div>
               <label className="block text-white/90 text-sm mb-1">Notas</label>
               <textarea
                 name="notes"
@@ -133,6 +146,27 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
                 rows={3}
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               />
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="sentCV"
+                  defaultChecked={sentCV}
+                  className="w-4 h-4 text-blue-600 bg-white/10 border-white/20 rounded focus:ring-blue-500"
+                />
+                <label className="text-white/90 text-sm">CV Enviado</label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="sentEmail"
+                  defaultChecked={sentEmail}
+                  className="w-4 h-4 text-blue-600 bg-white/10 border-white/20 rounded focus:ring-blue-500"
+                />
+                <label className="text-white/90 text-sm">Email Enviado</label>
+              </div>
             </div>
           </div>
 
