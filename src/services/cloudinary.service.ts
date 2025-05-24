@@ -4,7 +4,7 @@ import { compressImage } from '../lib/helpers/image.helpers';
 export class CloudinaryService {
   static async uploadImage(file: File): Promise<string> {
     if (!this.validateFile(file)) {
-      throw new Error('Archivo no válido');
+      throw new Error('profile.errors.imageTooLarge');
     }
 
     try {
@@ -20,17 +20,53 @@ export class CloudinaryService {
         formData.append(key, value.toString());
       });
 
-      const response = await fetch(CLOUDINARY_UPLOAD_URL, {
-        method: 'POST',
-        body: formData,
+      console.log('Cloudinary Config:', {
+        cloudName: CLOUDINARY_CONFIG.cloudName,
+        uploadPreset: CLOUDINARY_CONFIG.uploadPreset,
+        uploadUrl: CLOUDINARY_UPLOAD_URL
       });
 
-      if (!response.ok) {
-        throw new Error('Error al subir la imagen');
-      }
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 segundos de timeout
 
-      const data = await response.json();
-      return data.secure_url;
+      try {
+        const response = await fetch(CLOUDINARY_UPLOAD_URL, {
+          method: 'POST',
+          body: formData,
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => null);
+          console.error('Cloudinary Upload Error:', {
+            status: response.status,
+            statusText: response.statusText,
+            errorData
+          });
+
+          if (response.status === 401) {
+            throw new Error('profile.errors.uploadError');
+          } else if (response.status === 413) {
+            throw new Error('profile.errors.imageTooLarge');
+          } else {
+            throw new Error('profile.errors.uploadFailed');
+          }
+        }
+
+        const data = await response.json();
+        return data.secure_url;
+      } catch (error) {
+        if (error instanceof Error) {
+          if (error.name === 'AbortError') {
+            throw new Error('profile.errors.uploadTimeout');
+          } else if (error.name === 'TypeError') {
+            throw new Error('profile.errors.uploadNetworkError');
+          }
+        }
+        throw error;
+      }
     } catch (error) {
       console.error('Error en CloudinaryService.uploadImage:', error);
       throw error;
@@ -42,12 +78,12 @@ export class CloudinaryService {
 
     // Validar tamaño
     if (file.size > CLOUDINARY_DEFAULTS.maxFileSize) {
-      throw new Error('El archivo es demasiado grande');
+      throw new Error('profile.errors.imageTooLarge');
     }
 
     // Validar tipo
     if (!CLOUDINARY_DEFAULTS.allowedFileTypes.includes(file.type)) {
-      throw new Error('Tipo de archivo no permitido');
+      throw new Error('profile.errors.invalidImageType');
     }
 
     return true;

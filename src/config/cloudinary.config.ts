@@ -8,11 +8,11 @@ export const CLOUDINARY_CONFIG = {
 export const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CONFIG.cloudName}/image/upload`;
 
 export const CLOUDINARY_DEFAULTS = {
-  maxFileSize: 5 * 1024 * 1024, // 5MB
+  maxFileSize: 10 * 1024 * 1024, // 10MB
   allowedFileTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
   imageTransformations: {
-    width: 400,
-    height: 400,
+    width: 800,
+    height: 800,
     crop: 'fill',
     quality: 'auto',
     format: 'auto',

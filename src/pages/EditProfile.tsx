@@ -130,7 +130,11 @@ const EditProfile: React.FC = () => {
       setProfileImage(file);
     } catch (error) {
       console.error('Error al subir la imagen:', error);
-      setError(error instanceof Error ? error.message : translate('profile.errors.uploadFailed'));
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError(translate('profile.errors.uploadFailed'));
+      }
     } finally {
       setIsUploading(false);
     }
@@ -339,12 +343,16 @@ const EditProfile: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-4 text-center flex items-center justify-center gap-2"
+              className="w-full mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl"
             >
-              <span className="inline-block bg-red-100 dark:bg-red-900/40 rounded-full p-1"><svg className="w-5 h-5 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>
-              <p className="text-red-600 dark:text-red-400 font-medium">
-                {translate(error as TranslationKey)}
-              </p>
+              <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-sm font-medium">
+                  {translate(error as TranslationKey)}
+                </p>
+              </div>
             </motion.div>
           )}
         </motion.form>

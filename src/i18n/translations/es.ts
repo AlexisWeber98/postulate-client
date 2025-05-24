@@ -250,9 +250,12 @@ export const es = {
   'common.cancel': 'Cancelar',
   'dashboard.urlPlaceholder': 'URL de la oferta',
   'profile.errors': {
-    uploadFailed: 'Error al subir la imagen',
-    imageTooLarge: 'La imagen es demasiado grande',
-    invalidImageType: 'Tipo de imagen no válido',
-    updateFail: 'Error al actualizar el perfil'
+    uploadFailed: 'No se pudo subir la imagen. Por favor, verifica tu conexión e intenta nuevamente.',
+    imageTooLarge: 'La imagen es demasiado grande. El tamaño máximo permitido es 10MB. Por favor, selecciona una imagen más pequeña.',
+    invalidImageType: 'Tipo de imagen no válido. Solo se permiten imágenes en formato JPG, PNG, GIF o WEBP.',
+    updateFail: 'Error al actualizar el perfil. Por favor, intenta nuevamente.',
+    uploadError: 'Error al subir la imagen. Por favor, intenta nuevamente más tarde.',
+    uploadTimeout: 'La subida de la imagen está tardando demasiado. Por favor, intenta nuevamente.',
+    uploadNetworkError: 'Error de conexión al subir la imagen. Por favor, verifica tu conexión a internet.'
   }
 } as const;
