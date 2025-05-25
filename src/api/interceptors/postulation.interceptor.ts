@@ -47,40 +47,45 @@ export const postulationRequestInterceptor = {
       // Asegurarnos que los datos están en el formato correcto
       const data = typeof config.data === 'string' ? JSON.parse(config.data) : config.data;
 
-      // Asegurarnos que la fecha está en string
-      let dateString = '';
-      if (data.date) {
-        if (typeof data.date === 'string') {
-          dateString = data.date;
-        } else if (data.date instanceof Date) {
-          dateString = data.date.toISOString().split('T')[0];
-        }
+      if (config.method === 'patch') {
+        // Para PATCH, mantener el formato original que espera el backend
+        const formattedData = {
+          data: {
+            company: data.data?.company,
+            position: data.data?.position,
+            status: data.data?.status,
+            applicationDate: data.data?.applicationDate,
+            link: data.data?.link || '',
+            description: data.data?.description || '',
+            sendCv: data.data?.sendCv ?? false,
+            sendEmail: data.data?.sendEmail ?? false,
+            recruiterContact: data.data?.recruiterContact || '',
+            userId: data.data?.userId
+          },
+          postulationId: data.postulationId
+        };
+
+        console.log('[DEBUG] Datos formateados para PATCH:', formattedData);
+        config.data = JSON.stringify(formattedData);
       } else {
-        dateString = new Date().toISOString().split('T')[0];
+        // Para POST, mantener el formato original
+        const formattedData = {
+          company: data.company,
+          position: data.position,
+          status: data.status,
+          applicationDate: data.applicationDate,
+          link: data.link || '',
+          description: data.description || '',
+          sendCv: data.sendCv ?? false,
+          sendEmail: data.sendEmail ?? false,
+          recruiterContact: data.recruiterContact || '',
+          userId
+        };
+
+        console.log('[DEBUG] Datos formateados para POST:', formattedData);
+        config.data = JSON.stringify(formattedData);
       }
 
-      console.log('[DEBUG] Fecha formateada:', dateString);
-
-      // Crear un nuevo objeto con los datos formateados según la interfaz del servidor
-      const formattedData = {
-        company: data.company,
-        position: data.position,
-        status: data.status,
-        applicationDate: dateString,
-        link: data.url || '',
-        description: data.notes || '',
-        sendCv: data.sentCV ?? true,
-        sendEmail: data.sentEmail ?? true,
-        recruiterContact: data.recruiterContact || '',
-        userId,
-        // Agregar el ID para el PATCH
-        ...(config.method === 'patch' && { id: data.id })
-      };
-
-      console.log('[DEBUG] Datos formateados:', formattedData);
-
-      // Convertir a string y asignar de nuevo
-      config.data = JSON.stringify(formattedData);
       console.log('[DEBUG] Datos finales serializados:', config.data);
 
       // Agregar el ID en la URL para el PATCH
