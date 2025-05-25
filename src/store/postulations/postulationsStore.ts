@@ -32,7 +32,7 @@ export const usePostulationsStore = create<PostulationState>()(
           // Asegurarnos que la fecha está en el formato correcto
           const postulationData = {
             ...newPostulation,
-            date: newPostulation.date || new Date().toISOString().split('T')[0]
+            applicationDate: newPostulation.applicationDate || new Date().toISOString().split('T')[0]
           };
 
           const response = await postulationsApi.create(postulationData);
@@ -93,7 +93,7 @@ export const usePostulationsStore = create<PostulationState>()(
           set({ loading: true });
 
           // Validación de campos requeridos
-          const requiredFields = ['company', 'position', 'status', 'date'];
+          const requiredFields = ['company', 'position', 'status', 'applicationDate'];
           const missingFields = requiredFields.filter(field => !updatedFields[field as keyof Postulation]);
 
           if (missingFields.length > 0) {
@@ -117,20 +117,37 @@ export const usePostulationsStore = create<PostulationState>()(
             result: response.data.result
           });
 
-          set((state: PostulationState) => {
-            const updatedPostulations = state.postulations.map((app: Postulation) =>
-              app.id === id ? response.data.result : app
+          // Obtener el token para el userId
+          const token = useAuthStore.getState().token;
+          if (!token) {
+            throw new Error('No se encontró el token de autenticación');
+          }
+
+          const [, payload] = token.split('.');
+          const decodedPayload = JSON.parse(atob(payload));
+          const userId = decodedPayload.id || decodedPayload.userId;
+
+          if (!userId) {
+            throw new Error('No se encontró el ID del usuario en el token');
+          }
+
+          // Actualizar el estado completo
+          const allPostulationsResponse = await postulationsApi.getByUserId(userId);
+          console.log('📦 [PostulationsStore] Estado actualizado con todas las postulaciones:', allPostulationsResponse);
+
+          if (allPostulationsResponse?.result?.postulations && Array.isArray(allPostulationsResponse.result.postulations)) {
+            const filteredPostulations = allPostulationsResponse.result.postulations.filter(
+              (postulation: Postulation) => postulation.userId === userId
             );
-            console.log('📦 [PostulationsStore] Estado actualizado:', {
-              totalPostulations: updatedPostulations.length,
-              updatedPostulation: response.data.result,
-              postulationUpdated: updatedPostulations.some(p => p.id === id)
-            });
-            return {
-              postulations: updatedPostulations,
+
+            set({
+              postulations: filteredPostulations,
               loading: false
-            };
-          });
+            });
+          } else {
+            console.error('❌ [PostulationsStore] Estructura de respuesta inválida al actualizar:', allPostulationsResponse);
+            set({ loading: false });
+          }
         } catch (error) {
           console.error('❌ [PostulationsStore] Error al actualizar postulación:', error);
           if (axios.isAxiosError(error)) {
@@ -249,27 +266,14 @@ export const usePostulationsStore = create<PostulationState>()(
 
           set({ loading: true });
           console.log('📤 Enviando petición al servidor...');
-          const response = await postulationsApi.getByUserId(userId);
+          const response = await postulationsApi.getAll(userId);
           console.log('✅ Respuesta del servidor:', response);
 
           // Verificar que la respuesta tiene la estructura esperada
-          if (response?.result?.postulations) {
-            console.log('📦 Datos de postulaciones:', response.result.postulations);
-            // Verificar que las postulaciones pertenecen al usuario actual
-            const filteredPostulations = response.result.postulations.filter(
-              (postulation: Postulation) => {
-                console.log('🔍 Comparando postulación:', {
-                  postulationUserId: postulation.userId,
-                  currentUserId: userId,
-                  match: postulation.userId === userId
-                });
-                return postulation.userId === userId;
-              }
-            );
-            console.log('🔍 Postulaciones filtradas por userId:', filteredPostulations);
-
+          if (response?.data?.result?.postulations && Array.isArray(response.data.result.postulations)) {
+            console.log('📦 Datos de postulaciones:', response.data.result.postulations);
             set({
-              postulations: Array.isArray(filteredPostulations) ? filteredPostulations : [],
+              postulations: response.data.result.postulations,
               loading: false
             });
           } else {
