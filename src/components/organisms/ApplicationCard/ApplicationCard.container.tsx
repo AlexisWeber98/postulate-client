@@ -46,7 +46,25 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
     console.log('[ApplicationCard] Iniciando actualización de postulación:', updatedApplication.id);
     setIsLoading(true);
     try {
-      await postulationsApi.update(updatedApplication.id, updatedApplication);
+      const updateData = {
+        company: updatedApplication.company,
+        position: updatedApplication.position,
+        status: updatedApplication.status,
+        applicationDate: updatedApplication.applicationDate,
+        link: updatedApplication.link,
+        description: updatedApplication.description,
+        sendCv: updatedApplication.sendCv,
+        sendEmail: updatedApplication.sendEmail,
+        recruiterContact: updatedApplication.recruiterContact,
+        userId: updatedApplication.userId
+      };
+
+      console.log('[ApplicationCard] Datos a actualizar:', {
+        id: updatedApplication.id,
+        data: updateData
+      });
+
+      await postulationsApi.update(updatedApplication.id, updateData);
       updatePostulation(updatedApplication.id, updatedApplication);
       console.log('[ApplicationCard] Postulación actualizada exitosamente:', updatedApplication.id);
       toast.success(translate('dashboard.actions.updateSuccess'));

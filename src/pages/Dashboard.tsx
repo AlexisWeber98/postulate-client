@@ -118,7 +118,7 @@ const Dashboard: React.FC = () => {
         const searchMatch = searchTerm === '' ||
           (app.company?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false) ||
           (app.position?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false) ||
-          (app.notes?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false);
+          (app.description?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false);
 
         // Status filter
         const statusMatch = statusFilter === 'all' || app.status === statusFilter;
