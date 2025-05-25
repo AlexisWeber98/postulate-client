@@ -24,52 +24,61 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   isOpen,
   onClose,
   onSave,
-
+  isLoading
 }) => {
-  const [estado, setEstado] = React.useState<PostulationStatus>(application?.status || 'applied');
+  const [formData, setFormData] = React.useState<Partial<Postulation>>({
+    status: application?.status || 'applied',
+    company: application?.company || '',
+    position: application?.position || '',
+    applicationDate: application?.applicationDate || '',
+    link: application?.link || '',
+    description: application?.description || '',
+    recruiterContact: application?.recruiterContact || '',
+    sendCv: application?.sendCv || false,
+    sendEmail: application?.sendEmail || false
+  });
+
   if (!application) return null;
-  const { company, position, date, url, notes, recruiterContact, sentCV, sentEmail, id, userId } = application;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+    }));
+  };
+
+  const handleStatusChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      status: value as PostulationStatus
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
 
     // Validación básica de campos requeridos
-    const company = formData.get('company') as string;
-    const position = formData.get('position') as string;
-    const date = formData.get('date') as string;
-
-    if (!company || !position || !date) {
-      console.error('[ApplicationEditModal] Campos requeridos faltantes:', { company, position, date });
+    if (!formData.company || !formData.position || !formData.applicationDate) {
+      console.error('[ApplicationEditModal] Campos requeridos faltantes:', formData);
       return;
     }
 
     const updatedApplication: Postulation = {
-      id,
-      userId,
-      company,
-      position,
-      status: estado,
-      date,
-      url: formData.get('url') as string || undefined,
-      notes: formData.get('notes') as string || undefined,
-      recruiterContact: formData.get('recruiterContact') as string || undefined,
-      sentCV: formData.get('sentCV') === 'on',
-      sentEmail: formData.get('sentEmail') === 'on',
+      id: application.id,
+      userId: application.userId,
+      company: formData.company!,
+      position: formData.position!,
+      status: formData.status!,
+      applicationDate: formData.applicationDate!,
+      link: formData.link || '',
+      description: formData.description || '',
+      recruiterContact: formData.recruiterContact || '',
+      sendCv: formData.sendCv || false,
+      sendEmail: formData.sendEmail || false,
       createdAt: application.createdAt,
       updatedAt: new Date().toISOString()
     };
-
-    console.log('[ApplicationEditModal] Enviando actualización:', {
-      id: updatedApplication.id,
-      userId: updatedApplication.userId,
-      company: updatedApplication.company,
-      position: updatedApplication.position,
-      status: updatedApplication.status,
-      date: updatedApplication.date,
-      sentCV: updatedApplication.sentCV,
-      sentEmail: updatedApplication.sentEmail
-    });
 
     onSave(updatedApplication);
   };
@@ -93,7 +102,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
           {/* Avatar más pequeño */}
           <div className="flex justify-center items-center mb-3">
             <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-blue-400 to-blue-700 flex items-center justify-center text-white text-2xl font-bold shadow-lg border-2 border-blue-300/40">
-              {company ? company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) : 'NA'}
+              {formData.company ? formData.company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) : 'NA'}
             </div>
           </div>
 
@@ -104,7 +113,8 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               <input
                 type="text"
                 name="company"
-                defaultValue={company}
+                value={formData.company}
+                onChange={handleInputChange}
                 required
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
@@ -115,7 +125,8 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               <input
                 type="text"
                 name="position"
-                defaultValue={position}
+                value={formData.position}
+                onChange={handleInputChange}
                 required
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
@@ -123,13 +134,24 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
 
             <div>
               <label className="block text-white/90 text-xs mb-0.5">Estado *</label>
-              <Select value={estado} onValueChange={value => setEstado(value as PostulationStatus)} name="status">
-                <SelectTrigger className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500">
+              <Select 
+                value={formData.status} 
+                onValueChange={handleStatusChange}
+                defaultValue={formData.status}
+              >
+                <SelectTrigger 
+                  className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
+                >
                   <SelectValue placeholder="Selecciona un estado" />
                 </SelectTrigger>
                 <SelectContent>
                   {Object.entries(STATUS_LABELS).map(([key, label]) => (
-                    <SelectItem key={key} value={key}>{label}</SelectItem>
+                    <SelectItem 
+                      key={key} 
+                      value={key}
+                    >
+                      {label}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -139,8 +161,9 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               <label className="block text-white/90 text-xs mb-0.5">Fecha *</label>
               <input
                 type="date"
-                name="date"
-                defaultValue={date}
+                name="applicationDate"
+                value={formData.applicationDate}
+                onChange={handleInputChange}
                 required
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
@@ -150,8 +173,9 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               <label className="block text-white/90 text-xs mb-0.5">URL</label>
               <input
                 type="url"
-                name="url"
-                defaultValue={url}
+                name="link"
+                value={formData.link}
+                onChange={handleInputChange}
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
             </div>
@@ -161,7 +185,8 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               <input
                 type="text"
                 name="recruiterContact"
-                defaultValue={recruiterContact}
+                value={formData.recruiterContact}
+                onChange={handleInputChange}
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
             </div>
@@ -169,8 +194,9 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
             <div>
               <label className="block text-white/90 text-xs mb-0.5">Notas</label>
               <textarea
-                name="notes"
-                defaultValue={notes}
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
                 rows={2}
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
@@ -180,8 +206,9 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               <div className="flex items-center space-x-1.5">
                 <input
                   type="checkbox"
-                  name="sentCV"
-                  defaultChecked={sentCV}
+                  name="sendCv"
+                  checked={formData.sendCv}
+                  onChange={handleInputChange}
                   className="w-3.5 h-3.5 text-blue-600 bg-white/10 border-white/20 rounded focus:ring-blue-500"
                 />
                 <label className="text-white/90 text-xs">CV Enviado</label>
@@ -189,8 +216,9 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               <div className="flex items-center space-x-1.5">
                 <input
                   type="checkbox"
-                  name="sentEmail"
-                  defaultChecked={sentEmail}
+                  name="sendEmail"
+                  checked={formData.sendEmail}
+                  onChange={handleInputChange}
                   className="w-3.5 h-3.5 text-blue-600 bg-white/10 border-white/20 rounded focus:ring-blue-500"
                 />
                 <label className="text-white/90 text-xs">Email Enviado</label>
@@ -209,9 +237,10 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
             </button>
             <button
               type="submit"
-              className="px-3 py-1.5 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all"
+              disabled={isLoading}
+              className="px-3 py-1.5 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Guardar
+              {isLoading ? 'Guardando...' : 'Guardar'}
             </button>
           </div>
         </form>
