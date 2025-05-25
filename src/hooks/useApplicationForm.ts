@@ -192,41 +192,25 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
         company,
         position,
         status,
-        date: formattedDate,
-        url: url || '',
-        notes: notes || '',
+        applicationDate: formattedDate,
+        link: url || '',
+        description: notes || '',
         recruiterContact: recruiterContact || '',
-        sentCV,
-        sentEmail,
+        sendCv: sentCV,
+        sendEmail: sentEmail,
         userId: user.id
       };
 
-      console.log('[DEBUG] Payload a enviar:', payload);
-
       if (id) {
-        console.log('[DEBUG] Actualizando postulación existente:', id);
         await updatePostulation(id, payload);
       } else {
-        console.log('[DEBUG] Creando nueva postulación');
         await addPostulation(payload);
       }
 
-      console.log('[DEBUG] Operación completada exitosamente');
-      navigate("/");
+      navigate('/dashboard');
     } catch (error) {
-      console.error('[DEBUG] Error en handleSubmit:', error);
-      if (axios.isAxiosError(error)) {
-        console.error('[DEBUG] Detalles del error Axios:', {
-          status: error.response?.status,
-          data: error.response?.data,
-          message: error.message,
-          config: {
-            url: error.config?.url,
-            method: error.config?.method,
-            baseURL: error.config?.baseURL
-          }
-        });
-      }
+      console.error('Error al enviar el formulario:', error);
+      setErrors({ submit: 'Error al enviar el formulario' });
     } finally {
       setIsSubmitting(false);
     }
@@ -256,12 +240,12 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
       company,
       position,
       status,
-      date,
-      url,
-      notes,
+      applicationDate: date,
+      link: url,
+      description: notes,
       recruiterContact,
-      sentCV,
-      sentEmail,
+      sendCv: sentCV,
+      sendEmail: sentEmail,
       userId: user.id
     });
     setIsSubmitting(false);
