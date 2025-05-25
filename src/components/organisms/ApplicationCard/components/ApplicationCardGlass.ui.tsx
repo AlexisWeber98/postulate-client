@@ -3,7 +3,7 @@ import { STATUS_LABELS, STATUS_COLORS, STATUS_LABELS_EN } from '../../../../type
 import { useLanguageStore } from '../../../../store/language/languageStore';
 
 export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDelete }: ApplicationCardGlassProps) => {
-  const { company, position, status, date, url, notes, createdAt, updatedAt, sentCV, sentEmail } = application;
+  const { company, position, status, applicationDate, link, description, createdAt, updatedAt, sendCv, sendEmail } = application;
   const initials = company ? company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) : 'NA';
   const { lang } = useLanguageStore();
   const translate = useLanguageStore(state=>state.translate);
@@ -25,7 +25,7 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDele
       {/* Stats */}
       <div className="flex justify-center gap-2 mt-6 mb-2 px-4">
         <div className="bg-white/10 rounded-xl px-3 py-2 text-center text-xs text-white">
-          <div className="font-bold">{new Date(date).toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', { day: '2-digit', month: 'short', year: '2-digit' })}</div>
+          <div className="font-bold">{new Date(applicationDate).toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', { day: '2-digit', month: 'short', year: '2-digit' })}</div>
           <div className="opacity-70">{translate('dashboard.date')}</div>
         </div>
         <div className="bg-white/10 rounded-xl px-3 py-2 text-center text-xs text-white">
@@ -38,15 +38,15 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDele
         </div>
       </div>
       {/* Badges de envío de CV y Email */}
-      {(sentCV || sentEmail) && (
+      {(sendCv || sendEmail) && (
         <div className="flex justify-center gap-2 mb-2 px-4">
-          {sentCV && (
+          {sendCv && (
             <span key={`cv-badge-${application.id}`} className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
               <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               {translate('dashboard.sentCV')}
             </span>
           )}
-          {sentEmail && (
+          {sendEmail && (
             <span key={`email-badge-${application.id}`} className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
               <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               {translate('dashboard.sentEmail')}
@@ -56,8 +56,8 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDele
       )}
       {/* Descripción/notas */}
       <div className="px-6 py-2 text-white/90 text-sm min-h-[48px]">
-        {notes ? (
-          notes
+        {description ? (
+          description
         ) : (
           <span className="italic text-blue-200 flex items-center gap-2">
             <svg className="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01" /></svg>
@@ -67,8 +67,8 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDele
       </div>
       {/* URL */}
       <div className="px-6 pb-2 text-blue-200 text-xs truncate">
-        {url ? (
-          <a href={url} target="_blank" rel="noopener noreferrer" className="underline">{url}</a>
+        {link ? (
+          <a href={link} target="_blank" rel="noopener noreferrer" className="underline">{link}</a>
         ) : (
           <span className="italic text-blue-200/70 flex items-center gap-2">
             <svg className="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01" /></svg>
