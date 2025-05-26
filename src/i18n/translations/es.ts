@@ -1,11 +1,11 @@
 export const es = {
   // Navegación
-  'Postulate': 'Postulate',
-  'login': 'Iniciar Sesión',
-  'register': 'Registrarse',
-  'dashboard': 'Dashboard',
-  'profile': 'Perfil',
-  'signOut': 'Cerrar Sesión',
+  Postulate: 'Postulate',
+  login: 'Iniciar Sesión',
+  register: 'Registrarse',
+  dashboard: 'Dashboard',
+  profile: 'Perfil',
+  signOut: 'Cerrar Sesión',
 
   // Cambio de tema
   'theme.switchToLight': 'Cambiar a modo claro',
@@ -40,13 +40,15 @@ export const es = {
   'auth.alreadyHaveAccount': '¿Ya tienes una cuenta?',
   'auth.loginLink': 'Iniciar sesión',
   'auth.backToHome': 'Volver al inicio',
-  'auth.timeoutError': 'La solicitud está tardando demasiado. Por favor, verifica tu conexión e intenta nuevamente.',
+  'auth.timeoutError':
+    'La solicitud está tardando demasiado. Por favor, verifica tu conexión e intenta nuevamente.',
   'auth.showPassword': 'Mostrar contraseña',
   'auth.hidePassword': 'Ocultar contraseña',
 
   // Auth Validation
   'auth.validation.email': 'Por favor ingresa un email válido',
-  'auth.validation.password': 'La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas, números y caracteres especiales',
+  'auth.validation.password':
+    'La contraseña debe tener al menos 6 caracteres, incluir mayúsculas, minúsculas y números',
   'auth.validation.name': 'El nombre es obligatorio',
   'auth.validation.userName': 'El nombre de usuario es obligatorio',
   'auth.validation.lastName': 'El apellido es obligatorio',
@@ -98,15 +100,15 @@ export const es = {
   'dashboard.url': 'URL',
 
   // Formularios
-  'company': 'Empresa',
-  'position': 'Puesto',
-  'status': 'Estado',
-  'date': 'Fecha',
-  'referenceUrl': 'URL de Referencia',
-  'recruiterContact': 'Contacto del Reclutador',
-  'sentCV': 'CV Enviado',
-  'sentEmail': 'Email Enviado',
-  'selectStatus': 'Seleccionar Estado',
+  company: 'Empresa',
+  position: 'Puesto',
+  status: 'Estado',
+  date: 'Fecha',
+  referenceUrl: 'URL de Referencia',
+  recruiterContact: 'Contacto del Reclutador',
+  sentCV: 'CV Enviado',
+  sentEmail: 'Email Enviado',
+  selectStatus: 'Seleccionar Estado',
 
   'dashboard.companyPlaceholder': 'Nombre de la empresa',
   'dashboard.positionPlaceholder': 'Título del puesto',
@@ -115,8 +117,8 @@ export const es = {
   'recruiterContact.helper': 'Ejemplo: email@empresa.com o +54 1234 567890',
   'recruiterContact.placeholder': 'Ejemplo: email@empresa.com o +54 1234 567890',
   'dashboard.loading': 'Cargando...',
-  'submit': 'Enviar',
-  'reset': 'Reiniciar',
+  submit: 'Enviar',
+  reset: 'Reiniciar',
 
   'dashboard.date': 'Fecha',
   'dashboard.position': 'Posición',
@@ -129,7 +131,8 @@ export const es = {
   'dashboard.updated': 'Actualizado',
 
   // Footer
-  'footer.description': 'La plataforma que te ayuda a gestionar y optimizar tu búsqueda de trabajo.',
+  'footer.description':
+    'La plataforma que te ayuda a gestionar y optimizar tu búsqueda de trabajo.',
   'footer.quickLinks': 'Enlaces Rápidos',
   'footer.home': 'Inicio',
   'footer.login': 'Iniciar Sesión',
@@ -160,8 +163,8 @@ export const es = {
   'landing.cta.title': 'Comienza Ahora',
   'landing.cta.description': 'Únete a nuestra plataforma y optimiza tu búsqueda de trabajo',
   'landing.cta.button': 'Regístrate Gratis',
-  'successMessage': '¡Postulación creada exitosamente!',
-  'errorMessage': 'Ocurrió un error al guardar la postulación.',
+  successMessage: '¡Postulación creada exitosamente!',
+  errorMessage: 'Ocurrió un error al guardar la postulación.',
   'dashboard.errorMessage': 'Error al cargar el dashboard',
   'dashboard.errorCompanyFilter': 'Error al filtrar por empresa',
   'dashboard.errorPositionFilter': 'Error al filtrar por posición',
@@ -203,21 +206,26 @@ export const es = {
   'benefits.before.point3': 'Tiempo perdido buscando información',
   'trust.title': '¿Por qué Confiar en Nosotros?',
   'trust.subtitle': 'Descubre por qué los profesionales eligen Postulate',
-  'trust.description': 'Únete a nuestra comunidad de profesionales que han optimizado su búsqueda de trabajo',
+  'trust.description':
+    'Únete a nuestra comunidad de profesionales que han optimizado su búsqueda de trabajo',
   'trust.point1': 'Pensado por buscadores',
-  'trust.point1.explanation': 'Postulate fue creado por personas que realmente buscaron trabajo y conocen tus necesidades.',
+  'trust.point1.explanation':
+    'Postulate fue creado por personas que realmente buscaron trabajo y conocen tus necesidades.',
   'trust.point2': 'Tus datos seguros',
-  'trust.point2.explanation': 'Tus datos personales y de búsqueda laboral están protegidos y solo vos podés acceder a ellos.',
+  'trust.point2.explanation':
+    'Tus datos personales y de búsqueda laboral están protegidos y solo vos podés acceder a ellos.',
   'trust.point3': 'Mejora continua',
-  'trust.point3.explanation': 'Escuchamos a los usuarios y mejoramos la plataforma continuamente para vos.',
+  'trust.point3.explanation':
+    'Escuchamos a los usuarios y mejoramos la plataforma continuamente para vos.',
   'common.loading': 'Cargando...',
   'common.delete': 'Eliminar',
   'common.closeModal': 'Cerrar modal',
   'common.reset': 'Reiniciar',
   'applicationForm.duplicateTitle': 'Postulación Duplicada',
-  'applicationForm.duplicateMessage': 'Ya existe una postulación para {position} en {company}. ¿Deseas continuar de todos modos?',
+  'applicationForm.duplicateMessage':
+    'Ya existe una postulación para {position} en {company}. ¿Deseas continuar de todos modos?',
   'applicationForm.continueAnyway': 'Continuar de todos modos',
-  'cancel': 'Cancelar',
+  cancel: 'Cancelar',
   'dashboard.validation.companyRequired': 'La empresa es requerida',
   'dashboard.validation.positionRequired': 'El puesto es requerido',
   'dashboard.validation.urlInvalid': 'La URL debe ser válida',
@@ -245,17 +253,21 @@ export const es = {
   'dashboard.recruiterContactHelper': 'Ingresa el contacto del reclutador (email o teléfono)',
   'dashboard.applicationStatus': 'Estado de la Postulación',
   'referenceUrl.placeholder': 'https://example.com/job',
-  'notes': 'Notas',
+  notes: 'Notas',
   'notes.placeholder': 'Añade cualquier información relevante sobre esta postulación',
   'common.cancel': 'Cancelar',
   'dashboard.urlPlaceholder': 'URL de la oferta',
   'profile.errors': {
-    uploadFailed: 'No se pudo subir la imagen. Por favor, verifica tu conexión e intenta nuevamente.',
-    imageTooLarge: 'La imagen es demasiado grande. El tamaño máximo permitido es 10MB. Por favor, selecciona una imagen más pequeña.',
-    invalidImageType: 'Tipo de imagen no válido. Solo se permiten imágenes en formato JPG, PNG, GIF o WEBP.',
+    uploadFailed:
+      'No se pudo subir la imagen. Por favor, verifica tu conexión e intenta nuevamente.',
+    imageTooLarge:
+      'La imagen es demasiado grande. El tamaño máximo permitido es 10MB. Por favor, selecciona una imagen más pequeña.',
+    invalidImageType:
+      'Tipo de imagen no válido. Solo se permiten imágenes en formato JPG, PNG, GIF o WEBP.',
     updateFail: 'Error al actualizar el perfil. Por favor, intenta nuevamente.',
     uploadError: 'Error al subir la imagen. Por favor, intenta nuevamente más tarde.',
     uploadTimeout: 'La subida de la imagen está tardando demasiado. Por favor, intenta nuevamente.',
-    uploadNetworkError: 'Error de conexión al subir la imagen. Por favor, verifica tu conexión a internet.'
-  }
+    uploadNetworkError:
+      'Error de conexión al subir la imagen. Por favor, verifica tu conexión a internet.',
+  },
 } as const;
