@@ -27,6 +27,8 @@
     "zustand": "4.5.0",
     "jwt-decode": "4.0.0",
     "@radix-ui/react-select": "2.0.0",
-    "react-card-flip": "2.0.0"
+    "react-card-flip": "1.0.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
