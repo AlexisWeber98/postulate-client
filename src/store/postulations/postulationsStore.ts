@@ -1,13 +1,10 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import {
-  Postulation,
-  PostulationState,
-} from "../../types/interface/postulations/postulation";
-import { postulationsApi } from "../../api/postulations";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { Postulation, PostulationState } from '../../types/interface/postulations/postulation';
+import { postulationsApi } from '../../api/postulations';
 import axios from 'axios';
-import { API_URL } from "../../api/apiAxios";
-import { useAuthStore } from "../auth/authStore";
+import { API_URL } from '../../api/apiAxios';
+import { useAuthStore } from '../auth/authStore';
 
 export const usePostulationsStore = create<PostulationState>()(
   persist(
@@ -15,7 +12,9 @@ export const usePostulationsStore = create<PostulationState>()(
       postulations: [],
       loading: false,
 
-      addPostulation: async (newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>) => {
+      addPostulation: async (
+        newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>
+      ) => {
         console.log('🔄 Iniciando addPostulation:', newPostulation);
         console.log('[DEBUG] API URL configurada:', API_URL);
         try {
@@ -26,20 +25,21 @@ export const usePostulationsStore = create<PostulationState>()(
             url: '/postulations',
             method: 'post',
             data: newPostulation,
-            baseURL: API_URL
+            baseURL: API_URL,
           });
 
           // Asegurarnos que la fecha está en el formato correcto
           const postulationData = {
             ...newPostulation,
-            applicationDate: newPostulation.applicationDate || new Date().toISOString().split('T')[0]
+            applicationDate:
+              newPostulation.applicationDate || new Date().toISOString().split('T')[0],
           };
 
           const response = await postulationsApi.create(postulationData);
           console.log('✅ Postulación creada exitosamente:', response);
           set((state: PostulationState) => ({
             postulations: [response.data.result, ...state.postulations],
-            loading: false
+            loading: false,
           }));
           return response.data.result.id;
         } catch (error) {
@@ -54,8 +54,8 @@ export const usePostulationsStore = create<PostulationState>()(
                 method: error.config?.method,
                 data: error.config?.data,
                 headers: error.config?.headers,
-                baseURL: error.config?.baseURL
-              }
+                baseURL: error.config?.baseURL,
+              },
             });
 
             // Agregar logs detallados del error
@@ -63,7 +63,7 @@ export const usePostulationsStore = create<PostulationState>()(
               status: error.response?.status,
               statusText: error.response?.statusText,
               headers: error.response?.headers,
-              data: error.response?.data
+              data: error.response?.data,
             });
 
             console.error('[DEBUG] Datos enviados:', {
@@ -71,7 +71,7 @@ export const usePostulationsStore = create<PostulationState>()(
               method: error.config?.method,
               data: error.config?.data,
               headers: error.config?.headers,
-              baseURL: error.config?.baseURL
+              baseURL: error.config?.baseURL,
             });
 
             console.error('[DEBUG] Stack trace:', error.stack);
@@ -86,7 +86,7 @@ export const usePostulationsStore = create<PostulationState>()(
           id,
           updatedFields,
           currentPostulations: get().postulations.length,
-          postulationExists: get().postulations.some(p => p.id === id)
+          postulationExists: get().postulations.some(p => p.id === id),
         });
 
         try {
@@ -94,7 +94,9 @@ export const usePostulationsStore = create<PostulationState>()(
 
           // Validación de campos requeridos
           const requiredFields = ['company', 'position', 'status', 'applicationDate'];
-          const missingFields = requiredFields.filter(field => !updatedFields[field as keyof Postulation]);
+          const missingFields = requiredFields.filter(
+            field => !updatedFields[field as keyof Postulation]
+          );
 
           if (missingFields.length > 0) {
             console.error('❌ [PostulationsStore] Campos requeridos faltantes:', missingFields);
@@ -106,15 +108,15 @@ export const usePostulationsStore = create<PostulationState>()(
             method: 'PATCH',
             data: updatedFields,
             headers: {
-              'Content-Type': 'application/json'
-            }
+              'Content-Type': 'application/json',
+            },
           });
 
           const response = await postulationsApi.update(id, updatedFields);
           console.log('✅ [PostulationsStore] Respuesta del servidor:', {
             status: response.status,
             data: response.data,
-            result: response.data.result
+            result: response.data.result,
           });
 
           // Obtener el token para el userId
@@ -133,19 +135,28 @@ export const usePostulationsStore = create<PostulationState>()(
 
           // Actualizar el estado completo
           const allPostulationsResponse = await postulationsApi.getByUserId(userId);
-          console.log('📦 [PostulationsStore] Estado actualizado con todas las postulaciones:', allPostulationsResponse);
+          console.log(
+            '📦 [PostulationsStore] Estado actualizado con todas las postulaciones:',
+            allPostulationsResponse
+          );
 
-          if (allPostulationsResponse?.result?.postulations && Array.isArray(allPostulationsResponse.result.postulations)) {
+          if (
+            allPostulationsResponse?.result?.postulations &&
+            Array.isArray(allPostulationsResponse.result.postulations)
+          ) {
             const filteredPostulations = allPostulationsResponse.result.postulations.filter(
               (postulation: Postulation) => postulation.userId === userId
             );
 
             set({
               postulations: filteredPostulations,
-              loading: false
+              loading: false,
             });
           } else {
-            console.error('❌ [PostulationsStore] Estructura de respuesta inválida al actualizar:', allPostulationsResponse);
+            console.error(
+              '❌ [PostulationsStore] Estructura de respuesta inválida al actualizar:',
+              allPostulationsResponse
+            );
             set({ loading: false });
           }
         } catch (error) {
@@ -160,8 +171,8 @@ export const usePostulationsStore = create<PostulationState>()(
                 method: error.config?.method,
                 data: error.config?.data,
                 headers: error.config?.headers,
-                baseURL: error.config?.baseURL
-              }
+                baseURL: error.config?.baseURL,
+              },
             });
 
             // Logs adicionales para debugging
@@ -169,7 +180,7 @@ export const usePostulationsStore = create<PostulationState>()(
               status: error.response?.status,
               statusText: error.response?.statusText,
               headers: error.response?.headers,
-              data: error.response?.data
+              data: error.response?.data,
             });
 
             console.error('[DEBUG] Datos enviados:', {
@@ -177,7 +188,7 @@ export const usePostulationsStore = create<PostulationState>()(
               method: error.config?.method,
               data: error.config?.data,
               headers: error.config?.headers,
-              baseURL: error.config?.baseURL
+              baseURL: error.config?.baseURL,
             });
 
             console.error('[DEBUG] Stack trace:', error.stack);
@@ -196,7 +207,7 @@ export const usePostulationsStore = create<PostulationState>()(
           console.log('✅ Postulación eliminada exitosamente');
           set((state: PostulationState) => ({
             postulations: state.postulations.filter((app: Postulation) => app.id !== id),
-            loading: false
+            loading: false,
           }));
         } catch (error) {
           console.error('❌ Error al eliminar postulación:', error);
@@ -207,8 +218,8 @@ export const usePostulationsStore = create<PostulationState>()(
               message: error.message,
               config: {
                 url: error.config?.url,
-                method: error.config?.method
-              }
+                method: error.config?.method,
+              },
             });
           }
           set({ loading: false });
@@ -252,7 +263,7 @@ export const usePostulationsStore = create<PostulationState>()(
             throw new Error('No se encontró el token de autenticación');
           }
 
-          const [, payload] = token.split('.');
+          const [_, payload] = token.split('.');
           const decodedPayload = JSON.parse(atob(payload));
           console.log('📝 Payload decodificado:', decodedPayload);
 
@@ -270,17 +281,17 @@ export const usePostulationsStore = create<PostulationState>()(
           console.log('✅ Respuesta del servidor:', response);
 
           // Verificar que la respuesta tiene la estructura esperada
-          if (response?.data?.result?.postulations && Array.isArray(response.data.result.postulations)) {
-            console.log('📦 Datos de postulaciones:', response.data.result.postulations);
+          if (response?.data?.result?.data && Array.isArray(response.data.result.data)) {
+            console.log('📦 Datos de postulaciones:', response.data.result.data);
             set({
-              postulations: response.data.result.postulations,
-              loading: false
+              postulations: response.data.result.data,
+              loading: false,
             });
           } else {
             console.error('❌ Estructura de respuesta inválida:', response);
             set({
               postulations: [],
-              loading: false
+              loading: false,
             });
           }
         } catch (error) {
@@ -294,17 +305,17 @@ export const usePostulationsStore = create<PostulationState>()(
                 url: error.config?.url,
                 method: error.config?.method,
                 headers: error.config?.headers,
-                baseURL: error.config?.baseURL
-              }
+                baseURL: error.config?.baseURL,
+              },
             });
           }
           set({ loading: false, postulations: [] });
           throw error;
         }
-      }
+      },
     }),
     {
-      name: "job-potulations-storage",
+      name: 'job-potulations-storage',
     }
   )
 );
