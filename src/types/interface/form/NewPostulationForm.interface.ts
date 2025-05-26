@@ -4,12 +4,12 @@ export interface NewPostulationFormValues {
   company: string;
   position: string;
   status: PostulationStatus;
-  date: string;
-  url?: string;
-  notes?: string;
+  applicationDate: string;
+  link?: string;
+  description?: string;
   recruiterContact?: string;
-  sentCV?: boolean;
-  sentEmail?: boolean;
+  sendCv?: boolean;
+  sendEmail?: boolean;
 }
 
 export interface NewPostulationFormProps {

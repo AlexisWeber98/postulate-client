@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import NewPostulationFormContainer from '../../features/postulation/components/NewPostulationForm.container';
 import { postulationsApi } from '../../api/postulations';
-import { usePostulationsStore, useLanguageStore } from '../../store';
+import { usePostulationsStore, useLanguageStore, useAuthStore } from '../../store';
 import { NewPostulationFormValues } from '../../types';
-import { PostulationStatus, PostulationState } from '../../types/interface/postulations/postulation';
+import {
+  PostulationStatus,
+  PostulationState,
+} from '../../types/interface/postulations/postulation';
 import { ApplicationStatus } from '../../interfaces/postulations/application-status';
 
 console.log('[NuevaPostulacionPage] Componente cargado');
@@ -27,6 +30,7 @@ const mapApplicationToPostulationStatus = (status: ApplicationStatus): Postulati
 
 const NuevaPostulacionPage: React.FC = () => {
   const { translate } = useLanguageStore();
+  const { user } = useAuthStore();
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState<string | undefined>();
   const [success, setSuccess] = useState(false);
@@ -42,6 +46,11 @@ const NuevaPostulacionPage: React.FC = () => {
   const handleSubmit = async (values: NewPostulationFormValues) => {
     console.log('[handleSubmit] Valores del formulario recibidos:', values);
 
+    if (!user?.id) {
+      setFormError(translate('errorMessage') || 'No se encontró el ID del usuario.');
+      return;
+    }
+
     setLoading(true);
     setFormError(undefined);
     setSuccess(false);
@@ -51,36 +60,26 @@ const NuevaPostulacionPage: React.FC = () => {
         company,
         position,
         status,
-        date,
-        referenceUrl,
-        notes,
+        applicationDate,
+        link,
+        description,
         recruiterContact,
-        sentCV,
-        sentEmail,
+        sendCv,
+        sendEmail,
       } = values;
 
       const mappedStatus = mapApplicationToPostulationStatus(status as ApplicationStatus);
-
-      console.log('[handleSubmit] Llamando a la API con:', {
-        company,
-        position,
-        status: mappedStatus,
-        date,
-        url: referenceUrl,
-        notes,
-        sentCV,
-        sentEmail,
-      });
 
       await postulationsApi.create({
         company,
         position,
         status: mappedStatus,
-        date,
-        url: referenceUrl,
-        notes,
-        sentCV,
-        sentEmail,
+        applicationDate,
+        link,
+        description,
+        sendCv,
+        sendEmail,
+        userId: user.id,
       });
 
       console.log('[handleSubmit] Postulación enviada exitosamente a la API');
@@ -89,12 +88,13 @@ const NuevaPostulacionPage: React.FC = () => {
         company,
         position,
         status: mappedStatus,
-        date,
-        url: referenceUrl,
-        notes,
+        applicationDate,
+        link,
+        description,
         recruiterContact,
-        sentCV,
-        sentEmail,
+        sendCv,
+        sendEmail,
+        userId: user.id,
       };
 
       console.log('[handleSubmit] Agregando postulación al store:', newPostulation);
@@ -114,11 +114,7 @@ const NuevaPostulacionPage: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="w-full max-w-2xl">
-        <NewPostulationFormContainer
-          onSubmit={handleSubmit}
-          loading={loading}
-          error={formError}
-        />
+        <NewPostulationFormContainer onSubmit={handleSubmit} loading={loading} error={formError} />
         {success && (
           <div className="mt-4 text-green-600 text-center font-semibold">
             {translate('successMessage') || 'Application created successfully!'}

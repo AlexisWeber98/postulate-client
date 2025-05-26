@@ -1,6 +1,9 @@
 import React from 'react';
 import FormField from './FormField.ui';
-import { PostulationStatus, STATUS_LABELS } from '../../../types/interface/postulations/postulation';
+import {
+  PostulationStatus,
+  STATUS_LABELS,
+} from '../../../types/interface/postulations/postulation';
 import { NewPostulationFormProps, NewPostulationFormValues } from '../../../types';
 import { useLanguageStore } from '../../../store';
 import Button from '../../../components/atoms/Button/Button.ui';
@@ -12,14 +15,23 @@ interface UIProps extends Omit<NewPostulationFormProps, 'onSubmit'> {
   values: NewPostulationFormValues;
   errors: Partial<Record<keyof NewPostulationFormValues, string>>;
   touched: Partial<Record<keyof NewPostulationFormValues, boolean>>;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => void;
   onStatusChange: (status: PostulationStatus) => void;
   onCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
   onReset: () => void;
 }
 
-const statusOptions: PostulationStatus[] = ['applied', 'interview', 'technical', 'offer', 'rejected', 'accepted'];
+const statusOptions: PostulationStatus[] = [
+  'applied',
+  'interview',
+  'technical',
+  'offer',
+  'rejected',
+  'accepted',
+];
 
 const NewPostulationFormUI: React.FC<UIProps> = ({
   values,
@@ -68,7 +80,9 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
     }
   };
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     console.log('Cambio en input:', e.target.name, '->', e.target.value);
     onChange(e);
   };
@@ -91,9 +105,16 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
       onSubmit={handleFormSubmit}
       className="relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 border border-blue-400/20 rounded-3xl shadow-2xl p-8 max-w-lg mx-auto mt-10"
     >
-      <h2 className="text-3xl font-extrabold text-white text-center mb-8 drop-shadow">{translate('hero.title')}</h2>
+      <h2 className="text-3xl font-extrabold text-white text-center mb-8 drop-shadow">
+        {translate('hero.title')}
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-        <FormField label={translate('company') || 'Company'} htmlFor="company" required error={touched.company && errors.company ? errors.company : ''}>
+        <FormField
+          label={translate('company') || 'Company'}
+          htmlFor="company"
+          required
+          error={touched.company && errors.company ? errors.company : ''}
+        >
           <input
             id="company"
             name="company"
@@ -105,7 +126,12 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             placeholder={translate('dashboard.companyPlaceholder') || 'Nombre de la empresa'}
           />
         </FormField>
-        <FormField label={translate('position') || 'Position'} htmlFor="position" required error={touched.position && errors.position ? errors.position : ''}>
+        <FormField
+          label={translate('position') || 'Position'}
+          htmlFor="position"
+          required
+          error={touched.position && errors.position ? errors.position : ''}
+        >
           <input
             id="position"
             name="position"
@@ -117,7 +143,12 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             placeholder={translate('dashboard.positionPlaceholder') || 'Título del puesto'}
           />
         </FormField>
-        <FormField label={translate('status') || 'Status'} htmlFor="status" required error={touched.status && errors.status ? errors.status : ''}>
+        <FormField
+          label={translate('status') || 'Status'}
+          htmlFor="status"
+          required
+          error={touched.status && errors.status ? errors.status : ''}
+        >
           <div className="relative" ref={dropdownRef}>
             <button
               type="button"
@@ -129,8 +160,12 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
               aria-controls="status-listbox"
               id="status-button"
             >
-              <span>{values.status ? STATUS_LABELS[values.status] : translate('selectStatus')}</span>
-              <ChevronDown className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+              <span>
+                {values.status ? STATUS_LABELS[values.status] : translate('selectStatus')}
+              </span>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+              />
             </button>
             {isOpen && (
               <div
@@ -140,13 +175,13 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
                 aria-labelledby="status-button"
               >
                 <ul className="py-1 max-h-60 overflow-auto">
-                  {statusOptions.map((status) => (
+                  {statusOptions.map(status => (
                     <li
                       key={status}
                       role="option"
                       aria-selected={values.status === status}
                       onClick={() => handleSelectChange(status)}
-                      onKeyDown={(e) => handleItemKeyDown(e, status)}
+                      onKeyDown={e => handleItemKeyDown(e, status)}
                       tabIndex={0}
                       className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-900 focus:bg-blue-50 focus:outline-none"
                     >
@@ -158,12 +193,17 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             )}
           </div>
         </FormField>
-        <FormField label={translate('date') || 'Date'} htmlFor="date" required error={touched.date && errors.date ? errors.date : ''}>
+        <FormField
+          label={translate('date') || 'Date'}
+          htmlFor="date"
+          required
+          error={touched.applicationDate && errors.applicationDate ? errors.applicationDate : ''}
+        >
           <input
             id="date"
             name="date"
             type="date"
-            value={values.date}
+            value={values.applicationDate}
             onChange={handleFormChange}
             className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none"
             required
@@ -171,22 +211,30 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             max={new Date().toISOString().split('T')[0]}
           />
         </FormField>
-        <FormField label={translate('dashboard.url') || 'URL'} htmlFor="url" error={touched.url && errors.url ? errors.url : ''}>
+        <FormField
+          label={translate('dashboard.url') || 'URL'}
+          htmlFor="url"
+          error={touched.link && errors.link ? errors.link : ''}
+        >
           <input
             id="url"
             name="url"
             type="url"
-            value={values.url}
+            value={values.link}
             onChange={handleFormChange}
             className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
             placeholder={translate('dashboard.urlPlaceholder') || 'URL de la oferta'}
           />
         </FormField>
-        <FormField label={translate('notes') || 'Notes'} htmlFor="notes" error={touched.notes && errors.notes ? errors.notes : ''}>
+        <FormField
+          label={translate('notes') || 'Notes'}
+          htmlFor="notes"
+          error={touched.description && errors.description ? errors.description : ''}
+        >
           <textarea
             id="notes"
             name="notes"
-            value={values.notes}
+            value={values.description}
             onChange={handleFormChange}
             className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
             placeholder={translate('dashboard.notesPlaceholder') || 'Notas adicionales'}
@@ -197,10 +245,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
 
       {/* Acá podés agregar otros campos como notes, recruiterContact, etc. con los mismos handlers */}
 
-      <CheckboxGroup
-        values={values}
-        onChange={handleCheckboxChange}
-      />
+      <CheckboxGroup values={values} onChange={handleCheckboxChange} />
 
       <div className="flex justify-between mt-6">
         <Button type="reset" onClick={onReset} variant="secondary">

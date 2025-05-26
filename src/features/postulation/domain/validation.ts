@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { PostulationStatus } from '../../../types/interface/postulations/postulation';
 
 export const newPostulationSchema = z.object({
   company: z.string().min(1, 'El nombre de la empresa es requerido'),
