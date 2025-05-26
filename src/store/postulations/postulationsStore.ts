@@ -141,10 +141,10 @@ export const usePostulationsStore = create<PostulationState>()(
           );
 
           if (
-            allPostulationsResponse?.result?.postulations &&
-            Array.isArray(allPostulationsResponse.result.postulations)
+            allPostulationsResponse?.result?.data &&
+            Array.isArray(allPostulationsResponse.result.data)
           ) {
-            const filteredPostulations = allPostulationsResponse.result.postulations.filter(
+            const filteredPostulations = allPostulationsResponse.result.data.filter(
               (postulation: Postulation) => postulation.userId === userId
             );
 
