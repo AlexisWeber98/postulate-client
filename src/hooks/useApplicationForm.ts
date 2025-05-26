@@ -1,10 +1,9 @@
-import { useState, useCallback, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { usePostulationsStore } from "../store";
-import { useAuthStore } from "../store/auth/authStore";
-import { PostulationStatus } from "../types/index";
-import { ValidationHelpers, DateHelpers } from "../lib/helpers";
-import axios from "axios";
+import { useState, useCallback, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { usePostulationsStore } from '../store';
+import { useAuthStore } from '../store/auth/authStore';
+import { PostulationStatus } from '../types/index';
+import { ValidationHelpers, DateHelpers } from '../lib/helpers';
 
 interface UseApplicationFormReturn {
   formData: {
@@ -44,21 +43,23 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
   const { addPostulation, updatePostulation, checkDuplicate } = usePostulationsStore();
   const { user } = useAuthStore();
 
-  const [company, setCompany] = useState("");
-  const [position, setPosition] = useState("");
-  const [status, setStatus] = useState<PostulationStatus>("applied");
-  const [date, setDate] = useState("");
-  const [url, setUrl] = useState("");
+  const [company, setCompany] = useState('');
+  const [position, setPosition] = useState('');
+  const [status, setStatus] = useState<PostulationStatus>('applied');
+  const [date, setDate] = useState('');
+  const [url, setUrl] = useState('');
   const [sentCV, setSentCV] = useState(true);
   const [sentEmail, setSentEmail] = useState(true);
-  const [notes, setNotes] = useState("");
-  const [recruiterContact, setRecruiterContact] = useState("");
+  const [notes, setNotes] = useState('');
+  const [recruiterContact, setRecruiterContact] = useState('');
 
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [fieldStatus, setFieldStatus] = useState<Record<string, { isValid: boolean; message?: string }>>({});
+  const [fieldStatus, setFieldStatus] = useState<
+    Record<string, { isValid: boolean; message?: string }>
+  >({});
   const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({});
 
   const validateField = useCallback((name: string, value: string) => {
@@ -66,62 +67,75 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
       case 'company':
         return {
           isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value) ? 'dashboard.validation.companyRequired' : undefined
+          message: !ValidationHelpers.hasContent(value)
+            ? 'dashboard.validation.companyRequired'
+            : undefined,
         };
       case 'position':
         return {
           isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value) ? 'dashboard.validation.positionRequired' : undefined
+          message: !ValidationHelpers.hasContent(value)
+            ? 'dashboard.validation.positionRequired'
+            : undefined,
         };
       case 'url':
         return {
           isValid: !value || ValidationHelpers.isValidUrl(value),
-          message: value && !ValidationHelpers.isValidUrl(value) ? 'dashboard.validation.urlInvalid' : undefined
+          message:
+            value && !ValidationHelpers.isValidUrl(value)
+              ? 'dashboard.validation.urlInvalid'
+              : undefined,
         };
       case 'date':
         return {
           isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value) ? 'dashboard.validation.dateRequired' : undefined
+          message: !ValidationHelpers.hasContent(value)
+            ? 'dashboard.validation.dateRequired'
+            : undefined,
         };
       default:
         return { isValid: true };
     }
   }, []);
 
-  const handleFieldChange = useCallback((name: string, value: string) => {
-    switch (name) {
-      case 'company':
-        setCompany(value);
-        break;
-      case 'position':
-        setPosition(value);
-        break;
-      case 'url':
-        setUrl(value);
-        break;
-    }
-    setFieldStatus(prev => ({ ...prev, [name]: validateField(name, value) }));
-  }, [validateField]);
+  const handleFieldChange = useCallback(
+    (name: string, value: string) => {
+      switch (name) {
+        case 'company':
+          setCompany(value);
+          break;
+        case 'position':
+          setPosition(value);
+          break;
+        case 'url':
+          setUrl(value);
+          break;
+      }
+      setFieldStatus(prev => ({ ...prev, [name]: validateField(name, value) }));
+    },
+    [validateField]
+  );
 
-  const handleFieldBlur = useCallback((name: string, value: string) => {
-    setIsBlurred(prev => ({ ...prev, [name]: true }));
-    setFieldStatus(prev => ({ ...prev, [name]: validateField(name, value) }));
-  }, [validateField]);
+  const handleFieldBlur = useCallback(
+    (name: string, value: string) => {
+      setIsBlurred(prev => ({ ...prev, [name]: true }));
+      setFieldStatus(prev => ({ ...prev, [name]: validateField(name, value) }));
+    },
+    [validateField]
+  );
 
   useEffect(() => {
     const initialValidation = {
       company: validateField('company', company),
       position: validateField('position', position),
       date: validateField('date', date),
-      url: validateField('url', url)
+      url: validateField('url', url),
     };
 
-    const hasChanges = Object.keys(initialValidation).some(
-      (key) => {
-        const typedKey = key as keyof typeof initialValidation;
-        return JSON.stringify(initialValidation[typedKey]) !== JSON.stringify(fieldStatus[typedKey]);
-      }
-    );
+    const hasChanges = Object.keys(initialValidation).some(key => {
+      const typedKey = key as keyof typeof initialValidation;
+      return JSON.stringify(initialValidation[typedKey]) !== JSON.stringify(fieldStatus[typedKey]);
+    });
 
     if (hasChanges) {
       setFieldStatus(initialValidation);
@@ -198,7 +212,7 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
         recruiterContact: recruiterContact || '',
         sendCv: sentCV,
         sendEmail: sentEmail,
-        userId: user.id
+        userId: user.id,
       };
 
       if (id) {
@@ -217,13 +231,13 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
   };
 
   const resetForm = useCallback(() => {
-    setCompany("");
-    setPosition("");
-    setStatus("applied");
+    setCompany('');
+    setPosition('');
+    setStatus('applied');
     setDate(DateHelpers.getCurrentDateISO());
-    setUrl("");
-    setNotes("");
-    setRecruiterContact("");
+    setUrl('');
+    setNotes('');
+    setRecruiterContact('');
     setSentCV(true);
     setSentEmail(true);
     setErrors({});
@@ -246,11 +260,24 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
       recruiterContact,
       sendCv: sentCV,
       sendEmail: sentEmail,
-      userId: user.id
+      userId: user.id,
     });
     setIsSubmitting(false);
-    navigate("/");
-  }, [company, position, status, date, url, notes, recruiterContact, sentCV, sentEmail, addPostulation, navigate, user]);
+    navigate('/');
+  }, [
+    company,
+    position,
+    status,
+    date,
+    url,
+    notes,
+    recruiterContact,
+    sentCV,
+    sentEmail,
+    addPostulation,
+    navigate,
+    user,
+  ]);
 
   return {
     formData: {
