@@ -3,7 +3,7 @@ import { ArrowRight, ArrowLeft } from 'lucide-react';
 import CardFlip from 'react-card-flip';
 import { motion } from 'framer-motion';
 import { TranslationKey } from '../../../i18n';
-import { useIsMobile } from '../../../shared/components/useIsMobile';
+//import { useIsMobile } from '../../../shared/components/useIsMobile';
 
 const trustPoints: { textKey: TranslationKey }[] = [
   { textKey: 'trust.point1' },
@@ -11,13 +11,17 @@ const trustPoints: { textKey: TranslationKey }[] = [
   { textKey: 'trust.point3' },
 ];
 
-const cardSize = "w-full sm:w-72 h-64";
-const cardGradient = "bg-gradient-to-r from-blue-500 to-violet-500 text-white";
-const cardShadow = "shadow-2xl";
+const cardSize = 'w-full sm:w-72 h-64';
+const cardGradient = 'bg-gradient-to-r from-blue-500 to-violet-500 text-white';
+const cardShadow = 'shadow-2xl';
 
-const FlipCard: React.FC<{ title: string; explanation: string; delay?: number }> = ({ title, explanation, delay = 0 }) => {
+const FlipCard: React.FC<{ title: string; explanation: string; delay?: number }> = ({
+  title,
+  explanation,
+  delay = 0,
+}) => {
   const [flipped, setFlipped] = useState(false);
-  const isMobile = useIsMobile();
+  //const isMobile = useIsMobile();
 
   return (
     <motion.div
@@ -65,8 +69,6 @@ interface TrustSectionProps {
 }
 
 const TrustSection: React.FC<TrustSectionProps> = ({ translate }) => {
-  const isMobile = useIsMobile();
-
   return (
     <section className="py-12 sm:py-20 flex flex-col items-center">
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 sm:mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent px-4">
