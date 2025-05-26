@@ -19,8 +19,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["vite/client", "jest", "node"],
+    "allowJs": true,
+    "checkJs": true,
+    "noImplicitAny": false
   },
-  "include": ["src"],
+  "include": ["src", "src/env.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
