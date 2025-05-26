@@ -2,9 +2,12 @@ import React from 'react';
 import { CheckCircle2, XCircle, ClipboardList, Eye, Search, Paperclip, HelpCircle, Hourglass } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { TranslationKey } from '@/i18n';
-import { useLanguageStore } from '@/store';
 
-const BenefitsSection: React.FC = () => {
+interface BenefitsSectionProps {
+  translate: (key: TranslationKey) => string;
+}
+
+const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -37,8 +40,6 @@ const BenefitsSection: React.FC = () => {
     'benefits.before.point2',
     'benefits.before.point3'
   ];
-
-  const translate = useLanguageStore(state=>state.translate);
 
   return (
     <section className="py-20">
