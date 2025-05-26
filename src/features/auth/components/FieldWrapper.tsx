@@ -54,7 +54,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.2 }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
+            className="absolute right-10 top-1/2 -translate-y-1/2 pointer-events-none"
           >
             {fieldStatus.isValid ? (
               <CheckCircle2 className="h-5 w-5 text-green-500" />
