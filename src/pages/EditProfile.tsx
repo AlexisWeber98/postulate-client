@@ -3,7 +3,7 @@ import { useAuthStore } from '../store/auth/authStore';
 import { Save, Loader2 } from 'lucide-react';
 import { isValidEmail, hasContent } from '../lib/helpers/validation.helpers';
 import Button from '../components/atoms/Button/Button.ui';
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 import { useLanguageStore } from '../store';
 import FieldWrapper from '../components/molecules/FieldWrapper/FieldWrapper';
 import type { TranslationKey } from '../i18n/types';
@@ -21,23 +21,25 @@ const EditProfile: React.FC = () => {
   const [email, setEmail] = useState(user?.email || '');
   const [lastName, setLastName] = useState(user?.lastName || '');
   const [userName, setUserName] = useState(user?.userName || '');
-  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [_profileImage, setProfileImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>(user?.profileImage || '');
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [fieldStatus, setFieldStatus] = useState<Record<FieldName, { isValid: boolean; message?: string }>>({
+  const [fieldStatus, setFieldStatus] = useState<
+    Record<FieldName, { isValid: boolean; message?: string }>
+  >({
     name: { isValid: false },
     email: { isValid: false },
     lastName: { isValid: false },
-    userName: { isValid: false }
+    userName: { isValid: false },
   });
   const [isBlurred, setIsBlurred] = useState<Record<FieldName, boolean>>({
     name: false,
     email: false,
     lastName: false,
-    userName: false
+    userName: false,
   });
 
   // Validación en tiempo real
@@ -47,13 +49,13 @@ const EditProfile: React.FC = () => {
         ...prev,
         name: {
           isValid: false,
-          message: translate('profile.validation.nameRequired')
-        }
+          message: translate('profile.validation.nameRequired'),
+        },
       }));
     } else {
       setFieldStatus(prev => ({
         ...prev,
-        name: { isValid: true }
+        name: { isValid: true },
       }));
     }
 
@@ -62,13 +64,13 @@ const EditProfile: React.FC = () => {
         ...prev,
         email: {
           isValid: false,
-          message: translate('profile.validation.emailInvalid')
-        }
+          message: translate('profile.validation.emailInvalid'),
+        },
       }));
     } else {
       setFieldStatus(prev => ({
         ...prev,
-        email: { isValid: true }
+        email: { isValid: true },
       }));
     }
 
@@ -77,13 +79,13 @@ const EditProfile: React.FC = () => {
         ...prev,
         lastName: {
           isValid: false,
-          message: translate('auth.validation.lastName')
-        }
+          message: translate('auth.validation.lastName'),
+        },
       }));
     } else {
       setFieldStatus(prev => ({
         ...prev,
-        lastName: { isValid: true }
+        lastName: { isValid: true },
       }));
     }
 
@@ -92,13 +94,13 @@ const EditProfile: React.FC = () => {
         ...prev,
         userName: {
           isValid: false,
-          message: translate('auth.validation.userName')
-        }
+          message: translate('auth.validation.userName'),
+        },
       }));
     } else {
       setFieldStatus(prev => ({
         ...prev,
-        userName: { isValid: true }
+        userName: { isValid: true },
       }));
     }
   }, [name, email, lastName, userName, translate]);
@@ -144,19 +146,24 @@ const EditProfile: React.FC = () => {
     e.preventDefault();
     setError(null);
 
-    if ((name && !hasContent(name)) || (email && !isValidEmail(email)) || (lastName && !hasContent(lastName)) || (userName && !hasContent(userName))) {
+    if (
+      (name && !hasContent(name)) ||
+      (email && !isValidEmail(email)) ||
+      (lastName && !hasContent(lastName)) ||
+      (userName && !hasContent(userName))
+    ) {
       setError(translate('profile.validation.formInvalid'));
       return;
     }
 
     setIsLoading(true);
     try {
-      await updateUser({
+      updateUser({
         name,
         email,
         lastName,
         userName,
-        profileImage: previewUrl
+        profileImage: previewUrl,
       });
       setSuccess(true);
       setTimeout(() => setSuccess(false), 2000);
@@ -185,7 +192,9 @@ const EditProfile: React.FC = () => {
         >
           {translate('profile.title')}
         </motion.h1>
-        <p className="text-gray-600 dark:text-gray-300 text-center mb-6 text-base">{translate('profile.description')}</p>
+        <p className="text-gray-600 dark:text-gray-300 text-center mb-6 text-base">
+          {translate('profile.description')}
+        </p>
 
         <div className="flex flex-col items-center mb-6">
           <button type="button" className="relative group focus:outline-none">
@@ -216,7 +225,9 @@ const EditProfile: React.FC = () => {
               </span>
             </label>
           </button>
-          <span className="text-2xl text-gray-700 dark:text-gray-200 font-semibold mt-2">{user?.name}</span>
+          <span className="text-2xl text-gray-700 dark:text-gray-200 font-semibold mt-2">
+            {user?.name}
+          </span>
 
           {error && (
             <motion.div
@@ -225,8 +236,18 @@ const EditProfile: React.FC = () => {
               className="mt-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg w-full max-w-xs"
             >
               <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
-                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="w-4 h-4 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
                 <p className="text-sm font-medium text-center">
                   {translate(error as TranslationKey)}
@@ -255,7 +276,7 @@ const EditProfile: React.FC = () => {
                 type="text"
                 id="name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={e => setName(e.target.value)}
                 onBlur={() => handleFieldBlur('name')}
                 className={`w-full bg-white/80 dark:bg-white/10 text-gray-900 dark:text-white rounded-2xl px-5 py-4 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner transition-all duration-200 ${!fieldStatus.name?.isValid && isBlurred.name ? 'ring-2 ring-red-400' : ''}`}
                 placeholder={translate('profile.placeholders.name')}
@@ -275,7 +296,7 @@ const EditProfile: React.FC = () => {
                 type="text"
                 id="lastName"
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={e => setLastName(e.target.value)}
                 onBlur={() => handleFieldBlur('lastName')}
                 className={`w-full bg-white/80 dark:bg-white/10 text-gray-900 dark:text-white rounded-2xl px-5 py-4 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner transition-all duration-200 ${!fieldStatus.lastName?.isValid && isBlurred.lastName ? 'ring-2 ring-red-400' : ''}`}
                 placeholder="Tu apellido"
@@ -295,7 +316,7 @@ const EditProfile: React.FC = () => {
                 type="text"
                 id="userName"
                 value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={e => setUserName(e.target.value)}
                 onBlur={() => handleFieldBlur('userName')}
                 className={`w-full bg-white/80 dark:bg-white/10 text-gray-900 dark:text-white rounded-2xl px-5 py-4 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner transition-all duration-200 ${!fieldStatus.userName?.isValid && isBlurred.userName ? 'ring-2 ring-red-400' : ''}`}
                 placeholder="Tu nombre de usuario"
@@ -315,7 +336,7 @@ const EditProfile: React.FC = () => {
                 type="email"
                 id="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 onBlur={() => handleFieldBlur('email')}
                 className={`w-full bg-white/80 dark:bg-white/10 text-gray-900 dark:text-white rounded-2xl px-5 py-4 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner transition-all duration-200 ${!fieldStatus.email?.isValid && isBlurred.email ? 'ring-2 ring-red-400' : ''}`}
                 placeholder={translate('profile.placeholders.email')}
@@ -337,7 +358,13 @@ const EditProfile: React.FC = () => {
               size="lg"
               disabled={isLoading || Object.values(fieldStatus).some(f => !f.isValid)}
               className="w-full md:w-auto px-10 py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-2xl shadow-xl text-white font-bold text-lg border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-              icon={isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
+              icon={
+                isLoading ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : (
+                  <Save className="h-5 w-5" />
+                )
+              }
             >
               {isLoading ? translate('common.saving') : translate('profile.actions.save')}
             </Button>
@@ -349,7 +376,17 @@ const EditProfile: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               className="mt-4 text-center flex items-center justify-center gap-2"
             >
-              <span className="inline-block bg-green-100 dark:bg-green-900/40 rounded-full p-1"><svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg></span>
+              <span className="inline-block bg-green-100 dark:bg-green-900/40 rounded-full p-1">
+                <svg
+                  className="w-5 h-5 text-green-600 dark:text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
               <p className="text-green-600 dark:text-green-400 font-medium">
                 {translate('profile.messages.updated')}
               </p>

@@ -1,7 +1,5 @@
-import { AxiosResponse, InternalAxiosRequestConfig, AxiosRequestHeaders } from "axios";
-import { Postulation } from "../../types/interface/postulations/postulation";
-import { useAuthStore } from "../../store/auth/authStore";
-import { API_URL } from "../apiAxios";
+import { AxiosResponse, InternalAxiosRequestConfig, AxiosRequestHeaders } from 'axios';
+import { useAuthStore } from '../../store/auth/authStore';
 
 // Función para decodificar el token JWT
 const getUserIdFromToken = () => {
@@ -29,15 +27,15 @@ const getUserIdFromToken = () => {
 export const postulationRequestInterceptor = {
   onFulfilled: (config: InternalAxiosRequestConfig) => {
     console.log('[DEBUG] ===== INICIO REQUEST INTERCEPTOR =====');
-    console.log('[DEBUG] URL:', config.url);
-    console.log('[DEBUG] Método:', config.method);
     console.log('[DEBUG] Datos originales:', config.data);
 
-    if (config.url?.includes('/postulations') && (config.method === 'post' || config.method === 'patch')) {
+    if (
+      config.url?.includes('/postulations') &&
+      (config.method === 'post' || config.method === 'patch')
+    ) {
       console.log('[DEBUG] Procesando petición de postulación');
 
       const userId = getUserIdFromToken();
-      console.log('[DEBUG] UserId obtenido:', userId);
 
       if (!userId) {
         console.error('[DEBUG] Error: No se encontró userId en el token');
@@ -60,9 +58,9 @@ export const postulationRequestInterceptor = {
             sendCv: data.data?.sendCv ?? false,
             sendEmail: data.data?.sendEmail ?? false,
             recruiterContact: data.data?.recruiterContact || '',
-            userId: data.data?.userId
+            userId: data.data?.userId,
           },
-          postulationId: data.postulationId
+          postulationId: data.postulationId,
         };
 
         console.log('[DEBUG] Datos formateados para PATCH:', formattedData);
@@ -79,7 +77,7 @@ export const postulationRequestInterceptor = {
           sendCv: data.sendCv ?? false,
           sendEmail: data.sendEmail ?? false,
           recruiterContact: data.recruiterContact || '',
-          userId
+          userId,
         };
 
         console.log('[DEBUG] Datos formateados para POST:', formattedData);
@@ -99,7 +97,7 @@ export const postulationRequestInterceptor = {
     if (token) {
       console.log('[DEBUG] Agregando token de autorización');
       config.headers = {
-        ...config.headers as Record<string, string>,
+        ...(config.headers as Record<string, string>),
         Authorization: `Bearer ${token}`,
       } as AxiosRequestHeaders;
     }
@@ -111,7 +109,7 @@ export const postulationRequestInterceptor = {
   onRejected: (error: any) => {
     console.error('[DEBUG] Error en request interceptor:', error);
     return Promise.reject(error);
-  }
+  },
 };
 
 // Interceptor para transformar la respuesta de postulaciones
@@ -132,5 +130,5 @@ export const postulationResponseInterceptor = {
     console.error('[DEBUG] Datos del error:', error.response?.data);
     console.error('[DEBUG] ===== FIN ERROR RESPONSE INTERCEPTOR =====');
     return Promise.reject(error);
-  }
+  },
 };

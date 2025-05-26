@@ -1,8 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, XCircle, Info } from "lucide-react";
-import { PostulationStatus, STATUS_LABELS } from "../../../types";
-import { useLanguageStore } from "../../../store/language/languageStore";
-import { TranslationKey } from "../../../i18n";
+import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle2, XCircle, Info } from 'lucide-react';
+import { PostulationStatus, STATUS_LABELS } from '../../../types';
 
 interface ApplicationFormFieldsProps {
   formData: {
@@ -23,7 +21,7 @@ interface ApplicationFormFieldsProps {
   translate: (key: string) => string;
 }
 
-const translate = useLanguageStore((state: { translate: (key: TranslationKey) => string }) => state.translate);
+//const translate = useLanguageStore((state: { translate: (key: TranslationKey) => string }) => state.translate);
 
 const FieldWrapper: React.FC<{
   name: string;
@@ -36,11 +34,17 @@ const FieldWrapper: React.FC<{
 }> = ({ name, label, required, children, tooltip, isBlurred, fieldStatus }) => {
   return (
     <div className="relative">
-      <label htmlFor={name} className="text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
+      <label
+        htmlFor={name}
+        className="text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2"
+      >
         {label} {required && <span className="text-red-500">*</span>}
         {tooltip && (
           <div className="group relative">
-            <Info className="h-4 w-4 text-blue-500 dark:text-blue-400 cursor-help" aria-hidden="true" />
+            <Info
+              className="h-4 w-4 text-blue-500 dark:text-blue-400 cursor-help"
+              aria-hidden="true"
+            />
             <button
               type="button"
               className="sr-only focus:not-sr-only focus:absolute focus:z-10"
@@ -90,7 +94,7 @@ const FieldWrapper: React.FC<{
           <motion.p
             id={`${name}-error`}
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
+            animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
             className="mt-2 text-sm text-red-500 dark:text-red-400 overflow-hidden"
@@ -109,7 +113,7 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
   isBlurred,
   onFieldChange,
   onFieldBlur,
-  translate
+  translate,
 }) => {
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -125,8 +129,8 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
           type="text"
           id="company"
           value={formData.company}
-          onChange={(e) => onFieldChange('company', e.target.value)}
-          onBlur={(e) => onFieldBlur('company', e.target.value)}
+          onChange={e => onFieldChange('company', e.target.value)}
+          onBlur={e => onFieldBlur('company', e.target.value)}
           className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.company?.isValid && isBlurred.company ? 'ring-2 ring-red-400' : ''}`}
           placeholder={translate('dashboard.companyPlaceholder')}
           required
@@ -147,8 +151,8 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
           type="text"
           id="position"
           value={formData.position}
-          onChange={(e) => onFieldChange('position', e.target.value)}
-          onBlur={(e) => onFieldBlur('position', e.target.value)}
+          onChange={e => onFieldChange('position', e.target.value)}
+          onBlur={e => onFieldBlur('position', e.target.value)}
           className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.position?.isValid && isBlurred.position ? 'ring-2 ring-red-400' : ''}`}
           placeholder={translate('dashboard.positionPlaceholder')}
           required
@@ -158,13 +162,16 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
       </FieldWrapper>
 
       <div>
-        <label htmlFor="status" className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+        <label
+          htmlFor="status"
+          className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow"
+        >
           {translate('status')} *
         </label>
         <select
           id="status"
           value={formData.status}
-          onChange={(e) => onFieldChange('status', e.target.value as PostulationStatus)}
+          onChange={e => onFieldChange('status', e.target.value as PostulationStatus)}
           className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none"
           required
         >
@@ -177,14 +184,17 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
       </div>
 
       <div>
-        <label htmlFor="date" className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+        <label
+          htmlFor="date"
+          className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow"
+        >
           {translate('dashboard.date')} *
         </label>
         <input
           type="date"
           id="date"
           value={formData.date}
-          onChange={(e) => onFieldChange('date', e.target.value)}
+          onChange={e => onFieldChange('date', e.target.value)}
           className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none"
           required
         />
@@ -202,8 +212,8 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
             type="url"
             id="url"
             value={formData.url}
-            onChange={(e) => onFieldChange('url', e.target.value)}
-            onBlur={(e) => onFieldBlur('url', e.target.value)}
+            onChange={e => onFieldChange('url', e.target.value)}
+            onBlur={e => onFieldBlur('url', e.target.value)}
             className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.url?.isValid && isBlurred.url ? 'ring-2 ring-red-400' : ''}`}
             placeholder={translate('dashboard.referenceUrlPlaceholder')}
           />
@@ -211,13 +221,16 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
       </div>
 
       <div className="md:col-span-2">
-        <label htmlFor="notes" className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+        <label
+          htmlFor="notes"
+          className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow"
+        >
           {translate('notes')}
         </label>
         <textarea
           id="notes"
           value={formData.notes}
-          onChange={(e) => onFieldChange('notes', e.target.value)}
+          onChange={e => onFieldChange('notes', e.target.value)}
           rows={5}
           className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none"
           placeholder={translate('dashboard.notesPlaceholder')}
@@ -225,14 +238,17 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
       </div>
 
       <div className="col-span-2">
-        <label htmlFor="recruiterContact" className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+        <label
+          htmlFor="recruiterContact"
+          className="text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow"
+        >
           {translate('recruiterContact')}
         </label>
         <input
           type="text"
           id="recruiterContact"
           value={formData.recruiterContact}
-          onChange={(e) => onFieldChange('recruiterContact', e.target.value)}
+          onChange={e => onFieldChange('recruiterContact', e.target.value)}
           placeholder={translate('dashboard.recruiterContactPlaceholder')}
           className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none"
         />
@@ -256,10 +272,13 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
                 type="checkbox"
                 id="sendCv"
                 checked={formData.sentCV}
-                onChange={(e) => onFieldChange('sentCV', e.target.checked)}
+                onChange={e => onFieldChange('sentCV', e.target.checked)}
                 className="accent-blue-500 w-5 h-5 rounded"
               />
-              <label htmlFor="sendCv" className="text-gray-700 dark:text-white/90 text-base cursor-pointer">
+              <label
+                htmlFor="sendCv"
+                className="text-gray-700 dark:text-white/90 text-base cursor-pointer"
+              >
                 {translate('dashboard.sentCV')}
               </label>
             </div>
@@ -268,10 +287,13 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
                 type="checkbox"
                 id="sendEmail"
                 checked={formData.sentEmail}
-                onChange={(e) => onFieldChange('sentEmail', e.target.checked)}
+                onChange={e => onFieldChange('sentEmail', e.target.checked)}
                 className="accent-blue-500 w-5 h-5 rounded"
               />
-              <label htmlFor="sendEmail" className="text-gray-700 dark:text-white/90 text-base cursor-pointer">
+              <label
+                htmlFor="sendEmail"
+                className="text-gray-700 dark:text-white/90 text-base cursor-pointer"
+              >
                 {translate('dashboard.sentEmail')}
               </label>
             </div>

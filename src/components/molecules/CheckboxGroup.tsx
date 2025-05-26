@@ -15,7 +15,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ values, onChange, classNa
           type="checkbox"
           id="sentCV"
           name="sentCV"
-          checked={values.sentCV}
+          checked={values.sendCv}
           onChange={onChange}
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
         />
@@ -28,7 +28,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ values, onChange, classNa
           type="checkbox"
           id="sentEmail"
           name="sentEmail"
-          checked={values.sentEmail}
+          checked={values.sendEmail}
           onChange={onChange}
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
         />
