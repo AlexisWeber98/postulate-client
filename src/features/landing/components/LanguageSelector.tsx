@@ -1,8 +1,8 @@
 import React from 'react';
-import { useLanguage } from '../../../context/LanguageContext';
+import { useLanguageStore } from '../../../store';
 
 const LanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) => {
-  const { lang, setLang } = useLanguage();
+  const { lang, setLanguage } = useLanguageStore();
 
   return (
     <div
@@ -10,7 +10,7 @@ const LanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) 
       style={{ minWidth: 80 }}
     >
       <button
-        onClick={() => setLang('es')}
+        onClick={() => setLanguage('es')}
         className={`flex-1 h-full flex items-center justify-center transition-all font-bold
           ${lang === 'es'
             ? 'bg-gradient-to-r from-blue-500 to-violet-500 text-white'
@@ -22,7 +22,7 @@ const LanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) 
         <span className="text-lg">🇦🇷</span>
       </button>
       <button
-        onClick={() => setLang('en')}
+        onClick={() => setLanguage('en')}
         className={`flex-1 h-full flex items-center justify-center transition-all font-bold
           ${lang === 'en'
             ? 'bg-gradient-to-r from-blue-500 to-violet-500 text-white'

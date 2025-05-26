@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useCallback } from 'react';
 import { Briefcase, Building2, ListFilter } from 'lucide-react';
 import {
   Select,
@@ -8,11 +7,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../components/ui/select';
-import { ApplicationStatus } from '../../interfaces/components/atoms/badges/StatusBadge.interface';
+import { PostulationStatus } from '../../types/interface/postulations/postulation';
+import { useLanguageStore } from '../../store';
 
 interface FilterSelectsProps {
-  statusFilter: ApplicationStatus | 'all';
-  setStatusFilter: (value: ApplicationStatus | 'all') => void;
+  statusFilter: PostulationStatus | 'all';
+  setStatusFilter: (value: PostulationStatus | 'all') => void;
   companies: string[];
   companyFilter: string;
   setCompanyFilter: (value: string) => void;
@@ -20,6 +20,16 @@ interface FilterSelectsProps {
   positionFilter: string;
   setPositionFilter: (value: string) => void;
 }
+
+const statusOptions: (PostulationStatus | 'all')[] = [
+  'all',
+  'applied',
+  'interview',
+  'technical',
+  'offer',
+  'rejected',
+  'accepted'
+];
 
 const FilterSelects: React.FC<FilterSelectsProps> = ({
   statusFilter,
@@ -31,9 +41,21 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
   positionFilter,
   setPositionFilter,
 }) => {
+  const translate = useLanguageStore(state=>state.translate);
+
   // Manejador tipado para statusFilter
   const handleStatusChange = (value: string) => {
-    setStatusFilter(value as ApplicationStatus | 'all');
+    if (value.startsWith('company-')) {
+      setCompanyFilter(value.replace('company-', ''));
+      setStatusFilter('all');
+      setPositionFilter('all');
+    } else if (value.startsWith('position-')) {
+      setPositionFilter(value.replace('position-', ''));
+      setStatusFilter('all');
+      setCompanyFilter('all');
+    } else {
+      setStatusFilter(value as PostulationStatus | 'all');
+    }
   };
 
   // Handlers para convertir valores "all" a cadenas vacías y viceversa
@@ -42,7 +64,6 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
       setCompanyFilter(value === "all" ? "" : value);
     } catch (error) {
       console.error("Error al cambiar el filtro de empresa:", error);
-      // Restablecer el filtro en caso de error
       setCompanyFilter("");
     }
   };
@@ -51,16 +72,15 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
     try {
       setPositionFilter(value === "all" ? "" : value);
     } catch (error) {
-      console.error("Error al cambiar el filtro de puesto:", error);
-      // Restablecer el filtro en caso de error
+      console.error("Error al cambiar el filtro de posición:", error);
       setPositionFilter("");
     }
   };
 
   // Badge counter para mostrar cuántos elementos hay en cada categoría
-  const getBadgeCounter = (items: string[]) => {
+  const getBadgeCounter = useCallback((items: string[]) => {
     return items.length > 0 ? `(${items.length})` : '';
-  };
+  }, []);
 
   // Valores seguros para los selects que nunca deben ser undefined
   const safeCompanyValue = companyFilter === "" ? "all" : companyFilter;
@@ -72,20 +92,26 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
       <div className="w-full md:w-64">
         <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
           <ListFilter className="h-4 w-4" />
-          <span>Estado</span>
+          <span>{translate('dashboard.filters.status')}</span>
         </div>
         <Select value={statusFilter} onValueChange={handleStatusChange}>
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Todos los estados" />
+            <SelectValue placeholder={translate('dashboard.filters.all')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Todos los estados</SelectItem>
-            <SelectItem value="applied">Aplicado</SelectItem>
-            <SelectItem value="interview">Entrevista</SelectItem>
-            <SelectItem value="technical">Prueba Técnica</SelectItem>
-            <SelectItem value="offer">Oferta</SelectItem>
-            <SelectItem value="rejected">Rechazado</SelectItem>
-            <SelectItem value="accepted">Aceptado</SelectItem>
+            <SelectItem value="all">{translate('dashboard.filters.all')}</SelectItem>
+            {statusOptions.filter(status => status !== 'all').map((status) => (
+              <SelectItem key={status} value={status}>{status}</SelectItem>
+            ))}
+            {/* Separador visual */}
+            <div className="px-2 py-1 text-xs text-gray-400 select-none cursor-default">{translate('dashboard.filters.company')}</div>
+            {companies && companies.length > 0 && companies.map((company) => (
+              <SelectItem key={`company-${company}`} value={`company-${company}`}>{company}</SelectItem>
+            ))}
+            <div className="px-2 py-1 text-xs text-gray-400 select-none cursor-default">{translate('dashboard.filters.position')}</div>
+            {positions && positions.length > 0 && positions.map((position) => (
+              <SelectItem key={`position-${position}`} value={`position-${position}`}>{position}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -94,7 +120,7 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
       <div className="w-full md:w-64">
         <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
           <Building2 className="h-4 w-4" />
-          <span>Empresa {getBadgeCounter(companies)}</span>
+          <span>{translate('dashboard.filters.company')} {getBadgeCounter(companies)}</span>
         </div>
         <Select
           value={safeCompanyValue}
@@ -102,16 +128,16 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
           defaultValue="all"
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Todas las empresas" />
+            <SelectValue placeholder={translate('dashboard.filters.selectCompany')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Todas las empresas</SelectItem>
+            <SelectItem value="all">{translate('dashboard.filters.selectCompany')}</SelectItem>
             {companies && companies.length > 0 ? (
               companies.map((company) => (
                 <SelectItem key={company} value={company}>{company}</SelectItem>
               ))
             ) : (
-              <SelectItem value="all" disabled>No hay empresas disponibles</SelectItem>
+              <SelectItem value="all" disabled>{translate('dashboard.filters.noCompanies')}</SelectItem>
             )}
           </SelectContent>
         </Select>
@@ -121,7 +147,7 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
       <div className="w-full md:w-64">
         <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
           <Briefcase className="h-4 w-4" />
-          <span>Puesto {getBadgeCounter(positions)}</span>
+          <span>{translate('dashboard.filters.position')} {getBadgeCounter(positions)}</span>
         </div>
         <Select
           value={safePositionValue}
@@ -129,16 +155,16 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
           defaultValue="all"
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Todos los puestos" />
+            <SelectValue placeholder={translate('dashboard.filters.selectPosition')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Todos los puestos</SelectItem>
+            <SelectItem value="all">{translate('dashboard.filters.selectPosition')}</SelectItem>
             {positions && positions.length > 0 ? (
               positions.map((position) => (
                 <SelectItem key={position} value={position}>{position}</SelectItem>
               ))
             ) : (
-              <SelectItem value="all" disabled>No hay puestos disponibles</SelectItem>
+              <SelectItem value="all" disabled>{translate('dashboard.filters.noPositions')}</SelectItem>
             )}
           </SelectContent>
         </Select>

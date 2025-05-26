@@ -1,0 +1,8 @@
+{
+  "path": "cz-conventional-changelog",
+  "defaultType": "feat",
+  "defaultScope": "general",
+  "defaultSubject": "",
+  "defaultBody": "",
+  "defaultIssues": "none"
+}

@@ -1,33 +1,25 @@
-import { client } from './client';
+import { httpClient } from './client';
 import { User } from '../types';
+import { LoginRequest, RegisterRequest } from '../features/auth/types/auth.types';
 
-// Interfaces para las solicitudes
-interface LoginRequest {
-  email: string;
-  password: string;
-}
 
-interface RegisterRequest {
-  email: string;
-  password: string;
-  name: string;
-}
 
 // Servicio para autenticación
 export const authApi = {
   // Iniciar sesión
   login: (credentials: LoginRequest) =>
-    client.post<User>('/auth/login', credentials),
+    httpClient.post<{ result: string }>('/auth/login', credentials),
 
   // Registrar un nuevo usuario
   register: (userData: RegisterRequest) =>
-    client.post<User>('/auth/register', userData),
+    httpClient.post<{ result: { user: User; token: string } }>('/auth/register', userData),
 
-  // Cerrar sesión
-  logout: () =>
-    client.post<void>('/auth/logout', {}),
-
-  // Obtener usuario actual
-  getCurrentUser: () =>
-    client.get<User | null>('/auth/me'),
+  // Actualizar perfil de usuario
+  updateProfile: (id: string, userData: { name?: string; email?: string; lastName?: string; userName?: string }) => {
+    const { lastName, ...rest } = userData;
+    return httpClient.patch<{ result: User }>(`/users/${id}`, {
+      ...rest,
+      lastname: lastName // Convertir lastName a lastname para coincidir con la API
+    });
+  },
 };

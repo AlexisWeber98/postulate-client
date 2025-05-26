@@ -10,6 +10,7 @@ const Button: React.FC<ButtonProps> = ({
   type = 'button',
   disabled = false,
   icon,
+  loading = false,
 }) => {
   const baseStyles = 'inline-flex items-center justify-center font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2';
 
@@ -26,16 +27,20 @@ const Button: React.FC<ButtonProps> = ({
     lg: 'px-6 py-3 text-base',
   };
 
-  const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer';
+  const disabledStyles = (disabled || loading) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer';
 
   return (
     <button
       type={type}
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || loading}
       className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size as keyof typeof sizeStyles]} ${disabledStyles} ${className}`}
     >
-      {icon && <span className="mr-2">{icon}</span>}
+      {loading ? (
+        <span className="mr-2">⌛</span>
+      ) : icon ? (
+        <span className="mr-2">{icon}</span>
+      ) : null}
       {children}
     </button>
   );

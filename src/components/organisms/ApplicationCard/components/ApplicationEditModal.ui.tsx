@@ -3,12 +3,20 @@ import Modal from '../../../molecules/Modal';
 import { ApplicationCardProps } from '../../../../interfaces/components/organisms/ApplicationCard.interface';
 import { STATUS_LABELS, Postulation, PostulationStatus } from '../../../../types/interface/postulations/postulation';
 import StyledModalContainer from "../../../shared/components/StyledModalContainer/StyledModalContainer.ui";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem
+} from '../../../ui/select';
 
 interface ApplicationEditModalUIProps extends ApplicationCardProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (updatedApplication: Postulation) => void;
-  onDelete: () => void;
+  onDelete: () => Promise<void>;
+  isLoading: boolean;
 }
 
 const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
@@ -16,138 +24,223 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   isOpen,
   onClose,
   onSave,
-  onDelete,
+  isLoading
 }) => {
+  const [formData, setFormData] = React.useState<Partial<Postulation>>({
+    status: application?.status || 'applied',
+    company: application?.company || '',
+    position: application?.position || '',
+    applicationDate: application?.applicationDate || '',
+    link: application?.link || '',
+    description: application?.description || '',
+    recruiterContact: application?.recruiterContact || '',
+    sendCv: application?.sendCv || false,
+    sendEmail: application?.sendEmail || false
+  });
+
   if (!application) return null;
-  const { company, position, status, date, url, notes } = application;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+    }));
+  };
+
+  const handleStatusChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      status: value as PostulationStatus
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
+
+    // Validación básica de campos requeridos
+    if (!formData.company || !formData.position || !formData.applicationDate) {
+      console.error('[ApplicationEditModal] Campos requeridos faltantes:', formData);
+      return;
+    }
+
     const updatedApplication: Postulation = {
-      ...application,
-      company: formData.get('company') as string,
-      position: formData.get('position') as string,
-      status: formData.get('status') as PostulationStatus,
-      date: formData.get('date') as string,
-      url: formData.get('url') as string,
-      notes: formData.get('notes') as string,
+      id: application.id,
+      userId: application.userId,
+      company: formData.company!,
+      position: formData.position!,
+      status: formData.status!,
+      applicationDate: formData.applicationDate!,
+      link: formData.link || '',
+      description: formData.description || '',
+      recruiterContact: formData.recruiterContact || '',
+      sendCv: formData.sendCv || false,
+      sendEmail: formData.sendEmail || false,
+      createdAt: application.createdAt,
+      updatedAt: new Date().toISOString()
     };
+
     onSave(updatedApplication);
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <StyledModalContainer>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3 max-w-md mx-auto">
           {/* Botón de cerrar */}
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 shadow-lg transition-all"
+            className="absolute top-2 right-2 bg-white/20 hover:bg-white/40 text-white rounded-full p-1.5 shadow-lg transition-all"
             aria-label="Cerrar"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
-          {/* Avatar grande */}
-          <div className="flex justify-center items-center mb-6">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-blue-400 to-blue-700 flex items-center justify-center text-white text-3xl font-bold shadow-lg border-4 border-blue-300/40">
-              {company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)}
+          {/* Avatar más pequeño */}
+          <div className="flex justify-center items-center mb-3">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-blue-400 to-blue-700 flex items-center justify-center text-white text-2xl font-bold shadow-lg border-2 border-blue-300/40">
+              {formData.company ? formData.company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) : 'NA'}
             </div>
           </div>
 
           {/* Campos del formulario */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             <div>
-              <label className="block text-white/90 text-sm mb-1">Empresa</label>
+              <label className="block text-white/90 text-xs mb-0.5">Empresa *</label>
               <input
                 type="text"
                 name="company"
-                defaultValue={company}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+                value={formData.company}
+                onChange={handleInputChange}
+                required
+                className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-white/90 text-sm mb-1">Puesto</label>
+              <label className="block text-white/90 text-xs mb-0.5">Puesto *</label>
               <input
                 type="text"
                 name="position"
-                defaultValue={position}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+                value={formData.position}
+                onChange={handleInputChange}
+                required
+                className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-white/90 text-sm mb-1">Estado</label>
-              <select
-                name="status"
-                defaultValue={status}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+              <label className="block text-white/90 text-xs mb-0.5">Estado *</label>
+              <Select 
+                value={formData.status} 
+                onValueChange={handleStatusChange}
+                defaultValue={formData.status}
               >
-                {Object.entries(STATUS_LABELS).map(([key, label]) => (
-                  <option key={key} value={key} className="bg-gray-800">
-                    {label}
-                  </option>
-                ))}
-              </select>
+                <SelectTrigger 
+                  className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
+                >
+                  <SelectValue placeholder="Selecciona un estado" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(STATUS_LABELS).map(([key, label]) => (
+                    <SelectItem 
+                      key={key} 
+                      value={key}
+                    >
+                      {label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div>
-              <label className="block text-white/90 text-sm mb-1">Fecha</label>
+              <label className="block text-white/90 text-xs mb-0.5">Fecha *</label>
               <input
                 type="date"
-                name="date"
-                defaultValue={date}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+                name="applicationDate"
+                value={formData.applicationDate}
+                onChange={handleInputChange}
+                required
+                className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-white/90 text-sm mb-1">URL</label>
+              <label className="block text-white/90 text-xs mb-0.5">URL</label>
               <input
                 type="url"
-                name="url"
-                defaultValue={url}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+                name="link"
+                value={formData.link}
+                onChange={handleInputChange}
+                className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-white/90 text-sm mb-1">Notas</label>
-              <textarea
-                name="notes"
-                defaultValue={notes}
-                rows={3}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+              <label className="block text-white/90 text-xs mb-0.5">Contacto del Reclutador</label>
+              <input
+                type="text"
+                name="recruiterContact"
+                value={formData.recruiterContact}
+                onChange={handleInputChange}
+                className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
+            </div>
+
+            <div>
+              <label className="block text-white/90 text-xs mb-0.5">Notas</label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                rows={2}
+                className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
+              />
+            </div>
+
+            <div className="flex gap-4">
+              <div className="flex items-center space-x-1.5">
+                <input
+                  type="checkbox"
+                  name="sendCv"
+                  checked={formData.sendCv}
+                  onChange={handleInputChange}
+                  className="w-3.5 h-3.5 text-blue-600 bg-white/10 border-white/20 rounded focus:ring-blue-500"
+                />
+                <label className="text-white/90 text-xs">CV Enviado</label>
+              </div>
+              <div className="flex items-center space-x-1.5">
+                <input
+                  type="checkbox"
+                  name="sendEmail"
+                  checked={formData.sendEmail}
+                  onChange={handleInputChange}
+                  className="w-3.5 h-3.5 text-blue-600 bg-white/10 border-white/20 rounded focus:ring-blue-500"
+                />
+                <label className="text-white/90 text-xs">Email Enviado</label>
+              </div>
             </div>
           </div>
 
           {/* Botones de acción */}
-          <div className="flex justify-end gap-2 mt-6">
+          <div className="flex justify-end gap-2 mt-4">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-all"
+              className="px-3 py-1.5 text-sm bg-white/20 hover:bg-white/30 text-white rounded-lg transition-all"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all"
+              disabled={isLoading}
+              className="px-3 py-1.5 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Guardar
-            </button>
-            <button
-              type="button"
-              onClick={onDelete}
-              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all"
-            >
-              Eliminar
+              {isLoading ? 'Guardando...' : 'Guardar'}
             </button>
           </div>
         </form>

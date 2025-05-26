@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '../../shared/components/useIsMobile';
 
 interface Section {
   id: string;
@@ -12,6 +13,7 @@ interface SideNavbarProps {
 
 const SideNavbar: React.FC<SideNavbarProps> = ({ sections }) => {
   const [activeSection, setActiveSection] = useState<string>('');
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +45,10 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ sections }) => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  if (isMobile) {
+    return null; // No mostrar en móvil
+  }
 
   return (
     <motion.nav

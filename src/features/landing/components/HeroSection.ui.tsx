@@ -2,69 +2,69 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../../../context/LanguageContext';
+import { useLanguageStore } from '../../../store';
 
 function highlightImportant(text: string) {
-  const parts = text.split(/(\[\[.*?\]\])/g);
-  return parts.map((part, idx) => {
-    if (/^\[\[.*\]\]$/.test(part)) {
-      const clean = part.replace(/^\[\[/, '').replace(/\]\]$/, '');
-      return (
-        <span key={idx} className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent font-extrabold">{clean}</span>
-      );
-    }
-    return part;
-  });
+  return (
+    <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent font-extrabold">{text}</span>
+  );
 }
 
 const HeroSection: React.FC = () => {
-  const { t } = useLanguage();
+  const translate = useLanguageStore(state=>state.translate);
   return (
-    <section className="relative min-h-[calc(100vh-0px)] flex items-center justify-center pt-24 pb-24 px-4">
-      <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-2 md:gap-2 text-center md:text-left relative z-10">
+    <section className="relative min-h-[calc(100vh-0px)] flex items-center justify-center pt-16 sm:pt-20 md:pt-24 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6">
+      <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-4 md:gap-2 text-center md:text-left relative z-10">
         {/* Columna izquierda: textos */}
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center min-h-[480px]">
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center min-h-[400px] sm:min-h-[480px]">
           <motion.div
-            className="flex justify-center md:justify-start mb-8"
-            initial={{ opacity: 0, y: 40 }}
+            className="flex justify-center md:justify-start mb-6 sm:mb-8"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            <Briefcase className="h-20 w-20 text-white drop-shadow-[0_0_24px_rgba(80,112,255,0.5)]" />
+            <Briefcase className="h-16 w-16 sm:h-20 sm:w-20 text-white drop-shadow-[0_0_24px_rgba(80,112,255,0.5)]" />
           </motion.div>
           <motion.h1
-            className="text-5xl font-extrabold text-white sm:text-6xl md:text-7xl mb-6 drop-shadow-[0_2px_24px_rgba(80,112,255,0.45)]"
-            initial={{ opacity: 0, y: 40 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4 sm:mb-6 drop-shadow-[0_2px_24px_rgba(80,112,255,0.45)]"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            {t('Postulate')}
+            {translate('Postulate')}
           </motion.h1>
-          <motion.p
-            className="text-lg md:text-2xl text-white font-semibold max-w-2xl h-[96px] mb-10 text-center md:text-left drop-shadow-lg flex items-center"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
-          >
-            {highlightImportant(t('hero.subtitle'))}
-          </motion.p>
           <motion.div
-            className="flex flex-row justify-center md:justify-start gap-6"
-            initial={{ opacity: 0, y: 40 }}
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white font-semibold max-w-2xl mb-6 sm:mb-10 text-center md:text-left drop-shadow-lg flex flex-wrap items-center justify-center md:justify-start"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.5, ease: 'easeOut' }}
+            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          >
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-1 sm:gap-2">
+              {highlightImportant(translate('hero.organize'))}
+              <span className="text-white">,</span>
+              {highlightImportant(translate('hero.track'))}
+              <span className="text-white"> y </span>
+              {highlightImportant(translate('hero.optimize'))}
+              <span className="text-white">{translate('hero.subtitle.rest')}</span>
+            </div>
+          </motion.div>
+          <motion.div
+            className="flex flex-col sm:flex-row justify-center md:justify-start gap-4 sm:gap-6 w-full sm:w-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
           >
             <Link
               to="/login"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-xl shadow-xl text-white font-extrabold text-xl transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[220px] whitespace-nowrap"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-xl text-white font-extrabold text-lg sm:text-xl transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:w-[220px] whitespace-nowrap"
             >
-              {t('login')}
+              {translate('login')}
             </Link>
             <Link
               to="/register"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-xl shadow-xl text-blue-700 font-extrabold text-xl transition bg-white border border-blue-300 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[220px] whitespace-nowrap"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-xl text-blue-700 font-extrabold text-lg sm:text-xl transition bg-white border border-blue-300 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:w-[220px] whitespace-nowrap"
             >
-              {t('register')}
+              {translate('register')}
             </Link>
           </motion.div>
         </div>

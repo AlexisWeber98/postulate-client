@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Briefcase } from 'lucide-react';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguageStore } from '../../store';
 
 const Footer: React.FC = () => {
-  const { t } = useLanguage();
+  const translate  = useLanguageStore(state=> state.translate);
   const currentYear = new Date().getFullYear();
 
   return (
@@ -18,27 +18,22 @@ const Footer: React.FC = () => {
               <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">Postulate</span>
             </Link>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
-              {t('footer.description')}
+              {translate('footer.description')}
             </p>
           </div>
 
           {/* Enlaces rápidos */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t('footer.quickLinks')}</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{translate('footer.quickLinks')}</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  {t('footer.home')}
-                </Link>
-              </li>
-              <li>
                 <Link to="/login" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  {t('footer.login')}
+                      {translate('footer.login')}
                 </Link>
               </li>
               <li>
                 <Link to="/register" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  {t('footer.register')}
+                  {translate('footer.register')}
                 </Link>
               </li>
             </ul>
@@ -46,13 +41,13 @@ const Footer: React.FC = () => {
 
           {/* Contacto */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t('footer.contact')}</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{translate('footer.contact')}</h3>
             <ul className="space-y-2">
               <li className="text-gray-600 dark:text-gray-300">
-                {t('footer.email')}
+                {translate('footer.email')}
               </li>
               <li className="text-gray-600 dark:text-gray-300">
-                {t('footer.phone')}
+                {translate('footer.phone')}
               </li>
             </ul>
           </div>
@@ -61,7 +56,7 @@ const Footer: React.FC = () => {
         {/* Copyright */}
         <div className="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8 text-center">
           <p className="text-gray-600 dark:text-gray-300">
-            © {currentYear} Postulate. {t('footer.rights')}
+            © {currentYear} Postulate. {translate('footer.rights')}
           </p>
         </div>
       </div>

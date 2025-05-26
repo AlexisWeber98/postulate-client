@@ -1,35 +1,55 @@
-import React, { useMemo } from 'react';
-import { usePostulationsStore } from '../../store';
-import { Postulation, PostulationStatus, STATUS_LABELS } from '../../types/interface/postulations/postulation';
-import { PieChart, Activity, Users, Calendar } from 'lucide-react';
+import React, { useMemo, useEffect } from 'react';
+import { usePostulationsStore, useLanguageStore } from '../../store';
+import { Postulation } from '../../types/interface/postulations/postulation';
+import { PieChart, Activity, Users, Calendar, CheckCircle2, BarChart2, Search, Clock, XCircle, CheckCircle, FileText, Briefcase } from 'lucide-react';
+
+const cardGradient = 'bg-gradient-to-r from-blue-500 to-violet-500';
 
 const ApplicationStats: React.FC = () => {
-  const { postulations } = usePostulationsStore();
+  const { postulations = [] } = usePostulationsStore();
+  const translate = useLanguageStore(state=>state.translate);
 
-  // Count by status
-  const statusCounts = useMemo(() => {
-    return postulations.reduce((acc: Record<PostulationStatus, number>, app: Postulation) => {
-      acc[app.status] = (acc[app.status] || 0) + 1;
-      return acc;
-    }, {} as Record<PostulationStatus, number>);
+  // Log para verificar los datos recibidos
+  useEffect(() => {
+    console.log('📊 ApplicationStats: Datos recibidos:', {
+      total: postulations.length,
+      postulations
+    });
   }, [postulations]);
 
   // Total count
-  const totalApplications = postulations.length;
+  const totalApplications = useMemo(() => {
+    if (!Array.isArray(postulations)) {
+      console.warn('⚠️ ApplicationStats: postulations no es un array:', postulations);
+      return 0;
+    }
+    return postulations.length;
+  }, [postulations]);
 
   // Active applications (not rejected or accepted)
   const activeApplications = useMemo(() => {
+    if (!Array.isArray(postulations)) {
+      console.warn('⚠️ ApplicationStats: postulations no es un array:', postulations);
+      return 0;
+    }
     return postulations.filter(
-      (app: Postulation) => app.status !== 'rejected' && app.status !== 'accepted'
+      (app: Postulation) => app && app.status && app.status !== 'rejected' && app.status !== 'accepted'
     ).length;
   }, [postulations]);
 
   // Get company with most applications
   const topCompany = useMemo(() => {
-    const companyCount = postulations.reduce((acc: Record<string, number>, app: Postulation) => {
-      acc[app.company] = (acc[app.company] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    if (!Array.isArray(postulations)) {
+      console.warn('⚠️ ApplicationStats: postulations no es un array:', postulations);
+      return { name: '', count: 0 };
+    }
+
+    const companyCount = postulations
+      .filter((app: Postulation) => app && app.company)
+      .reduce((acc: Record<string, number>, app: Postulation) => {
+        acc[app.company] = (acc[app.company] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
 
     let topCompany = { name: '', count: 0 };
     (Object.entries(companyCount) as [string, number][]).forEach(([company, count]) => {
@@ -43,85 +63,183 @@ const ApplicationStats: React.FC = () => {
 
   // Applications in the last 30 days
   const recentApplications = useMemo(() => {
+    if (!Array.isArray(postulations)) {
+      console.warn('⚠️ ApplicationStats: postulations no es un array:', postulations);
+      return 0;
+    }
+
     const last30Days = new Date();
     last30Days.setDate(last30Days.getDate() - 30);
 
     return postulations.filter(
-      (app: Postulation) => new Date(app.date) >= last30Days
+      (app: Postulation) => app && app.date && new Date(app.date) >= last30Days
     ).length;
   }, [postulations]);
 
-  const stats = [
-    {
-      name: 'Total de Postulaciones',
-      value: totalApplications,
-      icon: <PieChart className="h-6 w-6 text-blue-600" />
-    },
-    {
-      name: 'Postulaciones Activas',
-      value: activeApplications,
-      icon: <Activity className="h-6 w-6 text-purple-600" />
-    },
-    {
-      name: 'Últimos 30 días',
-      value: recentApplications,
-      icon: <Calendar className="h-6 w-6 text-orange-600" />
-    },
-    {
-      name: 'Empresa Más Frecuente',
-      value: topCompany.name ? `${topCompany.name} (${topCompany.count})` : 'Ninguna',
-      icon: <Users className="h-6 w-6 text-green-600" />
+  // Applications by status
+  const applicationsByStatus = useMemo(() => {
+    if (!Array.isArray(postulations)) {
+      console.warn('⚠️ ApplicationStats: postulations no es un array:', postulations);
+      return {
+        applied: 0,
+        interview: 0,
+        technical: 0,
+        offer: 0,
+        rejected: 0,
+        accepted: 0,
+      };
     }
-  ];
 
-  // Si no hay aplicaciones, mostrar un mensaje simplificado
-  if (postulations.length === 0) {
-    return (
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Resumen</h2>
-        <div className="bg-white overflow-hidden shadow rounded-lg p-6">
-          <p className="text-gray-600">No hay postulaciones para mostrar estadísticas.</p>
-        </div>
-      </div>
-    );
-  }
+    const statusCount = postulations
+      .filter((app: Postulation) => app && app.status)
+      .reduce((acc: Record<string, number>, app: Postulation) => {
+        acc[app.status] = (acc[app.status] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
+
+    return {
+      applied: statusCount['applied'] || 0,
+      interview: statusCount['interview'] || 0,
+      technical: statusCount['technical'] || 0,
+      offer: statusCount['offer'] || 0,
+      rejected: statusCount['rejected'] || 0,
+      accepted: statusCount['accepted'] || 0,
+    };
+  }, [postulations]);
+
+  const statusColors = {
+    applied: 'bg-blue-700',
+    interview: 'bg-purple-500',
+    technical: 'bg-yellow-500',
+    offer: 'bg-green-500',
+    rejected: 'bg-red-500',
+    accepted: 'bg-emerald-500'
+  };
+
+  // Log para verificar los cálculos
+  useEffect(() => {
+    console.log('📊 ApplicationStats: Cálculos realizados:', {
+      totalApplications,
+      activeApplications,
+      topCompany,
+      recentApplications,
+      applicationsByStatus
+    });
+  }, [totalApplications, activeApplications, topCompany, recentApplications, applicationsByStatus]);
 
   return (
-    <div className="mb-6">
-
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat) => (
-          <div key={stat.name} className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="px-4 py-5 sm:p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">{stat.icon}</div>
-                <div className="ml-5 w-0 flex-1">
-                  <dt className="text-sm font-medium text-gray-500 truncate">{stat.name}</dt>
-                  <dd className="text-lg font-semibold text-gray-900">{stat.value}</dd>
-                </div>
-              </div>
+    <div className="w-full ">
+        <h2 className={`text-3xl font-bold text-center mb-8 ${cardGradient} bg-clip-text text-transparent`}>
+          {translate('dashboard.summary')}
+        </h2>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Primera fila de cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}>
+            <div>
+              <p className="text-base text-white font-medium mb-1">{translate('stats.totalApplications')}</p>
+              <p className="text-2xl font-bold text-white">{totalApplications}</p>
+            </div>
+            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
+              <PieChart className="w-7 h-7 text-blue-500" />
             </div>
           </div>
-        ))}
-      </div>
-
-      <div className="mt-6 bg-white shadow rounded-lg p-6">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Distribución por Estado</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {Object.entries(STATUS_LABELS).map(([status, label]) => (
-            <div key={status} className="text-center">
-              <div
-                className={`inline-block w-16 h-3 rounded-full ${status === 'applied' ? 'bg-blue-500' :
-                  status === 'interview' ? 'bg-purple-500' :
-                  status === 'technical' ? 'bg-orange-500' :
-                  status === 'offer' ? 'bg-teal-500' :
-                  status === 'rejected' ? 'bg-red-500' :
-                  'bg-green-500'}`}
-              />
-              <p className="mt-2 text-sm font-medium text-gray-600">{label}</p>
-              <p className="text-xl font-semibold text-gray-900">{statusCounts[status as PostulationStatus] || 0}</p>
+          <div className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}>
+            <div>
+              <p className="text-base text-white font-medium mb-1">{translate('stats.activeApplications')}</p>
+              <p className="text-2xl font-bold text-white">{activeApplications}</p>
             </div>
-          ))}
+            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
+              <Activity className="w-7 h-7 text-green-500" />
+            </div>
+          </div>
+          <div className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}>
+            <div>
+              <p className="text-base text-white font-medium mb-1">{translate('stats.topCompany')}</p>
+              <p className="text-2xl font-bold text-white">{topCompany.name || '-'}</p>
+            </div>
+            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
+              <Users className="w-7 h-7 text-pink-500" />
+            </div>
+          </div>
+          <div className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}>
+            <div>
+              <p className="text-base text-white font-medium mb-1">{translate('stats.recentApplications')}</p>
+              <p className="text-2xl font-bold text-white">{recentApplications}</p>
+            </div>
+            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
+              <Calendar className="w-7 h-7 text-orange-500" />
+            </div>
+          </div>
+        </div>
+
+        {/* Segunda fila - Postulaciones por estado */}
+          <h3 className={`text-3xl font-bold text-center mb-8 ${cardGradient} bg-clip-text text-transparent`}>
+            {translate('stats.statusBreakdown')}
+          </h3>
+        <div className={`${cardGradient} rounded-2xl shadow-lg p-6`}>
+          <div className="space-y-4">
+            <div className="flex items-center">
+              <div className="w-40 text-sm font-medium text-white">{translate('dashboard.stats.status.applied')}</div>
+              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+                <div
+                  className={`h-full ${statusColors.applied} shadow-lg`}
+                  style={{ width: `${(applicationsByStatus.applied / totalApplications) * 100}%` }}
+                />
+              </div>
+              <div className="w-16 text-right text-sm font-medium text-white">{applicationsByStatus.applied}</div>
+            </div>
+            <div className="flex items-center">
+              <div className="w-40 text-sm font-medium text-white">{translate('dashboard.stats.status.interview')}</div>
+              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+                <div
+                  className={`h-full ${statusColors.interview} shadow-lg`}
+                  style={{ width: `${(applicationsByStatus.interview / totalApplications) * 100}%` }}
+                />
+              </div>
+              <div className="w-16 text-right text-sm font-medium text-white">{applicationsByStatus.interview}</div>
+            </div>
+            <div className="flex items-center">
+              <div className="w-40 text-sm font-medium text-white">{translate('dashboard.stats.status.technical')}</div>
+              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+                <div
+                  className={`h-full ${statusColors.technical} shadow-lg`}
+                  style={{ width: `${(applicationsByStatus.technical / totalApplications) * 100}%` }}
+                />
+              </div>
+              <div className="w-16 text-right text-sm font-medium text-white">{applicationsByStatus.technical}</div>
+            </div>
+            <div className="flex items-center">
+              <div className="w-40 text-sm font-medium text-white">{translate('dashboard.stats.status.offer')}</div>
+              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+                <div
+                  className={`h-full ${statusColors.offer} shadow-lg`}
+                  style={{ width: `${(applicationsByStatus.offer / totalApplications) * 100}%` }}
+                />
+              </div>
+              <div className="w-16 text-right text-sm font-medium text-white">{applicationsByStatus.offer}</div>
+            </div>
+            <div className="flex items-center">
+              <div className="w-40 text-sm font-medium text-white">{translate('dashboard.stats.status.rejected')}</div>
+              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+                <div
+                  className={`h-full ${statusColors.rejected} shadow-lg`}
+                  style={{ width: `${(applicationsByStatus.rejected / totalApplications) * 100}%` }}
+                />
+              </div>
+              <div className="w-16 text-right text-sm font-medium text-white">{applicationsByStatus.rejected}</div>
+            </div>
+            <div className="flex items-center">
+              <div className="w-40 text-sm font-medium text-white">{translate('dashboard.stats.status.accepted')}</div>
+              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+                <div
+                  className={`h-full ${statusColors.accepted} shadow-lg`}
+                  style={{ width: `${(applicationsByStatus.accepted / totalApplications) * 100}%` }}
+                />
+              </div>
+              <div className="w-16 text-right text-sm font-medium text-white">{applicationsByStatus.accepted}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

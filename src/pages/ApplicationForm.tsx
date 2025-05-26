@@ -1,373 +1,258 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { usePostulationsStore } from "../store";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useLanguageStore } from "../store";
 import { PostulationStatus, STATUS_LABELS } from "../types/index";
-import Modal from "../components/molecules/Modal";
-import { Save, AlertCircle } from "lucide-react";
-import { ValidationHelpers, DateHelpers } from "../lib/helpers";
+import { ArrowLeft } from "lucide-react";
+import { motion } from "framer-motion";
+import { DateHelpers } from "../lib/helpers";
+import FieldWrapper from "../components/forms/FieldWrapper";
+import PostulationStatusForm from "../components/forms/PostulationStatus";
+import DuplicateModal from "../components/forms/DuplicateModal";
+import { useApplicationForm } from "../hooks/useApplicationForm";
 
 const ApplicationForm: React.FC = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const { addPostulation, updatePostulation, getPostulation, checkDuplicate } =
-    usePostulationsStore();
+  const { translate } = useLanguageStore();
+  const {
+    formData,
+    fieldStatus,
+    isBlurred,
+    errors,
+    isSubmitting,
+    showDuplicateModal,
+    handleFieldChange,
+    handleFieldBlur,
+    handleSubmit,
+    resetForm,
+    setShowDuplicateModal,
+    handleContinueAnyway,
+    setStatus,
+    setDate,
+    setNotes,
+    setRecruiterContact,
+    setSentCV,
+    setSentEmail,
+  } = useApplicationForm();
 
-  const [company, setCompany] = useState("");
-  const [position, setPosition] = useState("");
-  const [status, setStatus] = useState<PostulationStatus>("applied");
-  const [date, setDate] = useState("");
-  const [url, setUrl] = useState("");
-  const [sendCv, setSendCv] = useState(true);
-  const [sendEmail, setSendEmail] = useState(true);
-  const [notes, setNotes] = useState("");
-  const [recruiterContact, setRecruiterContact] = useState("");
-
-  const [showDuplicateModal, setShowDuplicateModal] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  // Set today's date as default
   useEffect(() => {
-    if (!date) {
+    if (!formData.date) {
       setDate(DateHelpers.getCurrentDateISO());
     }
-  }, [date]);
-
-  // Load existing application if editing
-  useEffect(() => {
-    if (id) {
-      const postulation = getPostulation(id);
-      if (postulation) {
-        setCompany(postulation.company);
-        setPosition(postulation.position);
-        setStatus(postulation.status);
-        setDate(postulation.date.split("T")[0]);
-        setUrl(postulation.url || "");
-        setNotes(postulation.notes || "");
-      } else {
-        navigate("/");
-      }
-    }
-  }, [id, getPostulation, navigate]);
-
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-
-    if (!ValidationHelpers.hasContent(company)) {
-      newErrors.company = "La empresa es requerida";
-    }
-
-    if (!ValidationHelpers.hasContent(position)) {
-      newErrors.position = "El puesto es requerido";
-    }
-
-    if (!date) {
-      newErrors.date = "La fecha es requerida";
-    }
-
-    if (url && !ValidationHelpers.isValidUrl(url)) {
-      newErrors.url = "La URL debe ser válida";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
-
-    // Check for duplicates only when creating new application
-    if (!id && checkDuplicate(company, position)) {
-      setShowDuplicateModal(true);
-      return;
-    }
-
-    if (id) {
-      updatePostulation(id, {
-        company,
-        position,
-        status,
-        date,
-        url,
-        notes,
-        sendCv,
-        sendEmail,
-        recruiterContact,
-      });
-    } else {
-      addPostulation({
-        company,
-        position,
-        status,
-        date,
-        url,
-        notes,
-        sendCv,
-        sendEmail,
-        recruiterContact,
-      });
-    }
-
-    navigate("/");
-  };
-
-  const handleContinueAnyway = () => {
-    setShowDuplicateModal(false);
-
-    addPostulation({
-      company,
-      position,
-      status,
-      date,
-      url,
-      notes,
-    });
-
-    navigate("/");
-  };
+  }, [formData.date, setDate]);
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-200px)]">
-      <div className="max-w-3xl mx-auto w-full">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-          {id ? "Editar Postulación" : "Nueva Postulación"}
-        </h1>
-
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white shadow-md rounded-lg p-6 mb-8"
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="flex flex-col min-h-[calc(100vh-200px)] bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800"
+    >
+      <div className="max-w-4xl mx-auto w-full px-4 py-4 sm:py-8">
+        <motion.div
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="mb-4 sm:mb-6"
         >
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div>
-              <label
-                htmlFor="company"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Empresa *
-              </label>
+          <Link
+            to="/dashboard"
+            className="inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 font-medium transition-all duration-200 hover:scale-105 text-sm sm:text-base"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            {translate('dashboard.backToDashboard')}
+          </Link>
+        </motion.div>
+
+        <motion.h1
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="text-2xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-violet-500 text-center mb-6 sm:mb-12 drop-shadow-lg"
+        >
+          {translate('dashboard.newApplication')}
+        </motion.h1>
+
+        <motion.form
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          onSubmit={handleSubmit}
+          className="relative bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-3 sm:p-8 shadow-xl border border-gray-200 dark:border-gray-700/50"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-8">
+            <FieldWrapper
+              name="company"
+              label={translate('dashboard.company')}
+              required
+              tooltip="Ingresa el nombre de la empresa donde te postulaste"
+              isBlurred={isBlurred.company}
+              fieldStatus={fieldStatus.company}
+            >
               <input
                 type="text"
                 id="company"
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
-                className={`block w-full px-3 py-2 border ${
-                  errors.company ? "border-red-300" : "border-gray-300"
-                } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
-                placeholder="Nombre de la empresa"
+                value={formData.company}
+                onChange={(e) => handleFieldChange('company', e.target.value)}
+                onBlur={(e) => handleFieldBlur('company', e.target.value)}
+                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.company?.isValid && isBlurred.company ? 'ring-2 ring-red-400' : ''}`}
+                placeholder={translate('dashboard.companyPlaceholder')}
+                required
+                aria-invalid={!fieldStatus.company?.isValid}
+                aria-describedby={!fieldStatus.company?.isValid ? 'company-error' : undefined}
               />
-              {errors.company && (
-                <p className="mt-1 text-sm text-red-600">{errors.company}</p>
-              )}
-            </div>
+            </FieldWrapper>
 
-            <div>
-              <label
-                htmlFor="position"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Puesto *
-              </label>
+            <FieldWrapper
+              name="position"
+              label={translate('dashboard.position')}
+              required
+              tooltip="Ingresa el título del puesto al que te postulaste"
+              isBlurred={isBlurred.position}
+              fieldStatus={fieldStatus.position}
+            >
               <input
                 type="text"
                 id="position"
-                value={position}
-                onChange={(e) => setPosition(e.target.value)}
-                className={`block w-full px-3 py-2 border ${
-                  errors.position ? "border-red-300" : "border-gray-300"
-                } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
-                placeholder="Título del puesto"
+                value={formData.position}
+                onChange={(e) => handleFieldChange('position', e.target.value)}
+                onBlur={(e) => handleFieldBlur('position', e.target.value)}
+                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.position?.isValid && isBlurred.position ? 'ring-2 ring-red-400' : ''}`}
+                placeholder={translate('dashboard.positionPlaceholder')}
+                required
+                aria-invalid={!fieldStatus.position?.isValid}
+                aria-describedby={!fieldStatus.position?.isValid ? 'position-error' : undefined}
               />
-              {errors.position && (
-                <p className="mt-1 text-sm text-red-600">{errors.position}</p>
-              )}
-            </div>
+            </FieldWrapper>
 
-            <div>
-              <label
-                htmlFor="status"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Estado *
+            <div className="space-y-1">
+              <label htmlFor="status" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+                {translate('status')} *
               </label>
               <select
                 id="status"
-                value={status}
+                value={formData.status}
                 onChange={(e) => setStatus(e.target.value as PostulationStatus)}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base"
+                required
               >
                 {Object.entries(STATUS_LABELS).map(([value, label]) => (
-                  <option key={value} value={value}>
+                  <option key={value} value={value} className="text-black bg-white">
                     {label}
                   </option>
                 ))}
               </select>
             </div>
 
-            <div>
-              <label
-                htmlFor="date"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Fecha de Postulación *
+            <div className="space-y-1">
+              <label htmlFor="date" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+                {translate('dashboard.date')} *
               </label>
               <input
                 type="date"
                 id="date"
-                value={date}
+                value={formData.date}
                 onChange={(e) => setDate(e.target.value)}
-                className={`block w-full px-3 py-2 border ${
-                  errors.date ? "border-red-300" : "border-gray-300"
-                } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                className={`w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base ${errors.date ? 'ring-2 ring-red-400' : ''}`}
+                required
               />
               {errors.date && (
-                <p className="mt-1 text-sm text-red-600">{errors.date}</p>
+                <p className="mt-1 text-xs text-red-500 dark:text-red-400">{errors.date}</p>
               )}
             </div>
 
             <div className="md:col-span-2">
-              <label
-                htmlFor="url"
-                className="block text-sm font-medium text-gray-700 mb-1"
+              <FieldWrapper
+                name="url"
+                label={translate('referenceUrl')}
+                tooltip="Ingresa la URL de la publicación o la página de la empresa"
+                isBlurred={isBlurred.url}
+                fieldStatus={fieldStatus.url}
               >
-                URL de Referencia
-              </label>
-              <input
-                type="url"
-                id="url"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                className={`block w-full px-3 py-2 border ${
-                  errors.url ? "border-red-300" : "border-gray-300"
-                } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
-                placeholder="https://ejemplo.com/trabajo"
-              />
-              {errors.url && (
-                <p className="mt-1 text-sm text-red-600">{errors.url}</p>
-              )}
+                <input
+                  type="url"
+                  id="url"
+                  value={formData.url}
+                  onChange={(e) => handleFieldChange('url', e.target.value)}
+                  onBlur={(e) => handleFieldBlur('url', e.target.value)}
+                  className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.url?.isValid && isBlurred.url ? 'ring-2 ring-red-400' : ''}`}
+                  placeholder={translate('dashboard.referenceUrlPlaceholder')}
+                />
+              </FieldWrapper>
             </div>
 
-            <div className="md:col-span-2">
-              <label
-                htmlFor="notes"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Notas
+            <div className="md:col-span-2 space-y-1">
+              <label htmlFor="notes" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+                {translate('notes')}
               </label>
               <textarea
                 id="notes"
-                value={notes}
+                value={formData.notes}
                 onChange={(e) => setNotes(e.target.value)}
-                rows={5}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Añade cualquier información relevante sobre esta postulación"
+                rows={3}
+                className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
+                placeholder={translate('dashboard.notesPlaceholder')}
               />
             </div>
 
-            <div className="col-span-2">
-              <label
-                htmlFor="recruiterContact"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Contacto del reclutador o empresa
+            <div className="col-span-2 space-y-1">
+              <label htmlFor="recruiterContact" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+                {translate('recruiterContact')}
               </label>
               <input
                 type="text"
                 id="recruiterContact"
-                value={recruiterContact}
+                value={formData.recruiterContact}
                 onChange={(e) => setRecruiterContact(e.target.value)}
-                placeholder="Ejemplo: email@empresa.com o +54 9 11 1234 5678"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm  px-3 py-2"
+                placeholder={translate('dashboard.recruiterContactPlaceholder')}
+                className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
               />
-              <p className="mt-1 text-sm text-gray-500 p-2">
-                * Fundamental para hacer el seguimiento, luego de un tiempo
-                prudencial, se recomienda contactar para seguir el estado del
-                proceso
+              <p className="mt-1 text-xs text-blue-200 p-1 sm:p-2">
+                * {translate('dashboard.recruiterContactHelper')}
               </p>
             </div>
 
-            <div>
-              <label htmlFor="sendCv" className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="sendCv"
-                  checked={sendCv}
-                  onChange={(e) => setSendCv(e.target.checked)}
-                  className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <span className="text-sm font-medium text-gray-700">
-                  Envié CV
-                </span>
-              </label>
-            </div>
-
-            <div>
-              <label
-                htmlFor="sendEmail"
-                className="flex items-center space-x-2"
-              >
-                <input
-                  type="checkbox"
-                  id="sendEmail"
-                  checked={sendEmail}
-                  onChange={(e) => setSendEmail(e.target.checked)}
-                  className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <span className="text-sm font-medium text-gray-700">
-                  Envié Email
-                </span>
-              </label>
+            <div className="md:col-span-2">
+              <PostulationStatusForm
+                sentCV={formData.sentCV}
+                sentEmail={formData.sentEmail}
+                onSendCvChange={setSentCV}
+                onSendEmailChange={setSentEmail}
+                translate={translate}
+              />
             </div>
           </div>
 
-          <div className="flex justify-end mt-6">
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-4 mt-4 sm:mt-8"
+          >
+            <button
+              type="button"
+              onClick={resetForm}
+              className="w-full sm:w-auto px-4 py-2.5 sm:px-6 sm:py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl text-gray-700 dark:text-gray-200 font-semibold text-sm sm:text-base border-0 transition-all duration-200"
+            >
+              {translate('common.reset')}
+            </button>
             <button
               type="submit"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+              className="w-full sm:w-auto px-4 py-2.5 sm:px-8 sm:py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-sm sm:text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Save className="h-4 w-4 mr-2" />
-              {id ? "Actualizar postulación" : "Guardar postulación"}
+              {isSubmitting ? translate('dashboard.actions.save') : translate('hero.cta.button')}
             </button>
-          </div>
-        </form>
+          </motion.div>
+        </motion.form>
       </div>
 
-      <Modal
+      <DuplicateModal
         isOpen={showDuplicateModal}
         onClose={() => setShowDuplicateModal(false)}
-        title="Postulación Duplicada"
-      >
-        <div className="flex items-start">
-          <div className="flex-shrink-0">
-            <AlertCircle className="h-6 w-6 text-yellow-600" />
-          </div>
-          <div className="ml-3">
-            <p className="text-sm text-gray-700">
-              Ya existe una postulación para <strong>{position}</strong> en{" "}
-              <strong>{company}</strong>. ¿Deseas continuar de todos modos?
-            </p>
-            <div className="mt-4 flex justify-end space-x-3">
-              <button
-                type="button"
-                onClick={() => setShowDuplicateModal(false)}
-                className="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-                Cancelar
-              </button>
-              <button
-                type="button"
-                onClick={handleContinueAnyway}
-                className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
-              >
-                Continuar de todos modos
-              </button>
-            </div>
-          </div>
-        </div>
-      </Modal>
-    </div>
+        onContinue={handleContinueAnyway}
+        company={formData.company}
+        position={formData.position}
+      />
+    </motion.div>
   );
 };
 

@@ -1,66 +1,61 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { UserPlus, ClipboardList, BarChart2, ArrowRight } from 'lucide-react';
+import { UserPlus, ClipboardList, BarChart2 } from 'lucide-react';
+import { TranslationKey } from '@/i18n';
 
 interface HowItWorksSectionProps {
-  t?: (key: string) => string;
+  translate: (key: TranslationKey) => string;
 }
 
-const steps = [
-  {
-    icon: <UserPlus className="w-10 h-10 text-white" />,
-    titleKey: 'howItWorks.step1.title',
-    descKey: 'howItWorks.step1.desc',
-  },
-  {
-    icon: <ClipboardList className="w-10 h-10 text-white" />,
-    titleKey: 'howItWorks.step2.title',
-    descKey: 'howItWorks.step2.desc',
-  },
-  {
-    icon: <BarChart2 className="w-10 h-10 text-white" />,
-    titleKey: 'howItWorks.step3.title',
-    descKey: 'howItWorks.step3.desc',
-  },
-];
-
-const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ t }) => {
+const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ translate }) => {
   return (
-    <section className="relative py-20 px-2 w-full">
+    <div className="text-center">
       <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-        {t ? t('howItWorks.title') : '¿Cómo empezar a usar Postulate?'}
+        {translate('landing.howItWorks.title')}
       </h2>
-      <div className="container mx-auto">
-        <div className="flex flex-row items-stretch justify-center gap-0 md:gap-8 relative">
-          {steps.map((step, idx) => (
-            <React.Fragment key={step.titleKey}>
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.15 }}
-                className="flex flex-col items-center justify-between bg-gradient-to-br from-indigo-500 to-blue-400 backdrop-blur-md rounded-2xl px-8 py-8 mx-0 md:mx-4 min-w-[260px] max-w-[320px] min-h-[340px] h-[340px] shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out"
-              >
-                <div className="mb-3 flex flex-col items-center">
-                  <div className="mb-2">{step.icon}</div>
-                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-violet-500 text-white text-lg font-bold shadow-lg mb-2 border-4 border-white/30">
-                    {idx + 1}
-                  </div>
-                </div>
-                <h3 className="text-lg md:text-xl font-extrabold text-white mb-2 text-center">{t ? t(step.titleKey) : step.titleKey}</h3>
-                <p className="text-white text-base text-center font-medium mb-0">{t ? t(step.descKey) : step.descKey}</p>
-              </motion.div>
-              {idx < steps.length - 1 && (
-                <div className="flex items-center justify-center">
-                  <ArrowRight className="w-8 h-8 text-violet-400 mx-2 md:mx-4" />
-                </div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <Step
+          icon={<UserPlus className="w-8 h-8" />}
+          title={translate('landing.howItWorks.step1.title')}
+          description={translate('landing.howItWorks.step1.description')}
+        />
+        <Step
+          icon={<ClipboardList className="w-8 h-8" />}
+          title={translate('landing.howItWorks.step2.title')}
+          description={translate('landing.howItWorks.step2.description')}
+        />
+        <Step
+          icon={<BarChart2 className="w-8 h-8" />}
+          title={translate('landing.howItWorks.step3.title')}
+          description={translate('landing.howItWorks.step3.description')}
+        />
       </div>
-    </section>
+    </div>
   );
 };
+
+interface StepProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+const Step: React.FC<StepProps> = ({ icon, title, description }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5 }}
+    className="border border-blue-200 shadow-2xl rounded-3xl bg-gradient-to-r from-blue-600 to-violet-600 text-white p-8 transition-transform hover:-translate-y-1 flex flex-col items-center text-center"
+  >
+    <div className="flex flex-col items-center">
+      <div className="w-12 h-12 flex items-center justify-center rounded-full mb-4 bg-white/20">
+        {icon}
+      </div>
+      <h3 className="text-lg md:text-xl font-semibold text-gray-100 mb-2 drop-shadow-sm">{title}</h3>
+      <p className="text-gray-100 text-base md:text-base drop-shadow-sm">{description}</p>
+    </div>
+  </motion.div>
+);
 
 export default HowItWorksSection;

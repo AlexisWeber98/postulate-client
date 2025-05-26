@@ -1,13 +1,12 @@
 import '../styles/globals.css';
-import type { AppProps } from 'next/app';
-import { LanguageProvider } from '../context/LanguageContext';
+
+interface AppProps {
+  Component: React.ComponentType;
+  pageProps: Record<string, unknown>;
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <LanguageProvider>
-      <Component {...pageProps} />
-    </LanguageProvider>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;

@@ -6,6 +6,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  title?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
@@ -18,7 +19,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   }, [onClose]);
 
   const handleClickOutside = useCallback((event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+    // Verificar si el clic fue en el overlay (el div con fondo negro)
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('bg-black/30')) {
       onClose();
     }
   }, [onClose]);

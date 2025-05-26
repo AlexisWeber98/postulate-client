@@ -1,25 +1,29 @@
 import React from 'react';
-import { ApplicationCardProps } from '../../../interfaces';
+import { ApplicationCardProps } from '../../../interfaces/components/organisms/ApplicationCard.interface';
 import { Edit, Trash2, Calendar, AlertTriangle } from 'lucide-react';
 import { APP_COLORS } from '../../../styles/colors';
 import Modal from '../../molecules/Modal';
 import Card from '../../molecules/Card';
 import Button from '../../atoms/Button';
 import { StatusHelpers } from '../../../lib/helpers';
+import { Postulation, PostulationStatus } from '../../../types/interface/postulations/postulation';
+import { useLanguageStore } from '../../../store/language/languageStore';
 
 // Definimos la interfaz para las props del UI
 interface ApplicationCardUIProps extends ApplicationCardProps {
+  application: Postulation;
   formattedDate: string;
   getInitials: (companyName: string) => string;
-  getStatusLabel: (status: string) => string;
+  getStatusLabel: (status: PostulationStatus) => string;
   handleEdit: () => void;
   openDeleteModal: () => void;
   closeDeleteModal: () => void;
   confirmDelete: () => void;
   isDeleteModalOpen: boolean;
+  isLoading: boolean;
 }
 
-const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
+export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
   application,
   formattedDate,
   getInitials,
@@ -29,8 +33,10 @@ const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
   closeDeleteModal,
   confirmDelete,
   isDeleteModalOpen,
+  isLoading,
 }) => {
-  const { company, position, status, notes } = application;
+  const { company, position, status, description } = application;
+  const translate = useLanguageStore(state=>state.translate);
 
   const bgColor = APP_COLORS.cardColors[status as keyof typeof APP_COLORS.cardColors] || 'white';
   const statusClassName = StatusHelpers.getStatusClasses(status);
@@ -62,8 +68,8 @@ const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
             <span>Aplicado: {formattedDate}</span>
           </div>
 
-          {notes && (
-            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{notes}</p>
+          {description && (
+            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{description}</p>
           )}
         </div>
 
@@ -111,13 +117,14 @@ const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
               variant="secondary"
               onClick={closeDeleteModal}
             >
-              Cancelar
+              {translate('common.cancel')}
             </Button>
             <Button
               variant="danger"
               onClick={confirmDelete}
+              disabled={isLoading}
             >
-              Eliminar
+              {isLoading ? translate('common.loading') : translate('common.delete')}
             </Button>
           </div>
         </div>
@@ -125,5 +132,3 @@ const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
     </>
   );
 };
-
-export default ApplicationCardUI;

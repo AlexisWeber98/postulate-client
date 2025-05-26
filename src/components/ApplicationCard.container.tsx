@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePostulationsStore } from '../store';
-import { Postulation } from '../types/interface/postulations/postulation';
-import ApplicationCardUI from './organisms/ApplicationCard/ApplicationCard.ui';
+import { Postulation, PostulationStatus } from '../types/interface/postulations/postulation';
+import { ApplicationCardUI } from './organisms/ApplicationCard/ApplicationCard.ui';
+import { useLanguageStore } from '../store/language/languageStore';
+import { toast } from 'react-hot-toast';
+import { postulationsApi } from '../api/postulations';
 
 interface ApplicationCardProps {
   application: Postulation;
@@ -11,9 +14,17 @@ interface ApplicationCardProps {
 const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application }) => {
   const navigate = useNavigate();
   const { deletePostulation } = usePostulationsStore();
+  const { language, translate } = useLanguageStore();
   const { id, date } = application;
-  const formattedDate = new Date(date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+  const [isLoading, setIsLoading] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const locale = language === 'es' ? 'es-ES' : 'en-US';
+  const formattedDate = new Date(date).toLocaleDateString(locale, {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  });
 
   const handleEdit = () => {
     navigate(`/edit/${id}`);
@@ -27,31 +38,32 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
     setIsDeleteModalOpen(false);
   };
 
-  const confirmDelete = () => {
-    deletePostulation(id);
-    closeDeleteModal();
+  const confirmDelete = async () => {
+    setIsLoading(true);
+    try {
+      await postulationsApi.delete(id);
+      deletePostulation(id);
+      toast.success(translate('dashboard.actions.deleteSuccess'));
+      closeDeleteModal();
+    } catch (error) {
+      console.error('Error deleting postulation:', error);
+      toast.error(translate('dashboard.actions.deleteError'));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const getInitials = (companyName: string) => {
     return companyName.split(' ').map(word => word[0]).join('').toUpperCase().substring(0, 2);
   };
 
-  // Traducir estado a español para mostrar
-  const getStatusLabel = (status: string) => {
-    const statusLabels: Record<string, string> = {
-      applied: 'Aplicado',
-      interview: 'Entrevista',
-      technical: 'Prueba Técnica',
-      offer: 'Oferta',
-      rejected: 'Rechazado',
-      accepted: 'Aceptado'
-    };
-    return statusLabels[status] || status.charAt(0).toUpperCase() + status.slice(1);
+  const getStatusLabel = (status: PostulationStatus) => {
+    return translate(`dashboard.stats.status.${status}`);
   };
 
   return (
     <ApplicationCardUI
-        application={application}
+      application={application}
       formattedDate={formattedDate}
       getInitials={getInitials}
       getStatusLabel={getStatusLabel}
@@ -60,6 +72,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
       closeDeleteModal={closeDeleteModal}
       confirmDelete={confirmDelete}
       isDeleteModalOpen={isDeleteModalOpen}
+      isLoading={isLoading}
     />
   );
 };
