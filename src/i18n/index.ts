@@ -2,7 +2,9 @@ import { es } from './translations/es';
 import { en } from './translations/en';
 
 export type Language = 'es' | 'en';
-export type Translations = Record<string, string>;
+export type Translations = {
+  [key: string]: string | { [key: string]: string | { [key: string]: string } };
+};
 
 // Tipo para inferir todas las posibles rutas en el objeto de traducción
 type DotNotationKeys<T extends Record<string, unknown>, Prefix extends string = ''> = {
@@ -21,8 +23,8 @@ const translations: Record<Language, Translations> = {
 
 export const getTranslation = (key: TranslationKey, lang: Language): string => {
   const translation = translations[lang][key];
-  if (!translation) {
-    console.warn(`Translation missing for key: ${key} in language: ${lang}`);
+  if (!translation || typeof translation !== 'string') {
+    console.warn(`Translation missing or invalid for key: ${key} in language: ${lang}`);
     return key;
   }
   return translation;
@@ -41,8 +43,8 @@ type PlaceholderKeys<T extends string> = T extends `${string}{${infer K}}${infer
   : never;
 
 // Type to get the translation string for a given key
-type TranslationFor<K extends TranslationKey> =
-  K extends keyof typeof es ? (typeof es)[K] // es and en have same keys
+type TranslationFor<K extends TranslationKey> = K extends keyof typeof es
+  ? (typeof es)[K] // es and en have same keys
   : string;
 
 export const t = <K extends TranslationKey>(
