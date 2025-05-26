@@ -15,15 +15,15 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const navigate = useNavigate();
   const { deletePostulation } = usePostulationsStore();
   const { language, translate } = useLanguageStore();
-  const { id, date } = application;
+  const { id, applicationDate } = application;
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const locale = language === 'es' ? 'es-ES' : 'en-US';
-  const formattedDate = new Date(date).toLocaleDateString(locale, {
+  const formattedDate = new Date(applicationDate).toLocaleDateString(locale, {
     day: 'numeric',
     month: 'short',
-    year: 'numeric'
+    year: 'numeric',
   });
 
   const handleEdit = () => {
@@ -54,7 +54,12 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   };
 
   const getInitials = (companyName: string) => {
-    return companyName.split(' ').map(word => word[0]).join('').toUpperCase().substring(0, 2);
+    return companyName
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
   };
 
   const getStatusLabel = (status: PostulationStatus) => {

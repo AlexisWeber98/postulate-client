@@ -1,16 +1,18 @@
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
-import { TranslationKey } from "../../../i18n";
-import { useLanguageStore } from "../../../store/language/languageStore";
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { ArrowLeft } from 'lucide-react';
+import { TranslationKey } from '../../../i18n';
+import { useLanguageStore } from '../../../store/language/languageStore';
 
 interface ApplicationFormHeaderProps {
   id?: string;
   t: (key: TranslationKey) => string;
 }
 
-export const ApplicationFormHeader: React.FC<ApplicationFormHeaderProps> = ({ id, t }) => {
-  const translate = useLanguageStore((state: { translate: (key: TranslationKey) => string }) => state.translate);
+export const ApplicationFormHeader: React.FC<ApplicationFormHeaderProps> = ({ id }) => {
+  const translate = useLanguageStore(
+    (state: { translate: (key: TranslationKey) => string }) => state.translate
+  );
 
   return (
     <>
