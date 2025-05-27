@@ -20,11 +20,7 @@ export class CloudinaryService {
         formData.append(key, value.toString());
       });
 
-      console.log('Cloudinary Config:', {
-        cloudName: CLOUDINARY_CONFIG.cloudName,
-        uploadPreset: CLOUDINARY_CONFIG.uploadPreset,
-        uploadUrl: CLOUDINARY_UPLOAD_URL
-      });
+
 
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 segundos de timeout

@@ -42,7 +42,7 @@ export const useAuthStore = create<AuthState>()(
 
         try {
           const decoded = jwtDecode<JwtPayload & User>(token);
-          console.log('[authStore] Token decodificado en checkAuth:', decoded);
+
           set({
             isAuthenticated: true,
             user: {
@@ -66,10 +66,10 @@ export const useAuthStore = create<AuthState>()(
 
         try {
           const response = await authApi.login({ email, password });
-          console.log('Respuesta del login:', response);
+
           const token = response.result;
           const decoded = jwtDecode<JwtPayload & User>(token);
-          console.log('[authStore] Token decodificado en signIn:', decoded);
+
 
           set({
             token: token,
@@ -123,11 +123,11 @@ export const useAuthStore = create<AuthState>()(
             lastName,
             password,
           });
-          console.log('[authStore] Respuesta del backend en signUp:', response);
+
           const { user, token } = response.result;
           if (token) {
             const decoded = jwtDecode<JwtPayload & User>(token);
-            console.log('[authStore] Token decodificado tras signUp:', decoded);
+
           }
 
           if (!user) {
@@ -161,7 +161,7 @@ export const useAuthStore = create<AuthState>()(
       },
 
       signOut: () => {
-        console.log("Cerrando sesión");
+
         set({
           user: null,
           token: null,
@@ -171,7 +171,7 @@ export const useAuthStore = create<AuthState>()(
       },
 
       updateUser: async (data: { name?: string; email?: string; lastName?: string; userName?: string; imageUrl?: string }) => {
-        console.log("[updateUser] Datos recibidos para actualizar:", data);
+
         try {
           const userId = get().user?.id;
           if (!userId) {
@@ -183,9 +183,9 @@ export const useAuthStore = create<AuthState>()(
             dataToSend.lastname = data.lastName;
             delete dataToSend.lastName;
           }
-          console.log("[updateUser] Llamando a authApi.updateProfile con:", userId, dataToSend);
+
           const response = await authApi.updateProfile(userId, dataToSend);
-          console.log("[updateUser] Respuesta del backend:", response);
+
           set((state) => ({
             user: state.user ? { ...state.user, ...response.result.user } : null,
           }));
@@ -205,7 +205,7 @@ export const useAuthStore = create<AuthState>()(
         const { token } = get();
         if (token) {
           const decoded = jwtDecode<JwtPayload & User>(token);
-          console.log('[authStore] Token decodificado en initialize:', decoded);
+
           set({
             isAuthenticated: true,
             user: {
@@ -220,7 +220,7 @@ export const useAuthStore = create<AuthState>()(
         } else {
           set({ loading: false });
         }
-        console.log("Auth store inicializado", { token, loading: false });
+
       },
     }),
     {
