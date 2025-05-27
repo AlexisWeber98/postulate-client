@@ -15,11 +15,7 @@ export const authApi = {
     httpClient.post<{ result: { user: User; token: string } }>('/auth/register', userData),
 
   // Actualizar perfil de usuario
-  updateProfile: (id: string, userData: { name?: string; email?: string; lastName?: string; userName?: string }) => {
-    const { lastName, ...rest } = userData;
-    return httpClient.patch<{ result: User }>(`/users/${id}`, {
-      ...rest,
-      lastname: lastName // Convertir lastName a lastname para coincidir con la API
-    });
+  updateProfile: (userId: string, userData: { name?: string; email?: string; lastname?: string; userName?: string; imageUrl?: string }) => {
+    return httpClient.patch<{ result: { user: User } }>(`/users/${userId}`, { userId, data: userData });
   },
 };

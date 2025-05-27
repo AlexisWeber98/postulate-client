@@ -24,9 +24,7 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
   const [errors, setErrors] = useState<Partial<Record<keyof NewPostulationFormValues, string>>>({});
   const [touched, setTouched] = useState<Partial<Record<keyof NewPostulationFormValues, boolean>>>({});
 
-  useEffect(() => {
-    console.log('[NewPostulationFormContainer] Valores iniciales:', initialValues);
-  }, [initialValues]);
+
 
   // Efecto para revalidar en tiempo real cuando values cambie y haya campos tocados
   useEffect(() => {
@@ -37,26 +35,26 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    console.log(`[handleChange] Cambio en el campo "${name}":`, value);
+
     setValues((prev) => ({ ...prev, [name]: value }));
     setTouched((prev) => ({ ...prev, [name]: true }));
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
-    console.log(`[handleCheckboxChange] Cambio en el checkbox "${name}":`, checked);
+
     setValues((prev) => ({ ...prev, [name]: checked }));
     setTouched((prev) => ({ ...prev, [name]: true }));
   };
 
   const handleStatusChange = (status: PostulationStatus) => {
-    console.log('[handleStatusChange] Cambio de estado:', status);
+
     setValues((prev) => ({ ...prev, status }));
     setTouched((prev) => ({ ...prev, status: true }));
   };
 
   const validate = () => {
-    console.log('[validate] Validando valores:', values);
+
     const result = newPostulationSchema.safeParse(values);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof NewPostulationFormValues, string>> = {};
@@ -68,24 +66,24 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
       setErrors(fieldErrors);
       return false;
     }
-    console.log('[validate] Validación exitosa');
+
     setErrors({});
     return true;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('[handleSubmit] Enviando formulario...');
+
     if (validate()) {
-      console.log('[handleSubmit] Valores validados correctamente. Enviando a onSubmit:', values);
+
       onSubmit(values);
     } else {
-      console.warn('[handleSubmit] El formulario no pasó la validación');
+
     }
   };
 
   const resetForm = () => {
-    console.log('[resetForm] Reiniciando formulario');
+
     setValues(defaultValues);
     setErrors({});
     setTouched({});

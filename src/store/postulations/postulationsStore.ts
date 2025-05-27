@@ -15,18 +15,12 @@ export const usePostulationsStore = create<PostulationState>()(
       addPostulation: async (
         newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>
       ) => {
-        console.log('🔄 Iniciando addPostulation:', newPostulation);
-        console.log('[DEBUG] API URL configurada:', API_URL);
+
+
         try {
           set({ loading: true });
-          console.log('📤 Enviando petición al servidor...');
-          console.log('📝 Datos a enviar:', JSON.stringify(newPostulation, null, 2));
-          console.log('🔍 Configuración de la petición:', {
-            url: '/postulations',
-            method: 'post',
-            data: newPostulation,
-            baseURL: API_URL,
-          });
+
+
 
           // Asegurarnos que la fecha está en el formato correcto
           const postulationData = {
@@ -36,7 +30,7 @@ export const usePostulationsStore = create<PostulationState>()(
           };
 
           const response = await postulationsApi.create(postulationData);
-          console.log('✅ Postulación creada exitosamente:', response);
+
           set((state: PostulationState) => ({
             postulations: [response.data.result, ...state.postulations],
             loading: false,
@@ -98,21 +92,10 @@ export const usePostulationsStore = create<PostulationState>()(
             throw new Error(`Campos requeridos faltantes: ${missingFields.join(', ')}`);
           }
 
-          console.log('📤 [PostulationsStore] Enviando petición al servidor...', {
-            url: `${API_URL}/postulations/${id}`,
-            method: 'PATCH',
-            data: updatedFields,
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
+
 
           const response = await postulationsApi.update(id, updatedFields);
-          console.log('✅ [PostulationsStore] Respuesta del servidor:', {
-            status: response.status,
-            data: response.data,
-            result: response.data.result,
-          });
+
 
           // Obtener el token para el userId
           const token = useAuthStore.getState().token;
@@ -130,10 +113,7 @@ export const usePostulationsStore = create<PostulationState>()(
 
           // Actualizar el estado completo
           const allPostulationsResponse = await postulationsApi.getByUserId(userId);
-          console.log(
-            '📦 [PostulationsStore] Estado actualizado con todas las postulaciones:',
-            allPostulationsResponse
-          );
+
 
           if (
             allPostulationsResponse?.result?.data &&
@@ -197,14 +177,12 @@ export const usePostulationsStore = create<PostulationState>()(
   try {
     set({ loading: true });
     const postulationId = id;
-    console.log(`🔍 Verificando existencia de postulación con ID: ${postulationId}`);
+
     const getResponse = await postulationsApi.getById(postulationId);
 
     if (getResponse.status === 200 && getResponse.data?.result) {
-      console.log("✅ Postulación encontrada, procediendo a eliminar...");
 
       const deleteResponse = await postulationsApi.delete(postulationId);
-      console.log("🗑️ Postulación eliminada con éxito:", deleteResponse);
 
       // Actualizar estado local
       set((state: PostulationState) => ({
@@ -229,18 +207,18 @@ export const usePostulationsStore = create<PostulationState>()(
   }
 },
       getPostulation: (id: string) => {
-        console.log('🔍 Buscando postulación:', id);
+
         const postulation = get().postulations.find((app: Postulation) => app.id === id);
-        console.log('📝 Resultado de búsqueda:', postulation);
+
         return postulation;
       },
 
       checkDuplicate: (company: string, position: string) => {
-        console.log('🔍 Verificando duplicado:', { company, position });
+
 
         // Validar que los parámetros no sean undefined o vacíos
         if (!company || !position) {
-          console.log('❌ Parámetros inválidos para verificación de duplicado');
+
           return false;
         }
 
@@ -249,15 +227,14 @@ export const usePostulationsStore = create<PostulationState>()(
             app.company?.toLowerCase() === company.toLowerCase() &&
             app.position?.toLowerCase() === position.toLowerCase()
         );
-        console.log('📝 Resultado de verificación de duplicado:', isDuplicate);
+
         return isDuplicate;
       },
 
       getAllPostulations: async () => {
-        console.log('🔄 Iniciando getAllPostulations');
+
         try {
           const token = useAuthStore.getState().token;
-          console.log('🔑 Token actual:', token);
 
           if (!token) {
             console.error('❌ No se encontró el token de autenticación');
@@ -266,10 +243,8 @@ export const usePostulationsStore = create<PostulationState>()(
 
           const [_, payload] = token.split('.');
           const decodedPayload = JSON.parse(atob(payload));
-          console.log('📝 Payload decodificado:', decodedPayload);
 
           const userId = decodedPayload.id || decodedPayload.userId;
-          console.log('👤 UserId obtenido del token:', userId);
 
           if (!userId) {
             console.error('❌ No se encontró el ID del usuario en el token');
@@ -277,13 +252,12 @@ export const usePostulationsStore = create<PostulationState>()(
           }
 
           set({ loading: true });
-          console.log('📤 Enviando petición al servidor...');
+
           const response = await postulationsApi.getAll(userId);
-          console.log('✅ Respuesta del servidor:', response);
 
           // Verificar que la respuesta tiene la estructura esperada
           if (response?.data?.result?.data && Array.isArray(response.data.result.data)) {
-            console.log('📦 Datos de postulaciones:', response.data.result.data);
+
             set({
               postulations: response.data.result.data,
               loading: false,

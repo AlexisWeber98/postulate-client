@@ -42,7 +42,6 @@ try {
 
   // Verificar si hay cambios para commitear
   if (!status.trim()) {
-    console.log(getLanguage().noChanges);
     process.exit(0);
   }
 
@@ -52,10 +51,6 @@ try {
 
   // Obtener mensajes en el idioma configurado
   const lang = getLanguage();
-
-  // Mostrar los cambios y pedir confirmación
-  console.log(lang.filesToInclude + ':');
-  console.log(status);
 
   const rl = readline.createInterface({
     input: process.stdin,
@@ -171,10 +166,7 @@ try {
         console.error(`${lang.error}: ${commitResult.stderr.toString()}`);
         process.exit(1);
       }
-
-      console.log(lang.commitSuccess);
     } else {
-      console.log(lang.commitCancelled);
     }
     rl.close();
   });
