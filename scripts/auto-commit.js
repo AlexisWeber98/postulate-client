@@ -42,7 +42,6 @@ try {
 
   // Verificar si hay cambios para commitear
   if (!status.trim()) {
-    console.log(getLanguage().noChanges);
     process.exit(0);
   }
 

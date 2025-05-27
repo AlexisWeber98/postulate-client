@@ -16,7 +16,7 @@ export const client: AxiosInstance = axios.create({
   }
 });
 
-console.log('[client] Axios instance created with baseURL:', API_URL);
+
 
 // Agregar interceptores base
 client.interceptors.request.use(

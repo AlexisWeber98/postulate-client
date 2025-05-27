@@ -52,9 +52,9 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
       } else {
         const { email, password, name, userName, lastName } = data as RegisterData;
         await signUp(email, password, name, userName, lastName);
+        navigate('/login');
+        return;
       }
-
-      navigate('/dashboard');
     } catch (e: unknown) {
       if (e instanceof Error) {
         setError(e.message);
@@ -64,6 +64,8 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
     } finally {
       setIsLoading(false);
     }
+
+    navigate('/dashboard');
   };
 
   return (

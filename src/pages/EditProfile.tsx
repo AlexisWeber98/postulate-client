@@ -16,11 +16,15 @@ type FieldName = 'name' | 'email' | 'lastName' | 'userName';
 
 const EditProfile: React.FC = () => {
   const { user, updateUser } = useAuthStore();
+  console.log("[EditProfile] Usuario actual:", user);
   const { translate } = useLanguageStore();
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
   const [lastName, setLastName] = useState(user?.lastName || '');
   const [userName, setUserName] = useState(user?.userName || '');
+  if (!user?.userName) {
+    console.warn('[EditProfile] userName está vacío o indefinido en user:', user);
+  }
   const [_profileImage, setProfileImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>(user?.profileImage || '');
   const [isUploading, setIsUploading] = useState(false);
@@ -158,13 +162,24 @@ const EditProfile: React.FC = () => {
 
     setIsLoading(true);
     try {
-      updateUser({
+      console.log('Datos enviados a updateUser:', {
         name,
-        email,
         lastName,
+        email,
         userName,
-        profileImage: previewUrl,
+        ...(previewUrl && { imageUrl: previewUrl })
       });
+
+      const result = await updateUser({
+        name,
+        lastName,
+        email,
+        userName,
+        ...(previewUrl && { imageUrl: previewUrl })
+      });
+
+      console.log('Respuesta de updateUser:', result);
+
       setSuccess(true);
       setTimeout(() => setSuccess(false), 2000);
     } catch (error) {

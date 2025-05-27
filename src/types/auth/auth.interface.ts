@@ -3,8 +3,10 @@ export interface User {
   email: string;
   name: string;
   userName: string;
-  lastName: string;
+  lastName?: string;
   profileImage?: string;
+  lastname?: string;
+  imageUrl?: string;
 }
 
 export interface UserWithPassword extends User {

@@ -42,13 +42,14 @@ export const useAuthStore = create<AuthState>()(
 
         try {
           const decoded = jwtDecode<JwtPayload & User>(token);
+          console.log('[authStore] Token decodificado en checkAuth:', decoded);
           set({
             isAuthenticated: true,
             user: {
               id: decoded.id,
               name: decoded.name,
-              lastName: decoded.lastName,
-              userName: decoded.userName,
+              lastName: decoded.lastName || decoded.lastname,
+              userName: decoded.userName || decoded["username"] || decoded["user_name"],
               email: decoded.email,
             },
           });
@@ -68,6 +69,7 @@ export const useAuthStore = create<AuthState>()(
           console.log('Respuesta del login:', response);
           const token = response.result;
           const decoded = jwtDecode<JwtPayload & User>(token);
+          console.log('[authStore] Token decodificado en signIn:', decoded);
 
           set({
             token: token,
@@ -76,8 +78,8 @@ export const useAuthStore = create<AuthState>()(
             user: {
               id: decoded.id,
               name: decoded.name,
-              lastName: decoded.lastName,
-              userName: decoded.userName,
+              lastName: decoded.lastName || decoded.lastname,
+              userName: decoded.userName || decoded["username"] || decoded["user_name"],
               email: decoded.email,
             },
           });
@@ -121,10 +123,24 @@ export const useAuthStore = create<AuthState>()(
             lastName,
             password,
           });
+          console.log('[authStore] Respuesta del backend en signUp:', response);
           const { user, token } = response.result;
+          if (token) {
+            const decoded = jwtDecode<JwtPayload & User>(token);
+            console.log('[authStore] Token decodificado tras signUp:', decoded);
+          }
+
+          if (!user) {
+            console.error('[authStore] Error: El backend no devolvió el usuario en el registro:', response);
+            throw new Error('No se pudo registrar el usuario. Intenta de nuevo.');
+          }
 
           set({
-            user,
+            user: {
+              ...user,
+              lastName: user.lastName || user["lastname"],
+              userName: user.userName || user["username"] || user["user_name"],
+            },
             loading: false,
             token,
             isAuthenticated: true
@@ -154,19 +170,33 @@ export const useAuthStore = create<AuthState>()(
         });
       },
 
-      updateUser: async (data: { name?: string; email?: string; lastName?: string; userName?: string }) => {
-        console.log("Actualizando usuario:", data);
+      updateUser: async (data: { name?: string; email?: string; lastName?: string; userName?: string; imageUrl?: string }) => {
+        console.log("[updateUser] Datos recibidos para actualizar:", data);
         try {
           const userId = get().user?.id;
           if (!userId) {
             throw new Error('No se encontró el ID del usuario');
           }
-          const response = await authApi.updateProfile(userId, data);
+          // Convertir lastName a lastname para el backend si es necesario
+          const dataToSend: any = { ...data, userId };
+          if (data.lastName) {
+            dataToSend.lastname = data.lastName;
+            delete dataToSend.lastName;
+          }
+          console.log("[updateUser] Llamando a authApi.updateProfile con:", userId, dataToSend);
+          const response = await authApi.updateProfile(userId, dataToSend);
+          console.log("[updateUser] Respuesta del backend:", response);
           set((state) => ({
-            user: state.user ? { ...state.user, ...response.result } : null,
+            user: state.user ? { ...state.user, ...response.result.user } : null,
           }));
+          return response;
         } catch (error) {
-          console.error("Error al actualizar usuario:", error);
+          console.error("[updateUser] Error al actualizar usuario:", error);
+          if (error && typeof error === 'object' && 'response' in error) {
+            // Mostrar el mensaje de error del backend si existe
+            // @ts-ignore
+            console.error("[updateUser] Detalle del error del backend:", error.response?.data);
+          }
           throw error;
         }
       },
@@ -175,13 +205,14 @@ export const useAuthStore = create<AuthState>()(
         const { token } = get();
         if (token) {
           const decoded = jwtDecode<JwtPayload & User>(token);
+          console.log('[authStore] Token decodificado en initialize:', decoded);
           set({
             isAuthenticated: true,
             user: {
               id: decoded.id,
               name: decoded.name,
-              lastName: decoded.lastName,
-              userName: decoded.userName,
+              lastName: decoded.lastName || decoded.lastname,
+              userName: decoded.userName || decoded["username"] || decoded["user_name"],
               email: decoded.email,
             },
             loading: false,
@@ -194,7 +225,7 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "auth-storage",
-      partialize: (state) => ({ token: state.token }),
+      partialize: (state) => ({ token: state.token, user: state.user }),
     },
   ),
 );
