@@ -24,10 +24,7 @@ const ApplicationStats: React.FC = () => {
 
   // Log para verificar los datos recibidos
   useEffect(() => {
-    console.log('📊 ApplicationStats: Datos recibidos:', {
-      total: postulations.length,
-      postulations,
-    });
+
   }, [postulations]);
 
   // Total count
@@ -139,13 +136,7 @@ const ApplicationStats: React.FC = () => {
 
   // Log para verificar los cálculos
   useEffect(() => {
-    console.log('📊 ApplicationStats: Cálculos realizados:', {
-      totalApplications,
-      activeApplications,
-      topCompany,
-      recentApplications,
-      applicationsByStatus,
-    });
+
   }, [totalApplications, activeApplications, topCompany, recentApplications, applicationsByStatus]);
 
   return (
