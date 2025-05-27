@@ -82,12 +82,7 @@ export const usePostulationsStore = create<PostulationState>()(
       },
 
       updatePostulation: async (id: string, updatedFields: Partial<Postulation>) => {
-        console.log('🔄 [PostulationsStore] Iniciando updatePostulation:', {
-          id,
-          updatedFields,
-          currentPostulations: get().postulations.length,
-          postulationExists: get().postulations.some(p => p.id === id),
-        });
+
 
         try {
           set({ loading: true });
@@ -160,7 +155,7 @@ export const usePostulationsStore = create<PostulationState>()(
             set({ loading: false });
           }
         } catch (error) {
-          console.error('❌ [PostulationsStore] Error al actualizar postulación:', error);
+
           if (axios.isAxiosError(error)) {
             console.error('📝 [PostulationsStore] Detalles del error:', {
               status: error.response?.status,
@@ -198,35 +193,41 @@ export const usePostulationsStore = create<PostulationState>()(
         }
       },
 
-      deletePostulation: async (id: string) => {
-        console.log('🔄 Iniciando deletePostulation:', id);
-        try {
-          set({ loading: true });
-          console.log('📤 Enviando petición al servidor...');
-          await postulationsApi.delete(id);
-          console.log('✅ Postulación eliminada exitosamente');
-          set((state: PostulationState) => ({
-            postulations: state.postulations.filter((app: Postulation) => app.id !== id),
-            loading: false,
-          }));
-        } catch (error) {
-          console.error('❌ Error al eliminar postulación:', error);
-          if (axios.isAxiosError(error)) {
-            console.error('📝 Detalles del error:', {
-              status: error.response?.status,
-              data: error.response?.data,
-              message: error.message,
-              config: {
-                url: error.config?.url,
-                method: error.config?.method,
-              },
-            });
-          }
-          set({ loading: false });
-          throw error;
-        }
-      },
+   deletePostulation: async (id: string) => {
+  try {
+    set({ loading: true });
+    const postulationId = id;
+    console.log(`🔍 Verificando existencia de postulación con ID: ${postulationId}`);
+    const getResponse = await postulationsApi.getById(postulationId);
 
+    if (getResponse.status === 200 && getResponse.data?.result) {
+      console.log("✅ Postulación encontrada, procediendo a eliminar...");
+
+      const deleteResponse = await postulationsApi.delete(postulationId);
+      console.log("🗑️ Postulación eliminada con éxito:", deleteResponse);
+
+      // Actualizar estado local
+      set((state: PostulationState) => ({
+        postulations: state.postulations.filter(p => p.id !== postulationId),
+        loading: false,
+      }));
+    } else {
+      console.warn("⚠️ No se encontró la postulación para eliminar.");
+      set({ loading: false });
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 404) {
+        console.error("❌ Postulación no encontrada (404). Ya fue eliminada o el ID no es válido.");
+      } else {
+        console.error("❌ Error al intentar eliminar la postulación:", error.message);
+      }
+    } else {
+      console.error("❌ Error inesperado:", error);
+    }
+    set({ loading: false });
+  }
+},
       getPostulation: (id: string) => {
         console.log('🔍 Buscando postulación:', id);
         const postulation = get().postulations.find((app: Postulation) => app.id === id);
