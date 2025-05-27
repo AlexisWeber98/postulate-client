@@ -22,9 +22,9 @@ const EditProfile: React.FC = () => {
   const [email, setEmail] = useState(user?.email || '');
   const [lastName, setLastName] = useState(user?.lastName || '');
   const [userName, setUserName] = useState(user?.userName || '');
-  if (!user?.userName) {
+  /* if (!user?.userName) {
     console.warn('[EditProfile] userName está vacío o indefinido en user:', user);
-  }
+  } */
   const [_profileImage, setProfileImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>(user?.profileImage || '');
   const [isUploading, setIsUploading] = useState(false);
