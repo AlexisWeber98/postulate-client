@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { Postulation, PostulationState } from '../../types/interface/postulations/postulation';
 import { postulationsApi } from '../../api/postulations';
 import axios from 'axios';
-import { API_URL } from '../../api/apiAxios';
+
 import { useAuthStore } from '../auth/authStore';
 
 export const usePostulationsStore = create<PostulationState>()(
@@ -94,7 +94,7 @@ export const usePostulationsStore = create<PostulationState>()(
 
 
 
-          const response = await postulationsApi.update(id, updatedFields);
+           await postulationsApi.update(id, updatedFields);
 
 
           // Obtener el token para el userId
@@ -182,7 +182,7 @@ export const usePostulationsStore = create<PostulationState>()(
 
     if (getResponse.status === 200 && getResponse.data?.result) {
 
-      const deleteResponse = await postulationsApi.delete(postulationId);
+       await postulationsApi.delete(postulationId);
 
       // Actualizar estado local
       set((state: PostulationState) => ({
