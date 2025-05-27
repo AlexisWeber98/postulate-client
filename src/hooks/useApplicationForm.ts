@@ -180,10 +180,10 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    console.log('[DEBUG] Iniciando envío del formulario');
+
 
     if (!validateForm()) {
-      console.log('[DEBUG] Validación del formulario falló');
+
       setIsSubmitting(false);
       return;
     }
@@ -194,7 +194,7 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
       }
 
       if (!id && checkDuplicate(company, position)) {
-        console.log('[DEBUG] Se detectó una postulación duplicada');
+
         setShowDuplicateModal(true);
         setIsSubmitting(false);
         return;

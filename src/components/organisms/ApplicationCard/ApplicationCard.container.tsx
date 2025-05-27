@@ -43,7 +43,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   };
 
   const handleSave = async (updatedApplication: Postulation) => {
-    console.log('[ApplicationCard] Iniciando actualización de postulación:', updatedApplication.id);
+
     setIsLoading(true);
     try {
       const updateData = {
@@ -59,14 +59,13 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
         userId: updatedApplication.userId
       };
 
-      console.log('[ApplicationCard] Datos a actualizar:', {
-        id: updatedApplication.id,
-        data: updateData
-      });
+
+
+
 
       await postulationsApi.update(updatedApplication.id, updateData);
       updatePostulation(updatedApplication.id, updatedApplication);
-      console.log('[ApplicationCard] Postulación actualizada exitosamente:', updatedApplication.id);
+
       toast.success(translate('dashboard.actions.updateSuccess'));
       closeEditModal();
     } catch (error) {
@@ -78,16 +77,16 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   };
 
   const handleDelete = async () => {
-    console.log('[ApplicationCard] Intentando eliminar postulación con id:', application.id);
+
     if (!window.confirm(translate('dashboard.actions.deleteConfirm'))) {
-      console.log('[ApplicationCard] Eliminación cancelada por el usuario');
+
       return;
     }
 
     setIsLoading(true);
     try {
       await deletePostulation(application.id);
-      console.log('[ApplicationCard] Eliminación exitosa para id:', application.id);
+
       toast.success(translate('dashboard.actions.deleteSuccess'));
       closeEditModal();
       closeDetailModal();

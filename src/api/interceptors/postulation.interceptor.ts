@@ -14,7 +14,7 @@ const getUserIdFromToken = () => {
 
     const [, payload] = token.split('.');
     const decodedPayload = JSON.parse(atob(payload));
-    console.log('[DEBUG] Payload decodificado:', decodedPayload);
+
 
     return decodedPayload.id || decodedPayload.userId;
   } catch (error) {

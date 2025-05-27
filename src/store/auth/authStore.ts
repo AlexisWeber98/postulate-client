@@ -42,13 +42,14 @@ export const useAuthStore = create<AuthState>()(
 
         try {
           const decoded = jwtDecode<JwtPayload & User>(token);
+
           set({
             isAuthenticated: true,
             user: {
               id: decoded.id,
               name: decoded.name,
-              lastName: decoded.lastName,
-              userName: decoded.userName,
+              lastName: decoded.lastName || decoded.lastname,
+              userName: decoded.userName || decoded["username"] || decoded["user_name"],
               email: decoded.email,
             },
           });
@@ -65,9 +66,10 @@ export const useAuthStore = create<AuthState>()(
 
         try {
           const response = await authApi.login({ email, password });
-          console.log('Respuesta del login:', response);
+
           const token = response.result;
           const decoded = jwtDecode<JwtPayload & User>(token);
+
 
           set({
             token: token,
@@ -76,8 +78,8 @@ export const useAuthStore = create<AuthState>()(
             user: {
               id: decoded.id,
               name: decoded.name,
-              lastName: decoded.lastName,
-              userName: decoded.userName,
+              lastName: decoded.lastName || decoded.lastname,
+              userName: decoded.userName || decoded["username"] || decoded["user_name"],
               email: decoded.email,
             },
           });
@@ -121,10 +123,24 @@ export const useAuthStore = create<AuthState>()(
             lastName,
             password,
           });
+
           const { user, token } = response.result;
+          if (token) {
+            const decoded = jwtDecode<JwtPayload & User>(token);
+
+          }
+
+          if (!user) {
+            console.error('[authStore] Error: El backend no devolvió el usuario en el registro:', response);
+            throw new Error('No se pudo registrar el usuario. Intenta de nuevo.');
+          }
 
           set({
-            user,
+            user: {
+              ...user,
+              lastName: user.lastName || user["lastname"],
+              userName: user.userName || user["username"] || user["user_name"],
+            },
             loading: false,
             token,
             isAuthenticated: true
@@ -145,7 +161,7 @@ export const useAuthStore = create<AuthState>()(
       },
 
       signOut: () => {
-        console.log("Cerrando sesión");
+
         set({
           user: null,
           token: null,
@@ -154,19 +170,33 @@ export const useAuthStore = create<AuthState>()(
         });
       },
 
-      updateUser: async (data: { name?: string; email?: string; lastName?: string; userName?: string }) => {
-        console.log("Actualizando usuario:", data);
+      updateUser: async (data: { name?: string; email?: string; lastName?: string; userName?: string; imageUrl?: string }) => {
+
         try {
           const userId = get().user?.id;
           if (!userId) {
             throw new Error('No se encontró el ID del usuario');
           }
-          const response = await authApi.updateProfile(userId, data);
+          // Convertir lastName a lastname para el backend si es necesario
+          const dataToSend: any = { ...data, userId };
+          if (data.lastName) {
+            dataToSend.lastname = data.lastName;
+            delete dataToSend.lastName;
+          }
+
+          const response = await authApi.updateProfile(userId, dataToSend);
+
           set((state) => ({
-            user: state.user ? { ...state.user, ...response.result } : null,
+            user: state.user ? { ...state.user, ...response.result.user } : null,
           }));
+          return response;
         } catch (error) {
-          console.error("Error al actualizar usuario:", error);
+          console.error("[updateUser] Error al actualizar usuario:", error);
+          if (error && typeof error === 'object' && 'response' in error) {
+            // Mostrar el mensaje de error del backend si existe
+            // @ts-ignore
+            console.error("[updateUser] Detalle del error del backend:", error.response?.data);
+          }
           throw error;
         }
       },
@@ -175,13 +205,14 @@ export const useAuthStore = create<AuthState>()(
         const { token } = get();
         if (token) {
           const decoded = jwtDecode<JwtPayload & User>(token);
+
           set({
             isAuthenticated: true,
             user: {
               id: decoded.id,
               name: decoded.name,
-              lastName: decoded.lastName,
-              userName: decoded.userName,
+              lastName: decoded.lastName || decoded.lastname,
+              userName: decoded.userName || decoded["username"] || decoded["user_name"],
               email: decoded.email,
             },
             loading: false,
@@ -189,12 +220,12 @@ export const useAuthStore = create<AuthState>()(
         } else {
           set({ loading: false });
         }
-        console.log("Auth store inicializado", { token, loading: false });
+
       },
     }),
     {
       name: "auth-storage",
-      partialize: (state) => ({ token: state.token }),
+      partialize: (state) => ({ token: state.token, user: state.user }),
     },
   ),
 );
