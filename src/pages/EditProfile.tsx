@@ -16,7 +16,7 @@ type FieldName = 'name' | 'email' | 'lastName' | 'userName';
 
 const EditProfile: React.FC = () => {
   const { user, updateUser } = useAuthStore();
-  console.log("[EditProfile] Usuario actual:", user);
+
   const { translate } = useLanguageStore();
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
@@ -162,13 +162,7 @@ const EditProfile: React.FC = () => {
 
     setIsLoading(true);
     try {
-      console.log('Datos enviados a updateUser:', {
-        name,
-        lastName,
-        email,
-        userName,
-        ...(previewUrl && { imageUrl: previewUrl })
-      });
+
 
       const result = await updateUser({
         name,
@@ -178,7 +172,7 @@ const EditProfile: React.FC = () => {
         ...(previewUrl && { imageUrl: previewUrl })
       });
 
-      console.log('Respuesta de updateUser:', result);
+
 
       setSuccess(true);
       setTimeout(() => setSuccess(false), 2000);

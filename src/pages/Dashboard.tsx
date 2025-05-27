@@ -36,11 +36,7 @@ const Dashboard: React.FC = () => {
 
   // Log para verificar el estado de las postulaciones
   useEffect(() => {
-    console.log('📊 Dashboard: Estado actual de postulaciones:', {
-      total: postulations.length,
-      loading,
-      postulations
-    });
+
   }, [postulations, loading]);
 
   // Manejadores de filtro seguros
@@ -104,13 +100,8 @@ const Dashboard: React.FC = () => {
         console.warn('⚠️ Dashboard: postulations no es un array:', postulations);
         return [];
       }
-      console.log('🔍 Dashboard: Filtrando aplicaciones:', {
-        total: postulations.length,
-        searchTerm,
-        statusFilter,
-        companyFilter,
-        positionFilter
-      });
+
+
       return postulations.filter((app: Postulation) => {
         if (!app) return false;
 

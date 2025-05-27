@@ -9,11 +9,11 @@ import {
 } from '../../types/interface/postulations/postulation';
 import { ApplicationStatus } from '../../interfaces/postulations/application-status';
 
-console.log('[NuevaPostulacionPage] Componente cargado');
+
 
 // Mapeo entre ApplicationStatus y PostulationStatus
 const mapApplicationToPostulationStatus = (status: ApplicationStatus): PostulationStatus => {
-  console.log('[mapApplicationToPostulationStatus] Estado recibido:', status);
+
   switch (status) {
     case ApplicationStatus.PENDING:
       return 'applied';
@@ -37,14 +37,14 @@ const NuevaPostulacionPage: React.FC = () => {
   const addPostulation = usePostulationsStore((state: PostulationState) => state.addPostulation);
 
   useEffect(() => {
-    console.log('[NuevaPostulacionPage] Componente montado');
+
     return () => {
-      console.log('[NuevaPostulacionPage] Componente desmontado');
+
     };
   }, []);
 
   const handleSubmit = async (values: NewPostulationFormValues) => {
-    console.log('[handleSubmit] Valores del formulario recibidos:', values);
+
 
     if (!user?.id) {
       setFormError(translate('errorMessage') || 'No se encontró el ID del usuario.');
@@ -82,7 +82,7 @@ const NuevaPostulacionPage: React.FC = () => {
         userId: user.id,
       });
 
-      console.log('[handleSubmit] Postulación enviada exitosamente a la API');
+
 
       const newPostulation = {
         company,
@@ -97,17 +97,17 @@ const NuevaPostulacionPage: React.FC = () => {
         userId: user.id,
       };
 
-      console.log('[handleSubmit] Agregando postulación al store:', newPostulation);
+
       addPostulation(newPostulation);
 
       setSuccess(true);
-      console.log('[handleSubmit] Postulación procesada con éxito');
+
     } catch (error) {
-      console.error('[handleSubmit] Error al guardar la postulación:', error);
+
       setFormError(translate('errorMessage') || 'An error occurred while saving the application.');
     } finally {
       setLoading(false);
-      console.log('[handleSubmit] Finaliza manejo del formulario');
+
     }
   };
 

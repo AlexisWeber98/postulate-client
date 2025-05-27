@@ -51,7 +51,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
   const handleSelectChange = (status: PostulationStatus) => {
-    console.log('Status seleccionado:', status);
+
     onStatusChange(status);
     setIsOpen(false);
   };
@@ -83,7 +83,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    console.log('Cambio en input:', e.target.name, '->', e.target.value);
+
     onChange(e);
   };
 
