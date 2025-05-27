@@ -162,9 +162,7 @@ const EditProfile: React.FC = () => {
 
     setIsLoading(true);
     try {
-
-
-      const result = await updateUser({
+       await updateUser({
         name,
         lastName,
         email,
