@@ -52,10 +52,6 @@ try {
   // Obtener mensajes en el idioma configurado
   const lang = getLanguage();
 
-  // Mostrar los cambios y pedir confirmación
-  console.log(lang.filesToInclude + ':');
-  console.log(status);
-
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,

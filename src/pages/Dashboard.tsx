@@ -27,7 +27,7 @@ const Dashboard: React.FC = () => {
   });
 
   useEffect(() => {
-    console.log('🔄 Dashboard: Iniciando carga de postulaciones');
+
     getAllPostulations().catch(error => {
       console.error('❌ Dashboard: Error al cargar postulaciones:', error);
       handleError(error as Error, translate('dashboard.errorMessage'));

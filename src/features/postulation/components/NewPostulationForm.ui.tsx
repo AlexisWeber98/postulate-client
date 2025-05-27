@@ -45,7 +45,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   loading,
   error,
 }) => {
-  console.log('[NewPostulationFormUI] Componente renderizado con valores:', values);
+
   const translate = useLanguageStore(state => state.translate);
   const [isOpen, setIsOpen] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -88,15 +88,12 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('Cambio en checkbox:', e.target.name, '->', e.target.checked);
+
     onCheckboxChange(e);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
-    console.log('Formulario enviado');
-    console.log('Valores:', values);
-    console.log('Errores:', errors);
-    console.log('Touched:', touched);
+
     onSubmit(e);
   };
 
