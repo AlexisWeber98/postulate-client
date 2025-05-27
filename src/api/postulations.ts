@@ -13,7 +13,7 @@ interface ApiResponse<T> {
 }
 
 interface PostulationsResponse {
-  postulations: Postulation[];
+  data: Postulation[];
 }
 
 // Constantes reutilizables
@@ -55,7 +55,8 @@ export const postulationsClient: AxiosInstance = createApiClient();
 
 // Servicio de postulaciones
 export const postulationsApi = {
-  getAll: (userId: string) => postulationsClient.get<ApiResponse<PostulationsResponse>>(`${ENDPOINT}/user/${userId}`),
+  getAll: (userId: string) =>
+    postulationsClient.get<ApiResponse<PostulationsResponse>>(`${ENDPOINT}/user/${userId}`),
 
   getById: (id: string) => postulationsClient.get<ApiResponse<Postulation>>(`${ENDPOINT}/${id}`),
 
@@ -95,5 +96,8 @@ export const postulationsApi = {
     });
   },
 
-  delete: (id: string) => postulationsClient.delete<void>(`${ENDPOINT}/${id}`),
+   delete: (id: string) => {
+     console.log('[PostulationsApi] Eliminando postulación con id:', id);
+     return postulationsClient.delete<void>(`${ENDPOINT}`, { data: { id } });
+   },
 };

@@ -104,6 +104,12 @@ export const postulationRequestInterceptor = {
 
     console.log('[DEBUG] Headers finales:', config.headers);
     console.log('[DEBUG] ===== FIN REQUEST INTERCEPTOR =====');
+    console.log('[DEBUG] Método:', config.method);
+    console.log('[DEBUG] URL:', config.url);
+    if (config.method === 'delete') {
+      console.log('[DEBUG] Interceptando petición DELETE');
+      console.log('[DEBUG] Headers:', config.headers);
+    }
     return config;
   },
   onRejected: (error: any) => {
