@@ -166,10 +166,7 @@ try {
         console.error(`${lang.error}: ${commitResult.stderr.toString()}`);
         process.exit(1);
       }
-
-      console.log(lang.commitSuccess);
     } else {
-      console.log(lang.commitCancelled);
     }
     rl.close();
   });

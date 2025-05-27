@@ -16,16 +16,11 @@ export const usePostulationsStore = create<PostulationState>()(
         newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>
       ) => {
 
-        console.log('[DEBUG] API URL configurada:', API_URL);
+
         try {
           set({ loading: true });
 
-          console.log('🔍 Configuración de la petición:', {
-            url: '/postulations',
-            method: 'post',
-            data: newPostulation,
-            baseURL: API_URL,
-          });
+
 
           // Asegurarnos que la fecha está en el formato correcto
           const postulationData = {
