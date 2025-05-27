@@ -78,35 +78,25 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   };
 
   const handleDelete = async () => {
+    console.log('[ApplicationCard] Intentando eliminar postulación con id:', application.id);
     if (!window.confirm(translate('dashboard.actions.deleteConfirm'))) {
       console.log('[ApplicationCard] Eliminación cancelada por el usuario');
       return;
     }
 
-    console.log('[ApplicationCard] 🟥 Botón Eliminar presionado');
-    console.log('[ApplicationCard] 📤 Enviando request DELETE a API con ID:', application.id);
     setIsLoading(true);
-
     try {
-      await postulationsApi.delete(application.id);
-      deletePostulation(application.id);
-      console.log('[ApplicationCard] ✅ Postulación eliminada exitosamente:', application.id);
+      await deletePostulation(application.id);
+      console.log('[ApplicationCard] Eliminación exitosa para id:', application.id);
       toast.success(translate('dashboard.actions.deleteSuccess'));
       closeEditModal();
       closeDetailModal();
-    } catch (error: unknown) {
+    } catch (error) {
       console.error('[ApplicationCard] ❌ Error al eliminar la postulación 😓', error);
-
       if (isAxiosError(error)) {
         const axiosError = error as import('axios').AxiosError<ErrorResponse>;
-        console.error('[ApplicationCard] 📝 Detalles del error:', {
-          status: axiosError.response?.status,
-          data: axiosError.response?.data,
-          headers: axiosError.response?.headers
-        });
         toast.error(axiosError.response?.data?.message || translate('dashboard.actions.deleteError'));
       } else {
-        console.error('[ApplicationCard] ❌ Error inesperado:', error);
         toast.error(translate('dashboard.actions.deleteError'));
       }
     } finally {

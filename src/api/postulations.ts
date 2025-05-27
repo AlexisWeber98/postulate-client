@@ -96,5 +96,8 @@ export const postulationsApi = {
     });
   },
 
-  delete: (id: string) => postulationsClient.delete<void>(`${ENDPOINT}/${id}`),
+   delete: (id: string) => {
+     console.log('[PostulationsApi] Eliminando postulación con id:', id);
+     return postulationsClient.delete<void>(`${ENDPOINT}`, { data: { id } });
+   },
 };
