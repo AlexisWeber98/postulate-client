@@ -126,7 +126,7 @@ export const useAuthStore = create<AuthState>()(
 
           const { user, token } = response.result;
           if (token) {
-            const decoded = jwtDecode<JwtPayload & User>(token);
+            jwtDecode<JwtPayload & User>(token);
 
           }
 
