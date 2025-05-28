@@ -35,7 +35,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
             Show information
           </button>
           <div
-            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200 w-48 shadow-lg border border-gray-200 dark:border-gray-700 z-10"
+            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-4 py-2 bg-gray-800/95 dark:bg-gray-900/95 text-white text-sm font-semibold rounded-xl opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200 w-56 shadow-2xl border border-blue-400 z-20"
             role="tooltip"
             id={`${name}-tooltip`}
             aria-hidden="true"
@@ -54,7 +54,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.2 }}
-            className="absolute right-10 top-1/2 -translate-y-1/2 pointer-events-none"
+            className="absolute right-3 top-1/2 -translate-y-[35%] pointer-events-none"
           >
             {fieldStatus.isValid ? (
               <CheckCircle2 className="h-5 w-5 text-green-500" />

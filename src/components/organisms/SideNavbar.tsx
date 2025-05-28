@@ -79,6 +79,11 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ sections }) => {
                 border: activeSection === section.id ? '2px solid #3B82F6' : '2px solid transparent',
               }}
             />
+            <span
+              className="absolute right-10 top-1/2 -translate-y-1/2 px-3 py-1 rounded bg-gray-900 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-lg z-10"
+            >
+              {section.label}
+            </span>
           </motion.button>
         ))}
       </div>
