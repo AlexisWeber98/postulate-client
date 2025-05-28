@@ -6,7 +6,7 @@ export const AuthPage: React.FC<{ type: 'login' | 'register' }> = ({ type }) => 
   const translate = useLanguageStore(state=>state.translate);
 
   return (
-    <div className="flex flex-col lg:flex-row w-full min-h-screen relative z-10">
+    <div className="flex flex-col lg:flex-row w-full min-h-screen relative z-10 px-4">
       {/* Columna izquierda (desktop): título */}
       <div className="hidden lg:flex flex-col justify-center items-start w-1/2 pl-16">
         <div className="flex flex-col items-start w-full">
@@ -26,7 +26,7 @@ export const AuthPage: React.FC<{ type: 'login' | 'register' }> = ({ type }) => 
         </div>
 
         {/* Formulario */}
-        <div className="w-full max-w-md backdrop-blur-sm rounded-lg shadow-lg">
+        <div className="w-full max-w-sm sm:max-w-md backdrop-blur-sm rounded-lg shadow-lg mx-6 sm:mx-auto">
           <AuthFormContainer type={type} />
         </div>
       </div>

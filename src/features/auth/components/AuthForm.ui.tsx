@@ -38,7 +38,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, g
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700/50 p-8 max-w-md w-full mx-auto"
+      className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700/50 p-8 px-4 sm:mx-8 max-w-md w-full mx-auto"
     >
       {generalErrors.length > 0 && (
         <div className="mb-4">

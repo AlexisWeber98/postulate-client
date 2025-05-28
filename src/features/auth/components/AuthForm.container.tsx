@@ -40,6 +40,7 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
     if (msg.toLowerCase().includes('existe')) return 'auth.error.userExists';
     if (msg.toLowerCase().includes('email')) return 'auth.error.email';
     if (msg.toLowerCase().includes('network') || msg.toLowerCase().includes('timeout')) return 'auth.error.network';
+    if (msg.toLowerCase().includes('credencial') || msg.toLowerCase().includes('incorrecta')) return 'auth.error.invalidCredentials';
     return msg;
   };
 
@@ -95,6 +96,12 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
         setFieldErrors({ email: translate('auth.error.email' as TranslationKey) });
       } else if (msg === 'auth.error.network') {
         setGeneralErrors([translate('auth.error.network' as TranslationKey)]);
+      } else if (msg === 'auth.error.invalidCredentials') {
+        setGeneralErrors([translate('auth.error.invalidCredentials' as TranslationKey)]);
+        setFieldErrors({
+          email: translate('auth.error.invalidCredentials' as TranslationKey),
+          password: translate('auth.error.invalidCredentials' as TranslationKey)
+        });
       } else {
         setGeneralErrors([typeof msg === 'string' ? translate(msg as TranslationKey) : msg]);
       }
