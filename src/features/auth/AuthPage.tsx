@@ -26,7 +26,7 @@ export const AuthPage: React.FC<{ type: 'login' | 'register' }> = ({ type }) => 
         </div>
 
         {/* Formulario */}
-        <div className="w-full max-w-md bg-white/90 backdrop-blur-sm rounded-lg shadow-lg">
+        <div className="w-full max-w-md backdrop-blur-sm rounded-lg shadow-lg">
           <AuthFormContainer type={type} />
         </div>
       </div>
