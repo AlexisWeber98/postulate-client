@@ -39,8 +39,10 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
   const mapBackendError = (msg: string) => {
     if (msg.toLowerCase().includes('existe')) return 'auth.error.userExists';
     if (msg.toLowerCase().includes('email')) return 'auth.error.email';
-    if (msg.toLowerCase().includes('network') || msg.toLowerCase().includes('timeout')) return 'auth.error.network';
-    if (msg.toLowerCase().includes('credencial') || msg.toLowerCase().includes('incorrecta')) return 'auth.error.invalidCredentials';
+    if (msg.toLowerCase().includes('network') || msg.toLowerCase().includes('timeout'))
+      return 'auth.error.network';
+    if (msg.toLowerCase().includes('credencial') || msg.toLowerCase().includes('incorrecta'))
+      return 'auth.error.invalidCredentials';
     return msg;
   };
 
@@ -89,7 +91,7 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
         setGeneralErrors([translate('auth.error.userExists' as TranslationKey)]);
         setFieldErrors({
           email: translate('auth.error.userExists' as TranslationKey),
-          userName: translate('auth.error.userExists' as TranslationKey)
+          userName: translate('auth.error.userExists' as TranslationKey),
         });
       } else if (msg === 'auth.error.email') {
         setGeneralErrors([translate('auth.error.email' as TranslationKey)]);
@@ -100,7 +102,7 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
         setGeneralErrors([translate('auth.error.invalidCredentials' as TranslationKey)]);
         setFieldErrors({
           email: translate('auth.error.invalidCredentials' as TranslationKey),
-          password: translate('auth.error.invalidCredentials' as TranslationKey)
+          password: translate('auth.error.invalidCredentials' as TranslationKey),
         });
       } else {
         setGeneralErrors([typeof msg === 'string' ? translate(msg as TranslationKey) : msg]);

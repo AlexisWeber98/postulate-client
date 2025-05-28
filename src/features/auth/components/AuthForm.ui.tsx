@@ -1,22 +1,34 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { useLanguageStore } from '../../../store';
 import { FieldWrapper } from './FieldWrapper';
 import { useAuthForm } from '../hooks/useAuthForm';
-import { TranslationKey } from '../../../i18n';
+//import { TranslationKey } from '../../../i18n';
 
 interface AuthFormProps {
   type: 'login' | 'register';
-  onSubmit: (data: { email: string; password: string; name?: string; userName?: string; lastName?: string }) => void;
+  onSubmit: (data: {
+    email: string;
+    password: string;
+    name?: string;
+    userName?: string;
+    lastName?: string;
+  }) => void;
   isLoading?: boolean;
   generalErrors?: string[];
   fieldErrors?: Record<string, string>;
 }
 
-export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, generalErrors = [], fieldErrors = {} }) => {
-  const translate = useLanguageStore(state=> state.translate);
+export const AuthForm: React.FC<AuthFormProps> = ({
+  type,
+  onSubmit,
+  isLoading,
+  generalErrors = [],
+  fieldErrors = {},
+}) => {
+  const translate = useLanguageStore(state => state.translate);
   const [showPassword, setShowPassword] = useState(false);
   const {
     formData,
@@ -25,7 +37,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, g
     handleFieldChange,
     handleFieldBlur,
     isFormValid,
-    resetForm
+    resetForm,
   } = useAuthForm(type);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -64,7 +76,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, g
           isBlurred={isBlurred.email}
           fieldStatus={{
             ...fieldStatus.email,
-            ...(fieldErrors.email ? { isValid: false, message: fieldErrors.email } : {})
+            ...(fieldErrors.email ? { isValid: false, message: fieldErrors.email } : {}),
           }}
         >
           <input
@@ -89,7 +101,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, g
               isBlurred={isBlurred.name}
               fieldStatus={{
                 ...fieldStatus.name,
-                ...(fieldErrors.name ? { isValid: false, message: fieldErrors.name } : {})
+                ...(fieldErrors.name ? { isValid: false, message: fieldErrors.name } : {}),
               }}
             >
               <input
@@ -112,7 +124,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, g
               isBlurred={isBlurred.lastName}
               fieldStatus={{
                 ...fieldStatus.lastName,
-                ...(fieldErrors.lastName ? { isValid: false, message: fieldErrors.lastName } : {})
+                ...(fieldErrors.lastName ? { isValid: false, message: fieldErrors.lastName } : {}),
               }}
             >
               <input
@@ -135,7 +147,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, g
               isBlurred={isBlurred.userName}
               fieldStatus={{
                 ...fieldStatus.userName,
-                ...(fieldErrors.userName ? { isValid: false, message: fieldErrors.userName } : {})
+                ...(fieldErrors.userName ? { isValid: false, message: fieldErrors.userName } : {}),
               }}
             >
               <input
@@ -160,12 +172,12 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, g
           isBlurred={isBlurred.password}
           fieldStatus={{
             ...fieldStatus.password,
-            ...(fieldErrors.password ? { isValid: false, message: fieldErrors.password } : {})
+            ...(fieldErrors.password ? { isValid: false, message: fieldErrors.password } : {}),
           }}
         >
           <div className="relative">
             <input
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               id="password"
               value={formData.password}
               onChange={e => handleFieldChange('password', e.target.value)}
@@ -174,13 +186,15 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, g
               placeholder="Tu contraseña"
               required
             />
-  <button
-    type="button"
-    aria-label={showPassword ? translate('auth.hidePassword') : translate('auth.showPassword')}
-    onClick={() => setShowPassword(!showPassword)}
-    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700
+            <button
+              type="button"
+              aria-label={
+                showPassword ? translate('auth.hidePassword') : translate('auth.showPassword')
+              }
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700
             dark:text-gray-300 dark:hover:text-gray-100 transition-colors"
-  >
+            >
               {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
           </div>
@@ -206,21 +220,36 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, g
                 disabled={!isFormValid || isLoading}
                 className="px-8 py-3 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 rounded-xl shadow-xl text-white font-semibold text-base border-0 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isLoading ? translate('common.loading') : (type === 'login' ? translate('auth.login') : translate('auth.register'))}
+                {isLoading
+                  ? translate('common.loading')
+                  : type === 'login'
+                    ? translate('auth.login')
+                    : translate('auth.register')}
               </button>
             </div>
 
             <div className="text-center text-gray-600 dark:text-gray-300 mt-2">
-              {type === 'login'
-                ? <>
-                    {translate('auth.newUser')}{' '}
-                    <Link to="/register" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">{translate('auth.createAccountLink')}</Link>
-                  </>
-                : <>
-                    {translate('auth.alreadyHaveAccount')}{' '}
-                    <Link to="/login" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">{translate('auth.loginLink')}</Link>
-                  </>
-              }
+              {type === 'login' ? (
+                <>
+                  {translate('auth.newUser')}{' '}
+                  <Link
+                    to="/register"
+                    className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  >
+                    {translate('auth.createAccountLink')}
+                  </Link>
+                </>
+              ) : (
+                <>
+                  {translate('auth.alreadyHaveAccount')}{' '}
+                  <Link
+                    to="/login"
+                    className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  >
+                    {translate('auth.loginLink')}
+                  </Link>
+                </>
+              )}
             </div>
 
             <Link
