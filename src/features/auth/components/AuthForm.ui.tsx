@@ -11,10 +11,11 @@ interface AuthFormProps {
   type: 'login' | 'register';
   onSubmit: (data: { email: string; password: string; name?: string; userName?: string; lastName?: string }) => void;
   isLoading?: boolean;
-  error?: string;
+  generalErrors?: string[];
+  fieldErrors?: Record<string, string>;
 }
 
-export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, error }) => {
+export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, generalErrors = [], fieldErrors = {} }) => {
   const translate = useLanguageStore(state=> state.translate);
   const [showPassword, setShowPassword] = useState(false);
   const {
@@ -37,8 +38,17 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700/50 p-8 max-w-md w-full mx-auto"
+      className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700/50 p-8 px-4 sm:mx-8 max-w-md w-full mx-auto"
     >
+      {generalErrors.length > 0 && (
+        <div className="mb-4">
+          {generalErrors.map((err, idx) => (
+            <div key={idx} className="text-red-600 dark:text-red-400 font-medium text-center">
+              {err}
+            </div>
+          ))}
+        </div>
+      )}
       <motion.form
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -52,7 +62,10 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
           required
           tooltip={translate('auth.email.tooltip')}
           isBlurred={isBlurred.email}
-          fieldStatus={fieldStatus.email}
+          fieldStatus={{
+            ...fieldStatus.email,
+            ...(fieldErrors.email ? { isValid: false, message: fieldErrors.email } : {})
+          }}
         >
           <input
             type="email"
@@ -74,7 +87,10 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
               required
               tooltip="Ingresa tu nombre completo"
               isBlurred={isBlurred.name}
-              fieldStatus={fieldStatus.name}
+              fieldStatus={{
+                ...fieldStatus.name,
+                ...(fieldErrors.name ? { isValid: false, message: fieldErrors.name } : {})
+              }}
             >
               <input
                 type="text"
@@ -94,7 +110,10 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
               required
               tooltip="Ingresa tu apellido"
               isBlurred={isBlurred.lastName}
-              fieldStatus={fieldStatus.lastName}
+              fieldStatus={{
+                ...fieldStatus.lastName,
+                ...(fieldErrors.lastName ? { isValid: false, message: fieldErrors.lastName } : {})
+              }}
             >
               <input
                 type="text"
@@ -114,7 +133,10 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
               required
               tooltip="Ingresa tu nombre de usuario"
               isBlurred={isBlurred.userName}
-              fieldStatus={fieldStatus.userName}
+              fieldStatus={{
+                ...fieldStatus.userName,
+                ...(fieldErrors.userName ? { isValid: false, message: fieldErrors.userName } : {})
+              }}
             >
               <input
                 type="text"
@@ -136,7 +158,10 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
           required
           tooltip="Ingresa tu contraseña (mínimo 6 caracteres)"
           isBlurred={isBlurred.password}
-          fieldStatus={fieldStatus.password}
+          fieldStatus={{
+            ...fieldStatus.password,
+            ...(fieldErrors.password ? { isValid: false, message: fieldErrors.password } : {})
+          }}
         >
           <div className="relative">
             <input
@@ -207,20 +232,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, isLoading, e
             </Link>
           </div>
         </motion.div>
-        <AnimatePresence mode="wait">
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="mt-2 text-center"
-            >
-              <p className="text-red-600 dark:text-red-400 font-medium">
-                {error.startsWith('auth.') ? translate(error as TranslationKey) : error}
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.form>
     </motion.div>
   );
