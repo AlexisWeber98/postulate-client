@@ -16,7 +16,7 @@ interface Feature {
 export default function FeaturesCarousel() {
   const [activeIndex, setActiveIndex] = useState(1)
   const [autoplay, setAutoplay] = useState(true)
-  const [direction, setDirection] = useState(0)
+  const [/* direction */, setDirection] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
 
   const mouseX = useMotionValue(0)
@@ -150,23 +150,6 @@ export default function FeaturesCarousel() {
     },
   }
 
-  const titleVariants = {
-    hidden: {
-      opacity: 0,
-      y: -30,
-      scale: 0.9,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 200,
-        damping: 12,
-      },
-    },
-  }
 
   const buttonVariants = {
     hidden: {
@@ -219,7 +202,7 @@ export default function FeaturesCarousel() {
     const interval = setInterval(() => {
       setDirection(1)
       setActiveIndex((prev) => (prev + 1) % features.length)
-    }, 3000)
+    }, 6000)
 
     return () => clearInterval(interval)
   }, [autoplay, isHovered, features.length])
@@ -374,7 +357,7 @@ export default function FeaturesCarousel() {
             <motion.button
               key={index}
               onClick={() => handleIndicatorClick(index)}
-              className="relative"
+              className="relative w-4 h-4 flex items-center justify-center"
               variants={indicatorVariants}
               animate={index === activeIndex ? "active" : "inactive"}
               whileHover={{ scale: 1.3 }}
@@ -382,13 +365,13 @@ export default function FeaturesCarousel() {
               aria-label={`Go to feature ${index + 1}`}
             >
               <div
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-4 h-4 rounded-full aspect-square transition-all duration-300 ${
                   index === activeIndex ? "bg-[#5a7bcf]" : "bg-[#233d85]"
                 }`}
               />
               {index === activeIndex && (
                 <motion.div
-                  className="absolute inset-0 w-3 h-3 rounded-full bg-[#5a7bcf] opacity-30"
+                  className="absolute inset-0 w-4 h-4 rounded-full aspect-square bg-[#5a7bcf] opacity-30"
                   initial={{ scale: 1 }}
                   animate={{ scale: 2 }}
                   transition={{
