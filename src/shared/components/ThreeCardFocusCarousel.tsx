@@ -303,7 +303,7 @@ export default function FeaturesCarousel() {
               return (
                 <motion.div
                   key={feature.id}
-                  className="absolute w-96 p-10 rounded-3xl text-white shadow-2xl cursor-pointer bg-gradient-to-r from-blue-500 to-violet-500 flex flex-col items-center justify-center text-center"
+                  className="absolute w-96 p-10 rounded-3xl text-white shadow-2xl cursor-pointer bg-gradient-to-r from-blue-500 to-violet-500 flex items-center justify-center text-center min-h-[340px] h-full"
                   style={{
                     rotateX: isCenter ? rotateX : 0,
                     rotateY: isCenter ? rotateY : 0,
