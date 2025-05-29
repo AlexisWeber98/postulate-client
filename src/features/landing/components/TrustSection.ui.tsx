@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useThemeStore } from '../../../store/theme/themeStore';
+
 
 interface TrustSectionProps {
   translate: (key: string) => string;
@@ -47,7 +47,7 @@ const trustCards = [
 ];
 
 const TrustSection: React.FC<TrustSectionProps> = ({ translate }) => {
-  const { theme } = useThemeStore();
+
 
   return (
     <section className="py-20 sm:py-32 flex flex-col items-center w-full min-h-[60vh]">
