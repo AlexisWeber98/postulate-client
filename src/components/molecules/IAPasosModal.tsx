@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
-/* import { Button } from '../ui/button'; */
+ import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { PasswordToggle } from '../ui/PasswordToggle';
-/* import { useNavigate } from 'react-router-dom'; */
+import { useNavigate } from 'react-router-dom';
 import { useThemeStore } from '../../store/theme/themeStore';
 
 interface IAPasosModalProps {
@@ -208,10 +208,10 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(0);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  /* const navigate = useNavigate(); */
+   const navigate = useNavigate();
   const { theme } = useThemeStore();
 
- /*  const handleNext = () => {
+ const handleNext = () => {
     if (step === 0) {
       if (password !== 'backend') {
         setError('Contraseña incorrecta');
@@ -228,7 +228,7 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
     }
     setStep((prev) => prev + 1);
   };
-
+ /*
   const handlePrev = () => {
     setStep((prev) => prev - 1);
     setError('');
@@ -282,14 +282,14 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
             />
           </div>
         )}
-       {/*  <div className="flex justify-between mt-10 gap-4 flex-wrap">
-          <Button
+         <div className="flex justify-between mt-10 gap-4 flex-wrap">
+       {/*    <Button
             variant="secondary"
             onClick={step === 0 ? handleClose : handlePrev}
             className={`w-40 font-bold text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 border-0 shadow-lg rounded-lg py-3 text-lg hover:shadow-xl hover:scale-105 transition-all ${theme === 'dark' ? 'ring-1 ring-violet-900' : ''}`}
           >
             {step === 0 ? 'Cerrar' : 'Anterior'}
-          </Button>
+          </Button> */}
           <Button
             onClick={handleNext}
             disabled={step === 0 && password !== 'backend'}
@@ -297,7 +297,8 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
           >
             {step < pasos.length - 1 ? 'Siguiente' : 'Finalizar'}
           </Button>
-        </div> */}
+
+        </div>
       </div>
     </Modal>
   );
