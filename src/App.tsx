@@ -12,6 +12,7 @@ import { AuthLayout } from './features/auth/AuthLayout';
 import LoadingSpinner from './components/atoms/LoadingSpinner';
 import { Toaster } from 'react-hot-toast';
 import { AuthRedirect } from './components/AuthRedirect';
+import IAResponseGenerator from './pages/postulation/IAResponseGenerator';
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading } = useAuthStore();
@@ -72,6 +73,7 @@ const App: React.FC = () => {
             <Route path="add" element={<ApplicationForm />} />
             <Route path="edit/:id" element={<ApplicationForm />} />
             <Route path="profile" element={<EditProfile />} />
+            <Route path="ia-response" element={<IAResponseGenerator />} />
           </Route>
           <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />
         </Routes>
