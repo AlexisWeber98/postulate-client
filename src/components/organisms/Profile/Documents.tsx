@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Briefcase, FileText, Upload } from 'lucide-react';
+import IAPasosModal from '../../molecules/IAPasosModal';
 
 const Documents: React.FC = () => {
+  const [isIAModalOpen, setIsIAModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Abrir el modal automáticamente cuando se monta el componente
+    setIsIAModalOpen(true);
+  }, []); // El array vacío significa que solo se ejecutará al montar el componente
+
   return (
     <>
       {/* Tip profesional Documentos */}
@@ -26,7 +34,9 @@ const Documents: React.FC = () => {
           </div>
           <h3 className="text-xl font-bold text-white text-center">Currículum Vitae</h3>
           <p className="text-white/80 text-center">Sube tu CV en formato PDF, DOCX o TXT</p>
-          <button className="mt-4 w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold text-base shadow transition">
+          <button
+            className="mt-4 w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold text-base shadow transition"
+          >
             <Upload className="w-5 h-5" /> Subir CV
           </button>
         </div>
@@ -38,7 +48,9 @@ const Documents: React.FC = () => {
           </div>
           <h3 className="text-xl font-bold text-white text-center">Carta de Presentación</h3>
           <p className="text-white/80 text-center">Sube tu carta en formato PDF o DOCX</p>
-          <button className="mt-4 w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold text-base shadow transition">
+          <button
+            className="mt-4 w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold text-base shadow transition"
+          >
             <Upload className="w-5 h-5" /> Subir Carta
           </button>
         </div>
@@ -50,11 +62,19 @@ const Documents: React.FC = () => {
           </div>
           <h3 className="text-xl font-bold text-white text-center">Otros Documentos</h3>
           <p className="text-white/80 text-center">Certificados, diplomas y más</p>
-          <button className="mt-4 w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold text-base shadow transition">
+          <button
+            className="mt-4 w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold text-base shadow transition"
+          >
             <Upload className="w-5 h-5" /> Subir Documentos
           </button>
         </div>
       </div>
+
+      {/* Modal de IA */}
+      <IAPasosModal
+        isOpen={isIAModalOpen}
+        onClose={() => setIsIAModalOpen(false)}
+      />
     </>
   );
 };
