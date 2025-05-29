@@ -12,12 +12,12 @@ export function ThemeToggle() {
       type="button"
     >
       {/* Luna */}
-      <Moon className={`w-4 h-4 absolute left-2 transition-colors ${theme === 'dark' ? 'text-yellow-200' : 'text-gray-500'}`} />
+      <Moon className={`w-4 h-4 absolute left-2 top-1/2 -translate-y-1/2 transition-colors ${theme === 'dark' ? 'text-yellow-200' : 'text-gray-500'}`} />
       {/* Sol */}
-      <Sun className={`w-4 h-4 absolute right-2 transition-colors drop-shadow-[0_4px_12px_rgba(255,193,7,0.95)] ${theme === 'dark' ? 'text-gray-500' : 'text-yellow-400'}`} />
+      <Sun className={`w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 transition-colors drop-shadow-[0_4px_12px_rgba(255,193,7,0.95)] ${theme === 'dark' ? 'text-gray-500' : 'text-yellow-400'}`} />
       {/* Círculo deslizante */}
       <span
-        className={`inline-block h-6 w-6 transform rounded-full bg-white shadow transition-transform ${
+        className={`inline-block h-6 w-6 transform rounded-full bg-white shadow transition-transform z-10 ${
           theme === 'dark' ? 'translate-x-8' : 'translate-x-0'
         }`}
       />
