@@ -5,6 +5,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight, FileText, BarChart2, Calendar, Users, Brain } from "lucide-react"
 import { motion, useMotionValue, useTransform } from "framer-motion"
+import { useLanguageStore } from '../../store/language/languageStore'
 
 interface Feature {
   id: number
@@ -22,36 +23,38 @@ export default function FeaturesCarousel() {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
+  const { translate } = useLanguageStore()
+
   const features: Feature[] = [
     {
       id: 0,
       icon: <FileText className="w-12 h-12 text-white" />,
-      title: "Resume Builder",
-      description: "Create professional resumes tailored for your applications",
+      title: translate('carousel.feature1.title'),
+      description: translate('carousel.feature1.desc'),
     },
     {
       id: 1,
       icon: <BarChart2 className="w-12 h-12 text-white" />,
-      title: "Application Tracking",
-      description: "Keep an organized record of all your applications",
+      title: translate('carousel.feature2.title'),
+      description: translate('carousel.feature2.desc'),
     },
     {
       id: 2,
       icon: <Calendar className="w-12 h-12 text-white" />,
-      title: "Interview Scheduler",
-      description: "Schedule and prepare for upcoming interviews",
+      title: translate('carousel.feature3.title'),
+      description: translate('carousel.feature3.desc'),
     },
     {
       id: 3,
       icon: <Users className="w-12 h-12 text-white" />,
-      title: "Networking Tools",
-      description: "Connect with professionals in your industry",
+      title: translate('carousel.feature4.title'),
+      description: translate('carousel.feature4.desc'),
     },
     {
       id: 4,
       icon: <Brain className="w-12 h-12 text-white" />,
-      title: "Skill Assessment",
-      description: "Evaluate and improve your professional skills",
+      title: translate('carousel.feature5.title'),
+      description: translate('carousel.feature5.desc'),
     },
   ]
 

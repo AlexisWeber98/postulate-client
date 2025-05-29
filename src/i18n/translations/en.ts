@@ -241,4 +241,15 @@ export const en = {
   'notes.placeholder': 'Add any relevant information about this application',
   'dashboard.urlPlaceholder': 'Job posting URL',
   'dashboard.notesPlaceholder': 'Additional notes',
+
+  'carousel.feature1.title': 'Resume Builder',
+  'carousel.feature1.desc': 'Create professional resumes tailored for your applications',
+  'carousel.feature2.title': 'Application Tracking',
+  'carousel.feature2.desc': 'Keep an organized record of all your applications',
+  'carousel.feature3.title': 'Interview Scheduler',
+  'carousel.feature3.desc': 'Schedule and prepare for upcoming interviews',
+  'carousel.feature4.title': 'Networking Tools',
+  'carousel.feature4.desc': 'Connect with professionals in your industry',
+  'carousel.feature5.title': 'Skill Assessment',
+  'carousel.feature5.desc': 'Evaluate and improve your professional skills',
 } as const;

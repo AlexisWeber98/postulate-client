@@ -270,4 +270,14 @@ export const es = {
     uploadNetworkError:
       'Error de conexión al subir la imagen. Por favor, verifica tu conexión a internet.',
   },
+  'carousel.feature1.title': 'Creador de CV',
+  'carousel.feature1.desc': 'Crea currículums profesionales adaptados para tus postulaciones',
+  'carousel.feature2.title': 'Seguimiento de Postulaciones',
+  'carousel.feature2.desc': 'Lleva un registro organizado de todas tus postulaciones',
+  'carousel.feature3.title': 'Agenda de Entrevistas',
+  'carousel.feature3.desc': 'Agenda y prepárate para tus próximas entrevistas',
+  'carousel.feature4.title': 'Herramientas de Networking',
+  'carousel.feature4.desc': 'Conéctate con profesionales de tu industria',
+  'carousel.feature5.title': 'Evaluación de Habilidades',
+  'carousel.feature5.desc': 'Evalúa y mejora tus habilidades profesionales',
 } as const;
