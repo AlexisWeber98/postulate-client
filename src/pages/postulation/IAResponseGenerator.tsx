@@ -1,38 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Input } from '../../components/ui/input';
-import { Button } from '../../components/ui/button';
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from '../../components/ui/select';
+
 import { Link as LinkIcon, Image as ImageIcon, Sparkles, Lightbulb, Info, Zap, Upload } from 'lucide-react';
 import Footer from '../../components/organisms/Footer';
 import { useLanguageStore } from '../../store/language/languageStore';
-import { useThemeStore } from '../../store/theme/themeStore';
 
-const TONOS = [
-  { value: 'profesional', label: 'Profesional' },
-  { value: 'entusiasta', label: 'Entusiasta' },
-  { value: 'directo', label: 'Directo' },
-  { value: 'formal', label: 'Formal' },
-  { value: 'informal', label: 'Informal' },
-  { value: 'creativo', label: 'Creativo' },
-];
 
-const TIPOS_RESPUESTA = [
-  { value: 'carta', label: 'Carta de presentación' },
-  { value: 'email', label: 'Email de aplicación' },
-  { value: 'cv', label: 'Adaptación de CV' },
-];
 
-const PASOS = [
-  'Ingresa la oferta de trabajo',
-  'Elige el tipo de respuesta y tono',
-  'Genera y edita tu respuesta',
-];
 
 // Respuesta de ejemplo para mostrar
 const respuestaEjemplo = `PERFIL PROFESIONAL\nDesarrollador Frontend con más de 4 años de experiencia especializado en React, TypeScript y Next.js. Experto en la creación de interfaces de usuario intuitivas y componentes reutilizables. Sólidos conocimientos en sistemas de diseño y optimización de rendimiento web.\n\nHABILIDADES DESTACADAS\n• Desarrollo avanzado con React y TypeScript\n• Experiencia comprobada con Next.js\n• Implementación de sistemas de diseño\n• Optimización de interfaces de usuario\n• Control de versiones con Git\n• Metodologías ágiles`;
@@ -45,7 +18,6 @@ const IAResponseGenerator: React.FC = () => {
   const [tipoRespuesta, setTipoRespuesta] = useState('carta');
   const [tono, setTono] = useState('profesional');
   const [respuesta, setRespuesta] = useState('');
-  const [editando, setEditando] = useState(false);
   const [loading, setLoading] = useState(false);
   const [analizando, setAnalizando] = useState(false);
   const [dragActive, setDragActive] = useState(false);
@@ -53,7 +25,7 @@ const IAResponseGenerator: React.FC = () => {
 
   // Traducción y tema
   const { translate } = useLanguageStore();
-  const { theme } = useThemeStore();
+
 
   // Barra de progreso
   const progreso = [25, 60, 100][paso];
@@ -270,15 +242,15 @@ const IAResponseGenerator: React.FC = () => {
           <div className="space-y-3">
             <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl border dark:border-gray-700 transition hover:bg-gray-50 dark:hover:bg-gray-800">
               <input type="radio" name="tipoRespuesta" value="carta" checked={tipoRespuesta === 'carta'} onChange={() => setTipoRespuesta('carta')} className="accent-blue-500 w-5 h-5" />
-              <span className="text-gray-800 dark:text-gray-100 font-medium flex items-center gap-2"><span role="img" aria-label="carta">📄</span> Carta de presentación</span>
+              <span className="text-gray-800 dark:text-gray-100 font-medium flex items-center gap-2"><span role="img" aria-label="carta">📄</span> {translate('ia.type.letter')}</span>
             </label>
             <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl border dark:border-gray-700 transition hover:bg-gray-50 dark:hover:bg-gray-800">
               <input type="radio" name="tipoRespuesta" value="email" checked={tipoRespuesta === 'email'} onChange={() => setTipoRespuesta('email')} className="accent-blue-500 w-5 h-5" />
-              <span className="text-gray-800 dark:text-gray-100 font-medium flex items-center gap-2"><span role="img" aria-label="email">✉️</span> Email de aplicación</span>
+              <span className="text-gray-800 dark:text-gray-100 font-medium flex items-center gap-2"><span role="img" aria-label="email">✉️</span> {translate('ia.type.email')}</span>
             </label>
             <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl border dark:border-gray-700 transition hover:bg-gray-50 dark:hover:bg-gray-800">
               <input type="radio" name="tipoRespuesta" value="cv" checked={tipoRespuesta === 'cv'} onChange={() => setTipoRespuesta('cv')} className="accent-blue-500 w-5 h-5" />
-              <span className="text-gray-800 dark:text-gray-100 font-medium flex items-center gap-2"><span role="img" aria-label="cv">📝</span> Adaptación de CV</span>
+              <span className="text-gray-800 dark:text-gray-100 font-medium flex items-center gap-2"><span role="img" aria-label="cv">📝</span> {translate('ia.type.cv')}</span>
             </label>
           </div>
         </div>
@@ -286,12 +258,12 @@ const IAResponseGenerator: React.FC = () => {
           <div className="font-semibold text-gray-800 dark:text-gray-100 mb-4">{translate('ia.tone')}</div>
           <div className="relative">
             <select value={tono} onChange={e => setTono(e.target.value)} className="w-full rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-3 text-base font-normal text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition font-sans bg-white dark:bg-gray-900">
-              <option value="profesional">Profesional</option>
-              <option value="entusiasta">Entusiasta</option>
-              <option value="directo">Directo</option>
-              <option value="formal">Formal</option>
-              <option value="informal">Informal</option>
-              <option value="creativo">Creativo</option>
+              <option value="profesional">{translate('ia.tone.profesional')}</option>
+              <option value="entusiasta">{translate('ia.tone.entusiasta')}</option>
+              <option value="directo">{translate('ia.tone.directo')}</option>
+              <option value="formal">{translate('ia.tone.formal')}</option>
+              <option value="informal">{translate('ia.tone.informal')}</option>
+              <option value="creativo">{translate('ia.tone.creativo')}</option>
             </select>
           </div>
         </div>

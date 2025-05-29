@@ -7,6 +7,7 @@ import LanguageSelector from '../../features/landing/components/LanguageSelector
 import Avatar from '../atoms/Avatar';
 import { useLanguageStore } from '../../store';
 import { useIsMobile } from '../../shared/components/useIsMobile';
+import IAPasosModal from '../molecules/IAPasosModal';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const avatarRef = React.useRef<HTMLDivElement>(null);
+  const [iaModalOpen, setIaModalOpen] = React.useState(false);
 
   const handleClickOutside = React.useCallback((event: MouseEvent) => {
     if (avatarRef.current && !avatarRef.current.contains(event.target as Node)) {
@@ -82,13 +84,12 @@ const Navbar: React.FC = () => {
                   >
                     {translate('auth.profile')}
                   </Link>
-                  <Link
-                    to="/dashboard/ia-response"
+                  <button
                     className="block w-full text-center px-6 py-3 rounded-xl text-gray-800 dark:text-gray-100 hover:bg-blue-50 dark:hover:bg-gray-700"
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={() => { setIaModalOpen(true); setMobileMenuOpen(false); }}
                   >
                     IA Respuesta
-                  </Link>
+                  </button>
                   <button
                     onClick={() => { setMobileMenuOpen(false); handleSignOut(); }}
                     className="block w-full text-center px-6 py-3 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900"
@@ -111,12 +112,12 @@ const Navbar: React.FC = () => {
                 >
                   {translate('auth.dashboard')}
                 </Link>
-                <Link
-                  to="/dashboard/ia-response"
+                <button
                   className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-violet-500 to-blue-500 hover:from-violet-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-violet-400"
+                  onClick={() => setIaModalOpen(true)}
                 >
                   IA Respuesta
-                </Link>
+                </button>
                 <div className="relative" ref={avatarRef}>
                   <button
                     className="focus:outline-none"
@@ -161,6 +162,7 @@ const Navbar: React.FC = () => {
             </div>
           )}
         </div>
+        <IAPasosModal isOpen={iaModalOpen} onClose={() => setIaModalOpen(false)} />
       </header>
     );
   }
@@ -206,13 +208,12 @@ const Navbar: React.FC = () => {
                 >
                   {translate('register')}
                 </Link>
-                <Link
-                  to="/dashboard/ia-response"
+                <button
                   className="block w-full text-center px-6 py-3 rounded-xl text-gray-800 dark:text-gray-100 hover:bg-blue-50 dark:hover:bg-gray-700"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => { setIaModalOpen(true); setMobileMenuOpen(false); }}
                 >
                   IA Respuesta
-                </Link>
+                </button>
                 <div className="flex justify-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                   <ThemeToggle />
                   <LanguageSelector />
@@ -235,18 +236,19 @@ const Navbar: React.FC = () => {
               >
                 {translate('register')}
               </Link>
-              <Link
-                to="/dashboard/ia-response"
+              <button
                 className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-violet-500 to-blue-500 hover:from-violet-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-violet-400"
+                onClick={() => setIaModalOpen(true)}
               >
                 IA Respuesta
-              </Link>
+              </button>
             </nav>
             <ThemeToggle />
             <LanguageSelector />
           </div>
         )}
       </div>
+      <IAPasosModal isOpen={iaModalOpen} onClose={() => setIaModalOpen(false)} />
     </header>
   );
 };
