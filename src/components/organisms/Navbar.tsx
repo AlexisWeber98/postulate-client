@@ -208,12 +208,6 @@ const Navbar: React.FC = () => {
                 >
                   {translate('register')}
                 </Link>
-                <button
-                  className="block w-full text-center px-6 py-3 rounded-xl text-gray-800 dark:text-gray-100 hover:bg-blue-50 dark:hover:bg-gray-700"
-                  onClick={() => { setIaModalOpen(true); setMobileMenuOpen(false); }}
-                >
-                  IA Respuesta
-                </button>
                 <div className="flex justify-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                   <ThemeToggle />
                   <LanguageSelector />
@@ -236,12 +230,6 @@ const Navbar: React.FC = () => {
               >
                 {translate('register')}
               </Link>
-              <button
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-violet-500 to-blue-500 hover:from-violet-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-violet-400"
-                onClick={() => setIaModalOpen(true)}
-              >
-                IA Respuesta
-              </button>
             </nav>
             <ThemeToggle />
             <LanguageSelector />
