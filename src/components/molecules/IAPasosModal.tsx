@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
-import { Button } from '../ui/button';
+/* import { Button } from '../ui/button'; */
 import { Badge } from '../ui/badge';
 import { PasswordToggle } from '../ui/PasswordToggle';
-import { useNavigate } from 'react-router-dom';
+/* import { useNavigate } from 'react-router-dom'; */
 import { useThemeStore } from '../../store/theme/themeStore';
 
 interface IAPasosModalProps {
@@ -15,19 +15,19 @@ const pasos = [
   {
     titulo: '¡Gracias por elegir Postulate!',
     descripcion:
-      'La plataforma más avanzada para gestionar tus postulaciones laborales con inteligencia artificial y análisis predictivo que maximiza tus oportunidades de éxito. Próximamente vas a poder conocer nuestras funcionalidades premium.',
+        'Próximamente vas a poder conocer nuestras funcionalidades premium.',
     icono: (
       <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-pink-500 shadow-lg">
         <svg width="56" height="56" fill="none" viewBox="0 0 24 24" stroke="white"><rect x="6" y="7" width="12" height="10" rx="2" strokeWidth="2"/><path d="M9 7V5a3 3 0 0 1 6 0v2" strokeWidth="2"/></svg>
       </div>
     ),
-    extras: (
+   /*  extras: (
       <div className="flex flex-wrap gap-3 justify-center mt-4 mb-2">
         <Badge className="text-white font-bold px-4 py-1 rounded-lg shadow bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400">100% Seguro</Badge>
         <Badge className="text-white font-bold px-4 py-1 rounded-lg shadow bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400">IA Avanzada</Badge>
         <Badge className="text-white font-bold px-4 py-1 rounded-lg shadow bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400">Resultados Garantizados</Badge>
       </div>
-    )
+    ) */
   },
   {
     titulo: (
@@ -208,10 +208,10 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(0);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  /* const navigate = useNavigate(); */
   const { theme } = useThemeStore();
 
-  const handleNext = () => {
+ /*  const handleNext = () => {
     if (step === 0) {
       if (password !== 'backend') {
         setError('Contraseña incorrecta');
@@ -232,7 +232,7 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
   const handlePrev = () => {
     setStep((prev) => prev - 1);
     setError('');
-  };
+  }; */
 
   const handleClose = () => {
     setStep(0);
@@ -242,7 +242,7 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
   };
 
   const paso = pasos[step];
-  const progress = ((step + 1) / pasos.length) * 100;
+  /* const progress = ((step + 1) / pasos.length) * 100; */
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
@@ -256,7 +256,7 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
           ×
         </button>
         {/* Barra de progreso */}
-        <div className="w-full mb-8">
+        {/* <div className="w-full mb-8">
           <div className="flex justify-center items-center mb-2">
             <span className={`text-base font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>Paso {step + 1} de 4</span>
           </div>
@@ -266,7 +266,7 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
               style={{ width: `${progress}%` }}
             />
           </div>
-        </div>
+        </div> */}
         {paso.icono}
         <h2 className={`text-3xl font-extrabold mb-4 ${theme === 'dark' ? 'text-violet-300' : 'text-violet-700'}`}>{paso.titulo}</h2>
         <p className={`mb-6 text-lg ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>{paso.descripcion}</p>
@@ -282,7 +282,7 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
             />
           </div>
         )}
-        <div className="flex justify-between mt-10 gap-4 flex-wrap">
+       {/*  <div className="flex justify-between mt-10 gap-4 flex-wrap">
           <Button
             variant="secondary"
             onClick={step === 0 ? handleClose : handlePrev}
@@ -297,7 +297,7 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
           >
             {step < pasos.length - 1 ? 'Siguiente' : 'Finalizar'}
           </Button>
-        </div>
+        </div> */}
       </div>
     </Modal>
   );
