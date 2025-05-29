@@ -2,7 +2,7 @@ import { User, AuthState } from "./interface/auth/authStore.interface";
 import { Postulation, PostulationState, PostulationStatus, STATUS_LABELS, STATUS_COLORS } from "./interface/postulations/postulation";
 import { SimpleSelectProps } from "./interface/ui/simpleSelect.interface";
 import { ModalProps } from "./interface/modal/modal.interface";
-import { PasswordToggleProps } from "./interface/password-toggle";
+import { PasswordToggleProps } from "../interfaces/password-toggle.interface";
 import { NewPostulationFormProps, NewPostulationFormValues } from "./interface/form/NewPostulationForm.interface";
 
 // Exportar tipos
@@ -36,7 +36,7 @@ export * from './interface/postulations/postulation';
 // UI
 export * from './interface/ui/simpleSelect.interface';
 export * from './interface/modal/modal.interface';
-export * from './interface/password-toggle';
+export * from '../interfaces/password-toggle.interface';
 
 // Form
 export * from './interface/form/NewPostulationForm.interface';
