@@ -12,9 +12,9 @@ interface IAPasosModalProps {
 
 const pasos = [
   {
-    titulo: '¡Bienvenido a Postulate!',
+    titulo: '¡Gracias por elegir Postulate!',
     descripcion:
-      'La plataforma más avanzada para gestionar tus postulaciones laborales con inteligencia artificial y análisis predictivo que maximiza tus oportunidades de éxito',
+      'La plataforma más avanzada para gestionar tus postulaciones laborales con inteligencia artificial y análisis predictivo que maximiza tus oportunidades de éxito. Ahora te invitamos a conocer nuestras funcionalidades premium.',
     icono: (
       <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-pink-500 shadow-lg">
         <svg width="56" height="56" fill="none" viewBox="0 0 24 24" stroke="white"><rect x="6" y="7" width="12" height="10" rx="2" strokeWidth="2"/><path d="M9 7V5a3 3 0 0 1 6 0v2" strokeWidth="2"/></svg>
@@ -96,8 +96,8 @@ const pasos = [
           </div>
         </div>
         <div className="bg-purple-50 border border-purple-200 rounded-xl p-5 text-left flex flex-col items-center">
-          <div className="font-semibold text-purple-700 mb-1 flex items-center gap-2">
-            <svg className="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24"><path d="M12 2l2.09 6.26L20 9.27l-5 3.64L16.18 20 12 16.77 7.82 20 9 12.91l-5-3.64 5.91-.01z" fill="currentColor"/></svg>
+          <div className="font-extrabold text-lg mb-1 flex items-center gap-2 bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24"><path d="M12 2l2.09 6.26L20 9.27l-5 3.64L16.18 20 12 16.77 7.82 20 9 12.91l-5-3.64 5.91-.01z" fill="currentColor"/></svg>
             Oferta de Lanzamiento
           </div>
           <div className="text-base text-gray-700"><span className="font-bold">50% de descuento</span> en tu primera suscripción Premium. Accede a todas las funcionalidades de IA por tiempo limitado.</div>
@@ -199,7 +199,7 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
           <Button
             onClick={handleNext}
             disabled={step === 0 && password !== 'backend'}
-            className="w-40 text-white" style={{background: 'linear-gradient(135deg, #1a2f69 0%, #233d85 50%, #345cc9 100%)'}}
+            className="w-40 font-bold text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 border-0 shadow-md hover:shadow-lg hover:scale-105 transition-all"
           >
             {step < pasos.length - 1 ? 'Siguiente' : 'Finalizar'}
           </Button>
