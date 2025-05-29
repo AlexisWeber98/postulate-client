@@ -4,6 +4,7 @@ import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { PasswordToggle } from '../ui/PasswordToggle';
 import { useNavigate } from 'react-router-dom';
+import { useThemeStore } from '../../store/theme/themeStore';
 
 interface IAPasosModalProps {
   isOpen: boolean;
@@ -156,6 +157,52 @@ const pasos = [
     )
   },
   {
+    titulo: (
+      <span className="text-3xl font-extrabold text-gray-900">¡Todo Listo para Comenzar!</span>
+    ),
+    descripcion: 'Únete a miles de profesionales que ya están maximizando sus oportunidades laborales con Postulate',
+    icono: (
+      <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-green-500 shadow-lg">
+        <svg width="56" height="56" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#22c55e"/><path d="M8 12l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      </div>
+    ),
+    extras: (
+      <>
+        <div className="bg-gradient-to-r from-blue-50 via-pink-50 to-purple-50 border border-pink-200 rounded-xl p-6 mb-8 max-w-2xl mx-auto">
+          <div className="font-bold text-lg text-gray-900 text-center mb-4">Al crear tu cuenta obtienes:</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2 text-gray-800"><span className="text-green-500"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Dashboard personalizado</div>
+              <div className="flex items-center gap-2 text-gray-800"><span className="text-green-500"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Gestión de postulaciones</div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2 text-gray-800"><span className="text-green-500"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Análisis básico gratuito</div>
+              <div className="flex items-center gap-2 text-gray-800"><span className="text-green-500"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Soporte 24/7</div>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-wrap justify-center gap-4 mb-4">
+          <button className="flex items-center gap-2 px-8 py-3 rounded-lg font-bold text-white text-lg shadow bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 transition-all">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24"><path d="M12 2l2.09 6.26L20 9.27l-5 3.64L16.18 20 12 16.77 7.82 20 9 12.91l-5-3.64 5.91-.01z" fill="currentColor"/></svg>
+            Crear Cuenta Gratis
+          </button>
+          <button className="flex items-center gap-2 px-8 py-3 rounded-lg font-bold text-violet-600 text-lg border-2 border-violet-500 bg-white hover:bg-violet-50 transition-all">
+            Ya tengo cuenta
+          </button>
+        </div>
+        <div className="flex flex-wrap justify-center gap-4">
+          <button className="flex items-center gap-2 px-6 py-2 rounded-lg font-bold text-violet-600 text-base border-2 border-violet-500 bg-white hover:bg-violet-50 transition-all">
+            Iniciar Sesión
+          </button>
+          <button className="flex items-center gap-2 px-6 py-2 rounded-lg font-bold text-white text-base shadow bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 transition-all">
+            Crear Cuenta
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24"><path d="M12 2l2.09 6.26L20 9.27l-5 3.64L16.18 20 12 16.77 7.82 20 9 12.91l-5-3.64 5.91-.01z" fill="currentColor"/></svg>
+          </button>
+        </div>
+      </>
+    )
+  },
+  {
     titulo: '¡Listo!',
     descripcion: 'Has completado el proceso. ¡Gracias por usar Postulate!',
     icono: null,
@@ -168,6 +215,7 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { theme } = useThemeStore();
 
   const handleNext = () => {
     if (step === 0) {
@@ -204,11 +252,11 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
-      <div className="bg-white rounded-3xl shadow-2xl p-10 max-w-4xl w-full mx-auto text-center relative px-2 sm:px-10">
+      <div className={`rounded-3xl shadow-2xl p-10 max-w-4xl w-full mx-auto text-center relative px-2 sm:px-10 transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
         {/* Botón de cerrar (X) */}
         <button
           onClick={handleClose}
-          className="absolute top-6 right-6 text-gray-400 hover:text-gray-700 text-2xl font-bold focus:outline-none z-20"
+          className={`absolute top-6 right-6 text-2xl font-bold focus:outline-none z-20 transition-colors ${theme === 'dark' ? 'text-gray-500 hover:text-white' : 'text-gray-400 hover:text-gray-700'}`}
           aria-label="Cerrar"
         >
           ×
@@ -216,18 +264,18 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
         {/* Barra de progreso */}
         <div className="w-full mb-8">
           <div className="flex justify-center items-center mb-2">
-            <span className="text-gray-500 text-base font-medium">Paso {step + 1} de 4</span>
+            <span className={`text-base font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>Paso {step + 1} de 4</span>
           </div>
-          <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+          <div className={`w-full h-3 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'}`}>
             <div
-              className="h-full bg-gradient-to-r from-black to-gray-300 rounded-full transition-all"
+              className={`h-full rounded-full transition-all ${theme === 'dark' ? 'bg-gradient-to-r from-blue-900 to-gray-700' : 'bg-gradient-to-r from-black to-gray-300'}`}
               style={{ width: `${progress}%` }}
             />
           </div>
         </div>
         {paso.icono}
-        <h2 className="text-3xl font-extrabold text-violet-700 mb-4">{paso.titulo}</h2>
-        <p className="text-gray-700 mb-6 text-lg">{paso.descripcion}</p>
+        <h2 className={`text-3xl font-extrabold mb-4 ${theme === 'dark' ? 'text-violet-300' : 'text-violet-700'}`}>{paso.titulo}</h2>
+        <p className={`mb-6 text-lg ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>{paso.descripcion}</p>
         {paso.extras}
         {step === 0 && (
           <div className="mt-8 flex flex-col items-center gap-2 max-w-xs mx-auto">
@@ -244,14 +292,14 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
           <Button
             variant="secondary"
             onClick={step === 0 ? handleClose : handlePrev}
-            className="w-40 font-bold text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 border-0 shadow-lg rounded-lg py-3 text-lg hover:shadow-xl hover:scale-105 transition-all"
+            className={`w-40 font-bold text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 border-0 shadow-lg rounded-lg py-3 text-lg hover:shadow-xl hover:scale-105 transition-all ${theme === 'dark' ? 'ring-1 ring-violet-900' : ''}`}
           >
             {step === 0 ? 'Cerrar' : 'Anterior'}
           </Button>
           <Button
             onClick={handleNext}
             disabled={step === 0 && password !== 'backend'}
-            className="w-40 font-bold text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 border-0 shadow-lg rounded-lg py-3 text-lg hover:shadow-xl hover:scale-105 transition-all"
+            className={`w-40 font-bold text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 border-0 shadow-lg rounded-lg py-3 text-lg hover:shadow-xl hover:scale-105 transition-all ${theme === 'dark' ? 'ring-1 ring-violet-900' : ''}`}
           >
             {step < pasos.length - 1 ? 'Siguiente' : 'Finalizar'}
           </Button>
