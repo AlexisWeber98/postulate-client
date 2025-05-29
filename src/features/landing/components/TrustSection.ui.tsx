@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useThemeStore } from '../../../store/theme/themeStore';
 
 interface TrustSectionProps {
   translate: (key: string) => string;
@@ -45,10 +46,9 @@ const trustCards = [
   },
 ];
 
-const cardBg = 'bg-gradient-to-b from-[#232d47] to-[#21192b]';
-const cardShadow = 'shadow-2xl';
-
 const TrustSection: React.FC<TrustSectionProps> = ({ translate }) => {
+  const { theme } = useThemeStore();
+
   return (
     <section className="py-20 sm:py-32 flex flex-col items-center w-full min-h-[60vh]">
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 sm:mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent px-4">
@@ -64,13 +64,13 @@ const TrustSection: React.FC<TrustSectionProps> = ({ translate }) => {
             className="w-full"
           >
             <div
-              className={`flex flex-col items-center justify-start border border-transparent ${cardShadow} rounded-3xl min-h-[22rem] py-8 px-6 ${cardBg} transition-transform duration-300 hover:scale-105`}
+              className={`flex flex-col items-center justify-start border border-transparent shadow-2xl rounded-3xl min-h-[22rem] py-8 px-6 bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 transition-transform duration-300 hover:scale-105`}
             >
               {card.icon}
               <span className="text-2xl sm:text-2xl md:text-3xl font-extrabold text-white text-center leading-tight tracking-tight drop-shadow-lg select-none w-full mb-2">
                 {card.title}
               </span>
-              <span className="text-base sm:text-lg md:text-xl text-slate-200 text-center font-medium tracking-tight leading-relaxed select-none w-full mt-2">
+              <span className="text-base sm:text-lg md:text-xl text-white text-center font-medium tracking-tight leading-relaxed select-none w-full mt-2">
                 {card.text}
               </span>
             </div>
