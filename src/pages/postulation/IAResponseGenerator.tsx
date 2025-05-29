@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import { Link as LinkIcon, Image as ImageIcon, Sparkles, Lightbulb, Info, Zap, Upload } from 'lucide-react';
 import Footer from '../../components/organisms/Footer';
 import { useLanguageStore } from '../../store/language/languageStore';
+import TabsGradient from '../../components/ui/TabsGradient';
 
 
 
@@ -80,35 +81,15 @@ const IAResponseGenerator: React.FC = () => {
           <div className="text-yellow-700 dark:text-yellow-100 text-sm">{translate('ia.tip.text')}</div>
         </div>
       </div>
-      <div className="flex mb-6">
-        <div className="flex w-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-1 gap-1">
-          <button
-            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-lg transition-all duration-200
-              ${inputTab === 'enlace'
-                ? 'bg-gradient-to-r from-blue-500 to-violet-500 text-white shadow'
-                : 'bg-white dark:bg-gray-800 text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'}
-            `}
-            style={{ boxShadow: inputTab === 'enlace' ? '0 2px 8px 0 rgba(80,112,255,0.10)' : undefined }}
-            onClick={() => handleTab('enlace')}
-            type="button"
-          >
-            <LinkIcon className={`w-5 h-5 ${inputTab === 'enlace' ? 'text-white' : 'text-gray-400'}`} />
-            <span>{translate('ia.tab.link')}</span>
-          </button>
-          <button
-            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-lg transition-all duration-200
-              ${inputTab === 'imagen'
-                ? 'bg-gradient-to-r from-blue-500 to-violet-500 text-white shadow'
-                : 'bg-white dark:bg-gray-800 text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'}
-            `}
-            style={{ boxShadow: inputTab === 'imagen' ? '0 2px 8px 0 rgba(80,112,255,0.10)' : undefined }}
-            onClick={() => handleTab('imagen')}
-            type="button"
-          >
-            <ImageIcon className={`w-5 h-5 ${inputTab === 'imagen' ? 'text-white' : 'text-gray-400'}`} />
-            <span>{translate('ia.tab.image')}</span>
-          </button>
-        </div>
+      <div className="mb-6">
+        <TabsGradient
+          tabs={[
+            { label: translate('ia.tab.link'), value: 'enlace', icon: <LinkIcon className="w-5 h-5" /> },
+            { label: translate('ia.tab.image'), value: 'imagen', icon: <ImageIcon className="w-5 h-5" /> },
+          ]}
+          activeTab={inputTab}
+          onTabChange={handleTab}
+        />
       </div>
       {inputTab === 'enlace' ? (
         <>
