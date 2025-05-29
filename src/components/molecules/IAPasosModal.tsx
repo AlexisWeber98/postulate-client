@@ -106,10 +106,54 @@ const pasos = [
     )
   },
   {
-    titulo: 'Paso 3',
-    descripcion: 'Otro paso de ejemplo. Puedes personalizar el contenido como desees.',
+    titulo: (
+      <span className="text-3xl font-extrabold text-gray-900">Tour de la Plataforma</span>
+    ),
+    descripcion: 'Explora las áreas principales diseñadas para maximizar tu éxito',
     icono: null,
-    extras: null
+    extras: (
+      <>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="relative flex items-center gap-4 p-6 rounded-xl bg-white border border-gray-200 shadow-sm">
+            <div className="flex-shrink-0 bg-gradient-to-br from-violet-500 to-pink-500 text-white rounded-xl p-3">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path d="M3 3v18h18" stroke="white" strokeWidth="2"/><path d="M7 15l3-4 2 3 3-5 2 3" stroke="white" strokeWidth="2"/></svg>
+            </div>
+            <div className="text-gray-900 font-normal">Vista panorámica con métricas avanzadas y recomendaciones personalizadas</div>
+            <span className="absolute top-3 right-4"><span className="text-white font-bold px-3 py-1 rounded-lg shadow bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400">1</span></span>
+          </div>
+          <div className="relative flex items-center gap-4 p-6 rounded-xl bg-white border border-gray-200 shadow-sm">
+            <div className="flex-shrink-0 bg-gradient-to-br from-violet-500 to-pink-500 text-white rounded-xl p-3">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" rx="2" stroke="white" strokeWidth="2"/><path d="M8 7V5a4 4 0 1 1 8 0v2" stroke="white" strokeWidth="2"/></svg>
+            </div>
+            <div className="text-gray-900 font-normal">Pipeline visual con seguimiento automático y recordatorios inteligentes</div>
+            <span className="absolute top-3 right-4"><span className="text-white font-bold px-3 py-1 rounded-lg shadow bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400">2</span></span>
+          </div>
+          <div className="relative flex items-center gap-4 p-6 rounded-xl bg-white border border-gray-200 shadow-sm">
+            <div className="flex-shrink-0 bg-gradient-to-br from-violet-500 to-pink-500 text-white rounded-xl p-3">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path d="M12 20v-2m0-2V4m0 0a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4 4 4 0 0 1-4-4V8a4 4 0 0 1 4-4Z" stroke="white" strokeWidth="2"/></svg>
+            </div>
+            <div className="text-gray-900 font-normal">Herramientas de inteligencia artificial para optimizar tu búsqueda laboral</div>
+            <span className="absolute top-3 right-4"><span className="text-white font-bold px-3 py-1 rounded-lg shadow bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400">3</span></span>
+          </div>
+          <div className="relative flex items-center gap-4 p-6 rounded-xl bg-white border border-gray-200 shadow-sm">
+            <div className="flex-shrink-0 bg-gradient-to-br from-violet-500 to-pink-500 text-white rounded-xl p-3">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path d="M4 17V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10" stroke="white" strokeWidth="2"/><path d="M8 13l4-4 4 4" stroke="white" strokeWidth="2"/></svg>
+            </div>
+            <div className="text-gray-900 font-normal">Reportes detallados con insights accionables sobre tu rendimiento</div>
+            <span className="absolute top-3 right-4"><span className="text-white font-bold px-3 py-1 rounded-lg shadow bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400">4</span></span>
+          </div>
+        </div>
+        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-5 text-left flex flex-col items-start">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-blue-600 bg-blue-100 rounded-full p-1"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7Z" fill="currentColor"/></svg></span>
+            <span className="font-bold text-blue-700">Navegación Inteligente</span>
+          </div>
+          <div className="text-base text-blue-700">
+            Usa <span className="bg-white border border-blue-200 rounded px-2 py-0.5 font-mono text-blue-700">Ctrl + K</span> para acceso rápido a cualquier función. La IA aprende tus patrones de uso para sugerir acciones relevantes.
+          </div>
+        </div>
+      </>
+    )
   },
   {
     titulo: '¡Listo!',
