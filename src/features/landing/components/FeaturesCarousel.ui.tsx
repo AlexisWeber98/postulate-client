@@ -43,7 +43,7 @@ const FeaturesCarousel: React.FC<FeaturesCarouselProps> = ({ features, autoplay 
                 key={idx}
                 className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3"
               >
-                <div className="bg-white/60 backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-xl border border-white/30 flex flex-col items-center text-center h-full min-h-[220px] md:min-h-[260px]">
+                <div className="bg-white/60 backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-xl border border-white/30 flex flex-col items-center text-center h-full min-h-[220px] md:min-h-[260px] relative hover:z-20">
                   <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full mb-3 md:mb-4 bg-gradient-to-r from-blue-500 to-violet-500">
                     <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
                   </div>

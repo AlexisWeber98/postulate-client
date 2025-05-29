@@ -1,5 +1,17 @@
 export type TranslationKey =
+  | 'profile.title'
+  | 'profile.description'
+  | 'profile.fields.name'
+  | 'profile.tooltips.fullName'
+  | 'profile.placeholders.name'
+  | 'profile.validation.nameRequired'
+  | 'profile.validation.emailInvalid'
+  | 'profile.validation.formInvalid'
   | 'profile.errors.uploadFailed'
-  | 'profile.errors.imageTooLarge'
-  | 'profile.errors.invalidImageType'
-  // ... existing keys ...
+  | 'profile.errors.updateFail'
+  | 'profile.messages.updated'
+  | 'auth.lastName'
+  | 'auth.validation.lastName'
+  | 'auth.validation.userName'
+  | 'common.saving'
+  | 'profile.actions.save';

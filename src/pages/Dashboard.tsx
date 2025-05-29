@@ -165,7 +165,7 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-0 py-0 font-sans transition-colors duration-200">
+    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 via-violet-50 to-white dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 px-0 py-0 font-sans transition-colors duration-200">
       <div className="container mx-auto px-4 sm:px-8 py-10">
         {/* Encabezado con bienvenida mejorado */}
         <header className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 p-6">

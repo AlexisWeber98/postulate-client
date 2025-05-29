@@ -40,7 +40,7 @@ const FeaturesSectionContainer: React.FC<FeaturesSectionProps> = ({ translate })
   ]
   const sectionTitle = translate('features.title') && translate('features.title') !== 'features.title'
     ? translate('features.title')
-    : translate('features.altTitle')
+    : translate('landing.features.altTitle' as TranslationKey)
   return (
     <section className="py-12 md:py-20 flex flex-col items-center px-4 sm:px-6 md:px-8">
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">

@@ -77,18 +77,17 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center min-h-screen min-w-full">
       {/* Overlay con blur global y oscurecimiento */}
-      <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-md transition-all" />
-      {/* Contenido del modal centrado, sin fondo blanco ni bordes propios */}
+      <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-2xl transition-all" />
+      {/* Contenido del modal centrado */}
       <div
         ref={modalRef}
-        className="relative z-50 w-full max-w-md mx-auto overflow-visible transform transition-all"
+        className="relative z-50 w-full max-w-4xl mx-auto overflow-visible transform transition-all flex justify-center items-center"
         role="dialog"
         aria-modal="true"
         aria-describedby={contentId}
       >
-        {/* El título y el botón de cerrar se delegan al contenido (StyledModalContainer) */}
         <div id={contentId} className="w-full">
           {children}
         </div>
