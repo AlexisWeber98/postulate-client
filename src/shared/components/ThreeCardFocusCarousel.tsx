@@ -280,7 +280,7 @@ export default function FeaturesCarousel() {
           </motion.button>
 
           {/* Cards container */}
-          <div className="relative w-full max-w-4xl flex items-center justify-center">
+          <div className="relative w-full max-w-4xl flex items-center justify-center z-0">
             {/* Render all cards with their positions */}
             {features.map((feature, index) => {
               const position = getCardPosition(index)
@@ -289,13 +289,16 @@ export default function FeaturesCarousel() {
               return (
                 <motion.div
                   key={feature.id}
-                  className="absolute w-96 p-10 rounded-3xl text-white shadow-2xl cursor-pointer bg-gradient-to-r from-blue-500 to-violet-500 flex items-center justify-center text-center min-h-[340px] h-full"
+                  className={`absolute w-96 p-10 rounded-3xl text-white shadow-2xl cursor-pointer bg-gradient-to-r from-blue-500 to-violet-500 flex items-center justify-center text-center min-h-[340px] h-full${isCenter ? ' isolate' : ''}`}
                   style={{
+                    zIndex: isCenter && isHovered ? 30 : (isCenter ? 10 : 1),
                     rotateX: isCenter ? rotateX : 0,
                     rotateY: isCenter ? rotateY : 0,
                   }}
                   variants={cardVariants}
                   animate={position}
+                  onMouseEnter={() => isCenter && setIsHovered(true)}
+                  onMouseLeave={() => isCenter && setIsHovered(false)}
                   onClick={() => {
                     if (index === prev) handlePrev()
                     if (index === next) handleNext()
