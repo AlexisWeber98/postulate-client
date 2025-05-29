@@ -40,46 +40,58 @@ const pasos = [
     extras: (
       <>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="flex items-start gap-4 p-4 rounded-xl bg-pink-50 border border-pink-200 transition-all hover:shadow-xl hover:border-pink-400 cursor-pointer">
-            <span className="flex-shrink-0 bg-pink-200 text-pink-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16Zm0 0v4m0 8v4m4-4h4m-8 0H4" stroke="#a21caf" strokeWidth="2"/></svg></span>
-            <div>
-              <div className="font-semibold text-gray-800">Algoritmos avanzados que analizan y optimizan tu CV para cada postulación específica</div>
-              <Badge colorClass="bg-pink-100 text-pink-700 ml-1">IA</Badge>
+          <div className="flex flex-col gap-2 p-4 rounded-xl bg-pink-50 border border-pink-200 transition-all hover:shadow-xl hover:border-pink-400 cursor-pointer relative">
+            <div className="flex justify-end w-full mb-1">
+              <Badge colorClass="text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 px-3 py-1 text-xs">IA</Badge>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="flex-shrink-0 bg-pink-200 text-pink-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16Zm0 0v4m0 8v4m4-4h4m-8 0H4" stroke="#a21caf" strokeWidth="2"/></svg></span>
+              <div className="text-gray-800">Algoritmos avanzados que analizan y optimizan tu CV para cada postulación específica</div>
             </div>
           </div>
-          <div className="flex items-start gap-4 p-4 rounded-xl bg-blue-50 border border-blue-200 transition-all hover:shadow-xl hover:border-blue-400 cursor-pointer">
-            <span className="flex-shrink-0 bg-blue-200 text-blue-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M3 17v-2a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v2" stroke="#2563eb" strokeWidth="2"/><circle cx="12" cy="7" r="4" stroke="#2563eb" strokeWidth="2"/></svg></span>
-            <div>
-              <div className="font-semibold text-gray-800">Predicciones sobre probabilidad de éxito basadas en datos históricos y tendencias del mercado</div>
-              <Badge colorClass="bg-pink-100 text-pink-700 ml-1">Analytics</Badge>
+          <div className="flex flex-col gap-2 p-4 rounded-xl bg-blue-50 border border-blue-200 transition-all hover:shadow-xl hover:border-blue-400 cursor-pointer relative">
+            <div className="flex justify-end w-full mb-1">
+              <Badge colorClass="text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 px-3 py-1 text-xs">Analytics</Badge>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="flex-shrink-0 bg-blue-200 text-blue-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M3 17v-2a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v2" stroke="#2563eb" strokeWidth="2"/><circle cx="12" cy="7" r="4" stroke="#2563eb" strokeWidth="2"/></svg></span>
+              <div className="text-gray-800">Predicciones sobre probabilidad de éxito basadas en datos históricos y tendencias del mercado</div>
             </div>
           </div>
-          <div className="flex items-start gap-4 p-4 rounded-xl bg-green-50 border border-green-200 transition-all hover:shadow-xl hover:border-green-400 cursor-pointer">
-            <span className="flex-shrink-0 bg-green-200 text-green-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M8 12h8m-8 4h5m-5-8h8" stroke="#16a34a" strokeWidth="2"/></svg></span>
-            <div>
-              <div className="font-semibold text-gray-800">Simulacros de entrevistas personalizados con feedback inteligente y mejoras sugeridas</div>
-              <Badge colorClass="bg-purple-100 text-purple-700 ml-1">Premium</Badge>
+          <div className="flex flex-col gap-2 p-4 rounded-xl bg-green-50 border border-green-200 transition-all hover:shadow-xl hover:border-green-400 cursor-pointer relative">
+            <div className="flex justify-end w-full mb-1">
+              <Badge colorClass="text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 px-3 py-1 text-xs">Premium</Badge>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="flex-shrink-0 bg-green-200 text-green-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M8 12h8m-8 4h5m-5-8h8" stroke="#16a34a" strokeWidth="2"/></svg></span>
+              <div className="text-gray-800">Simulacros de entrevistas personalizados con feedback inteligente y mejoras sugeridas</div>
             </div>
           </div>
-          <div className="flex items-start gap-4 p-4 rounded-xl bg-orange-50 border border-orange-200 transition-all hover:shadow-xl hover:border-orange-400 cursor-pointer">
-            <span className="flex-shrink-0 bg-orange-200 text-orange-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 8v4l3 3" stroke="#ea580c" strokeWidth="2"/><circle cx="12" cy="12" r="10" stroke="#ea580c" strokeWidth="2"/></svg></span>
-            <div>
-              <div className="font-semibold text-gray-800">Notificaciones automáticas sobre nuevas oportunidades que coinciden con tu perfil</div>
-              <Badge colorClass="bg-pink-100 text-pink-700 ml-1">Smart</Badge>
+          <div className="flex flex-col gap-2 p-4 rounded-xl bg-orange-50 border border-orange-200 transition-all hover:shadow-xl hover:border-orange-400 cursor-pointer relative">
+            <div className="flex justify-end w-full mb-1">
+              <Badge colorClass="text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 px-3 py-1 text-xs">Smart</Badge>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="flex-shrink-0 bg-orange-200 text-orange-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 8v4l3 3" stroke="#ea580c" strokeWidth="2"/><circle cx="12" cy="12" r="10" stroke="#ea580c" strokeWidth="2"/></svg></span>
+              <div className="text-gray-800">Notificaciones automáticas sobre nuevas oportunidades que coinciden con tu perfil</div>
             </div>
           </div>
-          <div className="flex items-start gap-4 p-4 rounded-xl bg-violet-50 border border-violet-200 transition-all hover:shadow-xl hover:border-violet-400 cursor-pointer">
-            <span className="flex-shrink-0 bg-violet-200 text-violet-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M6 8h12M6 12h8m-8 4h12" stroke="#7c3aed" strokeWidth="2"/></svg></span>
-            <div>
-              <div className="font-semibold text-gray-800">Generación automática de cartas personalizadas para cada empresa y posición</div>
-              <Badge colorClass="bg-pink-100 text-pink-700 ml-1">Auto</Badge>
+          <div className="flex flex-col gap-2 p-4 rounded-xl bg-violet-50 border border-violet-200 transition-all hover:shadow-xl hover:border-violet-400 cursor-pointer relative">
+            <div className="flex justify-end w-full mb-1">
+              <Badge colorClass="text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 px-3 py-1 text-xs">Auto</Badge>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="flex-shrink-0 bg-violet-200 text-violet-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M6 8h12M6 12h8m-8 4h12" stroke="#7c3aed" strokeWidth="2"/></svg></span>
+              <div className="text-gray-800">Generación automática de cartas personalizadas para cada empresa y posición</div>
             </div>
           </div>
-          <div className="flex items-start gap-4 p-4 rounded-xl bg-cyan-50 border border-cyan-200 transition-all hover:shadow-xl hover:border-cyan-400 cursor-pointer">
-            <span className="flex-shrink-0 bg-cyan-200 text-cyan-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 6v6l4 2" stroke="#0891b2" strokeWidth="2"/><circle cx="12" cy="12" r="10" stroke="#0891b2" strokeWidth="2"/></svg></span>
-            <div>
-              <div className="font-semibold text-gray-800">Mapeo inteligente de tu red profesional para identificar conexiones estratégicas</div>
-              <Badge colorClass="bg-pink-100 text-pink-700 ml-1">Network</Badge>
+          <div className="flex flex-col gap-2 p-4 rounded-xl bg-cyan-50 border border-cyan-200 transition-all hover:shadow-xl hover:border-cyan-400 cursor-pointer relative">
+            <div className="flex justify-end w-full mb-1">
+              <Badge colorClass="text-white bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 px-3 py-1 text-xs">Network</Badge>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="flex-shrink-0 bg-cyan-200 text-cyan-700 rounded-full p-2"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 6v6l4 2" stroke="#0891b2" strokeWidth="2"/><circle cx="12" cy="12" r="10" stroke="#0891b2" strokeWidth="2"/></svg></span>
+              <div className="text-gray-800">Mapeo inteligente de tu red profesional para identificar conexiones estratégicas</div>
             </div>
           </div>
         </div>
@@ -187,7 +199,7 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
           <Button
             onClick={handleNext}
             disabled={step === 0 && password !== 'backend'}
-            className="w-40"
+            className="w-40 text-white" style={{background: 'linear-gradient(135deg, #1a2f69 0%, #233d85 50%, #345cc9 100%)'}}
           >
             {step < pasos.length - 1 ? 'Siguiente' : 'Finalizar'}
           </Button>
