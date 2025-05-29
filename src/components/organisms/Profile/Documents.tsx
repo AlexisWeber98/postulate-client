@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Briefcase, FileText, Upload } from 'lucide-react';
 import IAPasosModal from '../../molecules/IAPasosModal';
+import { useNavigate } from 'react-router-dom';
 
 const Documents: React.FC = () => {
   const [isIAModalOpen, setIsIAModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Abrir el modal automáticamente cuando se monta el componente
     setIsIAModalOpen(true);
   }, []); // El array vacío significa que solo se ejecutará al montar el componente
+
+  const handleCloseModal = () => {
+    setIsIAModalOpen(false);
+    // Redirigir al dashboard después de cerrar el modal
+    navigate('/dashboard');
+  };
 
   return (
     <>
@@ -73,7 +81,7 @@ const Documents: React.FC = () => {
       {/* Modal de IA */}
       <IAPasosModal
         isOpen={isIAModalOpen}
-        onClose={() => setIsIAModalOpen(false)}
+        onClose={handleCloseModal}
       />
     </>
   );
