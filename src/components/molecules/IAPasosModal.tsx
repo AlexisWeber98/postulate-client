@@ -202,12 +202,6 @@ const pasos = [
       </>
     )
   },
-  {
-    titulo: '¡Listo!',
-    descripcion: 'Has completado el proceso. ¡Gracias por usar Postulate!',
-    icono: null,
-    extras: null
-  }
 ];
 
 const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
