@@ -6,14 +6,14 @@ interface Tab {
   icon?: React.ReactNode;
 }
 
-interface TabsGradientProps {
+interface TabsGradientProps<T extends string> {
   tabs: Tab[];
-  activeTab: string;
-  onTabChange: (value: string) => void;
+  activeTab: T;
+  onTabChange: (value: T) => void;
   className?: string;
 }
 
-const TabsGradient: React.FC<TabsGradientProps> = ({ tabs, activeTab, onTabChange, className = '' }) => {
+const TabsGradient = <T extends string>({ tabs, activeTab, onTabChange, className = '' }: TabsGradientProps<T>) => {
   return (
     <div className={`flex w-full rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 shadow-lg ${className}`}>
       {tabs.map(tab => (
@@ -25,7 +25,7 @@ const TabsGradient: React.FC<TabsGradientProps> = ({ tabs, activeTab, onTabChang
               : 'bg-white dark:bg-gray-900 text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'}
           `}
           style={activeTab === tab.value ? { boxShadow: '0 2px 8px 0 rgba(80,112,255,0.10)' } : {}}
-          onClick={() => onTabChange(tab.value)}
+          onClick={() => onTabChange(tab.value as T)}
           type="button"
         >
           {tab.icon && <span className="w-5 h-5 flex items-center justify-center">{tab.icon}</span>}

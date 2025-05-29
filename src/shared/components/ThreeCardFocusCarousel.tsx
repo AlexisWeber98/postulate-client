@@ -1,20 +1,21 @@
 "use client"
 
-import type React from "react"
+/* import type React from "react" */
 
 import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight, FileText, BarChart2, Calendar, Users, Brain } from "lucide-react"
+import { ChevronLeft, ChevronRight/* , FileText, BarChart2, Calendar, Users, Brain */ } from "lucide-react"
 import { motion, useMotionValue, useTransform } from "framer-motion"
-import { useLanguageStore } from '../../store/language/languageStore'
+/* import { useLanguageStore } from '../../store/language/languageStore' */
+import { ThreeCardFocusCarouselProps } from "../../interfaces/components/cards/ThreeCardFocusCarouselProps.interface"
 
-interface Feature {
+/* interface Feature {
   id: number
   icon: React.ReactNode
   title: string
   description: string
-}
+} */
 
-export default function FeaturesCarousel() {
+export default function ThreeCardFocusCarousel({ features/* , cardClassName, cardWidth, cardHeight */ }: ThreeCardFocusCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(1)
   const [autoplay, setAutoplay] = useState(true)
   const [/* direction */, setDirection] = useState(0)
@@ -23,40 +24,7 @@ export default function FeaturesCarousel() {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
-  const { translate } = useLanguageStore()
-
-  const features: Feature[] = [
-    {
-      id: 0,
-      icon: <FileText className="w-12 h-12 text-white" />,
-      title: translate('carousel.feature1.title'),
-      description: translate('carousel.feature1.desc'),
-    },
-    {
-      id: 1,
-      icon: <BarChart2 className="w-12 h-12 text-white" />,
-      title: translate('carousel.feature2.title'),
-      description: translate('carousel.feature2.desc'),
-    },
-    {
-      id: 2,
-      icon: <Calendar className="w-12 h-12 text-white" />,
-      title: translate('carousel.feature3.title'),
-      description: translate('carousel.feature3.desc'),
-    },
-    {
-      id: 3,
-      icon: <Users className="w-12 h-12 text-white" />,
-      title: translate('carousel.feature4.title'),
-      description: translate('carousel.feature4.desc'),
-    },
-    {
-      id: 4,
-      icon: <Brain className="w-12 h-12 text-white" />,
-      title: translate('carousel.feature5.title'),
-      description: translate('carousel.feature5.desc'),
-    },
-  ]
+  /* const { translate } = useLanguageStore() */
 
   // Animation variants for rotating cards
   const cardVariants = {
@@ -288,7 +256,7 @@ export default function FeaturesCarousel() {
 
               return (
                 <motion.div
-                  key={feature.id}
+                  key={index}
                   className={`absolute w-96 p-10 rounded-3xl text-white shadow-2xl cursor-pointer bg-gradient-to-r from-blue-500 to-violet-500 flex items-center justify-center text-center min-h-[340px] h-full${isCenter ? ' isolate' : ''}`}
                   style={{
                     zIndex: isCenter && isHovered ? 30 : (isCenter ? 10 : 1),
@@ -338,7 +306,7 @@ export default function FeaturesCarousel() {
                       {feature.icon}
                     </motion.div>
                     <h3 className="text-2xl font-bold mb-4 w-full text-center">{feature.title}</h3>
-                    <p className="text-base leading-relaxed w-full text-center">{feature.description}</p>
+                    <p className="text-base leading-relaxed w-full text-center">{feature.desc}</p>
                   </div>
                 </motion.div>
               )

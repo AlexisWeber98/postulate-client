@@ -19,7 +19,7 @@ const IAResponseGenerator: React.FC = () => {
   const [tipoRespuesta, setTipoRespuesta] = useState('carta');
   const [tono, setTono] = useState('profesional');
   const [respuesta, setRespuesta] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [/* loading */, setLoading] = useState(false);
   const [analizando, setAnalizando] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);

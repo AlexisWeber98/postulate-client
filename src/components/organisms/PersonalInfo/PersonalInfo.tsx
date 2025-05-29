@@ -1,5 +1,4 @@
 import React from 'react';
-import { User } from 'lucide-react';
 import { Input } from '../../ui/input';
 import FieldWrapper from '../../molecules/FieldWrapper/FieldWrapper';
 import type { TranslationKey } from '../../../i18n/types';

@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
+import { TranslationKey } from '@/i18n';
 
 interface TrustSectionProps {
-  translate: (key: string) => string;
+  translate: (key: TranslationKey) => string;
 }
 
 const trustCards = [

@@ -1,5 +1,10 @@
-
+import React from 'react';
 import { BarChart2, Calendar, Search, FileText, XCircle, Bell, User } from 'lucide-react';
+import { TranslationKey } from '@/i18n';
+
+interface BenefitsSectionProps {
+  translate: (key: TranslationKey) => string;
+}
 
 const beneficiosCon = [
   {
@@ -43,7 +48,7 @@ const problemasSin = [
   },
 ];
 
-const BenefitsSection = () => {
+const BenefitsSection: React.FC<BenefitsSectionProps> = ({ /* translate */ }) => {
   return (
     <section className="py-20 bg-transparent">
       <div className="container mx-auto px-4 flex flex-col lg:flex-row gap-8 justify-center items-center">
