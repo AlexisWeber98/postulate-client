@@ -12,9 +12,14 @@ import SideNavbar from '../components/organisms/SideNavbar';
 import IntroSection from '../features/landing/components/IntroSection.ui';
 import CTASection from '../features/landing/components/CTASection.ui';
 import HeroBackground from '../features/landing/components/HeroBackground.ui';
+import WaitlistForm from '../components/forms/WaitlistForm';
 
 const Landing: React.FC = () => {
   const { translate } = useLanguageStore();
+  const [showWaitlistModal, setShowWaitlistModal] = React.useState(false);
+
+  const handleOpenWaitlist = () => setShowWaitlistModal(true);
+  const handleCloseWaitlist = () => setShowWaitlistModal(false);
 
   const sections = [
     { id: 'hero', label: translate('landing.hero.title') },
@@ -73,8 +78,16 @@ const Landing: React.FC = () => {
         </motion.div>
 
         <motion.div id="cta" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.4 }}>
-          <CTASection translate={translate} />
+          <CTASection translate={translate} onJoinWaitlist={handleOpenWaitlist} />
         </motion.div>
+        {showWaitlistModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-6 relative max-w-lg w-full mx-4">
+              <button onClick={handleCloseWaitlist} className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-white text-2xl font-bold">&times;</button>
+              <WaitlistForm />
+            </div>
+          </div>
+        )}
       </main>
 
       <Footer />
