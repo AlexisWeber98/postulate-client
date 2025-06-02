@@ -1,4 +1,8 @@
 import React from 'react';
+import { MdAccountCircle } from 'react-icons/md';
+import { FaCamera } from 'react-icons/fa';
+import { Loader2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Input } from '../../ui/input';
 import FieldWrapper from '../../molecules/FieldWrapper/FieldWrapper';
 import type { TranslationKey } from '../../../i18n/types';
@@ -17,13 +21,22 @@ interface PersonalInfoProps {
   fieldStatus: {
     name: { isValid: boolean; message?: string };
     lastName: { isValid: boolean; message?: string };
+    [key: string]: { isValid: boolean; message?: string };
   };
   isBlurred: {
     name: boolean;
     lastName: boolean;
+    [key: string]: boolean;
   };
   onFieldBlur: (field: string) => void;
   translate: (key: TranslationKey) => string;
+  // Props opcionales para gestión de imagen y mensajes de error/success
+  showProfileImage?: boolean;
+  previewUrl?: string;
+  isUploading?: boolean;
+  handleImageUpload?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string | null;
+  success?: boolean;
 }
 
 const PersonalInfo: React.FC<PersonalInfoProps> = ({
@@ -40,10 +53,17 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
   fieldStatus,
   isBlurred,
   onFieldBlur,
-  translate
+  translate,
+  showProfileImage = false,
+  previewUrl,
+  isUploading = false,
+  handleImageUpload,
+  error,
+  success,
 }) => {
   return (
     <>
+      {/* Tip profesional */}
       <div className="flex items-center w-full max-w-2xl mb-8 p-4 rounded-xl bg-yellow-50 border-l-4 border-yellow-400 shadow gap-3">
         <span className="bg-yellow-400 text-white rounded-full p-2 flex items-center justify-center">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -56,8 +76,72 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
         </div>
       </div>
 
+      {/* Imagen de perfil y errores (opcional) */}
+      {showProfileImage && (
+        <div className="flex flex-col items-center mb-6">
+          <button type="button" className="relative group focus:outline-none">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+              id="profile-image-input"
+              disabled={isUploading}
+            />
+            <label htmlFor="profile-image-input" className="cursor-pointer">
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt="Profile"
+                  className="w-32 h-32 rounded-full object-cover shadow-lg"
+                />
+              ) : (
+                <MdAccountCircle className="text-8xl text-blue-500 dark:text-blue-400 drop-shadow-lg bg-white/30 dark:bg-gray-800/30 rounded-full p-1 transition-all duration-200 group-hover:scale-105" />
+              )}
+              <span className="absolute bottom-2 right-2 bg-blue-500 text-white rounded-full p-2 text-xs shadow-lg group-hover:bg-blue-600 transition flex items-center justify-center">
+                {isUploading ? (
+                  <Loader2 className="h-3 w-3 animate-spin" />
+                ) : (
+                  <FaCamera className="h-3 w-3" />
+                )}
+              </span>
+            </label>
+          </button>
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg w-full max-w-xs"
+            >
+              <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-sm font-medium text-center">{translate(error as TranslationKey)}</p>
+              </div>
+            </motion.div>
+          )}
+          {success && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-2 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg w-full max-w-xs"
+            >
+              <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
+                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <p className="text-sm font-medium text-center">{translate('profile.success' as TranslationKey)}</p>
+              </div>
+            </motion.div>
+          )}
+        </div>
+      )}
+
+      {/* Formulario de información personal */}
       <div className="relative w-full max-w-2xl flex flex-col items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8 w-full">
+          {/* Nombre y Apellido */}
           <FieldWrapper
             name="name"
             label={translate('profile.fields.name' as TranslationKey)}
@@ -77,7 +161,6 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
               className="bg-white"
             />
           </FieldWrapper>
-
           <FieldWrapper
             name="lastName"
             label={translate('auth.lastName' as TranslationKey)}
@@ -98,6 +181,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
             />
           </FieldWrapper>
 
+          {/* Biografía */}
           <div className="md:col-span-2">
             <FieldWrapper
               name="bio"
@@ -117,6 +201,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
             </FieldWrapper>
           </div>
 
+          {/* Sitio Web y Ubicación */}
           <FieldWrapper
             name="website"
             label="Sitio Web"

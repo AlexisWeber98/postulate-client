@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useLanguageStore } from '../store';
 import Footer from '../components/organisms/Footer';
 import { CloudinaryService } from '../services/cloudinary.service';
-import PersonalInfo from '../components/organisms/Profile/PersonalInfo';
+import PersonalInfo from '../components/organisms/PersonalInfo/PersonalInfo';
 import AccountDetails from '../components/organisms/Profile/AccountDetails';
 import Documents from '../components/organisms/Profile/Documents';
 
@@ -226,23 +226,24 @@ const EditProfile: React.FC = () => {
           {activeTab === 'personal' && (
             <PersonalInfo
               name={name}
-              setName={setName}
               lastName={lastName}
-              setLastName={setLastName}
               bio={bio}
-              setBio={setBio}
               website={website}
-              setWebsite={setWebsite}
               location={location}
-              setLocation={setLocation}
+              onNameChange={setName}
+              onLastNameChange={setLastName}
+              onBioChange={setBio}
+              onWebsiteChange={setWebsite}
+              onLocationChange={setLocation}
+              fieldStatus={fieldStatus}
+              isBlurred={isBlurred}
+              onFieldBlur={handleFieldBlur}
+              translate={translate}
+              showProfileImage={true}
               previewUrl={previewUrl}
               isUploading={isUploading}
               handleImageUpload={handleImageUpload}
               error={error}
-              translate={translate}
-              fieldStatus={fieldStatus}
-              isBlurred={isBlurred}
-              handleFieldBlur={handleFieldBlur}
               success={success}
             />
           )}
