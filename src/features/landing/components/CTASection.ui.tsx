@@ -1,10 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { CTASectionProps } from '../../../types/components/landing/landing.types';
 import { motion } from 'framer-motion';
 
-const CTASection: React.FC<CTASectionProps> = ({translate}) => {
+interface CTASectionExtendedProps extends CTASectionProps {
+  onJoinWaitlist: () => void;
+}
+
+const CTASection: React.FC<CTASectionExtendedProps> = ({translate, onJoinWaitlist}) => {
 
   const fadeInUpVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -55,18 +58,19 @@ const CTASection: React.FC<CTASectionProps> = ({translate}) => {
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            <Link
-              to="/register"
+            <button
+              type="button"
+              onClick={onJoinWaitlist}
               className="group inline-flex items-center justify-center px-10 py-5 rounded-2xl shadow-lg text-white font-extrabold text-lg transition-all duration-300 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[320px] whitespace-nowrap gap-4 hover:scale-105 hover:shadow-xl"
-              aria-label={translate('landing.cta.button')}
+              aria-label="Únete a nuestra lista de espera"
               style={{
                 boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)',
                 backdropFilter: 'blur(8px)'
               }}
             >
-              {translate('landing.cta.button')}
+              Únete a nuestra lista de espera
               <ArrowRight className="h-5 w-5 text-white transform transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-            </Link>
+            </button>
           </motion.div>
         </motion.div>
       </div>
