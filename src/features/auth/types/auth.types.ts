@@ -12,16 +12,6 @@ export interface FieldStatus {
   message?: string;
 }
 
-export interface FieldWrapperProps {
-  name: string;
-  label: string;
-  required?: boolean;
-  children: ReactNode;
-  tooltip?: string;
-  isBlurred: boolean;
-  fieldStatus?: FieldStatus;
-}
-
 export interface LoginRequest {
   email: string;
   password: string;

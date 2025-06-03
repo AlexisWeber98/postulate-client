@@ -68,6 +68,12 @@ export const es = {
   'dashboard.filters.clear': 'Limpiar filtros',
   'dashboard.filters.noCompanies': 'No hay empresas disponibles',
   'dashboard.filters.noPositions': 'No hay puestos disponibles',
+  'dashboard.filters.statusApplied': 'Aplicado',
+  'dashboard.filters.statusInterview': 'Entrevista',
+  'dashboard.filters.statusTechnical': 'Prueba Técnica',
+  'dashboard.filters.statusOffer': 'Oferta Recibida',
+  'dashboard.filters.statusRejected': 'Rechazado',
+  'dashboard.filters.statusAccepted': 'Aceptado',
 
   'dashboard.stats.totalApplications': '{{count}} Postulación',
   'dashboard.stats.totalApplications_plural': '{{count}} Postulaciones',
@@ -324,4 +330,9 @@ export const es = {
   'ia.tone.creativo': 'Creativo',
   'ia.header.title': 'Generación de respuesta IA',
   'ia.header.subtitle': 'Genera respuestas personalizadas para tus postulaciones laborales con el poder de la inteligencia artificial',
+
+  // Paginación
+  'pagination.previousPage': 'Página anterior',
+  'pagination.nextPage': 'Página siguiente',
+  'pagination.goToPage': 'Ir a la página',
 } as const;
