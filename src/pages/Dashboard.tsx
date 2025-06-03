@@ -11,6 +11,11 @@ import ActionModal from '../components/molecules/ActionModal';
 import LoadingSpinner from '../components/atoms/LoadingSpinner';
 import { MdAccountCircle } from 'react-icons/md';
 import Footer from '../components/organisms/Footer';
+import {
+  getUniqueSortedValues,
+  filterApplications,
+  paginateApplications,
+} from '../lib/helpers/application.helpers';
 
 const Dashboard: React.FC = () => {
   const { postulations = [], loading, getAllPostulations } = usePostulationsStore();
@@ -34,11 +39,6 @@ const Dashboard: React.FC = () => {
     });
   }, []);
 
-  // Log para verificar el estado de las postulaciones
-  useEffect(() => {
-
-  }, [postulations, loading]);
-
   // Manejadores de filtro seguros
   const handleSetCompanyFilter = (value: string) => {
     try {
@@ -57,41 +57,15 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const companies = useMemo(() => {
-    try {
-      if (!Array.isArray(postulations)) {
-        console.warn('⚠️ Dashboard: postulations no es un array:', postulations);
-        return [];
-      }
-      const uniqueCompanies = new Set(
-        postulations
-          .filter((app: Postulation) => app && app.company)
-          .map((app: Postulation) => app.company)
-      );
-      return Array.from(uniqueCompanies).sort();
-    } catch (error) {
-      handleError(error as Error, translate('dashboard.errorUniqueCompanies'));
-      return [];
-    }
-  }, [postulations, handleError, translate]);
+  const companies = useMemo(() =>
+getUniqueSortedValues(postulations, 'company', handleError, translate as (key: string) => string, 'dashboard.errorUniqueCompanies'),
+    [postulations, handleError, translate]
+  );
 
-  const positions = useMemo(() => {
-    try {
-      if (!Array.isArray(postulations)) {
-        console.warn('⚠️ Dashboard: postulations no es un array:', postulations);
-        return [];
-      }
-      const uniquePositions = new Set(
-        postulations
-          .filter((app: Postulation) => app && app.position)
-          .map((app: Postulation) => app.position)
-      );
-      return Array.from(uniquePositions).sort();
-    } catch (error) {
-      handleError(error as Error, translate('dashboard.errorUniquePositions'));
-      return [];
-    }
-  }, [postulations, handleError, translate]);
+  const positions = useMemo(() =>
+    getUniqueSortedValues(postulations, 'position', handleError, translate as (key: string) => string, 'dashboard.errorUniquePositions'),
+    [postulations, handleError, translate]
+  );
 
   // Filter applications based on search and filters
   const filteredApplications = useMemo(() => {
@@ -100,28 +74,7 @@ const Dashboard: React.FC = () => {
         console.warn('⚠️ Dashboard: postulations no es un array:', postulations);
         return [];
       }
-
-
-      return postulations.filter((app: Postulation) => {
-        if (!app) return false;
-
-        // Text search
-        const searchMatch = searchTerm === '' ||
-          (app.company?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false) ||
-          (app.position?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false) ||
-          (app.description?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false);
-
-        // Status filter
-        const statusMatch = statusFilter === 'all' || app.status === statusFilter;
-
-        // Company filter
-        const companyMatch = companyFilter === '' || app.company === companyFilter;
-
-        // Position filter
-        const positionMatch = positionFilter === '' || app.position === positionFilter;
-
-        return searchMatch && statusMatch && companyMatch && positionMatch;
-      });
+      return filterApplications(postulations, searchTerm, statusFilter, companyFilter, positionFilter);
     } catch (error) {
       handleError(error as Error, translate('dashboard.errorFilterApplications'));
       return [];
@@ -134,11 +87,10 @@ const Dashboard: React.FC = () => {
   }, [filteredApplications]);
 
   // Obtener las aplicaciones para la página actual
-  const currentApplications = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return filteredApplications.slice(startIndex, endIndex);
-  }, [filteredApplications, currentPage]);
+  const currentApplications = useMemo(() =>
+    paginateApplications(filteredApplications, currentPage, itemsPerPage),
+    [filteredApplications, currentPage]
+  );
 
   // Manejador para cambiar de página
   const handlePageChange = (page: number) => {
