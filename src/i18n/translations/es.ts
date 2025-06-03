@@ -335,4 +335,8 @@ export const es = {
   'pagination.previousPage': 'Página anterior',
   'pagination.nextPage': 'Página siguiente',
   'pagination.goToPage': 'Ir a la página',
+
+  // Checkboxes
+  'checkboxes.sentCV': 'CV Enviado',
+  'checkboxes.sentEmail': 'Email Enviado',
 } as const;
