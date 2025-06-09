@@ -1,7 +1,7 @@
 import React from 'react';
 import { Info, CheckCircle2, XCircle } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
-import { FieldWrapperProps } from '@/interfaces/components/molecules'; // Importación actualizada
+import { FieldWrapperProps } from '../../../interfaces/components/molecules/FieldWrapper.interface';
 
 const FieldWrapper: React.FC<FieldWrapperProps> = ({
   name,
