@@ -1,13 +1,8 @@
-import React from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-export interface ButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
-  type?: 'button' | 'submit' | 'reset';
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'danger' | 'ghost' | 'gradient';
   size?: 'sm' | 'md' | 'lg';
-  disabled?: boolean;
-  className?: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   loading?: boolean;
 }

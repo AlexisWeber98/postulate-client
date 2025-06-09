@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardProps } from '../../../interfaces/components/molecules/CardProps.interface';
+import { CardProps } from '../../../types/components/molecules/CardProps.interface';
 
 const Card: React.FC<CardProps> = ({
   children,

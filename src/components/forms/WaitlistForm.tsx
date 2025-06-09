@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { isValidEmail } from '../../lib/helpers/validation.helpers';
 
-const RESEND_API_KEY = 'AQUÍ_TU_API_KEY'; // <-- Pega aquí tu API Key de Resend para pruebas
-const RESEND_API_URL = 'https://api.resend.com/emails';
+// Remove these constants and handle email sending through your backend API
 
 const WaitlistForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -22,18 +21,12 @@ const WaitlistForm: React.FC = () => {
 
     setLoading(true);
     try {
-      const response = await fetch(RESEND_API_URL, {
+      const response = await fetch('/api/waitlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${RESEND_API_KEY}`,
         },
-        body: JSON.stringify({
-          from: 'waitlist@tudominio.com', // Cambia esto por un dominio verificado en Resend
-          to: email,
-          subject: '¡Gracias por unirte a la waitlist!',
-          html: '<strong>Te avisaremos cuando lancemos 🚀</strong>',
-        }),
+        body: JSON.stringify({ email }),
       });
 
       if (response.ok) {

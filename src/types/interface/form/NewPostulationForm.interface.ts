@@ -8,8 +8,8 @@ export interface NewPostulationFormValues {
   link?: string;
   description?: string;
   recruiterContact?: string;
-  sendCv?: boolean;
-  sendEmail?: boolean;
+  sentCV: boolean;
+  sentEmail: boolean;
 }
 
 export interface NewPostulationFormProps {

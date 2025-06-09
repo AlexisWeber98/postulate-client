@@ -8,9 +8,11 @@ export * from './validation.helpers';
 export * from './date.helpers';
 export * from './string.helpers';
 export * from './status.helpers';
+export * from './application.helpers';
 
 // Exportar grupos con alias para mayor claridad en importaciones
 import * as ValidationHelpers from './validation.helpers';
+import * as ApplicationHelpers from './application.helpers';
 import * as DateHelpers from './date.helpers';
 import * as StringHelpers from './string.helpers';
 import * as StatusHelpers from './status.helpers';
@@ -20,5 +22,6 @@ export {
   ValidationHelpers,
   DateHelpers,
   StringHelpers,
-  StatusHelpers
+  StatusHelpers,
+  ApplicationHelpers
 };

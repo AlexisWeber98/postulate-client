@@ -64,8 +64,8 @@ const NuevaPostulacionPage: React.FC = () => {
         link,
         description,
         recruiterContact,
-        sendCv,
-        sendEmail,
+        sentCV,
+        sentEmail,
       } = values;
 
       const mappedStatus = mapApplicationToPostulationStatus(status as ApplicationStatus);
@@ -77,8 +77,8 @@ const NuevaPostulacionPage: React.FC = () => {
         applicationDate,
         link,
         description,
-        sendCv,
-        sendEmail,
+        sendCv: sentCV,
+        sendEmail: sentEmail,
         userId: user.id,
       });
 
@@ -92,8 +92,8 @@ const NuevaPostulacionPage: React.FC = () => {
         link,
         description,
         recruiterContact,
-        sendCv,
-        sendEmail,
+        sendCv: sentCV,
+        sendEmail: sentEmail,
         userId: user.id,
       };
 

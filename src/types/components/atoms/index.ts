@@ -1,6 +1,7 @@
 import { ButtonProps } from './ButtonProps.interface';
 import { AvatarProps } from './Avatar.interface';
-import { BadgeProps } from './Badge.interface';
+import { BadgeProps } from './badges/Badge.interfaces';
+
 
 // Exportar interfaces de componentes atómicos
 export type { ButtonProps, AvatarProps, BadgeProps };

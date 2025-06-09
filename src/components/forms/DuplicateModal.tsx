@@ -1,6 +1,6 @@
 import { AlertCircle } from "lucide-react";
-import Modal from "../../components/molecules/Modal";
-import { useLanguageStore } from "../../store/language/languageStore";
+import Modal from "../molecules/Modal";
+import { useLanguageStore } from "../../store";
 
 interface DuplicateModalProps {
   isOpen: boolean;
@@ -27,7 +27,7 @@ const DuplicateModal: React.FC<DuplicateModalProps> = ({
     >
       <div className="flex items-start p-4">
         <div className="flex-shrink-0">
-          <AlertCircle className="h-6 w-6 text-yellow-500" />
+          <AlertCircle className="h-6 w-6 text-yellow-500" aria-hidden="true" />
         </div>
         <div className="ml-4">
           <p className="text-sm text-gray-700 dark:text-gray-300">

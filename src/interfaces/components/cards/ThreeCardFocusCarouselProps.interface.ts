@@ -1,8 +1,9 @@
-import { FeatureCard } from './FeatureCard.interface'
+import { ReactNode } from 'react';
 
 export interface ThreeCardFocusCarouselProps {
-  features: FeatureCard[]
-  cardClassName?: string
-  cardWidth?: number
-  cardHeight?: number
+  features: {
+    icon: ReactNode;
+    title: string;
+    desc: string;
+  }[];
 }

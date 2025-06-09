@@ -1,6 +1,5 @@
 import React from 'react';
 import Modal from '../../../molecules/Modal';
-import { ApplicationCardProps } from '../../../../interfaces/components/organisms/ApplicationCard.interface';
 import { STATUS_LABELS, Postulation, PostulationStatus } from '../../../../types/interface/postulations/postulation';
 import StyledModalContainer from "../../../shared/components/StyledModalContainer/StyledModalContainer.ui";
 import {
@@ -10,20 +9,14 @@ import {
   SelectContent,
   SelectItem
 } from '../../../ui/select';
-
-interface ApplicationEditModalUIProps extends ApplicationCardProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSave: (updatedApplication: Postulation) => void;
-  onDelete: () => Promise<void>;
-  isLoading: boolean;
-}
+import { ApplicationEditModalUIProps } from '../../../../interfaces/components/organisms/ApplicationCard/ApplicationEditModalUI.interface';
 
 const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   application,
   isOpen,
   onClose,
   onSave,
+
   isLoading
 }) => {
   const [formData, setFormData] = React.useState<Partial<Postulation>>({
@@ -134,20 +127,20 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
 
             <div>
               <label className="block text-white/90 text-xs mb-0.5">Estado *</label>
-              <Select 
-                value={formData.status} 
+              <Select
+                value={formData.status}
                 onValueChange={handleStatusChange}
                 defaultValue={formData.status}
               >
-                <SelectTrigger 
+                <SelectTrigger
                   className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
                 >
                   <SelectValue placeholder="Selecciona un estado" />
                 </SelectTrigger>
                 <SelectContent>
                   {Object.entries(STATUS_LABELS).map(([key, label]) => (
-                    <SelectItem 
-                      key={key} 
+                    <SelectItem
+                      key={key}
                       value={key}
                     >
                       {label}

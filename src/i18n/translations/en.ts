@@ -296,4 +296,8 @@ export const en = {
   'ia.tone.creativo': 'Creative',
   'ia.header.title': 'AI Response Generation',
   'ia.header.subtitle': 'Generate personalized responses for your job applications with the power of artificial intelligence',
+
+  // Checkboxes
+  'checkboxes.sentCV': 'CV Sent',
+  'checkboxes.sentEmail': 'Email Sent',
 } as const;
