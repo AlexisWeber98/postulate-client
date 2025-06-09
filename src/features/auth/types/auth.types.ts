@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+
 export interface AuthFormData {
   email: string;
   password: string;
