@@ -1,4 +1,4 @@
-export * from './FeaturesCarouselProps.interface';
-export * from './FeatureCard.interface';
-export * from './ThreeCardFocusCarouselProps.interface';
-export * from './ApplicationCardProps.interface';
+export type { FeaturesCarouselProps, Feature as FeatureCarousel } from './FeaturesCarouselProps.interface';
+export type { FeatureCard } from './FeatureCard.interface';
+export type { ThreeCardFocusCarouselProps } from './ThreeCardFocusCarouselProps.interface';
+export type { ApplicationCardProps } from './ApplicationCardProps.interface';

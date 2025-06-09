@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 
 export interface FeatureCard {
-  id: number
+  id?: number
   icon: ReactNode
   title: string
-  description: string
+  desc: string
 }
