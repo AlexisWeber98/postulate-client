@@ -6,7 +6,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../components/ui/select';
-import { useLanguageStore } from '../../store';
 
 interface FilterDropdownProps {
   icon: React.ReactNode;
@@ -29,8 +28,6 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   noOptionsMessage,
   badgeCounter,
 }) => {
-  const translate = useLanguageStore(state => state.translate);
-
   return (
     <div className="w-full md:w-64">
       <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
