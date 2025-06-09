@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../../../molecules/Modal';
-import { ApplicationDetailModalUIProps } from '../../../../interfaces/components/organisms/ApplicationCard.interface';
+import { ApplicationDetailModalUIProps } from '../../../../types/components/organisms/ApplicationCard.interface';
 import { STATUS_LABELS, STATUS_COLORS } from '../../../../types/interface/postulations/postulation';
 import StyledModalContainer from '../../../shared/components/StyledModalContainer/StyledModalContainer.ui';
 import { useLanguageStore } from '../../../../store/language/languageStore';
