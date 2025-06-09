@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { cn } from '../../lib/utils';
-import { PasswordToggleProps } from '../../interfaces/password-toggle.interface';
+import { PasswordToggleProps } from '../../types/components/ui/PasswordToggle.interface';
 
 
 

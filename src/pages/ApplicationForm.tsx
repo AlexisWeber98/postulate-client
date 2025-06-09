@@ -5,7 +5,8 @@ import { PostulationStatus, STATUS_LABELS } from "../types/index";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { DateHelpers } from "../lib/helpers";
-import FieldWrapper from "../components/forms/FieldWrapper";
+import FieldWrapper from "../components/molecules/FieldWrapper/FieldWrapper"; // Importación añadida
+
 import PostulationStatusForm from "../components/forms/PostulationStatus";
 import DuplicateModal from "../components/forms/DuplicateModal";
 import { useApplicationForm } from "../hooks/useApplicationForm";

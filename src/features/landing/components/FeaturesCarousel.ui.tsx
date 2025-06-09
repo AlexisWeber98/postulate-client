@@ -2,7 +2,7 @@ import React from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../../../components/ui/carousel"
 import type { EmblaCarouselType } from 'embla-carousel'
 import { useIsMobile } from "../../../shared/components/useIsMobile"
-import type { FeaturesCarouselProps, Feature } from "../../../interfaces/components/cards"
+import type { FeaturesCarouselProps, Feature } from "../../../types/components/cards/FeaturesCarousel.interface"
 
 const FeaturesCarousel: React.FC<FeaturesCarouselProps> = ({ features, autoplay = true, interval = 3500 }) => {
   const [emblaApi, setEmblaApi] = React.useState<EmblaCarouselType | undefined>(undefined)

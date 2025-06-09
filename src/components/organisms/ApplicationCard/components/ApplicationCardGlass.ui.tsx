@@ -1,4 +1,4 @@
-import { ApplicationCardGlassProps } from '../../../../interfaces/components/organisms/ApplicationCard.interface';
+import { ApplicationCardGlassProps } from '../../../../types/components/organisms/ApplicationCard.interface';
 import { STATUS_LABELS, STATUS_COLORS, STATUS_LABELS_EN } from '../../../../types/interface/postulations/postulation';
 import { useLanguageStore } from '../../../../store/language/languageStore';
 

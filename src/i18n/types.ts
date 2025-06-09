@@ -14,4 +14,13 @@ export type TranslationKey =
   | 'auth.validation.lastName'
   | 'auth.validation.userName'
   | 'common.saving'
-  | 'profile.actions.save';
+  | 'profile.actions.save'
+  | 'dashboard.filters.statusApplied'
+  | 'dashboard.filters.statusInterview'
+  | 'dashboard.filters.statusTechnical'
+  | 'dashboard.filters.statusOffer'
+  | 'dashboard.filters.statusRejected'
+  | 'dashboard.filters.statusAccepted'
+  | 'pagination.previousPage'
+  | 'pagination.nextPage'
+  | 'pagination.goToPage';

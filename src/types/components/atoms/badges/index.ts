@@ -1,4 +1,6 @@
-export type { BadgeProps } from '../Badge.interface';
+import { BadgeProps } from './Badge.interfaces';
 
-export * from './Badge.interface.ts';
+export type { BadgeProps };
+
+export * from './Badge.interfaces';
 

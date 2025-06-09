@@ -1,6 +1,6 @@
 export interface AvatarProps {
   src?: string;
   alt?: string;
-  fallback?: string;
+  fallback: string;
   className?: string;
 }

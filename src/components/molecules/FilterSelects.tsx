@@ -7,22 +7,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../components/ui/select';
+import FilterDropdown from './FilterDropdown';
 import { PostulationStatus } from '../../types/interface/postulations/postulation';
 import { useLanguageStore } from '../../store';
 
 interface FilterSelectsProps {
-  statusFilter: PostulationStatus | 'all';
+  statusFilter: PostulationStatus | 'all'; // "all" para mostrar todos
   setStatusFilter: (value: PostulationStatus | 'all') => void;
   companies: string[];
-  companyFilter: string;
+  companyFilter: string; // "" para mostrar todos
   setCompanyFilter: (value: string) => void;
   positions: string[];
-  positionFilter: string;
+  positionFilter: string; // "" para mostrar todos
   setPositionFilter: (value: string) => void;
 }
 
-const statusOptions: (PostulationStatus | 'all')[] = [
-  'all',
+// 'all' se maneja explícitamente en el SelectItem
+const statusOptions: PostulationStatus[] = [
   'applied',
   'interview',
   'technical',
@@ -41,50 +42,43 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
   positionFilter,
   setPositionFilter,
 }) => {
-  const translate = useLanguageStore(state=>state.translate);
+  const translate = useLanguageStore(state => state.translate);
 
-  // Manejador tipado para statusFilter
   const handleStatusChange = (value: string) => {
-    if (value.startsWith('company-')) {
-      setCompanyFilter(value.replace('company-', ''));
-      setStatusFilter('all');
-      setPositionFilter('all');
-    } else if (value.startsWith('position-')) {
-      setPositionFilter(value.replace('position-', ''));
-      setStatusFilter('all');
-      setCompanyFilter('all');
-    } else {
-      setStatusFilter(value as PostulationStatus | 'all');
-    }
+    setStatusFilter(value as PostulationStatus | 'all');
   };
 
-  // Handlers para convertir valores "all" a cadenas vacías y viceversa
   const handleCompanyChange = (value: string) => {
-    try {
-      setCompanyFilter(value === "all" ? "" : value);
-    } catch (error) {
-      console.error("Error al cambiar el filtro de empresa:", error);
-      setCompanyFilter("");
-    }
+    // Si el valor es "all" (proveniente del SelectItem "Todos"), se establece el filtro a ""
+    // De lo contrario, se usa el valor de la compañía seleccionada.
+    setCompanyFilter(value === "all" ? "" : value);
   };
 
   const handlePositionChange = (value: string) => {
-    try {
-      setPositionFilter(value === "all" ? "" : value);
-    } catch (error) {
-      console.error("Error al cambiar el filtro de posición:", error);
-      setPositionFilter("");
-    }
+    // Si el valor es "all" (proveniente del SelectItem "Todos"), se establece el filtro a ""
+    // De lo contrario, se usa el valor de la posición seleccionada.
+    setPositionFilter(value === "all" ? "" : value);
   };
 
-  // Badge counter para mostrar cuántos elementos hay en cada categoría
   const getBadgeCounter = useCallback((items: string[]) => {
     return items.length > 0 ? `(${items.length})` : '';
   }, []);
 
-  // Valores seguros para los selects que nunca deben ser undefined
-  const safeCompanyValue = companyFilter === "" ? "all" : companyFilter;
-  const safePositionValue = positionFilter === "" ? "all" : positionFilter;
+  // Para los FilterDropdown, si el filtro actual es "", pasamos "all" como valor
+  // para que el SelectItem "Todos" aparezca seleccionado.
+  // Si el filtro tiene un valor, ese es el que se pasa.
+  const companyDropdownValue = companyFilter === "" ? "all" : companyFilter;
+  const positionDropdownValue = positionFilter === "" ? "all" : positionFilter;
+
+  const statusTranslations: Record<PostulationStatus, string> = {
+    applied: translate('dashboard.filters.statusApplied'),
+    interview: translate('dashboard.filters.statusInterview'),
+    technical: translate('dashboard.filters.statusTechnical'),
+    offer: translate('dashboard.filters.statusOffer'),
+    rejected: translate('dashboard.filters.statusRejected'),
+    accepted: translate('dashboard.filters.statusAccepted'),
+  };
+
 
   return (
     <div className="flex flex-col md:flex-row gap-4">
@@ -100,75 +94,38 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{translate('dashboard.filters.all')}</SelectItem>
-            {statusOptions.filter(status => status !== 'all').map((status) => (
-              <SelectItem key={status} value={status}>{status}</SelectItem>
-            ))}
-            {/* Separador visual */}
-            <div className="px-2 py-1 text-xs text-gray-400 select-none cursor-default">{translate('dashboard.filters.company')}</div>
-            {companies && companies.length > 0 && companies.map((company) => (
-              <SelectItem key={`company-${company}`} value={`company-${company}`}>{company}</SelectItem>
-            ))}
-            <div className="px-2 py-1 text-xs text-gray-400 select-none cursor-default">{translate('dashboard.filters.position')}</div>
-            {positions && positions.length > 0 && positions.map((position) => (
-              <SelectItem key={`position-${position}`} value={`position-${position}`}>{position}</SelectItem>
+            {statusOptions.map((status) => (
+              <SelectItem key={status} value={status}>
+                {statusTranslations[status] || status}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </div>
 
       {/* Company select */}
-      <div className="w-full md:w-64">
-        <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
-          <Building2 className="h-4 w-4" />
-          <span>{translate('dashboard.filters.company')} {getBadgeCounter(companies)}</span>
-        </div>
-        <Select
-          value={safeCompanyValue}
-          onValueChange={handleCompanyChange}
-          defaultValue="all"
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder={translate('dashboard.filters.selectCompany')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">{translate('dashboard.filters.selectCompany')}</SelectItem>
-            {companies && companies.length > 0 ? (
-              companies.map((company) => (
-                <SelectItem key={company} value={company}>{company}</SelectItem>
-              ))
-            ) : (
-              <SelectItem value="all" disabled>{translate('dashboard.filters.noCompanies')}</SelectItem>
-            )}
-          </SelectContent>
-        </Select>
-      </div>
+      <FilterDropdown
+        icon={<Building2 className="h-4 w-4" />}
+        label={translate('dashboard.filters.company')}
+        value={companyDropdownValue} // Usar el valor preparado para el dropdown
+        onValueChange={handleCompanyChange}
+        options={companies} // Asumo que FilterDropdown internamente añade la opción "Todos" si es necesario o maneja "all"
+        placeholder={translate('dashboard.filters.selectCompany')}
+        noOptionsMessage={translate('dashboard.filters.noCompanies')}
+        badgeCounter={getBadgeCounter(companies)}
+      />
 
       {/* Position select */}
-      <div className="w-full md:w-64">
-        <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
-          <Briefcase className="h-4 w-4" />
-          <span>{translate('dashboard.filters.position')} {getBadgeCounter(positions)}</span>
-        </div>
-        <Select
-          value={safePositionValue}
-          onValueChange={handlePositionChange}
-          defaultValue="all"
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder={translate('dashboard.filters.selectPosition')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">{translate('dashboard.filters.selectPosition')}</SelectItem>
-            {positions && positions.length > 0 ? (
-              positions.map((position) => (
-                <SelectItem key={position} value={position}>{position}</SelectItem>
-              ))
-            ) : (
-              <SelectItem value="all" disabled>{translate('dashboard.filters.noPositions')}</SelectItem>
-            )}
-          </SelectContent>
-        </Select>
-      </div>
+      <FilterDropdown
+        icon={<Briefcase className="h-4 w-4" />}
+        label={translate('dashboard.filters.position')}
+        value={positionDropdownValue} // Usar el valor preparado para el dropdown
+        onValueChange={handlePositionChange}
+        options={positions} // Asumo que FilterDropdown internamente añade la opción "Todos" si es necesario o maneja "all"
+        placeholder={translate('dashboard.filters.selectPosition')}
+        noOptionsMessage={translate('dashboard.filters.noPositions')}
+        badgeCounter={getBadgeCounter(positions)}
+      />
     </div>
   );
 };

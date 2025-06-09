@@ -6,7 +6,7 @@ import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight/* , FileText, BarChart2, Calendar, Users, Brain */ } from "lucide-react"
 import { motion, useMotionValue, useTransform } from "framer-motion"
 /* import { useLanguageStore } from '../../store/language/languageStore' */
-import { ThreeCardFocusCarouselProps } from "../../interfaces/components/cards/ThreeCardFocusCarouselProps.interface"
+import { ThreeCardFocusCarouselProps } from "../../types/components/cards/ThreeCardFocusCarouselProps.interface"
 
 /* interface Feature {
   id: number

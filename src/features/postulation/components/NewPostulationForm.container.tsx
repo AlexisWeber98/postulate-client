@@ -12,8 +12,8 @@ const defaultValues: NewPostulationFormValues = {
   link: '',
   description: '',
   recruiterContact: '',
-  sendCv: false,
-  sendEmail: false,
+  sentCV: false,
+  sentEmail: false,
 };
 
 const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initialValues, onSubmit, loading, error }) => {
