@@ -219,10 +219,10 @@ export const es = {
     'Postulate fue creado por personas que realmente buscaron trabajo y conocen tus necesidades.',
   'trust.point2': 'Tus datos seguros',
   'trust.point2.explanation':
-    'Tus datos personales y de búsqueda laboral están protegidos y solo vos podés acceder a ellos.',
+    'Tus datos personales y de búsqueda laboral están protegidos y solo tú puedes acceder a ellos.',
   'trust.point3': 'Mejora continua',
   'trust.point3.explanation':
-    'Escuchamos a los usuarios y mejoramos la plataforma continuamente para vos.',
+    'Escuchamos a los usuarios y mejoramos la plataforma continuamente para ti.',
   'common.loading': 'Cargando...',
   'common.delete': 'Eliminar',
   'common.closeModal': 'Cerrar modal',
@@ -318,7 +318,7 @@ export const es = {
   'ia.copy': 'Copiar',
   'ia.download': 'Descargar',
   'ia.home': 'Volver al inicio',
-  'ia.recheck': 'Rechequear',
+  'ia.recheck': 'Verificar',
   'ia.type.letter': 'Carta de presentación',
   'ia.type.email': 'Email de aplicación',
   'ia.type.cv': 'Adaptación de CV',
