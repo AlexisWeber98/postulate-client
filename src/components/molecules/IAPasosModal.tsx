@@ -15,7 +15,7 @@ const pasos = [
   {
     titulo: '¡Gracias por elegir Postulate!',
     descripcion:
-        'Próximamente vas a poder conocer nuestras funcionalidades premium.',
+        'Próximamente podrás conocer nuestras funcionalidades premium.',
     icono: (
       <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-pink-500 shadow-lg">
         <svg width="56" height="56" fill="none" viewBox="0 0 24 24" stroke="white"><rect x="6" y="7" width="12" height="10" rx="2" strokeWidth="2"/><path d="M9 7V5a3 3 0 0 1 6 0v2" strokeWidth="2"/></svg>
