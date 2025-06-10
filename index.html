@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./public/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80" />
     <meta
       name="description"
       content="Gestor de Postulaciones Laborales - Organiza y gestiona tus postulaciones de trabajo de manera eficiente"
@@ -32,6 +33,11 @@
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
+    <script>
+      // Precargar la imagen del hero
+      const heroImg = new Image();
+      heroImg.src = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80';
+    </script>
     <title>Gestor de Postulaciones Laborales</title>
   </head>
   <body>

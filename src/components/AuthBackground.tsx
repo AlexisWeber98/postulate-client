@@ -1,34 +1,36 @@
-import { ReactNode, useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface AuthBackgroundProps {
   imagePath: string;
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export function AuthBackground({ imagePath, children }: AuthBackgroundProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
-
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
-
     if (!imagePath) {
+      setImageLoaded(true);
       return;
     }
 
     const img = new window.Image();
-
+    
     const handleLoad = () => {
       setImageLoaded(true);
+      setImageError(false);
     };
 
-    const handleError = (error: any) => {
-      console.error('Error al cargar la imagen:', error);
+    const handleError = () => {
+      console.error('Error al cargar la imagen');
       setImageLoaded(false);
+      setImageError(true);
     };
 
     img.onload = handleLoad;
     img.onerror = handleError;
-
+    img.loading = 'lazy';
     img.src = imagePath;
 
     return () => {
@@ -37,19 +39,18 @@ export function AuthBackground({ imagePath, children }: AuthBackgroundProps) {
     };
   }, [imagePath]);
 
-
-
   return (
-    <div className="auth-background">
-      <div
-        className="auth-background-image"
-        style={{
-          backgroundImage: `url(${imagePath})`,
-          opacity: imageLoaded ? 1 : 0
-        }}
-      />
-      <div className="auth-background-overlay" />
-      <div className="auth-background-content">
+    <div className="relative min-h-screen">
+      {!imageError && (
+        <div
+          className="auth-background-image absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500"
+          style={{
+            backgroundImage: `url(${imagePath})`,
+            opacity: imageLoaded ? 1 : 0
+          }}
+        />
+      )}
+      <div className="relative z-10">
         {children}
       </div>
     </div>
