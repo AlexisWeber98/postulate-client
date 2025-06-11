@@ -19,7 +19,7 @@ const LanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) 
         aria-label="Español"
         type="button"
       >
-        <span className="text-lg">🇦🇷</span>
+        <span className="text-lg">🇪🇸</span>
       </button>
       <button
         onClick={() => setLanguage('en')}
@@ -31,7 +31,7 @@ const LanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) 
         aria-label="English"
         type="button"
       >
-        <span className="text-lg">🇺🇸</span>
+        <span className="text-lg">🇬🇧</span>
       </button>
     </div>
   );
