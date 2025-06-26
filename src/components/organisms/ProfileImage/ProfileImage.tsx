@@ -51,8 +51,9 @@ const ProfileImage: React.FC<ProfileImageProps> = ({
           {previewUrl ? (
             <img
               src={previewUrl}
-              alt="Profile"
-              className="w-32 h-32 rounded-full object-cover shadow-lg"
+              alt="Profile preview"
+              className="w-full h-full object-cover rounded-full"
+              loading="lazy"
             />
           ) : (
             <MdAccountCircle className="text-8xl text-blue-500 dark:text-blue-400 drop-shadow-lg bg-white/30 dark:bg-gray-800/30 rounded-full p-1 transition-all duration-200 group-hover:scale-105" />

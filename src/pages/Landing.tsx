@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 import SideNavbar from '../components/organisms/SideNavbar';
 import IntroSection from '../features/landing/components/IntroSection.ui';
 import CTASection from '../features/landing/components/CTASection.ui';
-import HeroBackground from '../features/landing/components/HeroBackground.ui';
+import { HeroBackground } from '../features/landing/components/HeroBackground.ui';
 import WaitlistForm from '../components/forms/WaitlistForm';
 
 const Landing: React.FC = () => {
@@ -35,10 +35,9 @@ const Landing: React.FC = () => {
     <div className="min-h-screen w-full bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-0 py-0 font-sans transition-colors duration-200">
       <Navbar />
       <div id="hero" className="relative w-full h-screen">
-        <HeroBackground />
-        <div className="relative z-10">
+        <HeroBackground>
           <HeroSectionContainer />
-        </div>
+        </HeroBackground>
       </div>
       <SideNavbar sections={sections} />
 

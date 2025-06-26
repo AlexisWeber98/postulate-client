@@ -30,7 +30,7 @@ const trustCards = [
       </span>
     ),
     title: 'Tus datos seguros',
-    text: 'Tus datos personales y de búsqueda laboral están protegidos y solo vos podés acceder a ellos.'
+    text: 'Tus datos personales y de búsqueda laboral están protegidos y solo tú puedes acceder a ellos.'
   },
   {
     icon: (
@@ -42,7 +42,7 @@ const trustCards = [
       </span>
     ),
     title: 'Mejora continua',
-    text: 'Escuchamos a los usuarios y mejoramos la plataforma continuamente para vos.'
+    text: 'Escuchamos a los usuarios y mejoramos la plataforma continuamente para ti.'
   },
 ];
 

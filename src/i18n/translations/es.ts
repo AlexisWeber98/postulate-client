@@ -53,6 +53,16 @@ export const es = {
   'auth.validation.userName': 'El nombre de usuario es obligatorio',
   'auth.validation.lastName': 'El apellido es obligatorio',
 
+  // Auth Errors
+  'auth.error.userNotFound': 'No existe una cuenta con este correo electrónico',
+  'auth.error.userNotFound.register': '¿No tienes una cuenta?',
+  'auth.error.userNotFound.registerLink': 'Regístrate aquí',
+  'auth.error.invalidCredentials': 'Correo electrónico o contraseña incorrectos',
+  'auth.error.userExists': 'Ya existe una cuenta con este correo electrónico',
+  'auth.error.email': 'Error con el correo electrónico',
+  'auth.error.network': 'Error de conexión. Verifica tu internet e intenta nuevamente',
+  'auth.error.generic': 'Error en la autenticación. Intenta nuevamente.',
+
   // Profile Validation
   'profile.validation.nameRequired': 'El nombre es obligatorio',
   'profile.validation.emailInvalid': 'El email no es válido',
@@ -219,10 +229,10 @@ export const es = {
     'Postulate fue creado por personas que realmente buscaron trabajo y conocen tus necesidades.',
   'trust.point2': 'Tus datos seguros',
   'trust.point2.explanation':
-    'Tus datos personales y de búsqueda laboral están protegidos y solo vos podés acceder a ellos.',
+    'Tus datos personales y de búsqueda laboral están protegidos y solo tú puedes acceder a ellos.',
   'trust.point3': 'Mejora continua',
   'trust.point3.explanation':
-    'Escuchamos a los usuarios y mejoramos la plataforma continuamente para vos.',
+    'Escuchamos a los usuarios y mejoramos la plataforma continuamente para ti.',
   'common.loading': 'Cargando...',
   'common.delete': 'Eliminar',
   'common.closeModal': 'Cerrar modal',
@@ -318,7 +328,7 @@ export const es = {
   'ia.copy': 'Copiar',
   'ia.download': 'Descargar',
   'ia.home': 'Volver al inicio',
-  'ia.recheck': 'Rechequear',
+  'ia.recheck': 'Verificar',
   'ia.type.letter': 'Carta de presentación',
   'ia.type.email': 'Email de aplicación',
   'ia.type.cv': 'Adaptación de CV',

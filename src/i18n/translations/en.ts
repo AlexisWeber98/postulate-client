@@ -53,6 +53,16 @@ export const en = {
   'auth.validation.userName': 'Username is required',
   'auth.validation.lastName': 'Last name is required',
 
+  // Auth Errors
+  'auth.error.userNotFound': 'No account exists with this email address',
+  'auth.error.userNotFound.register': "Don't have an account?",
+  'auth.error.userNotFound.registerLink': 'Register here',
+  'auth.error.invalidCredentials': 'Incorrect email or password',
+  'auth.error.userExists': 'An account with this email already exists',
+  'auth.error.email': 'Email error',
+  'auth.error.network': 'Connection error. Check your internet and try again',
+  'auth.error.generic': 'Authentication error. Please try again.',
+
   // Dashboard
   'dashboard.filters.search': 'Search applications...',
   'dashboard.filters.status': 'Status',

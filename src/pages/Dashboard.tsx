@@ -89,12 +89,15 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 via-violet-50 to-white dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 px-0 py-0 font-sans transition-colors duration-200">
+    <main className="min-h-screen w-full bg-gradient-to-br from-blue-50 via-violet-50 to-white dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 px-0 py-0 font-sans transition-colors duration-200" role="main">
       <div className="container mx-auto px-4 sm:px-8 py-10">
-        <DashboardHeader />
-        <div className="border-b border-white/30 mb-10" />
+        <header>
+          <DashboardHeader />
+        </header>
+        <div className="border-b border-white/30 mb-10" role="separator" aria-hidden="true" />
 
-        <section className="mb-12">
+        <section className="mb-12" aria-labelledby="search-section">
+          <h2 id="search-section" className="sr-only">Búsqueda y filtros</h2>
           <div className="mb-8 flex flex-col md:flex-row gap-4 items-center">
             <div className="w-full">
               <SearchAndFilter
@@ -119,18 +122,19 @@ const Dashboard: React.FC = () => {
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
-            isLoading={isLoading} // Pass down loading state
+            isLoading={isLoading}
           />
         </section>
 
-        <section className="mb-8">
+        <section className="mb-8" aria-labelledby="stats-section">
+          <h2 id="stats-section" className="sr-only">Estadísticas de aplicaciones</h2>
           <div>
             <ApplicationStats />
           </div>
         </section>
       </div>
       <Footer />
-    </div>
+    </main>
   );
 };
 
