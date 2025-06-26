@@ -87,18 +87,32 @@ export const useAuthStore = create<AuthState>()(
           set({ loading: false });
           console.error("Error en signIn:", error);
 
+         
           if (error instanceof Error) {
             if (error.message.includes('timeout')) {
               throw new Error('auth.timeoutError');
             }
+            
+            const axiosError = error as any;
+            if (axiosError.response?.status === 401) {
+              const backendMessage = getErrorMessage(axiosError.response.data?.message);
+              if (backendMessage) {
+                throw new Error(backendMessage);
+              }
+              throw new Error("Credenciales incorrectas");
+            }
+            
             throw error;
           }
 
           const apiError = error as ApiError;
+          
           if (apiError.response?.status === 401) {
-            throw new Error(
-              getErrorMessage(apiError.response.data.message) || "Credenciales incorrectas"
-            );
+            const backendMessage = getErrorMessage(apiError.response.data?.message);
+            if (backendMessage) {
+              throw new Error(backendMessage);
+            }
+            throw new Error("Credenciales incorrectas");
           }
           throw new Error(
             getErrorMessage(apiError.response?.data?.message) || "Error en la autenticación"

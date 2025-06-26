@@ -19,6 +19,7 @@ interface AuthFormProps {
   isLoading?: boolean;
   generalErrors?: string[];
   fieldErrors?: Record<string, string>;
+  isUserNotFoundError?: boolean;
 }
 
 export const AuthForm: React.FC<AuthFormProps> = ({
@@ -27,6 +28,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
   isLoading,
   generalErrors = [],
   fieldErrors = {},
+  isUserNotFoundError,
 }) => {
   const translate = useLanguageStore(state => state.translate);
   const [showPassword, setShowPassword] = useState(false);
@@ -59,6 +61,19 @@ export const AuthForm: React.FC<AuthFormProps> = ({
               {err}
             </div>
           ))}
+          {isUserNotFoundError && type === 'login' && (
+            <div className="mt-3 text-center">
+              <span className="text-gray-600 dark:text-gray-300">
+                {translate('auth.error.userNotFound.register')}{' '}
+              </span>
+              <Link
+                to="/register"
+                className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+              >
+                {translate('auth.error.userNotFound.registerLink')}
+              </Link>
+            </div>
+          )}
         </div>
       )}
       <motion.form
