@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
                   >
                     {translate('auth.signOut')}
                   </button>
-                  <div className="flex justify-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700" role="toolbar" aria-label="Configuración">
+                  <div className="flex items-center gap-4" role="toolbar" aria-label="Configuración">
                     <ThemeToggle />
                     <LanguageSelector />
                   </div>
@@ -172,7 +172,7 @@ const Navbar: React.FC = () => {
                   )}
                 </div>
               </nav>
-              <div role="toolbar" aria-label="Configuración">
+              <div className="flex items-center gap-4" role="toolbar" aria-label="Configuración">
                 <ThemeToggle />
                 <LanguageSelector />
               </div>
@@ -227,7 +227,7 @@ const Navbar: React.FC = () => {
                 >
                   {translate('register')}
                 </Link>
-                <div className="flex justify-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700" role="toolbar" aria-label="Configuración">
+                <div className="flex items-center gap-4" role="toolbar" aria-label="Configuración">
                   <ThemeToggle />
                   <LanguageSelector />
                 </div>
@@ -250,7 +250,7 @@ const Navbar: React.FC = () => {
                 {translate('register')}
               </Link>
             </nav>
-            <div role="toolbar" aria-label="Configuración">
+            <div className="flex items-center gap-4" role="toolbar" aria-label="Configuración">
               <ThemeToggle />
               <LanguageSelector />
             </div>
