@@ -10,7 +10,7 @@ import ApplicationGrid from '../components/organisms/ApplicationGrid';
 import ApplicationStats from '../components/organisms/ApplicationStats';
 import { AlertCircle } from 'lucide-react';
 import ActionModal from '../components/molecules/ActionModal';
-import Footer from '../components/organisms/Footer';
+
 
 const Dashboard: React.FC = () => {
   const {
