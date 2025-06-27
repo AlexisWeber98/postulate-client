@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { usePostulationsStore, useLanguageStore } from '../store';
 import SearchAndFilter from '../components/organisms/SearchAndFilter';
 import ApplicationStats from '../components/organisms/ApplicationStats';
@@ -45,14 +45,19 @@ const Dashboard: React.FC = () => {
     clearError: clearFilterHookError,
   } = useApplicationFilters(postulations);
 
-
-  useEffect(() => {
-    getAllPostulations().catch(err => {
+  // Estabilizar la función de manejo de errores
+  const handleGetAllPostulations = useCallback(async () => {
+    try {
+      await getAllPostulations();
+    } catch (err) {
       console.error('❌ Dashboard: Error al cargar postulaciones:', err);
       localHandleError(err as Error, translate('dashboard.errorMessage'));
-    });
+    }
   }, [getAllPostulations, localHandleError, translate]);
 
+  useEffect(() => {
+    handleGetAllPostulations();
+  }, []);
 
   const isLoading = postulationsLoading;
 
