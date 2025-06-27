@@ -1,0 +1,102 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://postulate.com/#webapp",
+      "name": "Postulate",
+      "description": "Postulate es la plataforma definitiva para gestionar postulaciones laborales. Organiza, rastrea y optimiza tu búsqueda de trabajo de manera eficiente.",
+      "url": "https://postulate.com",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web Browser",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Plan gratuito disponible"
+      },
+      "featureList": [
+        "Gestión de postulaciones laborales",
+        "Seguimiento de estado de aplicaciones",
+        "Estadísticas y métricas de búsqueda",
+        "Filtros avanzados de búsqueda",
+        "Organización centralizada",
+        "Generación de respuestas con IA"
+      ],
+      "softwareVersion": "1.0.0",
+      "author": {
+        "@type": "Organization",
+        "name": "Postulate",
+        "url": "https://postulate.com"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://postulate.com/#organization",
+      "name": "Postulate",
+      "url": "https://postulate.com",
+      "logo": "https://postulate.com/favicon.ico",
+      "description": "Plataforma de gestión de postulaciones laborales que ayuda a profesionales a organizar y optimizar su búsqueda de trabajo.",
+      "foundingDate": "2024",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "contacto@postulate.com"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://postulate.com/#website",
+      "url": "https://postulate.com",
+      "name": "Postulate - Gestor de Postulaciones Laborales",
+      "description": "Organiza, rastrea y optimiza tu búsqueda de trabajo con Postulate. La plataforma definitiva para gestionar postulaciones laborales.",
+      "publisher": {
+        "@id": "https://postulate.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://postulate.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://postulate.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Qué es Postulate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Postulate es una plataforma web que te ayuda a gestionar y organizar todas tus postulaciones laborales en un solo lugar. Con Postulate puedes rastrear el estado de tus aplicaciones, generar estadísticas y optimizar tu búsqueda de trabajo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Postulate es gratuito?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, Postulate ofrece un plan gratuito que incluye todas las funcionalidades básicas para gestionar tus postulaciones laborales."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo funciona Postulate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Postulate funciona de manera simple: 1) Crea tu cuenta gratuita, 2) Añade tus postulaciones con todos los detalles, 3) Rastrea el estado de cada aplicación y visualiza estadísticas para optimizar tu búsqueda laboral."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Postulate es seguro?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, Postulate protege todos tus datos personales y de búsqueda laboral. Solo tú puedes acceder a tu información y utilizamos las mejores prácticas de seguridad."
+          }
+        }
+      ]
+    }
+  ]
+} 

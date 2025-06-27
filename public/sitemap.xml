@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://postulate.com/</loc>
-    <lastmod>2024-03-20</lastmod>
+    <lastmod>2024-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://postulate.com/"/>
@@ -11,8 +11,16 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://postulate.com/"/>
   </url>
   <url>
+    <loc>https://postulate.com/landing</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://postulate.com/landing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://postulate.com/en/landing"/>
+  </url>
+  <url>
     <loc>https://postulate.com/login</loc>
-    <lastmod>2024-03-20</lastmod>
+    <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://postulate.com/login"/>
@@ -20,7 +28,7 @@
   </url>
   <url>
     <loc>https://postulate.com/register</loc>
-    <lastmod>2024-03-20</lastmod>
+    <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://postulate.com/register"/>
@@ -28,18 +36,10 @@
   </url>
   <url>
     <loc>https://postulate.com/dashboard</loc>
-    <lastmod>2024-03-20</lastmod>
+    <lastmod>2024-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://postulate.com/dashboard"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://postulate.com/en/dashboard"/>
-  </url>
-  <url>
-    <loc>https://postulate.com/profile</loc>
-    <lastmod>2024-03-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://postulate.com/profile"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://postulate.com/en/profile"/>
   </url>
 </urlset> 

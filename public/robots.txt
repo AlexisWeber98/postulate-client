@@ -3,10 +3,16 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 Disallow: /private/
+Disallow: /_vercel/
+Disallow: /node_modules/
 
-Sitemap: https://postulate.com/sitemap.xml
+# Allow important SEO pages
+Allow: /sitemap.xml
+Allow: /manifest.json
+Allow: /robots.txt
 
-# Crawl-delay: 10
-# Allow: /sitemap.xml
-# Allow: /rss.xml
-# Allow: /feed.xml 
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://postulate.com/sitemap.xml 
