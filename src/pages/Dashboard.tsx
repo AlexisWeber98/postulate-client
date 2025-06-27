@@ -1,21 +1,22 @@
 import React, { useEffect, useCallback } from 'react';
-import { usePostulationsStore, useLanguageStore } from '../store';
+import { usePostulationsStore } from '../store/postulations/postulationsStore';
+import { useLanguageStore } from '../store/language/languageStore';
+import { useErrorHandler } from '../hooks/useErrorHandler';
+import { useApplicationFilters } from '../hooks/useApplicationFilters';
+import LoadingSpinner from '../components/atoms/LoadingSpinner';
+import DashboardHeader from '../components/organisms/DashboardHeader';
 import SearchAndFilter from '../components/organisms/SearchAndFilter';
+import ApplicationGrid from '../components/organisms/ApplicationGrid';
 import ApplicationStats from '../components/organisms/ApplicationStats';
 import { AlertCircle } from 'lucide-react';
 import ActionModal from '../components/molecules/ActionModal';
-import LoadingSpinner from '../components/atoms/LoadingSpinner';
 import Footer from '../components/organisms/Footer';
-import DashboardHeader from '../components/organisms/DashboardHeader';
-import ApplicationGrid from '../components/organisms/ApplicationGrid';
-import { useApplicationFilters } from '../hooks/useApplicationFilters';
-import { useErrorHandler } from '../hooks/useErrorHandler'; // Import useErrorHandler
 
 const Dashboard: React.FC = () => {
   const {
     postulations = [],
     loading: postulationsLoading,
-    // error: postulationsError, // This was the issue, store doesn't export error directly
+    
     getAllPostulations,
   } = usePostulationsStore();
 
@@ -138,7 +139,6 @@ const Dashboard: React.FC = () => {
           </div>
         </section>
       </div>
-      <Footer />
     </main>
   );
 };
