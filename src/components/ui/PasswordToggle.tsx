@@ -56,7 +56,7 @@ export const PasswordToggle = ({
           onClick={togglePasswordVisibility}
           disabled={disabled}
           className={cn(
-            'absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors',
+            'absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors p-1 rounded z-10',
             disabled && 'cursor-not-allowed opacity-50',
             buttonClassName
           )}
