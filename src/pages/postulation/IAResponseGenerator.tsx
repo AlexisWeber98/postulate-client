@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 
 import { Link as LinkIcon, Image as ImageIcon, Sparkles, Lightbulb, Info, Zap, Upload } from 'lucide-react';
-import Footer from '../../components/organisms/Footer';
 import { useLanguageStore } from '../../store/language/languageStore';
 import TabsGradient from '../../components/ui/TabsGradient';
 
@@ -378,8 +377,6 @@ const IAResponseGenerator: React.FC = () => {
         {paso === 1 && PasoTipoTono}
         {paso === 2 && PasoGenerar}
       </div>
-      {/* Footer siempre al final */}
-      <Footer />
     </div>
   );
 };
