@@ -27,11 +27,16 @@ export const responseInterceptor = {
       return Promise.reject(error);
     }
 
+    // Solo redirigir si el usuario ya está autenticado y recibe un 401
+    // Esto evita redirecciones durante el proceso de login
     if (error.response?.status === 401) {
-      useAuthStore.getState().signOut();
-      // Emitir un evento personalizado para la redirección
-      window.dispatchEvent(new CustomEvent('auth:unauthorized'));
-      window.location.href = "/login";
+      const { isAuthenticated } = useAuthStore.getState();
+      if (isAuthenticated) {
+        useAuthStore.getState().signOut();
+        // Emitir un evento personalizado para la redirección
+        window.dispatchEvent(new CustomEvent('auth:unauthorized'));
+        window.location.href = "/login";
+      }
     }
     return Promise.reject(error);
   }

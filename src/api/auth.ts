@@ -12,7 +12,7 @@ export const authApi = {
 
   // Registrar un nuevo usuario
   register: (userData: RegisterRequest) =>
-    httpClient.post<{ result: { user: User; token: string } }>('/auth/register', userData),
+    httpClient.post<{ result: User }>('/auth/register', userData),
 
   // Actualizar perfil de usuario
   updateProfile: (userId: string, userData: { name?: string; email?: string; lastname?: string; userName?: string; imageUrl?: string }) => {

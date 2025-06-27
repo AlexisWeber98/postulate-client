@@ -53,6 +53,16 @@ export const es = {
   'auth.validation.userName': 'El nombre de usuario es obligatorio',
   'auth.validation.lastName': 'El apellido es obligatorio',
 
+  // Auth Errors
+  'auth.error.userNotFound': 'No existe una cuenta con este correo electrónico',
+  'auth.error.userNotFound.register': '¿No tienes una cuenta?',
+  'auth.error.userNotFound.registerLink': 'Regístrate aquí',
+  'auth.error.invalidCredentials': 'Correo electrónico o contraseña incorrectos',
+  'auth.error.userExists': 'Ya existe una cuenta con este correo electrónico',
+  'auth.error.email': 'Error con el correo electrónico',
+  'auth.error.network': 'Error de conexión. Verifica tu internet e intenta nuevamente',
+  'auth.error.generic': 'Error en la autenticación. Intenta nuevamente.',
+
   // Profile Validation
   'profile.validation.nameRequired': 'El nombre es obligatorio',
   'profile.validation.emailInvalid': 'El email no es válido',

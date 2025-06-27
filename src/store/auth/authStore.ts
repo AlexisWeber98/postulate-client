@@ -9,7 +9,7 @@ const isTokenExpired = (token: string): boolean => {
     const decoded = jwtDecode<JwtPayload>(token);
     return (decoded.exp ?? 0) * 1000 < Date.now();
   } catch {
-    return true; // treat undecodable token as expired/invalid
+    return true; 
   }
 };
 
@@ -87,18 +87,33 @@ export const useAuthStore = create<AuthState>()(
           set({ loading: false });
           console.error("Error en signIn:", error);
 
+         
           if (error instanceof Error) {
             if (error.message.includes('timeout')) {
               throw new Error('auth.timeoutError');
             }
+            
+            const axiosError = error as any;
+            if (axiosError.response?.status === 401) {
+              const backendMessage = getErrorMessage(axiosError.response.data?.message);
+              if (backendMessage) {
+                throw new Error(backendMessage);
+              }
+              throw new Error("Credenciales incorrectas");
+            }
+            
             throw error;
           }
 
           const apiError = error as ApiError;
+          
           if (apiError.response?.status === 401) {
-            throw new Error(
-              getErrorMessage(apiError.response.data.message) || "Credenciales incorrectas"
-            );
+     
+            const backendMessage = getErrorMessage(apiError.response.data?.message);
+            if (backendMessage) {
+              throw new Error(backendMessage);
+            }
+            throw new Error("Credenciales incorrectas");
           }
           throw new Error(
             getErrorMessage(apiError.response?.data?.message) || "Error en la autenticación"
@@ -124,26 +139,25 @@ export const useAuthStore = create<AuthState>()(
             password,
           });
 
-          const { user, token } = response.result;
-          if (token) {
-            jwtDecode<JwtPayload & User>(token);
-
-          }
-
-          if (!user) {
-            console.error('[authStore] Error: El backend no devolvió el usuario en el registro:', response);
-            throw new Error('No se pudo registrar el usuario. Intenta de nuevo.');
-          }
-
+          console.log("Respuesta del backend en signUp:", response);
+          
+         
+          const user = response.result;
+          console.log("Usuario extraído:", user);
+          
+    
+          
           set({
             user: {
-              ...user,
-              lastName: user.lastName || user["lastname"],
-              userName: user.userName || user["username"] || user["user_name"],
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              lastName: user.lastName || "",
+              userName: user.userName || "",
             },
             loading: false,
-            token,
-            isAuthenticated: true
+            token: null,
+            isAuthenticated: false 
           });
         } catch (error) {
           set({ loading: false });

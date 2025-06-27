@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import NewPostulationFormContainer from '../../features/postulation/components/NewPostulationForm.container';
 import { postulationsApi } from '../../api/postulations';
 import { usePostulationsStore, useLanguageStore, useAuthStore } from '../../store';
@@ -35,13 +35,6 @@ const NuevaPostulacionPage: React.FC = () => {
   const [formError, setFormError] = useState<string | undefined>();
   const [success, setSuccess] = useState(false);
   const addPostulation = usePostulationsStore((state: PostulationState) => state.addPostulation);
-
-  useEffect(() => {
-
-    return () => {
-
-    };
-  }, []);
 
   const handleSubmit = async (values: NewPostulationFormValues) => {
 
