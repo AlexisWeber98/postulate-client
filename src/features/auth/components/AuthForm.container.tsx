@@ -79,11 +79,13 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
       if (type === 'login') {
         const { email, password } = data as LoginData;
         await signIn(email, password);
+        setIsLoading(false);
+        navigate('/dashboard');
       } else {
         const { email, password, name, userName, lastName } = data as RegisterData;
         await signUp(email, password, name, userName, lastName);
+        setIsLoading(false);
         navigate('/login');
-        return;
       }
     } catch (e: unknown) {
       let msg = 'Ocurrió un error. Intenta nuevamente.';
@@ -112,9 +114,6 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
       setIsLoading(false);
       return;
     }
-
-    setIsLoading(false);
-    navigate('/dashboard');
   };
 
   return (
