@@ -1,4 +1,4 @@
-import { AxiosResponse, InternalAxiosRequestConfig, AxiosRequestHeaders } from 'axios';
+import { AxiosError, AxiosResponse, InternalAxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { useAuthStore } from '../../store/auth/authStore';
 
 // Función para decodificar el token JWT
@@ -108,7 +108,7 @@ export const postulationRequestInterceptor = {
     }
     return config;
   },
-  onRejected: (error: any) => {
+  onRejected: (error: AxiosError) => {
 
     return Promise.reject(error);
   },
@@ -120,7 +120,7 @@ export const postulationResponseInterceptor = {
 
     return response;
   },
-  onRejected: (error: any) => {
+  onRejected: (error: AxiosError) => {
 
     return Promise.reject(error);
   },
