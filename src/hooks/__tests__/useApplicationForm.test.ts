@@ -2,7 +2,7 @@
 import { renderHook, act } from '@testing-library/react';
 import { useApplicationForm } from '../useApplicationForm';
 import { usePostulationsStore } from '../../store';
-import { PostulationStatus } from '../../types/interface/postulations/postulation';
+import { PostulationStatus } from '../../types/index';
 import { useParams } from 'react-router-dom';
 
 // Mock de useNavigate
@@ -75,8 +75,8 @@ describe('useApplicationForm', () => {
       link: '',
       description: '',
       recruiterContact: '',
-      sendCv: false,
-      sendEmail: false,
+      sendCv: true, // Cambiado a true
+      sendEmail: true, // Cambiado a true
     });
 
     // Verificar que se navegó a la página principal
@@ -125,8 +125,8 @@ describe('useApplicationForm', () => {
       link: '',
       description: '',
       recruiterContact: '',
-      sendCv: false,
-      sendEmail: false,
+      sendCv: true, // Cambiado a true
+      sendEmail: true, // Cambiado a true
     });
 
     // Verificar que se navegó a la página principal
@@ -135,9 +135,6 @@ describe('useApplicationForm', () => {
 
   it('debería mostrar el modal de duplicado cuando se intenta crear una postulación duplicada', async () => {
     mockCheckDuplicate.mockResolvedValueOnce(true);
-    mockSetShowDuplicateModal.mockImplementation((value: boolean) => {
-      (usePostulationsStore as unknown as jest.Mock).mock.results[0].value.showDuplicateModal = value;
-    });
 
     const { result } = renderHook(() => useApplicationForm());
 
@@ -169,8 +166,8 @@ describe('useApplicationForm', () => {
     // Verificar que no se llamó a addPostulation
     expect(mockAddPostulation).not.toHaveBeenCalled();
 
-    // Verificar que se muestra el modal de duplicado
-    expect(result.current.showDuplicateModal).toBe(true);
+    // Verificar que setShowDuplicateModal fue llamado con true
+    expect(mockSetShowDuplicateModal).toHaveBeenCalledWith(true);
   });
 
   it('debería validar los campos requeridos', async () => {

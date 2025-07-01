@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1751394113192" clover="3.2.0">
-  <project timestamp="1751394113192" name="All files">
-    <metrics statements="424" coveredstatements="233" conditionals="214" coveredconditionals="48" methods="77" coveredmethods="23" elements="715" coveredelements="304" complexity="0" loc="424" ncloc="424" packages="5" files="15" classes="15"/>
+<coverage generated="1751405240533" clover="3.2.0">
+  <project timestamp="1751405240533" name="All files">
+    <metrics statements="424" coveredstatements="232" conditionals="214" coveredconditionals="48" methods="77" coveredmethods="23" elements="715" coveredelements="303" complexity="0" loc="424" ncloc="424" packages="5" files="15" classes="15"/>
     <package name="api">
       <metrics statements="50" coveredstatements="27" conditionals="4" coveredconditionals="3" methods="18" coveredmethods="1"/>
       <file name="apiAxios.ts" path="/Users/mauroociappina/Desktop/Proyectos/ale proyecto/postulate-client/src/api/apiAxios.ts">
@@ -401,9 +401,9 @@
       </file>
     </package>
     <package name="store.auth">
-      <metrics statements="80" coveredstatements="67" conditionals="42" coveredconditionals="14" methods="11" coveredmethods="10"/>
+      <metrics statements="80" coveredstatements="66" conditionals="42" coveredconditionals="14" methods="11" coveredmethods="10"/>
       <file name="authStore.ts" path="/Users/mauroociappina/Desktop/Proyectos/ale proyecto/postulate-client/src/store/auth/authStore.ts">
-        <metrics statements="80" coveredstatements="67" conditionals="42" coveredconditionals="14" methods="11" coveredmethods="10"/>
+        <metrics statements="80" coveredstatements="66" conditionals="42" coveredconditionals="14" methods="11" coveredmethods="10"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
@@ -429,7 +429,7 @@
         <line num="41" count="1" type="stmt"/>
         <line num="44" count="1" type="stmt"/>
         <line num="45" count="1" type="stmt"/>
-        <line num="47" count="1" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
         <line num="57" count="0" type="stmt"/>
         <line num="59" count="1" type="stmt"/>
         <line num="60" count="1" type="stmt"/>
