@@ -58,7 +58,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     handleGetAllPostulations();
-  }, []);
+  }, [handleGetAllPostulations]);
 
   const isLoading = postulationsLoading;
 

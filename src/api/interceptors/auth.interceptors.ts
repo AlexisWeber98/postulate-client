@@ -1,4 +1,4 @@
-import {  AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import { AxiosError, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { useAuthStore } from "../../store/auth/authStore";
 
 // Interceptor para agregar el token de autenticación
@@ -13,7 +13,7 @@ export const requestInterceptor = {
     }
     return config;
   },
-  onRejected: (error: any) => {
+  onRejected: (error: AxiosError) => {
     return Promise.reject(error);
   }
 };
@@ -21,7 +21,7 @@ export const requestInterceptor = {
 // Interceptor para manejar errores de autenticación
 export const responseInterceptor = {
   onFulfilled: (response: AxiosResponse) => response,
-  onRejected: (error: any) => {
+  onRejected: (error: AxiosError) => {
     if (error.code === 'ECONNABORTED') {
       error.name = 'TimeoutError';
       return Promise.reject(error);

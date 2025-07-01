@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NewPostulationFormProps, NewPostulationFormValues } from '../../../types';
 import { newPostulationSchema } from '../domain/validation';
 import NewPostulationFormUI from './NewPostulationForm.ui';
@@ -24,6 +24,24 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
   const [errors, setErrors] = useState<Partial<Record<keyof NewPostulationFormValues, string>>>({});
   const [touched, setTouched] = useState<Partial<Record<keyof NewPostulationFormValues, boolean>>>({});
 
+  const validate = useCallback(() => {
+
+    const result = newPostulationSchema.safeParse(values);
+    if (!result.success) {
+      const fieldErrors: Partial<Record<keyof NewPostulationFormValues, string>> = {};
+      result.error.errors.forEach((err) => {
+        const field = err.path[0] as keyof NewPostulationFormValues;
+        fieldErrors[field] = err.message;
+      });
+      console.warn('[validate] Errores encontrados:', fieldErrors);
+      setErrors(fieldErrors);
+      return false;
+    }
+
+    setErrors({});
+    return true;
+  }, [values]);
+
 
 
   // Efecto para revalidar en tiempo real cuando values cambie y haya campos tocados
@@ -31,7 +49,7 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
     if (Object.keys(touched).length > 0) {
       validate();
     }
-  }, [values]);
+  }, [values, touched, validate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -53,23 +71,7 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
     setTouched((prev) => ({ ...prev, status: true }));
   };
 
-  const validate = () => {
-
-    const result = newPostulationSchema.safeParse(values);
-    if (!result.success) {
-      const fieldErrors: Partial<Record<keyof NewPostulationFormValues, string>> = {};
-      result.error.errors.forEach((err) => {
-        const field = err.path[0] as keyof NewPostulationFormValues;
-        fieldErrors[field] = err.message;
-      });
-      console.warn('[validate] Errores encontrados:', fieldErrors);
-      setErrors(fieldErrors);
-      return false;
-    }
-
-    setErrors({});
-    return true;
-  };
+  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +80,7 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
 
       onSubmit(values);
     } else {
-
+      // Validation failed, errors are already set by validate()
     }
   };
 
