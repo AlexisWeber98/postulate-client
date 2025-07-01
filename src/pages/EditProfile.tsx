@@ -19,7 +19,7 @@ const EditProfile: React.FC = () => {
   const [email, setEmail] = useState(user?.email || '');
   const [lastName, setLastName] = useState(user?.lastName || '');
   const [userName, setUserName] = useState(user?.userName || '');
-  const [_profileImage, setProfileImage] = useState<File | null>(null);
+  
   const [previewUrl, setPreviewUrl] = useState<string>(user?.profileImage || '');
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -131,7 +131,7 @@ const EditProfile: React.FC = () => {
     try {
       const imageUrl = await CloudinaryService.uploadImage(file);
       setPreviewUrl(imageUrl);
-      setProfileImage(file);
+      
     } catch (error) {
       console.error('Error al subir la imagen:', error);
       if (error instanceof Error) {

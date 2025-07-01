@@ -10,7 +10,8 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
 
     const data = await response.json();
     return data;
-  } catch (error) {
+  } catch (_error) {
+    console.error(_error);
     throw new Error('Error al enviar el email');
   }
 };

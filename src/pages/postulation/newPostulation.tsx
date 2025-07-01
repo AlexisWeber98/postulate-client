@@ -95,8 +95,9 @@ const NuevaPostulacionPage: React.FC = () => {
 
       setSuccess(true);
 
-    } catch (error) {
+    } catch (_error) {
 
+      console.error(_error);
       setFormError(translate('errorMessage') || 'An error occurred while saving the application.');
     } finally {
       setLoading(false);
