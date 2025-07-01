@@ -13,12 +13,9 @@ import ActionModal from '../components/molecules/ActionModal';
 
 
 const Dashboard: React.FC = () => {
-  const {
-    postulations = [],
-    loading: postulationsLoading,
-    
-    getAllPostulations,
-  } = usePostulationsStore();
+  const getAllPostulations = usePostulationsStore(state => state.getAllPostulations);
+  const postulations = usePostulationsStore(state => state.postulations) || [];
+  const postulationsLoading = usePostulationsStore(state => state.loading);
 
   const { translate } = useLanguageStore();
 
@@ -58,7 +55,8 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     handleGetAllPostulations();
-  }, [handleGetAllPostulations]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const isLoading = postulationsLoading;
 
