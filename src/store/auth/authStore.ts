@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import { AuthState, User, ApiError } from "../../types/auth/auth.interface";
 import { jwtDecode, type JwtPayload } from "jwt-decode";
 import { authApi } from "../../api";
+import { AxiosError } from "axios";
 
 const isTokenExpired = (token: string): boolean => {
   try {
@@ -88,12 +89,12 @@ export const useAuthStore = create<AuthState>()(
           console.error("Error en signIn:", error);
 
          
-          if (error instanceof Error) {
+          if (error instanceof AxiosError) {
             if (error.message.includes('timeout')) {
               throw new Error('auth.timeoutError');
             }
             
-            const axiosError = error as any;
+            const axiosError = error;
             if (axiosError.response?.status === 401) {
               const backendMessage = getErrorMessage(axiosError.response.data?.message);
               if (backendMessage) {
@@ -192,7 +193,7 @@ export const useAuthStore = create<AuthState>()(
             throw new Error('No se encontró el ID del usuario');
           }
           // Convertir lastName a lastname para el backend si es necesario
-          const dataToSend: any = { ...data, userId };
+          const dataToSend: Record<string, unknown> = { ...data, userId };
           if (data.lastName) {
             dataToSend.lastname = data.lastName;
             delete dataToSend.lastName;
