@@ -15,3 +15,7 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: jest.fn(),
   })),
 });
+
+// Definir variables de entorno de Vite para Jest
+process.env.VITE_API_URL = process.env.VITE_API_URL || 'http://localhost:3000';
+process.env.VITE_API_KEY = process.env.VITE_API_KEY || 'test-key';
