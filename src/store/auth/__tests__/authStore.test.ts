@@ -1,8 +1,8 @@
 import { useAuthStore } from '../authStore';
 import { authApi } from '../../../api';
 import { jwtDecode } from 'jwt-decode';
-import { act } from 'react-dom/test-utils';
-import { AxiosError } from 'axios';
+import { act } from '@testing-library/react';
+import { AxiosError, AxiosResponse } from 'axios';
 
 // Mock de jwt-decode
 jest.mock('jwt-decode', () => ({
@@ -67,7 +67,11 @@ describe('authStore', () => {
     });
 
     it('debería manejar errores de autenticación', async () => {
-      const mockAxiosError = new AxiosError('Request failed with status code 401', '401', undefined, undefined, { status: 401, data: { message: 'Credenciales incorrectas' } } as any);
+      // Ensure response.data.message is provided for getErrorMessage
+      const mockAxiosError = new AxiosError('Request failed with status code 401', '401', undefined, undefined, {
+        status: 401,
+        data: { message: 'Credenciales incorrectas' },
+      } as AxiosResponse); // Cast to AxiosResponse
       mockAuthApi.login.mockRejectedValueOnce(mockAxiosError);
 
       await act(async () => {
@@ -104,7 +108,11 @@ describe('authStore', () => {
     });
 
     it('debería manejar errores de registro', async () => {
-      const mockAxiosError = new AxiosError('Request failed with status code 409', '409', undefined, undefined, { status: 409, data: { message: 'El usuario ya existe' } } as any);
+      // Ensure response.data.message is provided for getErrorMessage
+      const mockAxiosError = new AxiosError('Request failed with status code 409', '409', undefined, undefined, {
+        status: 409,
+        data: { message: 'El usuario ya existe' },
+      } as AxiosResponse); // Cast to AxiosResponse
       mockAuthApi.register.mockRejectedValueOnce(mockAxiosError);
 
       await act(async () => {
@@ -140,7 +148,15 @@ describe('authStore', () => {
     it('debería autenticar si el token es válido', () => {
       const mockToken = 'valid-token';
       const mockUser = { id: '123', email: 'test@example.com', name: 'Test', lastName: 'User', userName: 'testuser' };
-      mockJwtDecode.mockReturnValueOnce({ ...mockUser, exp: Date.now() / 1000 + 3600 });
+      // Ensure jwtDecode returns a complete User object with id, name, lastName, userName, email
+      mockJwtDecode.mockReturnValueOnce({
+        id: mockUser.id,
+        name: mockUser.name,
+        lastName: mockUser.lastName,
+        userName: mockUser.userName,
+        email: mockUser.email,
+        exp: Date.now() / 1000 + 3600,
+      });
 
       useAuthStore.setState({ token: mockToken });
 
@@ -191,7 +207,8 @@ describe('authStore', () => {
   describe('updateUser', () => {
     it('debería actualizar la información del usuario', async () => {
       const initialUser = { id: '123', email: 'test@example.com', name: 'OldName', lastName: 'OldLastName', userName: 'olduser' };
-      const updatedData = { name: 'NewName', lastname: 'NewLastName' }; // Cambiado a 'lastname'
+      const updatedData = { name: 'NewName', lastName: 'NewLastName' }; // Usar lastName aquí
+      const expectedDataSent = { name: 'NewName', lastname: 'NewLastName', userId: initialUser.id }; // Lo que se espera que se envíe al backend
       const updatedUser = { ...initialUser, ...updatedData };
 
       useAuthStore.setState({ user: initialUser, isAuthenticated: true });
@@ -202,7 +219,7 @@ describe('authStore', () => {
       });
 
       const { user } = useAuthStore.getState();
-      expect(mockAuthApi.updateProfile).toHaveBeenCalledWith(initialUser.id, { ...updatedData, userId: initialUser.id });
+      expect(mockAuthApi.updateProfile).toHaveBeenCalledWith(initialUser.id, expectedDataSent);
       expect(user).toEqual(updatedUser);
     });
 
