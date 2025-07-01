@@ -78,7 +78,7 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
 
       onSubmit(values);
     } else {
-
+      // Validation failed, errors are already set by validate()
     }
   };
 
