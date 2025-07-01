@@ -35,7 +35,8 @@ const WaitlistForm: React.FC = () => {
       } else {
         setError('Hubo un error al enviar tu email. Intenta de nuevo.');
       }
-    } catch (err) {
+    } catch (_err) {
+      console.error(_err);
       setError('Error de red. Intenta más tarde.');
     } finally {
       setLoading(false);
