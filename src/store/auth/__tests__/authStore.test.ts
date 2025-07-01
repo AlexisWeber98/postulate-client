@@ -2,7 +2,15 @@ import { useAuthStore } from '../authStore';
 import { authApi } from '../../../api';
 import { act } from '@testing-library/react';
 import { AxiosError, AxiosResponse } from 'axios';
-import * as jwtDecodeModule from 'jwt-decode'; // Importar el módulo completo
+
+// Mock de jwt-decode
+jest.mock('jwt-decode', () => ({
+  __esModule: true,
+  jwtDecode: jest.fn(),
+}));
+
+// Importar jwtDecode después del mock para asegurar que se usa el mockeado
+import { jwtDecode } from 'jwt-decode';
 
 // Mock de authApi
 jest.mock('../../../api', () => ({
@@ -13,11 +21,10 @@ jest.mock('../../../api', () => ({
   },
 }));
 
+const mockJwtDecode = jwtDecode as jest.Mock;
 const mockAuthApi = authApi as jest.Mocked<typeof authApi>;
 
 describe('authStore', () => {
-  let mockJwtDecode: jest.Mock;
-
   beforeEach(() => {
     // Resetear el estado del store antes de cada prueba
     useAuthStore.setState({
@@ -27,17 +34,10 @@ describe('authStore', () => {
       isAuthenticated: false,
     });
     // Limpiar mocks
+    mockJwtDecode.mockClear();
     mockAuthApi.login.mockClear();
     mockAuthApi.register.mockClear();
     mockAuthApi.updateProfile.mockClear();
-
-    // Usar jest.spyOn para mockear jwtDecode
-    mockJwtDecode = jest.spyOn(jwtDecodeModule, 'jwtDecode') as jest.Mock;
-    mockJwtDecode.mockClear(); // Limpiar el mock después de espiarlo
-  });
-
-  afterEach(() => {
-    mockJwtDecode.mockRestore(); // Restaurar la implementación original después de cada prueba
   });
 
   it('debería inicializar el estado correctamente', () => {

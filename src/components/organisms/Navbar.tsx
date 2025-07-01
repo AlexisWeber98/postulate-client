@@ -37,16 +37,16 @@ const Navbar: React.FC = () => {
     };
   }, [menuOpen, handleClickOutside]);
 
-  const handleSignOut = () => {
+  const handleSignOut = React.useCallback(() => {
     signOut();
     navigate('/landing');
-  };
+  }, [signOut, navigate]);
 
   // Nueva función para cerrar el modal y redirigir
-  const handleCloseIAModal = () => {
+  const handleCloseIAModal = React.useCallback(() => {
     setIaModalOpen(false);
     navigate('/dashboard');
-  };
+  }, [setIaModalOpen, navigate]);
 
   // Navbar para usuario autenticado (incluyendo landing page)
   if (user) {
