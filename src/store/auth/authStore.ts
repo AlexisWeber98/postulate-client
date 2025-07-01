@@ -207,9 +207,8 @@ export const useAuthStore = create<AuthState>()(
           return response;
         } catch (error) {
           console.error("[updateUser] Error al actualizar usuario:", error);
-          if (error && typeof error === 'object' && 'response' in error) {
+          if (error instanceof AxiosError) {
             // Mostrar el mensaje de error del backend si existe
-            // @ts-expect-error: Backend response type is not fully defined
             console.error("[updateUser] Detalle del error del backend:", error.response?.data);
           }
           throw error;
