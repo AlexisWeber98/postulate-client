@@ -48,7 +48,7 @@ const problemasSin = [
   },
 ];
 
-const BenefitsSection: React.FC<BenefitsSectionProps> = ({ /* translate */ }) => {
+const BenefitsSection: React.FC<BenefitsSectionProps> = () => {
   return (
     <section className="py-20 bg-transparent">
       <div className="container mx-auto px-4 flex flex-col lg:flex-row gap-8 justify-center items-center">
