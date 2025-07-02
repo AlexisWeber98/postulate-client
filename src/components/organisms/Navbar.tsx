@@ -4,10 +4,10 @@ import { Briefcase, Menu, X } from 'lucide-react';
 import { useAuthStore } from '../../store/auth/authStore';
 import { ThemeToggle } from '../ThemeToggle';
 import LanguageSelector from '../../features/landing/components/LanguageSelector';
-import Avatar from '../atoms/Avatar';
+import { Avatar } from '@/components';
 import { useLanguageStore } from '../../store';
 import { useIsMobile } from '../../shared/components/useIsMobile';
-import IAPasosModal from '../molecules/IAPasosModal';
+import { IAPasosModal } from '../molecules/IAPasosModal';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -262,4 +262,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export { Navbar };

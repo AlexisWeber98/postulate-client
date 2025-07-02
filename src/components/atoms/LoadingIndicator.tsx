@@ -27,4 +27,4 @@ const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({ fullScreen = false,
   );
 };
 
-export default LoadingIndicator;
+export { LoadingIndicator };

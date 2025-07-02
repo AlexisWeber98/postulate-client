@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from '../components/organisms/Navbar';
-import Footer from '../components/organisms/Footer';
+import { Navbar } from '../components/organisms/Navbar';
+import { Footer } from '../components/organisms/Footer';
 import HeroSectionContainer from '../features/landing/components/HeroSection.container';
 import { useLanguageStore } from '../store';
 import HowItWorksSection from '../features/landing/components/HowItWorksSection.ui';

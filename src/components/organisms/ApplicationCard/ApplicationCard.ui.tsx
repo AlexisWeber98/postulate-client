@@ -4,7 +4,7 @@ import { Edit, Trash2, Calendar, AlertTriangle } from 'lucide-react';
 import { APP_COLORS } from '../../../styles/colors';
 import Modal from '../../molecules/Modal';
 import Card from '../../molecules/Card';
-import Button from '../../atoms/Button';
+import { Button } from '@/components';
 import { StatusHelpers } from '../../../lib/helpers';
 import { Postulation, PostulationStatus } from '../../../types/interface/postulations/postulation';
 import { useLanguageStore } from '../../../store/language/languageStore';
