@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 
 import { Link as LinkIcon, Image as ImageIcon, Sparkles, Lightbulb, Info, Zap, Upload } from 'lucide-react';
 import { useLanguageStore } from '../../store/language/languageStore';
-import TabsGradient from '../../components/ui/TabsGradient';
+import TabsGradient from '../../components/atoms/TabsGradient';
 
 
 

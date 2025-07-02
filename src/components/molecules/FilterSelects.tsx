@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../components/ui/select';
+} from '../../components/atoms/select';
 import FilterDropdown from './FilterDropdown';
 import { PostulationStatus } from '../../types/interface/postulations/postulation';
 import { useLanguageStore } from '../../store';

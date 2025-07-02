@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 import Button from '../atoms/Button'; // Actualizado para usar el botón de atoms
-import { Badge } from '../ui/badge';
-import { PasswordToggle } from '../ui/PasswordToggle';
+import { Badge } from '../atoms/badge';
+import { PasswordToggle } from '../atoms/PasswordToggle';
 import { useNavigate } from 'react-router-dom';
 import { useThemeStore } from '../../store/theme/themeStore';
 

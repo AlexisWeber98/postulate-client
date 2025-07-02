@@ -1,6 +1,6 @@
 import React from 'react';
 import { User, Mail } from 'lucide-react';
-import { Input } from '../../ui/input';
+import { Input } from '../../atoms/input';
 
 interface AccountDetailsProps {
   userName: string;
