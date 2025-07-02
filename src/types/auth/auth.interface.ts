@@ -21,7 +21,6 @@ export interface ApiResponse<T> {
 
 export interface AuthState {
   user: User | null;
-  loading: boolean;
   token: string | null;
   isAuthenticated: boolean;
   initialize: () => void;

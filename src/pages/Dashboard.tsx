@@ -3,7 +3,6 @@ import { usePostulationsStore } from '../store/postulations/postulationsStore';
 import { useLanguageStore } from '../store/language/languageStore';
 import { useErrorHandler } from '../hooks/useErrorHandler';
 import { useApplicationFilters } from '../hooks/useApplicationFilters';
-import LoadingSpinner from '../components/atoms/LoadingSpinner';
 import DashboardHeader from '../components/organisms/DashboardHeader';
 import SearchAndFilter from '../components/organisms/SearchAndFilter';
 import ApplicationGrid from '../components/organisms/ApplicationGrid';
@@ -15,8 +14,6 @@ import ActionModal from '../components/molecules/ActionModal';
 const Dashboard: React.FC = () => {
   const {
     postulations = [],
-    loading: postulationsLoading,
-    
     getAllPostulations,
   } = usePostulationsStore();
 
@@ -60,14 +57,8 @@ const Dashboard: React.FC = () => {
     handleGetAllPostulations();
   }, [handleGetAllPostulations]);
 
-  const isLoading = postulationsLoading;
-
   // Combine error states: localError (from getAllPostulations) or filterHookError (from useApplicationFilters)
   const displayError = localError || filterHookError;
-
-  if (isLoading) {
-    return <LoadingSpinner fullScreen message={translate('dashboard.loading')} />;
-  }
 
   if (displayError) {
     return (
@@ -128,7 +119,6 @@ const Dashboard: React.FC = () => {
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
-            isLoading={isLoading}
           />
         </section>
 

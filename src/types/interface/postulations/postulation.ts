@@ -51,7 +51,6 @@ export interface Postulation {
 
 export interface PostulationState {
   postulations: Postulation[];
-  loading: boolean;
   addPostulation: (
     newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>
   ) => Promise<string>;

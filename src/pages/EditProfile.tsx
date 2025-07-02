@@ -158,7 +158,6 @@ const EditProfile: React.FC = () => {
       return;
     }
 
-    setIsLoading(true);
     try {
       await updateUser({
         name,

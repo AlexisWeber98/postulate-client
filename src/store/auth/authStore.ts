@@ -25,7 +25,6 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       user: null,
-      loading: false,
       token: null,
       isAuthenticated: false,
 
@@ -63,7 +62,6 @@ export const useAuthStore = create<AuthState>()(
       },
 
       signIn: async (email: string, password: string) => {
-        set({ loading: true });
 
         try {
           const response = await authApi.login({ email, password });
@@ -74,7 +72,6 @@ export const useAuthStore = create<AuthState>()(
 
           set({
             token: token,
-            loading: false,
             isAuthenticated: true,
             user: {
               id: decoded.id,
@@ -85,13 +82,8 @@ export const useAuthStore = create<AuthState>()(
             },
           });
         } catch (error) {
-          set({ loading: false });
-          console.error("Error en signIn:", error);
-
           const apiError = error as ApiError;
-          
           if (apiError.response?.status === 401) {
-     
             const backendMessage = getErrorMessage(apiError.response.data?.message);
             if (backendMessage) {
               throw new Error(backendMessage);
@@ -111,7 +103,6 @@ export const useAuthStore = create<AuthState>()(
         userName: string,
         lastName: string,
       ) => {
-        set({ loading: true });
 
         try {
           const response = await authApi.register({
@@ -138,12 +129,10 @@ export const useAuthStore = create<AuthState>()(
               lastName: user.lastName || "",
               userName: user.userName || "",
             },
-            loading: false,
             token: null,
             isAuthenticated: false 
           });
         } catch (error) {
-          set({ loading: false });
           console.error("Error en signUp:", error);
           const apiError = error as ApiError;
           if (apiError.response?.status === 409) {
@@ -163,7 +152,6 @@ export const useAuthStore = create<AuthState>()(
           user: null,
           token: null,
           isAuthenticated: false,
-          loading: false,
         });
       },
 
@@ -212,8 +200,6 @@ export const useAuthStore = create<AuthState>()(
               email: decoded.email,
             },
           });
-        } else {
-          set({ loading: false });
         }
 
       },

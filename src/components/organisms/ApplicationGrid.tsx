@@ -11,7 +11,6 @@ interface ApplicationGridProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  isLoading: boolean; // Para mostrar un spinner si es necesario mientras carga inicial o filtros
 }
 
 const ApplicationGrid: React.FC<ApplicationGridProps> = React.memo(({
@@ -21,19 +20,12 @@ const ApplicationGrid: React.FC<ApplicationGridProps> = React.memo(({
   currentPage,
   totalPages,
   onPageChange,
-  isLoading, // Aún no se usa, pero podría ser útil
 }) => {
   const { translate } = useLanguageStore();
 
   const pagesArray = useMemo(() => {
     return Array.from({ length: totalPages }, (_, i) => i + 1);
   }, [totalPages]);
-
-  if (isLoading) {
-    // Podríamos tener un spinner más pequeño aquí si es preferible
-    // en lugar del fullScreen que se usa en Dashboard.tsx
-    return null;
-  }
 
   if (allPostulationsCount === 0) {
     return (

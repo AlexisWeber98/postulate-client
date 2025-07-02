@@ -29,7 +29,6 @@ describe('authStore', () => {
     // Resetear el estado del store antes de cada prueba
     useAuthStore.setState({
       user: null,
-      loading: false,
       token: null,
       isAuthenticated: false,
     });
@@ -41,9 +40,8 @@ describe('authStore', () => {
   });
 
   it('debería inicializar el estado correctamente', () => {
-    const { user, loading, token, isAuthenticated } = useAuthStore.getState();
+    const { user, token, isAuthenticated } = useAuthStore.getState();
     expect(user).toBeNull();
-    expect(loading).toBeFalsy();
     expect(token).toBeNull();
     expect(isAuthenticated).toBeFalsy();
   });
@@ -60,11 +58,10 @@ describe('authStore', () => {
         await useAuthStore.getState().signIn('test@example.com', 'password123');
       });
 
-      const { user, loading, token, isAuthenticated } = useAuthStore.getState();
+      const { user, token, isAuthenticated } = useAuthStore.getState();
       expect(mockAuthApi.login).toHaveBeenCalledWith({ email: 'test@example.com', password: 'password123' });
       expect(mockJwtDecode).toHaveBeenCalledWith(mockToken);
       expect(user).toEqual(mockUser);
-      expect(loading).toBeFalsy();
       expect(token).toBe(mockToken);
       expect(isAuthenticated).toBeTruthy();
     });

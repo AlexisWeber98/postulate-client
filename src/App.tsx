@@ -17,11 +17,7 @@ const EditProfile = lazy(() => import('./pages/EditProfile'));
 const IAResponseGenerator = lazy(() => import('./pages/postulation/IAResponseGenerator'));
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, loading } = useAuthStore();
-
-  if (loading) {
-    return <LoadingSpinner fullScreen message="Cargando..." />;
-  }
+  const { user } = useAuthStore();
 
   if (!user) {
     return <Navigate to="/landing" replace />;

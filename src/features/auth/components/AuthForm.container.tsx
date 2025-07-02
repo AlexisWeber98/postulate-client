@@ -79,12 +79,10 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
       if (type === 'login') {
         const { email, password } = data as LoginData;
         await signIn(email, password);
-        setIsLoading(false);
         navigate('/dashboard');
       } else {
         const { email, password, name, userName, lastName } = data as RegisterData;
         await signUp(email, password, name, userName, lastName);
-        setIsLoading(false);
         navigate('/login');
       }
     } catch (e: unknown) {
@@ -111,7 +109,6 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
       } else {
         setGeneralErrors([translate('auth.error.generic' as TranslationKey)]);
       }
-      setIsLoading(false);
       return;
     }
   };
