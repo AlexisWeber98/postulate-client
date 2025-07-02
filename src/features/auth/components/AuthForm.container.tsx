@@ -5,6 +5,8 @@ import { useAuthStore } from '../../../store/auth/authStore';
 import { useNavigate } from 'react-router-dom';
 import { useLanguageStore } from '../../../store/language/languageStore';
 import { TranslationKey } from '../../../i18n';
+import { useMutation } from '@tanstack/react-query';
+import { authApi } from '../../../api';
 
 const loginSchema = z.object({
   email: z.string().email('Correo inválido'),
@@ -29,66 +31,23 @@ interface AuthFormContainerProps {
 }
 
 export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) => {
-  const [isLoading, setIsLoading] = React.useState(false);
   const [generalErrors, setGeneralErrors] = React.useState<string[]>([]);
   const [fieldErrors, setFieldErrors] = React.useState<Record<string, string>>({});
   const [isUserNotFoundError, setIsUserNotFoundError] = React.useState(false);
-  const { signIn, signUp } = useAuthStore();
+  const { signIn: authStoreSignIn, signUp: authStoreSignUp } = useAuthStore();
   const navigate = useNavigate();
   const translate = useLanguageStore(state => state.translate);
 
-  const mapBackendError = (msg: string) => {
-    if (msg.toLowerCase().includes('user not found')) return 'auth.error.userNotFound';
-    if (msg.toLowerCase().includes('existe')) return 'auth.error.userExists';
-    if (msg.toLowerCase().includes('email')) return 'auth.error.email';
-    if (msg.toLowerCase().includes('network') || msg.toLowerCase().includes('timeout'))
-      return 'auth.error.network';
-    if (msg.toLowerCase().includes('credencial') || msg.toLowerCase().includes('incorrecta'))
-      return 'auth.error.invalidCredentials';
-    return msg;
-  };
-
-  const handleSubmit = async (data: AuthData) => {
-    setGeneralErrors([]);
-    setFieldErrors({});
-    setIsUserNotFoundError(false);
-
-    const schema = type === 'register' ? registerSchema : loginSchema;
-    const result = schema.safeParse(data);
-
-    if (!result.success) {
-      const errors: string[] = [];
-      const fieldErrs: Record<string, string> = {};
-      result.error.errors.forEach(err => {
-        errors.push(err.message);
-        if (err.path && err.path.length > 0) {
-          fieldErrs[err.path[0]] = err.message;
-        }
-      });
-      setGeneralErrors(errors.map(e => translate(e as TranslationKey)));
-      Object.keys(fieldErrs).forEach(key => {
-        fieldErrs[key] = translate(fieldErrs[key] as TranslationKey);
-      });
-      setFieldErrors(fieldErrs);
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      if (type === 'login') {
-        const { email, password } = data as LoginData;
-        await signIn(email, password);
-        navigate('/dashboard');
-      } else {
-        const { email, password, name, userName, lastName } = data as RegisterData;
-        await signUp(email, password, name, userName, lastName);
-        navigate('/login');
-      }
-    } catch (e: unknown) {
+  const signInMutation = useMutation({
+    mutationFn: ({ email, password }: LoginData) => authApi.login({ email, password }),
+    onSuccess: (data) => {
+      authStoreSignIn(data.result);
+      navigate('/dashboard');
+    },
+    onError: (error: any) => {
       let msg = 'Ocurrió un error. Intenta nuevamente.';
-      if (e instanceof Error) {
-        msg = mapBackendError(e.message);
+      if (error instanceof Error) {
+        msg = mapBackendError(error.message);
       }
       if (msg === 'auth.error.userExists') {
         setGeneralErrors([translate('auth.error.userExists' as TranslationKey)]);
@@ -109,18 +68,39 @@ export const AuthFormContainer: React.FC<AuthFormContainerProps> = ({ type }) =>
       } else {
         setGeneralErrors([translate('auth.error.generic' as TranslationKey)]);
       }
-      return;
-    }
-  };
+    },
+  });
 
-  return (
-    <AuthForm
-      type={type}
-      onSubmit={handleSubmit}
-      isLoading={isLoading}
-      generalErrors={generalErrors}
-      fieldErrors={fieldErrors}
-      isUserNotFoundError={isUserNotFoundError}
-    />
-  );
-};
+  const signUpMutation = useMutation({
+    mutationFn: ({ email, password, name, userName, lastName }: RegisterData) =>
+      authApi.register({ email, password, name, userName, lastName }),
+    onSuccess: (data) => {
+      authStoreSignUp(data.result);
+      navigate('/login');
+    },
+    onError: (error: any) => {
+      let msg = 'Ocurrió un error. Intenta nuevamente.';
+      if (error instanceof Error) {
+        msg = mapBackendError(error.message);
+      }
+      if (msg === 'auth.error.userExists') {
+        setGeneralErrors([translate('auth.error.userExists' as TranslationKey)]);
+        setFieldErrors({
+          email: translate('auth.error.userExists' as TranslationKey),
+          userName: translate('auth.error.userExists' as TranslationKey),
+        });
+      } else if (msg === 'auth.error.userNotFound') {
+        setGeneralErrors([translate('auth.error.userNotFound' as TranslationKey)]);
+        setIsUserNotFoundError(true);
+      } else if (msg === 'auth.error.email') {
+        setGeneralErrors([translate('auth.error.email' as TranslationKey)]);
+        setFieldErrors({ email: translate('auth.error.email' as TranslationKey) });
+      } else if (msg === 'auth.error.network') {
+        setGeneralErrors([translate('auth.error.network' as TranslationKey)]);
+      } else if (msg === 'auth.error.invalidCredentials') {
+        setGeneralErrors([translate('auth.error.invalidCredentials' as TranslationKey)]);
+      } else {
+        setGeneralErrors([translate('auth.error.generic' as TranslationKey)]);
+      }
+    },
+  });
