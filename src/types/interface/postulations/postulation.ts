@@ -51,12 +51,10 @@ export interface Postulation {
 
 export interface PostulationState {
   postulations: Postulation[];
-  addPostulation: (
-    newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>
-  ) => Promise<string>;
-  updatePostulation: (id: string, updatedFields: Partial<Postulation>) => Promise<void>;
-  deletePostulation: (id: string) => Promise<void>;
+  addPostulation: (newPostulation: Postulation) => void;
+  updatePostulation: (id: string, updatedFields: Partial<Postulation>) => void;
+  deletePostulation: (id: string) => void;
   getPostulation: (id: string) => Postulation | undefined;
   checkDuplicate: (company: string, position: string) => boolean;
-  getAllPostulations: () => Promise<void>;
+  setAllPostulations: (postulations: Postulation[]) => void;
 }

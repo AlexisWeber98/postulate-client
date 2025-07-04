@@ -78,6 +78,7 @@ const NuevaPostulacionPage: React.FC = () => {
 
 
       const newPostulation = {
+        id: Date.now().toString(),
         company,
         position,
         status: mappedStatus,
@@ -88,6 +89,8 @@ const NuevaPostulacionPage: React.FC = () => {
         sendCv: sentCV,
         sendEmail: sentEmail,
         userId: user.id,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
 
 
