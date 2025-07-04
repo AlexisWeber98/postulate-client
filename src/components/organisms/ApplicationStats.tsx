@@ -152,53 +152,53 @@ const ApplicationStats: React.FC = () => {
           <div
             className={`${cardGradient} rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 lg:p-6 flex items-center justify-between`}
           >
-            <div>
+            <div className="flex-1 min-w-0">
               <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.totalApplications')}
               </p>
               <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">{totalApplications}</p>
             </div>
-            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80">
-              <PieChart className="w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7 text-blue-500" />
+            <div className="flex-shrink-0 w-8 h-8 sm:w-8 sm:h-8 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80 ml-2">
+              <PieChart className="w-4 h-4 sm:w-4 sm:h-4 lg:w-7 lg:h-7 text-blue-500" />
             </div>
           </div>
           <div
             className={`${cardGradient} rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 lg:p-6 flex items-center justify-between`}
           >
-            <div>
+            <div className="flex-1 min-w-0">
               <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.activeApplications')}
               </p>
               <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">{activeApplications}</p>
             </div>
-            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80">
-              <Activity className="w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7 text-green-500" />
+            <div className="flex-shrink-0 w-8 h-8 sm:w-8 sm:h-8 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80 ml-2">
+              <Activity className="w-4 h-4 sm:w-4 sm:h-4 lg:w-7 lg:h-7 text-green-500" />
             </div>
           </div>
           <div
             className={`${cardGradient} rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 lg:p-6 flex items-center justify-between`}
           >
-            <div>
+            <div className="flex-1 min-w-0">
               <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.topCompany')}
               </p>
               <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white truncate">{topCompany.name || '-'}</p>
             </div>
-            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80">
-              <Users className="w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7 text-pink-500" />
+            <div className="flex-shrink-0 w-8 h-8 sm:w-8 sm:h-8 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80 ml-2">
+              <Users className="w-4 h-4 sm:w-4 sm:h-4 lg:w-7 lg:h-7 text-pink-500" />
             </div>
           </div>
           <div
             className={`${cardGradient} rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 lg:p-6 flex items-center justify-between`}
           >
-            <div>
+            <div className="flex-1 min-w-0">
               <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.recentApplications')}
               </p>
               <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">{recentApplications}</p>
             </div>
-            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80">
-              <Calendar className="w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7 text-orange-500" />
+            <div className="flex-shrink-0 w-8 h-8 sm:w-8 sm:h-8 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80 ml-2">
+              <Calendar className="w-4 h-4 sm:w-4 sm:h-4 lg:w-7 lg:h-7 text-orange-500" />
             </div>
           </div>
         </div>
