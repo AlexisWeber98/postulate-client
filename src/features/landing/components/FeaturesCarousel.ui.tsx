@@ -1,5 +1,5 @@
 import React from "react"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../../../components/atoms/carousel"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../../../components/ui/carousel"
 import type { EmblaCarouselType } from 'embla-carousel'
 import { useIsMobile } from "../../../shared/components/useIsMobile"
 import type { FeaturesCarouselProps, Feature } from "../../../types/components/cards/FeaturesCarousel.interface"

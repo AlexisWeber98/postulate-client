@@ -52,8 +52,8 @@ export const httpClient = {
     return response.data;
   },
 
-  delete: async <T>(url: string, config?: AxiosRequestConfig) => {
-    const response = await client.delete<T>(url, config);
+  delete: async <T>(url: string) => {
+    const response = await client.delete<T>(url);
     return response.data;
   },
 };

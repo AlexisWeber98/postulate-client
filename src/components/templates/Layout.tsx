@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Navbar } from '../organisms/Navbar';
-import { LoadingIndicator } from '@/components';
-import { Footer } from '../organisms/Footer';
+import Navbar from '../organisms/Navbar';
+import LoadingIndicator from '../atoms/LoadingIndicator';
+import Footer from '../organisms/Footer';
 
 const Layout: React.FC = () => {
   return (

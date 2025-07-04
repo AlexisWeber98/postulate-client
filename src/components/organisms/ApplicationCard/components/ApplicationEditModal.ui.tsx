@@ -8,7 +8,7 @@ import {
   SelectValue,
   SelectContent,
   SelectItem
-} from '../../../atoms/select';
+} from '../../../ui/select';
 import { ApplicationEditModalUIProps } from '../../../../interfaces/components/organisms/ApplicationCard/ApplicationEditModalUI.interface';
 
 const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({

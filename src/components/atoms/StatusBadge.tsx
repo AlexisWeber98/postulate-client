@@ -1,5 +1,5 @@
 import React from 'react';
-import { BadgeProps } from './StatusBadge.interface';
+import { BadgeProps } from '../../types/components/atoms/Badge.interface';
 import { STATUS_COLORS } from '../../types/interface/postulations/postulation';
 import { useLanguageStore } from '../../store';
 import { TranslationKey } from '../../i18n';

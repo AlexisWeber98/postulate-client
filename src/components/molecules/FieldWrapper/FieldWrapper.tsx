@@ -83,4 +83,4 @@ const FieldWrapper: React.FC<FieldWrapperProps> = ({
   </div>
 );
 
-export { FieldWrapper };
+export default FieldWrapper;

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   presets: [
     [
       "@babel/preset-env",
@@ -9,8 +9,5 @@ export default {
     ],
     ["@babel/preset-react", { runtime: "automatic" }],
     "@babel/preset-typescript",
-  ],
-  plugins: [
-    "babel-plugin-transform-inline-environment-variables",
   ],
 };
