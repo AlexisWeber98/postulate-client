@@ -15,7 +15,14 @@ import ActionModal from '../components/molecules/ActionModal';
 
 
 const Dashboard: React.FC = () => {
+
   const { user } = useAuthStore();
+
+  const getAllPostulations = usePostulationsStore(state => state.getAllPostulations);
+  const postulations = usePostulationsStore(state => state.postulations) || [];
+  const postulationsLoading = usePostulationsStore(state => state.loading);
+
+
   const { translate } = useLanguageStore();
 
   const { data: postulations, isLoading, isError, error } = useQuery({
@@ -51,7 +58,27 @@ const Dashboard: React.FC = () => {
     handlePageChange,
     error: filterHookError,
     clearError: clearFilterHookError,
+
   } = useApplicationFilters(postulations?.data || []);
+
+
+  // Estabilizar la función de manejo de errores
+  const handleGetAllPostulations = useCallback(async () => {
+    try {
+      await getAllPostulations();
+    } catch (err) {
+      console.error('❌ Dashboard: Error al cargar postulaciones:', err);
+      localHandleError(err as Error, translate('dashboard.errorMessage'));
+    }
+  }, [getAllPostulations, localHandleError, translate]);
+
+  useEffect(() => {
+    handleGetAllPostulations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const isLoading = postulationsLoading;
+
 
   // Combine error states: localError (from getAllPostulations) or filterHookError (from useApplicationFilters)
   const displayError = localError || filterHookError || isError;
