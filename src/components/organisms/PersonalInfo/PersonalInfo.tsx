@@ -140,7 +140,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
 
       {/* Formulario de información personal */}
       <div className="relative w-full max-w-2xl flex flex-col items-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-6 sm:gap-y-8 w-full">
           {/* Nombre y Apellido */}
           <FieldWrapper
             name="name"
@@ -182,7 +182,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
           </FieldWrapper>
 
           {/* Biografía */}
-          <div className="md:col-span-2">
+          <div className="lg:col-span-2">
             <FieldWrapper
               name="bio"
               label="Biografía"

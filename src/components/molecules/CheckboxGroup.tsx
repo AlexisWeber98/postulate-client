@@ -28,18 +28,18 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ values, onChange, classNa
   const { t } = useTranslation();
 
   return (
-    <div className={`space-y-4 ${className}`}>
+    <div className={`grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 ${className}`}>
       {checkboxOptions.map((option) => (
-        <div key={option.id} className="flex items-center">
+        <div key={option.id} className="flex items-center p-3 bg-white/10 rounded-lg border border-white/20">
           <input
             type="checkbox"
             id={option.id}
             name={option.name}
             checked={values[option.name]}
             onChange={onChange}
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
-          <label htmlFor={option.id} className="ml-2 block text-sm text-gray-700">
+          <label htmlFor={option.id} className="ml-2 sm:ml-3 block text-sm sm:text-base text-white cursor-pointer">
             {t(option.labelKey)}
           </label>
         </div>

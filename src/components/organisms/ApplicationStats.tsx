@@ -142,94 +142,94 @@ const ApplicationStats: React.FC = () => {
   return (
     <div className="w-full ">
       <h2
-        className={`text-3xl font-bold text-center mb-8 ${cardGradient} bg-clip-text text-transparent`}
+        className={`text-2xl sm:text-2xl lg:text-3xl font-bold text-center mb-6 sm:mb-8 ${cardGradient} bg-clip-text text-transparent`}
       >
         {translate('dashboard.summary')}
       </h2>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Primera fila de cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
           <div
-            className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}
+            className={`${cardGradient} rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 lg:p-6 flex items-center justify-between`}
           >
             <div>
-              <p className="text-base text-white font-medium mb-1">
+              <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.totalApplications')}
               </p>
-              <p className="text-2xl font-bold text-white">{totalApplications}</p>
+              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">{totalApplications}</p>
             </div>
-            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
-              <PieChart className="w-7 h-7 text-blue-500" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80">
+              <PieChart className="w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7 text-blue-500" />
             </div>
           </div>
           <div
-            className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}
+            className={`${cardGradient} rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 lg:p-6 flex items-center justify-between`}
           >
             <div>
-              <p className="text-base text-white font-medium mb-1">
+              <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.activeApplications')}
               </p>
-              <p className="text-2xl font-bold text-white">{activeApplications}</p>
+              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">{activeApplications}</p>
             </div>
-            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
-              <Activity className="w-7 h-7 text-green-500" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80">
+              <Activity className="w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7 text-green-500" />
             </div>
           </div>
           <div
-            className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}
+            className={`${cardGradient} rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 lg:p-6 flex items-center justify-between`}
           >
             <div>
-              <p className="text-base text-white font-medium mb-1">
+              <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.topCompany')}
               </p>
-              <p className="text-2xl font-bold text-white">{topCompany.name || '-'}</p>
+              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white truncate">{topCompany.name || '-'}</p>
             </div>
-            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
-              <Users className="w-7 h-7 text-pink-500" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80">
+              <Users className="w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7 text-pink-500" />
             </div>
           </div>
           <div
-            className={`${cardGradient} rounded-2xl shadow-lg p-6 flex items-center justify-between`}
+            className={`${cardGradient} rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 lg:p-6 flex items-center justify-between`}
           >
             <div>
-              <p className="text-base text-white font-medium mb-1">
+              <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.recentApplications')}
               </p>
-              <p className="text-2xl font-bold text-white">{recentApplications}</p>
+              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">{recentApplications}</p>
             </div>
-            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/80">
-              <Calendar className="w-7 h-7 text-orange-500" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80">
+              <Calendar className="w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7 text-orange-500" />
             </div>
           </div>
         </div>
 
         {/* Segunda fila - Postulaciones por estado */}
         <h3
-          className={`text-3xl font-bold text-center mb-8 ${cardGradient} bg-clip-text text-transparent`}
+          className={`text-2xl sm:text-2xl lg:text-3xl font-bold text-center mb-6 sm:mb-8 ${cardGradient} bg-clip-text text-transparent`}
         >
           {translate('stats.statusBreakdown')}
         </h3>
-        <div className={`${cardGradient} rounded-2xl shadow-lg p-6`}>
-          <div className="space-y-4">
+        <div className={`${cardGradient} rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6`}>
+          <div className="space-y-3 sm:space-y-4">
             <div className="flex items-center">
-              <div className="w-40 text-sm font-medium text-white">
+              <div className="w-20 sm:w-32 lg:w-40 text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {translate('dashboard.stats.status.applied')}
               </div>
-              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+              <div className="flex-1 h-3 sm:h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
                 <div
                   className={`h-full ${statusColors.applied} shadow-lg`}
                   style={{ width: `${(applicationsByStatus.applied / totalApplications) * 100}%` }}
                 />
               </div>
-              <div className="w-16 text-right text-sm font-medium text-white">
+              <div className="w-8 sm:w-12 lg:w-16 text-right text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {applicationsByStatus.applied}
               </div>
             </div>
             <div className="flex items-center">
-              <div className="w-40 text-sm font-medium text-white">
+              <div className="w-20 sm:w-32 lg:w-40 text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {translate('dashboard.stats.status.interview')}
               </div>
-              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+              <div className="flex-1 h-3 sm:h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
                 <div
                   className={`h-full ${statusColors.interview} shadow-lg`}
                   style={{
@@ -237,15 +237,15 @@ const ApplicationStats: React.FC = () => {
                   }}
                 />
               </div>
-              <div className="w-16 text-right text-sm font-medium text-white">
+              <div className="w-8 sm:w-12 lg:w-16 text-right text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {applicationsByStatus.interview}
               </div>
             </div>
             <div className="flex items-center">
-              <div className="w-40 text-sm font-medium text-white">
+              <div className="w-20 sm:w-32 lg:w-40 text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {translate('dashboard.stats.status.technical')}
               </div>
-              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+              <div className="flex-1 h-3 sm:h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
                 <div
                   className={`h-full ${statusColors.technical} shadow-lg`}
                   style={{
@@ -253,49 +253,49 @@ const ApplicationStats: React.FC = () => {
                   }}
                 />
               </div>
-              <div className="w-16 text-right text-sm font-medium text-white">
+              <div className="w-8 sm:w-12 lg:w-16 text-right text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {applicationsByStatus.technical}
               </div>
             </div>
             <div className="flex items-center">
-              <div className="w-40 text-sm font-medium text-white">
+              <div className="w-20 sm:w-32 lg:w-40 text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {translate('dashboard.stats.status.offer')}
               </div>
-              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+              <div className="flex-1 h-3 sm:h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
                 <div
                   className={`h-full ${statusColors.offer} shadow-lg`}
                   style={{ width: `${(applicationsByStatus.offer / totalApplications) * 100}%` }}
                 />
               </div>
-              <div className="w-16 text-right text-sm font-medium text-white">
+              <div className="w-8 sm:w-12 lg:w-16 text-right text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {applicationsByStatus.offer}
               </div>
             </div>
             <div className="flex items-center">
-              <div className="w-40 text-sm font-medium text-white">
+              <div className="w-20 sm:w-32 lg:w-40 text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {translate('dashboard.stats.status.rejected')}
               </div>
-              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+              <div className="flex-1 h-3 sm:h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
                 <div
                   className={`h-full ${statusColors.rejected} shadow-lg`}
                   style={{ width: `${(applicationsByStatus.rejected / totalApplications) * 100}%` }}
                 />
               </div>
-              <div className="w-16 text-right text-sm font-medium text-white">
+              <div className="w-8 sm:w-12 lg:w-16 text-right text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {applicationsByStatus.rejected}
               </div>
             </div>
             <div className="flex items-center">
-              <div className="w-40 text-sm font-medium text-white">
+              <div className="w-20 sm:w-32 lg:w-40 text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {translate('dashboard.stats.status.accepted')}
               </div>
-              <div className="flex-1 h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
+              <div className="flex-1 h-3 sm:h-4 bg-white/20 rounded-full overflow-hidden shadow-inner">
                 <div
                   className={`h-full ${statusColors.accepted} shadow-lg`}
                   style={{ width: `${(applicationsByStatus.accepted / totalApplications) * 100}%` }}
                 />
               </div>
-              <div className="w-16 text-right text-sm font-medium text-white">
+              <div className="w-8 sm:w-12 lg:w-16 text-right text-xs sm:text-xs lg:text-sm font-medium text-white">
                 {applicationsByStatus.accepted}
               </div>
             </div>

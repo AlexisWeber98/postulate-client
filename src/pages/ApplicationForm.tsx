@@ -79,7 +79,7 @@ const ApplicationForm: React.FC = () => {
           onSubmit={handleSubmit}
           className="relative bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-3 sm:p-8 shadow-xl border border-gray-200 dark:border-gray-700/50"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-6 lg:gap-8">
             <FieldWrapper
               name="company"
               label={translate('dashboard.company')}
@@ -160,7 +160,7 @@ const ApplicationForm: React.FC = () => {
               )}
             </div>
 
-            <div className="md:col-span-2">
+            <div className="lg:col-span-2">
               <FieldWrapper
                 name="url"
                 label={translate('referenceUrl')}
@@ -180,7 +180,7 @@ const ApplicationForm: React.FC = () => {
               </FieldWrapper>
             </div>
 
-            <div className="md:col-span-2 space-y-1">
+            <div className="lg:col-span-2 space-y-1">
               <label htmlFor="notes" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
                 {translate('notes')}
               </label>
@@ -194,7 +194,7 @@ const ApplicationForm: React.FC = () => {
               />
             </div>
 
-            <div className="col-span-2 space-y-1">
+            <div className="col-span-1 lg:col-span-2 space-y-1">
               <label htmlFor="recruiterContact" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
                 {translate('recruiterContact')}
               </label>
@@ -211,7 +211,7 @@ const ApplicationForm: React.FC = () => {
               </p>
             </div>
 
-            <div className="md:col-span-2">
+            <div className="lg:col-span-2">
               <PostulationStatusForm
                 sentCV={formData.sentCV}
                 sentEmail={formData.sentEmail}
