@@ -3,16 +3,18 @@ import { useAuthStore } from '../store/auth/authStore';
 import { isValidEmail, hasContent } from '../lib/helpers/validation.helpers';
 import { motion } from 'framer-motion';
 import { useLanguageStore } from '../store';
-import Footer from '../components/organisms/Footer';
+import { Footer } from '@/components';
 import { CloudinaryService } from '../services/cloudinary.service';
 import PersonalInfo from '../components/organisms/PersonalInfo/PersonalInfo';
 import AccountDetails from '../components/organisms/Profile/AccountDetails';
 import Documents from '../components/organisms/Profile/Documents';
+import { useMutation } from '@tanstack/react-query';
+import { authApi } from '../api';
 
 type FieldName = 'name' | 'email' | 'lastName' | 'userName';
 
 const EditProfile: React.FC = () => {
-  const { user, updateUser } = useAuthStore();
+  const { user, updateUser: authStoreUpdateUser } = useAuthStore();
   const { translate } = useLanguageStore();
 
   const [name, setName] = useState(user?.name || '');
@@ -24,7 +26,6 @@ const EditProfile: React.FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [fieldStatus, setFieldStatus] = useState<
     Record<FieldName, { isValid: boolean; message?: string }>
   >({
@@ -43,6 +44,24 @@ const EditProfile: React.FC = () => {
   const [website, setWebsite] = useState('');
   const [location, setLocation] = useState('');
   const [activeTab, setActiveTab] = useState<'personal' | 'account' | 'documents'>('personal');
+
+  const updateProfileMutation = useMutation({
+    mutationFn: (data: { name?: string; email?: string; lastName?: string; userName?: string; imageUrl?: string }) => {
+      if (!user?.id) {
+        throw new Error('User ID is not available');
+      }
+      return authApi.updateProfile(user.id, data);
+    },
+    onSuccess: (data) => {
+      authStoreUpdateUser(data.result.user);
+      setSuccess(true);
+      setTimeout(() => setSuccess(false), 2000);
+    },
+    onError: (err: any) => {
+      console.error('Error al actualizar perfil:', err);
+      setError(translate('profile.errors.updateFail'));
+    },
+  });
 
   // Validación en tiempo real
   useEffect(() => {
@@ -158,9 +177,8 @@ const EditProfile: React.FC = () => {
       return;
     }
 
-    setIsLoading(true);
     try {
-      await updateUser({
+      updateProfileMutation.mutate({
         name,
         lastName,
         email,
@@ -168,13 +186,9 @@ const EditProfile: React.FC = () => {
         ...(previewUrl && { imageUrl: previewUrl })
       });
 
-      setSuccess(true);
-      setTimeout(() => setSuccess(false), 2000);
     } catch (error) {
       console.error('Error al actualizar perfil:', error);
       setError(translate('profile.errors.updateFail'));
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -261,10 +275,10 @@ const EditProfile: React.FC = () => {
           <div className="w-full flex justify-center mt-8">
             <button
               onClick={handleSubmit}
-              disabled={isLoading || Object.values(fieldStatus).some(f => !f.isValid)}
+              disabled={updateProfileMutation.isPending || Object.values(fieldStatus).some(f => !f.isValid)}
               className="inline-flex items-center justify-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-[220px] text-lg  disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? translate('common.saving') : translate('profile.actions.save')}
+              {updateProfileMutation.isPending ? translate('common.saving') : translate('profile.actions.save')}
             </button>
           </div>
         </div>

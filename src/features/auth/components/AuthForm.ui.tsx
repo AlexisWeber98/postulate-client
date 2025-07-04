@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { useLanguageStore } from '../../../store';
-import FieldWrapper from '@/components/molecules/FieldWrapper/FieldWrapper';
+import { FieldWrapper } from '@/components';
 import { useAuthForm } from '../hooks/useAuthForm';
 //import { TranslationKey } from '../../../i18n';
 

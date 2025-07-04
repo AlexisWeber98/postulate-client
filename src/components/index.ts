@@ -1,24 +1,20 @@
 /**
- * Punto de entrada para todos los componentes
- * Exporta componentes organizados por nivel atómico
+ * Archivo de barril para exportar todos los componentes de la aplicación.
+ * Simplifica las importaciones y centraliza la gestión de componentes.
  */
 
-// Exportar por nivel atómico
+export { Button } from './atoms/Button';
+export { Badge } from './atoms/badge';
+export { PasswordToggle } from './atoms/PasswordToggle';
+export { Avatar } from './atoms/Avatar';
+export { LoadingIndicator } from './atoms/LoadingIndicator';
+
+export { IAPasosModal } from './molecules/IAPasosModal';
+export { FieldWrapper } from './molecules/FieldWrapper/FieldWrapper';
+
+export { Navbar } from './organisms/Navbar';
+export { Footer } from './organisms/Footer';
+
 export * from './atoms';
 export * from './molecules';
 export * from './organisms';
-export * from './templates';
-
-// Exportar grupos con alias para mayor claridad en importaciones
-import * as Atoms from './atoms';
-import * as Molecules from './molecules';
-import * as Organisms from './organisms';
-import * as Templates from './templates';
-
-// Exportar los grupos completos
-export {
-  Atoms,
-  Molecules,
-  Organisms,
-  Templates
-};

@@ -11,4 +11,5 @@ export * from './FilterDropdown';
 export * from './FilterSelects';
 export * from './IAPasosModal';
 export * from './Modal';
+export * from './StatusBadge';
 //xport * from './SearchAndFilter';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { Search, X } from 'lucide-react';
 import { PostulationStatus } from '../../types/interface/postulations/postulation';
 import { useLanguageStore } from '../../store';
@@ -30,7 +30,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
 }) => {
   const  translate  = useLanguageStore(state=>state.translate);
 
-  const statusOptions: { value: PostulationStatus | 'all'; label: string }[] = [
+  const statusOptions = useMemo(() => [
     { value: 'all', label: translate('dashboard.filters.status') },
     { value: 'applied', label: translate('dashboard.stats.status.applied') },
     { value: 'interview', label: translate('dashboard.stats.status.interview') },
@@ -38,7 +38,34 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
     { value: 'offer', label: translate('dashboard.stats.status.offer') },
     { value: 'rejected', label: translate('dashboard.stats.status.rejected') },
     { value: 'accepted', label: translate('dashboard.stats.status.accepted') }
-  ];
+  ], [translate]);
+
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  }, [setSearchTerm]);
+
+  const handleClearSearch = useCallback(() => {
+    setSearchTerm('');
+  }, [setSearchTerm]);
+
+  const handleStatusChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setStatusFilter(e.target.value as PostulationStatus | 'all');
+  }, [setStatusFilter]);
+
+  const handleCompanyChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCompanyFilter(e.target.value);
+  }, [setCompanyFilter]);
+
+  const handlePositionChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPositionFilter(e.target.value);
+  }, [setPositionFilter]);
+
+  const handleResetFilters = useCallback(() => {
+    setSearchTerm('');
+    setStatusFilter('all');
+    setCompanyFilter('');
+    setPositionFilter('');
+  }, [setSearchTerm, setStatusFilter, setCompanyFilter, setPositionFilter]);
 
   return (
     <div className="w-full space-y-4">
@@ -50,13 +77,13 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         <input
           type="text"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleSearchChange}
           placeholder={translate('dashboard.filters.search')}
           className="block w-full pl-10 pr-10 py-3 rounded-2xl border border-blue-200 bg-white/80 shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 placeholder-gray-600 transition-all duration-200 hover:shadow-2xl"
         />
         {searchTerm && (
           <button
-            onClick={() => setSearchTerm('')}
+            onClick={handleClearSearch}
             className="absolute inset-y-0 right-0 pr-3 flex items-center"
           >
             <X className="h-5 w-5 text-gray-400 hover:text-gray-600 transition" />
@@ -70,7 +97,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         <div className="relative w-full">
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as PostulationStatus | 'all')}
+            onChange={handleStatusChange}
             className="appearance-none block w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 bg-white/80 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-xl cursor-pointer"
           >
             {statusOptions.map(option => (
@@ -88,7 +115,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         <div className="relative w-full">
           <select
             value={companyFilter}
-            onChange={(e) => setCompanyFilter(e.target.value)}
+            onChange={handleCompanyChange}
             className="appearance-none block w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 bg-white/80 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-xl cursor-pointer"
           >
             <option key="default-company" value="">{translate('dashboard.filters.selectCompany')}</option>
@@ -107,7 +134,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         <div className="relative w-full">
           <select
             value={positionFilter}
-            onChange={(e) => setPositionFilter(e.target.value)}
+            onChange={handlePositionChange}
             className="appearance-none block w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 bg-white/80 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-xl cursor-pointer"
           >
             <option key="default-position" value="">{translate('dashboard.filters.selectPosition')}</option>
@@ -125,12 +152,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         {/* Botón de reset */}
         <div className="w-full flex items-center">
           <button
-            onClick={() => {
-              setSearchTerm('');
-              setStatusFilter('all');
-              setCompanyFilter('');
-              setPositionFilter('');
-            }}
+            onClick={handleResetFilters}
             className="w-full px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-violet-500 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:from-blue-600 hover:to-violet-600 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             {translate('dashboard.filters.clear')}

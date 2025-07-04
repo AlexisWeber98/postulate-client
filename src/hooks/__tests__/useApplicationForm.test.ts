@@ -2,7 +2,7 @@
 import { renderHook, act } from '@testing-library/react';
 import { useApplicationForm } from '../useApplicationForm';
 import { usePostulationsStore } from '../../store';
-import { PostulationStatus } from '../../types/interface/postulations/postulation';
+import { PostulationStatus } from '../../types/index';
 import { useParams } from 'react-router-dom';
 
 // Mock de useNavigate
@@ -21,6 +21,7 @@ describe('useApplicationForm', () => {
   const mockAddPostulation = jest.fn();
   const mockUpdatePostulation = jest.fn();
   const mockCheckDuplicate = jest.fn();
+  const mockSetShowDuplicateModal = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -28,11 +29,16 @@ describe('useApplicationForm', () => {
       addPostulation: mockAddPostulation,
       updatePostulation: mockUpdatePostulation,
       checkDuplicate: mockCheckDuplicate,
+      showDuplicateModal: false, // Estado inicial
+      setShowDuplicateModal: mockSetShowDuplicateModal, // Mock para actualizar el estado
     });
     (useParams as jest.Mock).mockReturnValue({ id: undefined });
   });
 
   it('debería crear una nueva postulación correctamente', async () => {
+    mockAddPostulation.mockResolvedValueOnce({});
+    mockCheckDuplicate.mockResolvedValueOnce(false);
+
     const { result } = renderHook(() => useApplicationForm());
 
     // Configurar el estado del formulario
@@ -65,12 +71,12 @@ describe('useApplicationForm', () => {
       company: 'Empresa Test',
       position: 'Desarrollador',
       status: 'applied',
-      date: '2024-03-20',
-      url: '',
-      notes: '',
+      applicationDate: '2024-03-20',
+      link: '',
+      description: '',
       recruiterContact: '',
-      sentCV: true,
-      sentEmail: true,
+      sendCv: true, // Cambiado a true
+      sendEmail: true, // Cambiado a true
     });
 
     // Verificar que se navegó a la página principal
@@ -80,6 +86,8 @@ describe('useApplicationForm', () => {
   it('debería actualizar una postulación existente correctamente', async () => {
     // Mock de useParams para simular edición
     (useParams as jest.Mock).mockReturnValue({ id: '123' });
+    mockUpdatePostulation.mockResolvedValueOnce({});
+    mockCheckDuplicate.mockResolvedValueOnce(false);
 
     const { result } = renderHook(() => useApplicationForm());
 
@@ -113,12 +121,12 @@ describe('useApplicationForm', () => {
       company: 'Empresa Actualizada',
       position: 'Desarrollador Senior',
       status: 'interview',
-      date: '2024-03-21',
-      url: '',
-      notes: '',
+      applicationDate: '2024-03-21',
+      link: '',
+      description: '',
       recruiterContact: '',
-      sentCV: true,
-      sentEmail: true,
+      sendCv: true, // Cambiado a true
+      sendEmail: true, // Cambiado a true
     });
 
     // Verificar que se navegó a la página principal
@@ -126,7 +134,7 @@ describe('useApplicationForm', () => {
   });
 
   it('debería mostrar el modal de duplicado cuando se intenta crear una postulación duplicada', async () => {
-    mockCheckDuplicate.mockReturnValue(true);
+    mockCheckDuplicate.mockResolvedValueOnce(true);
 
     const { result } = renderHook(() => useApplicationForm());
 
@@ -158,8 +166,8 @@ describe('useApplicationForm', () => {
     // Verificar que no se llamó a addPostulation
     expect(mockAddPostulation).not.toHaveBeenCalled();
 
-    // Verificar que se muestra el modal de duplicado
-    expect(result.current.showDuplicateModal).toBe(true);
+    // Verificar que setShowDuplicateModal fue llamado con true
+    expect(mockSetShowDuplicateModal).toHaveBeenCalledWith(true);
   });
 
   it('debería validar los campos requeridos', async () => {

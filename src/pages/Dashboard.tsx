@@ -1,5 +1,7 @@
-import React, { useEffect, useCallback } from 'react';
-import { usePostulationsStore } from '../store/postulations/postulationsStore';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useAuthStore } from '../store/auth/authStore';
+import { postulationsApi } from '../api/postulations';
 import { useLanguageStore } from '../store/language/languageStore';
 import { useErrorHandler } from '../hooks/useErrorHandler';
 import { useApplicationFilters } from '../hooks/useApplicationFilters';
@@ -13,13 +15,28 @@ import ActionModal from '../components/molecules/ActionModal';
 
 
 const Dashboard: React.FC = () => {
+
+  const { user } = useAuthStore();
+
   const getAllPostulations = usePostulationsStore(state => state.getAllPostulations);
   const postulations = usePostulationsStore(state => state.postulations) || [];
   const postulationsLoading = usePostulationsStore(state => state.loading);
 
+
   const { translate } = useLanguageStore();
 
-  const { error: localError, handleError: localHandleError, clearError: clearLocalError } = useErrorHandler({
+  const { data: postulations, isLoading, isError, error } = useQuery({
+    queryKey: ['postulations', user?.id],
+    queryFn: () => {
+      if (!user?.id) {
+        throw new Error('User ID is not available');
+      }
+      return postulationsApi.getAll(user.id);
+    },
+    enabled: !!user?.id, // Solo ejecutar la consulta si el userId está disponible
+  });
+
+  const { error: localError, clearError: clearLocalError } = useErrorHandler({
      defaultMessage: translate('dashboard.errorMessage'),
   });
 
@@ -41,7 +58,9 @@ const Dashboard: React.FC = () => {
     handlePageChange,
     error: filterHookError,
     clearError: clearFilterHookError,
-  } = useApplicationFilters(postulations);
+
+  } = useApplicationFilters(postulations?.data || []);
+
 
   // Estabilizar la función de manejo de errores
   const handleGetAllPostulations = useCallback(async () => {
@@ -60,8 +79,9 @@ const Dashboard: React.FC = () => {
 
   const isLoading = postulationsLoading;
 
+
   // Combine error states: localError (from getAllPostulations) or filterHookError (from useApplicationFilters)
-  const displayError = localError || filterHookError;
+  const displayError = localError || filterHookError || isError;
 
   if (isLoading) {
     return <LoadingSpinner fullScreen message={translate('dashboard.loading')} />;
@@ -79,7 +99,7 @@ const Dashboard: React.FC = () => {
           window.location.reload();
         }}
         title={translate('dashboard.error')}
-        message={typeof displayError === 'string' ? displayError : translate('dashboard.errorMessage')}
+        message={typeof displayError === 'string' ? displayError : (error?.message || translate('dashboard.errorMessage'))}
         onConfirm={() => {
           if (localError) clearLocalError();
           if (filterHookError) clearFilterHookError();
@@ -121,12 +141,11 @@ const Dashboard: React.FC = () => {
 
           <ApplicationGrid
             applications={currentApplications}
-            allPostulationsCount={postulations.length}
+            allPostulationsCount={postulations?.data?.length || 0}
             filteredApplicationsCount={filteredApplications.length}
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
-            isLoading={isLoading}
           />
         </section>
 

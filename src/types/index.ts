@@ -26,7 +26,6 @@ export { STATUS_LABELS, STATUS_COLORS };
 export * from './auth/authStore.interface';
 
 // Components
-export * from './components/atoms';
 export * from './components/molecules';
 export * from './components/organisms';
 

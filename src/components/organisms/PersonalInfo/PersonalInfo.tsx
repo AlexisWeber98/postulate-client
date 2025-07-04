@@ -3,8 +3,8 @@ import { MdAccountCircle } from 'react-icons/md';
 import { FaCamera } from 'react-icons/fa';
 import { Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Input } from '../../ui/input';
-import FieldWrapper from '../../molecules/FieldWrapper/FieldWrapper';
+import { Input } from '../../atoms/input';
+import { FieldWrapper } from '@/components';
 import type { TranslationKey } from '../../../i18n/types';
 
 interface PersonalInfoProps {

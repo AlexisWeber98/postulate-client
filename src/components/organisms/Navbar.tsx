@@ -4,10 +4,10 @@ import { Briefcase, Menu, X } from 'lucide-react';
 import { useAuthStore } from '../../store/auth/authStore';
 import { ThemeToggle } from '../ThemeToggle';
 import LanguageSelector from '../../features/landing/components/LanguageSelector';
-import Avatar from '../atoms/Avatar';
+import { Avatar } from '@/components';
 import { useLanguageStore } from '../../store';
 import { useIsMobile } from '../../shared/components/useIsMobile';
-import IAPasosModal from '../molecules/IAPasosModal';
+import { IAPasosModal } from '../molecules/IAPasosModal';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -37,16 +37,16 @@ const Navbar: React.FC = () => {
     };
   }, [menuOpen, handleClickOutside]);
 
-  const handleSignOut = () => {
+  const handleSignOut = React.useCallback(() => {
     signOut();
     navigate('/landing');
-  };
+  }, [signOut, navigate]);
 
   // Nueva función para cerrar el modal y redirigir
-  const handleCloseIAModal = () => {
+  const handleCloseIAModal = React.useCallback(() => {
     setIaModalOpen(false);
     navigate('/dashboard');
-  };
+  }, [setIaModalOpen, navigate]);
 
   // Navbar para usuario autenticado (incluyendo landing page)
   if (user) {
@@ -262,4 +262,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export { Navbar };
