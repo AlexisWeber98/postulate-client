@@ -19,3 +19,11 @@ Object.defineProperty(window, 'matchMedia', {
 // Definir variables de entorno de Vite para Jest
 process.env.VITE_API_URL = process.env.VITE_API_URL || 'http://localhost:3000';
 process.env.VITE_API_KEY = process.env.VITE_API_KEY || 'test-key';
+
+// Mock global para import.meta.env (Vite)
+if (!('import' in globalThis)) {
+  (globalThis as unknown as typeof globalThis & { import: unknown }).import = {};
+}
+if (!('meta' in ((globalThis as unknown as typeof globalThis & { import: { meta?: unknown } }).import))) {
+  ((globalThis as unknown as typeof globalThis & { import: { meta?: unknown } }).import).meta = { env: {} };
+}
