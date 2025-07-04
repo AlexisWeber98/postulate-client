@@ -25,10 +25,10 @@ export interface AuthState {
   isAuthenticated: boolean;
   initialize: () => void;
   checkAuth: () => boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, name: string, userName: string, lastName: string) => Promise<void>;
+  signIn: (token: string, user: User) => void;
+  signUp: (user: User) => void;
+  updateUser: (updatedUser: User) => void;
   signOut: () => void;
-  updateUser: (data: Partial<Omit<User, 'id'>>) => void;
 }
 
 export interface LoginRequest {
