@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
-import { Button, Badge, PasswordToggle } from '@/components';
+import Button from '../atoms/Button'; // Actualizado para usar el botón de atoms
+import { Badge } from '../ui/badge';
+import { PasswordToggle } from '../ui/PasswordToggle';
 import { useNavigate } from 'react-router-dom';
 import { useThemeStore } from '../../store/theme/themeStore';
 
@@ -305,4 +307,4 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
   );
 };
 
-export { IAPasosModal };
+export default IAPasosModal;

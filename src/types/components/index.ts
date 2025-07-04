@@ -1,3 +1,6 @@
+// Atoms
+import { ButtonProps } from './atoms';
+
 // Molecules
 import { CardProps } from './molecules';
 
@@ -6,6 +9,9 @@ import { ApplicationCardProps } from './organisms/ApplicationCard.interface';
 
 // Exportar todas las interfaces de componentes desde aquí
 export type {
+  // Atoms
+  ButtonProps,
+
   // Molecules
   CardProps,
 
@@ -13,6 +19,7 @@ export type {
   ApplicationCardProps
 };
 
+export * from './atoms/ButtonProps.interface';
 export * from './molecules/CardProps.interface';
 export * from './organisms/ApplicationCardProps.interface';
 

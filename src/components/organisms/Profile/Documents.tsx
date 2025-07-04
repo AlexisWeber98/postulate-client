@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Briefcase, FileText, Upload } from 'lucide-react';
-import { IAPasosModal } from '../../molecules/IAPasosModal';
+import IAPasosModal from '../../molecules/IAPasosModal';
 import { useNavigate } from 'react-router-dom';
 
 const Documents: React.FC = () => {

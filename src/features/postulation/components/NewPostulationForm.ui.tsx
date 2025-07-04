@@ -6,7 +6,7 @@ import {
 } from '../../../types/interface/postulations/postulation';
 import { NewPostulationFormProps, NewPostulationFormValues } from '../../../types';
 import { useLanguageStore } from '../../../store';
-import { Button } from '@/components';
+import Button from '../../../components/atoms/Button/Button.ui';
 import { Save } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
 import CheckboxGroup from '../../../components/molecules/CheckboxGroup';

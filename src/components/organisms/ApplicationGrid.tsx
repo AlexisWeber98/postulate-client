@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Postulation } from '../../types/interface/postulations/postulation';
 import ApplicationCard from './ApplicationCard';
 import { AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -11,21 +11,25 @@ interface ApplicationGridProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  isLoading: boolean; // Para mostrar un spinner si es necesario mientras carga inicial o filtros
 }
 
-const ApplicationGrid: React.FC<ApplicationGridProps> = React.memo(({
+const ApplicationGrid: React.FC<ApplicationGridProps> = ({
   applications,
   allPostulationsCount,
   filteredApplicationsCount,
   currentPage,
   totalPages,
   onPageChange,
+  isLoading, // Aún no se usa, pero podría ser útil
 }) => {
   const { translate } = useLanguageStore();
 
-  const pagesArray = useMemo(() => {
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  }, [totalPages]);
+  if (isLoading) {
+    // Podríamos tener un spinner más pequeño aquí si es preferible
+    // en lugar del fullScreen que se usa en Dashboard.tsx
+    return null;
+  }
 
   if (allPostulationsCount === 0) {
     return (
@@ -85,7 +89,7 @@ const ApplicationGrid: React.FC<ApplicationGridProps> = React.memo(({
           </button>
 
           <div role="list" aria-label="Páginas disponibles">
-            {pagesArray.map((page) => (
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <button
                 key={`page-${page}`}
                 onClick={() => onPageChange(page)}
@@ -115,6 +119,6 @@ const ApplicationGrid: React.FC<ApplicationGridProps> = React.memo(({
       )}
     </div>
   );
-});
+};
 
 export default ApplicationGrid;

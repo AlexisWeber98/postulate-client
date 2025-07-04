@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo } from 'react';
 import { Postulation, PostulationStatus } from '../types/interface/postulations/postulation';
 import { useErrorHandler } from './useErrorHandler';
 import { useLanguageStore } from '../store';
@@ -22,7 +22,7 @@ export const useApplicationFilters = (initialApplications: Postulation[] = []) =
   const [positionFilter, setPositionFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const handleSetCompanyFilter = useCallback((value: string) => {
+  const handleSetCompanyFilter = (value: string) => {
     try {
       setCompanyFilter(value);
       setCurrentPage(1); // Reset page when filter changes
@@ -30,9 +30,9 @@ export const useApplicationFilters = (initialApplications: Postulation[] = []) =
       handleError(err as Error, translate('dashboard.errorCompanyFilter'));
       setCompanyFilter('');
     }
-  }, [setCompanyFilter, setCurrentPage, handleError, translate]);
+  };
 
-  const handleSetPositionFilter = useCallback((value: string) => {
+  const handleSetPositionFilter = (value: string) => {
     try {
       setPositionFilter(value);
       setCurrentPage(1); // Reset page when filter changes
@@ -40,17 +40,17 @@ export const useApplicationFilters = (initialApplications: Postulation[] = []) =
       handleError(err as Error, translate('dashboard.errorPositionFilter'));
       setPositionFilter('');
     }
-  }, [setPositionFilter, setCurrentPage, handleError, translate]);
+  };
 
-  const handleSetStatusFilter = useCallback((value: PostulationStatus | 'all') => {
+  const handleSetStatusFilter = (value: PostulationStatus | 'all') => {
     setStatusFilter(value);
     setCurrentPage(1); // Reset page when filter changes
-  }, [setStatusFilter, setCurrentPage]);
+  };
 
-  const handleSetSearchTerm = useCallback((value: string) => {
+  const handleSetSearchTerm = (value: string) => {
     setSearchTerm(value);
     setCurrentPage(1); // Reset page when search term changes
-  }, [setSearchTerm, setCurrentPage]);
+  }
 
   const companies = useMemo(
     () =>
@@ -97,20 +97,20 @@ export const useApplicationFilters = (initialApplications: Postulation[] = []) =
     [filteredApplications, currentPage]
   );
 
-  const handlePageChange = useCallback((page: number) => {
+  const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
-  }, [totalPages, setCurrentPage]);
+  };
 
-  const resetFilters = useCallback(() => {
+  const resetFilters = () => {
     setSearchTerm('');
     setStatusFilter('all');
     setCompanyFilter('');
     setPositionFilter('');
     setCurrentPage(1);
     clearError();
-  }, [setSearchTerm, setStatusFilter, setCompanyFilter, setPositionFilter, setCurrentPage, clearError]);
+  };
 
   return {
     // State

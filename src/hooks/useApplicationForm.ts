@@ -177,7 +177,7 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     return !hasErrors;
   }, [company, position, date, url, validateField, fieldStatus]);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -228,7 +228,7 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [addPostulation, checkDuplicate, company, date, id, navigate, notes, position, recruiterContact, sentCV, sentEmail, setErrors, setShowDuplicateModal, setIsSubmitting, status, updatePostulation, url, user, validateForm]);
+  };
 
   const resetForm = useCallback(() => {
     setCompany('');

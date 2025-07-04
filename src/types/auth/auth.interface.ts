@@ -21,14 +21,15 @@ export interface ApiResponse<T> {
 
 export interface AuthState {
   user: User | null;
+  loading: boolean;
   token: string | null;
   isAuthenticated: boolean;
   initialize: () => void;
   checkAuth: () => boolean;
-  signIn: (token: string, user: User) => void;
-  signUp: (user: User) => void;
-  updateUser: (updatedUser: User) => void;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, name: string, userName: string, lastName: string) => Promise<void>;
   signOut: () => void;
+  updateUser: (data: Partial<Omit<User, 'id'>>) => void;
 }
 
 export interface LoginRequest {

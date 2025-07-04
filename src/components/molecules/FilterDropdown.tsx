@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../components/atoms/select';
+} from '../../components/ui/select';
 
 interface FilterDropdownProps {
   icon: React.ReactNode;

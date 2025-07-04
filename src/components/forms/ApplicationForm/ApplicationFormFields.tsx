@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { PostulationStatus, STATUS_LABELS } from '../../../types';
-import { FieldWrapper } from '@/components';
+import FieldWrapper from '../../molecules/FieldWrapper/FieldWrapper';
 
 interface ApplicationFormFieldsProps {
   formData: {
