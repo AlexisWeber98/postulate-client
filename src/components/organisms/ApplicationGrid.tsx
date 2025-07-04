@@ -39,7 +39,7 @@ const ApplicationGrid: React.FC<ApplicationGridProps> = ({
             <AlertCircle className="h-6 w-6 text-blue-400 dark:text-blue-300" aria-hidden="true" />
           </div>
           <div className="ml-4">
-            <p className="text-base text-blue-700 dark:text-blue-300">
+            <p className="text-base sm:text-sm lg:text-base text-blue-700 dark:text-blue-300">
               {translate('dashboard.noApplications')}
             </p>
           </div>
@@ -56,7 +56,7 @@ const ApplicationGrid: React.FC<ApplicationGridProps> = ({
             <AlertCircle className="h-6 w-6 text-yellow-400 dark:text-yellow-300" aria-hidden="true" />
           </div>
           <div className="ml-4">
-            <p className="text-base text-yellow-700 dark:text-yellow-300">
+            <p className="text-base sm:text-sm lg:text-base text-yellow-700 dark:text-yellow-300">
               {translate('dashboard.noResults')}
             </p>
           </div>
@@ -67,7 +67,7 @@ const ApplicationGrid: React.FC<ApplicationGridProps> = ({
 
   return (
     <div key="applications-grid-container">
-      <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3" role="list" aria-label="Lista de aplicaciones">
+      <div className="grid gap-3.5 sm:gap-2.5 md:gap-2 lg:gap-4 xl:gap-6 2xl:gap-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7" role="list" aria-label="Lista de aplicaciones">
         {applications.map((application: Postulation) =>
           application && application.id ? (
             <div key={application.id} role="listitem">

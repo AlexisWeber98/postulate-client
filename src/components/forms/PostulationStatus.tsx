@@ -33,21 +33,21 @@ const PostulationStatusForm: React.FC<PostulationStatusFormProps> = ({
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-100 dark:border-blue-800/30"
+    className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 sm:p-6 border border-blue-100 dark:border-blue-800/30"
   >
-    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
       {translate('dashboard.postulationStatus')}
     </h3>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
       <div className="flex items-center gap-3 p-3 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700/50">
         <input
           type="checkbox"
           id="sentCV"
           checked={sentCV}
           onChange={(e) => onSendCvChange(e.target.checked)}
-          className="accent-blue-500 w-5 h-5 rounded"
+          className="accent-blue-500 w-4 h-4 sm:w-5 sm:h-5 rounded"
         />
-        <label htmlFor="sentCV" className="text-gray-700 dark:text-white/90 text-base cursor-pointer">
+        <label htmlFor="sentCV" className="text-sm sm:text-base text-gray-700 dark:text-white/90 cursor-pointer">
           {translate('dashboard.sentCV')}
         </label>
       </div>
@@ -57,9 +57,9 @@ const PostulationStatusForm: React.FC<PostulationStatusFormProps> = ({
           id="sentEmail"
           checked={sentEmail}
           onChange={(e) => onSendEmailChange(e.target.checked)}
-          className="accent-blue-500 w-5 h-5 rounded"
+          className="accent-blue-500 w-4 h-4 sm:w-5 sm:h-5 rounded"
         />
-        <label htmlFor="sentEmail" className="text-gray-700 dark:text-white/90 text-base cursor-pointer">
+        <label htmlFor="sentEmail" className="text-sm sm:text-base text-gray-700 dark:text-white/90 cursor-pointer">
           {translate('dashboard.sentEmail')}
         </label>
       </div>

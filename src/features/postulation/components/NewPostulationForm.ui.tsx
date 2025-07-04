@@ -100,12 +100,12 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 border border-blue-400/20 rounded-3xl shadow-2xl p-8 max-w-lg mx-auto mt-10"
+      className="relative bg-gradient-to-br from-blue-900/80 to-blue-800/60 border border-blue-400/20 rounded-3xl shadow-2xl p-4 sm:p-6 lg:p-8 max-w-lg mx-auto mt-10"
     >
-      <h2 className="text-3xl font-extrabold text-white text-center mb-8 drop-shadow">
+      <h2 className="text-2xl sm:text-3xl font-extrabold text-white text-center mb-6 sm:mb-8 drop-shadow">
         {translate('hero.title')}
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4">
         <FormField
           label={translate('company') || 'Company'}
           htmlFor="company"
@@ -118,7 +118,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             type="text"
             value={values.company}
             onChange={handleFormChange}
-            className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
+            className="w-full bg-white/10 text-white rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
             required
             placeholder={translate('dashboard.companyPlaceholder') || 'Nombre de la empresa'}
           />
@@ -135,7 +135,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             type="text"
             value={values.position}
             onChange={handleFormChange}
-            className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
+            className="w-full bg-white/10 text-white rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
             required
             placeholder={translate('dashboard.positionPlaceholder') || 'Título del puesto'}
           />
@@ -151,7 +151,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
               type="button"
               onClick={() => setIsOpen(!isOpen)}
               onKeyDown={handleKeyDown}
-              className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none flex justify-between items-center"
+              className="w-full bg-white/10 text-white rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none flex justify-between items-center text-sm sm:text-base"
               aria-haspopup="listbox"
               aria-expanded={isOpen}
               aria-controls="status-listbox"
@@ -161,7 +161,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
                 {values.status ? STATUS_LABELS[values.status] : translate('selectStatus')}
               </span>
               <ChevronDown
-                className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`}
               />
             </button>
             {isOpen && (
@@ -180,7 +180,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
                       onClick={() => handleSelectChange(status)}
                       onKeyDown={e => handleItemKeyDown(e, status)}
                       tabIndex={0}
-                      className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-900 focus:bg-blue-50 focus:outline-none"
+                      className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-900 focus:bg-blue-50 focus:outline-none text-sm sm:text-base"
                     >
                       {STATUS_LABELS[status]}
                     </li>
@@ -202,7 +202,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             type="date"
             value={values.applicationDate}
             onChange={handleFormChange}
-            className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none"
+            className="w-full bg-white/10 text-white rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base"
             required
             pattern="\d{4}-\d{2}-\d{2}"
             max={new Date().toISOString().split('T')[0]}
@@ -219,7 +219,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             type="url"
             value={values.link}
             onChange={handleFormChange}
-            className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
+            className="w-full bg-white/10 text-white rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
             placeholder={translate('dashboard.urlPlaceholder') || 'URL de la oferta'}
           />
         </FormField>
@@ -233,7 +233,7 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
             name="notes"
             value={values.description}
             onChange={handleFormChange}
-            className="w-full bg-white/10 text-white rounded-xl px-4 py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none"
+            className="w-full bg-white/10 text-white rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
             placeholder={translate('dashboard.notesPlaceholder') || 'Notas adicionales'}
             rows={3}
           />
@@ -244,15 +244,15 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
 
       <CheckboxGroup values={values} onChange={handleCheckboxChange} />
 
-      <div className="flex justify-between mt-6">
-        <Button type="reset" onClick={onReset} variant="secondary">
+      <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0 mt-6">
+        <Button type="reset" onClick={onReset} variant="secondary" className="w-full sm:w-auto">
           {translate('reset') || 'Reset'}
         </Button>
-        <Button type="submit" loading={loading} icon={<Save />}>
+        <Button type="submit" loading={loading} icon={<Save />} className="w-full sm:w-auto">
           {translate('submit') || 'Submit'}
         </Button>
       </div>
-      {error && <p className="mt-4 text-red-500">{error}</p>}
+      {error && <p className="mt-4 text-red-500 text-sm sm:text-base">{error}</p>}
     </form>
   );
 };
