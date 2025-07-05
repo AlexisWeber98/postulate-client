@@ -64,13 +64,13 @@ const TrustSection: React.FC<TrustSectionProps> = ({ translate }) => {
             className="w-full"
           >
             <div
-              className={`flex flex-col items-center justify-start border border-transparent shadow-2xl rounded-3xl py-8 px-6 bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 transition-transform duration-300 hover:scale-105 h-full`}
+              className={`flex flex-col justify-between items-center border border-transparent shadow-2xl rounded-3xl py-8 px-6 bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 transition-transform duration-300 hover:scale-105 h-full`}
             >
               {card.icon}
               <span className="text-2xl sm:text-2xl md:text-3xl font-extrabold text-white text-center leading-tight tracking-tight drop-shadow-lg select-none w-full mb-2">
                 {translate(card.titleKey as TranslationKey)}
               </span>
-              <span className="text-base sm:text-lg md:text-xl text-white text-center font-medium tracking-tight leading-relaxed select-none w-full mt-2">
+              <span className="flex-1 text-base sm:text-lg md:text-xl text-white text-center font-medium tracking-tight leading-relaxed select-none w-full mt-2 flex items-center justify-center">
                 {translate(card.textKey as TranslationKey)}
               </span>
             </div>
