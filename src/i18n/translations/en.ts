@@ -13,11 +13,13 @@ export const en = {
 
   // Hero
   'hero.title': 'Manage your job applications',
+  'hero.subtitle': 'Job Application Manager',
   'hero.subtitle.rest': 'your job search',
   'hero.organize': 'Organize',
   'hero.track': 'track',
   'hero.optimize': 'optimize',
   'hero.cta.button': 'Get Started',
+  'hero.description': 'Postulate is the ultimate platform that helps you manage all your job applications in one place. With Postulate, organise your job search efficiently and find your next role.',
 
   // Auth
   'auth.createAccount': 'Create your account',

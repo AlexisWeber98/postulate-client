@@ -13,11 +13,13 @@ export const es = {
 
   // Hero
   'hero.title': 'Gestiona tus postulaciones laborales',
+  'hero.subtitle': 'Gestor de Postulaciones Laborales',
   'hero.subtitle.rest': 'tu búsqueda de trabajo',
   'hero.organize': 'Organiza',
   'hero.track': 'sigue',
   'hero.optimize': 'optimiza',
   'hero.cta.button': 'Comenzar Ahora',
+  'hero.description': 'Postulate es la plataforma definitiva que te ayuda a gestionar todas tus postulaciones laborales en un solo lugar. Con Postulate, organiza tu búsqueda de trabajo de manera eficiente y encuentra tu próximo empleo.',
 
   // Auth
   'auth.createAccount': 'Crea tu cuenta',
