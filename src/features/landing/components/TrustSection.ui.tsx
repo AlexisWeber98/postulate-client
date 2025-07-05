@@ -17,8 +17,8 @@ const trustCards = [
         </svg>
       </span>
     ),
-    title: 'Pensado por buscadores',
-    text: 'Postulate fue creado por personas que realmente buscaron trabajo y conocen tus necesidades.'
+    titleKey: 'trust.point1',
+    textKey: 'trust.point1.explanation',
   },
   {
     icon: (
@@ -29,8 +29,8 @@ const trustCards = [
         </svg>
       </span>
     ),
-    title: 'Tus datos seguros',
-    text: 'Tus datos personales y de búsqueda laboral están protegidos y solo tú puedes acceder a ellos.'
+    titleKey: 'trust.point2',
+    textKey: 'trust.point2.explanation',
   },
   {
     icon: (
@@ -41,8 +41,8 @@ const trustCards = [
         </svg>
       </span>
     ),
-    title: 'Mejora continua',
-    text: 'Escuchamos a los usuarios y mejoramos la plataforma continuamente para ti.'
+    titleKey: 'trust.point3',
+    textKey: 'trust.point3.explanation',
   },
 ];
 
@@ -54,7 +54,7 @@ const TrustSection: React.FC<TrustSectionProps> = ({ translate }) => {
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 sm:mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent px-4">
         {translate('landing.trust.title')}
       </h2>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 w-full max-w-7xl px-4 sm:px-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 w-full max-w-7xl px-4 sm:px-6 items-stretch">
         {trustCards.map((card, idx) => (
           <motion.div
             key={idx}
@@ -64,14 +64,14 @@ const TrustSection: React.FC<TrustSectionProps> = ({ translate }) => {
             className="w-full"
           >
             <div
-              className={`flex flex-col items-center justify-start border border-transparent shadow-2xl rounded-3xl min-h-[22rem] py-8 px-6 bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 transition-transform duration-300 hover:scale-105`}
+              className={`flex flex-col items-center justify-start border border-transparent shadow-2xl rounded-3xl py-8 px-6 bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 transition-transform duration-300 hover:scale-105 h-full`}
             >
               {card.icon}
               <span className="text-2xl sm:text-2xl md:text-3xl font-extrabold text-white text-center leading-tight tracking-tight drop-shadow-lg select-none w-full mb-2">
-                {card.title}
+                {translate(card.titleKey as TranslationKey)}
               </span>
               <span className="text-base sm:text-lg md:text-xl text-white text-center font-medium tracking-tight leading-relaxed select-none w-full mt-2">
-                {card.text}
+                {translate(card.textKey as TranslationKey)}
               </span>
             </div>
           </motion.div>

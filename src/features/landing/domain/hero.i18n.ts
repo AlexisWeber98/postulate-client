@@ -164,7 +164,7 @@ export const heroTexts = {
     'trust.point1': 'Created by jobseekers',
     'trust.point2': 'Protected data',
     'trust.point3': 'Continuous improvement',
-    'trust.point1.explanation': 'Postulate was created by people who have actually looked for work and understand your needs.',
+    'trust.point1.explanation': 'Postulate was created by people who have really searched for jobs and know your needs.',
     'trust.point2.explanation': 'Your personal and job search data is protected and only you can access it.',
     'trust.point3.explanation': 'We listen to users and continuously improve the platform for you.',
     'features.title': 'Why choose Postulate?',
