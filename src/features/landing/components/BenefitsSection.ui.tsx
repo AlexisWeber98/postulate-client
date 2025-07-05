@@ -1,6 +1,7 @@
 import React from 'react';
 import { BarChart2, Calendar, Search, FileText, XCircle, Bell, User } from 'lucide-react';
 import { TranslationKey } from '../../../i18n/types';
+import { motion } from 'framer-motion';
 
 interface BenefitsSectionProps {
   translate: (key: TranslationKey) => string;
@@ -49,11 +50,27 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
     },
   ];
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
   return (
     <section className="py-20 bg-transparent">
+      <div className="container mx-auto px-4">
+        <h2 className="text-4xl font-extrabold text-center mb-12 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+          {translate('landing.benefits.mainTitle')}
+        </h2>
+      </div>
       <div className="container mx-auto px-4 flex flex-col lg:flex-row gap-8 justify-center items-center">
         {/* Card Con Postulate */}
-        <div className="bg-white shadow-xl rounded-3xl p-8 w-full max-w-md flex flex-col gap-6 border border-blue-100">
+        <motion.div
+          className="bg-white shadow-xl rounded-3xl p-8 w-full max-w-md flex flex-col gap-6 border border-blue-100"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={cardVariants}
+        >
           <div className="flex items-center gap-4 mb-2">
             <div className="bg-indigo-500 text-white rounded-xl p-3 flex items-center justify-center shadow-lg">
               <BarChart2 className="w-8 h-8" />
@@ -86,9 +103,15 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
               <div className="h-3 bg-indigo-500 rounded-full transition-all duration-500" style={{ width: '95%' }} />
             </div>
           </div>
-        </div>
+        </motion.div>
         {/* Card Sin Postulate */}
-        <div className="bg-white shadow-xl rounded-3xl p-8 w-full max-w-md flex flex-col gap-6 border border-rose-100">
+        <motion.div
+          className="bg-white shadow-xl rounded-3xl p-8 w-full max-w-md flex flex-col gap-6 border border-rose-100"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={cardVariants}
+        >
           <div className="flex items-center gap-4 mb-2">
             <div className="bg-rose-500 text-white rounded-xl p-3 flex items-center justify-center shadow-lg">
               <XCircle className="w-8 h-8" />
@@ -121,8 +144,8 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
               <div className="h-3 bg-rose-500 rounded-full transition-all duration-500" style={{ width: '30%' }} />
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+   </div>
     </section>
   );
 };

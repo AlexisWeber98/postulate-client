@@ -6,22 +6,12 @@ export type Translations = {
   [key: string]: string | { [key: string]: string | { [key: string]: string } };
 };
 
-// Tipo para inferir todas las posibles rutas en el objeto de traducción
-type DotNotationKeys<T extends Record<string, unknown>, Prefix extends string = ''> = {
-  [K in keyof T]: T[K] extends Record<string, unknown>
-    ? DotNotationKeys<T[K], `${Prefix}${K & string}.`>
-    : `${Prefix}${K & string}`;
-}[keyof T];
-
-// Inferir las claves de traducción desde los objetos de traducción
-export type TranslationKey = DotNotationKeys<typeof es>;
-
 const translations: Record<Language, Translations> = {
   es,
   en,
 };
 
-export const getTranslation = (key: TranslationKey, lang: Language): string => {
+export const getTranslation = (key: string, lang: Language): string => {
   const translation = translations[lang][key];
   if (!translation || typeof translation !== 'string') {
     console.warn(`Translation missing or invalid for key: ${key} in language: ${lang}`);
@@ -43,11 +33,11 @@ type PlaceholderKeys<T extends string> = T extends `${string}{${infer K}}${infer
   : never;
 
 // Type to get the translation string for a given key
-type TranslationFor<K extends TranslationKey> = K extends keyof typeof es
+type TranslationFor<K extends string> = K extends keyof typeof es
   ? (typeof es)[K] // es and en have same keys
   : string;
 
-export const t = <K extends TranslationKey>(
+export const t = <K extends string>(
   key: K,
   lang: Language,
   placeholders?: Record<PlaceholderKeys<TranslationFor<K>>, string>

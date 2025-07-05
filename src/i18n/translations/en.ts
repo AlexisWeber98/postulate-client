@@ -155,6 +155,7 @@ export const en = {
   'landing.intro.card3': 'Document Management',
   'landing.intro.card4': 'Job Opportunities',
   'landing.howItWorks.title': 'How It Works?',
+  'landing.benefits.mainTitle': 'Postulate: Transform Your Job Search',
   'landing.howItWorks.step1.title': 'Create your account',
   'landing.howItWorks.step1.description': 'Sign up and start managing your applications',
   'landing.howItWorks.step2.title': 'Add your applications',

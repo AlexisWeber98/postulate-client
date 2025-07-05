@@ -7,6 +7,7 @@ export interface LandingSectionProps {
 export interface CardProps {
   icon: React.ReactNode;
   text: string;
+  description?: string;
   image: string;
 }
 

@@ -1,34 +1,7 @@
-export type TranslationKey =
-  | 'profile.title'
-  | 'profile.description'
-  | 'profile.fields.name'
-  | 'profile.tooltips.fullName'
-  | 'profile.placeholders.name'
-  | 'profile.validation.nameRequired'
-  | 'profile.validation.emailInvalid'
-  | 'profile.validation.formInvalid'
-  | 'profile.errors.uploadFailed'
-  | 'profile.errors.updateFail'
-  | 'profile.messages.updated'
-  | 'auth.lastName'
-  | 'auth.validation.lastName'
-  | 'auth.validation.userName'
-  | 'auth.error.userNotFound'
-  | 'auth.error.userNotFound.register'
-  | 'auth.error.userNotFound.registerLink'
-  | 'auth.error.invalidCredentials'
-  | 'auth.error.userExists'
-  | 'auth.error.email'
-  | 'auth.error.network'
-  | 'auth.error.generic'
-  | 'common.saving'
-  | 'profile.actions.save'
-  | 'dashboard.filters.statusApplied'
-  | 'dashboard.filters.statusInterview'
-  | 'dashboard.filters.statusTechnical'
-  | 'dashboard.filters.statusOffer'
-  | 'dashboard.filters.statusRejected'
-  | 'dashboard.filters.statusAccepted'
-  | 'pagination.previousPage'
-  | 'pagination.nextPage'
-  | 'pagination.goToPage';
+import { es } from './translations/es';
+
+type OnlyStringKeys<T> = {
+  [K in keyof T]: T[K] extends string ? K : never
+}[keyof T];
+
+export type TranslationKey = OnlyStringKeys<typeof es>;

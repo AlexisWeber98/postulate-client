@@ -171,6 +171,7 @@ export const es = {
   'landing.intro.card3.description': 'Centraliza y accede fácilmente a tus CVs, cartas y más.',
   'landing.intro.card4.description': 'Descubre nuevas vacantes y expande tus horizontes profesionales.',
   'landing.howItWorks.title': '¿Cómo Funciona?',
+  'landing.benefits.mainTitle': 'Postulate: Transforma tu Búsqueda de Empleo',
   'landing.howItWorks.step1.title': 'Crea tu cuenta',
   'landing.howItWorks.step1.description': 'Regístrate y comienza a gestionar tus postulaciones',
   'landing.howItWorks.step2.title': 'Añade tus postulaciones',

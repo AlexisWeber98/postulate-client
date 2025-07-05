@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { LanguageState } from '../../types/interface/language/language.interface';
-import { Language, TranslationKey, t } from '../../i18n';
+import { Language, t } from '../../i18n';
 import { es } from '../../i18n/translations/es';
+import { TranslationKey } from '../../i18n/types';
 
 // Helper type to extract placeholder keys from a translation string
 type PlaceholderKeys<T extends string> = T extends `${string}{${infer K}}${infer Rest}`
