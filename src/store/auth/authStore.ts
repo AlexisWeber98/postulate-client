@@ -10,7 +10,7 @@ const isTokenExpired = (token: string): boolean => {
     const decoded = jwtDecode<JwtPayload>(token);
     return (decoded.exp ?? 0) * 1000 < Date.now();
   } catch {
-    return true; 
+    return true;
   }
 };
 
@@ -88,12 +88,12 @@ export const useAuthStore = create<AuthState>()(
           set({ loading: false });
           console.error("Error en signIn:", error);
 
-         
+
           if (error instanceof AxiosError) {
             if (error.message.includes('timeout')) {
               throw new Error('auth.timeoutError');
             }
-            
+
             const axiosError = error;
             if (axiosError.response?.status === 401) {
               const backendMessage = getErrorMessage(axiosError.response.data?.message);
@@ -102,14 +102,14 @@ export const useAuthStore = create<AuthState>()(
               }
               throw new Error("Credenciales incorrectas");
             }
-            
+
             throw error;
           }
 
           const apiError = error as ApiError;
-          
+
           if (apiError.response?.status === 401) {
-     
+
             const backendMessage = getErrorMessage(apiError.response.data?.message);
             if (backendMessage) {
               throw new Error(backendMessage);
@@ -140,14 +140,8 @@ export const useAuthStore = create<AuthState>()(
             password,
           });
 
-          console.log("Respuesta del backend en signUp:", response);
-          
-         
           const user = response.result;
-          console.log("Usuario extraído:", user);
-          
-    
-          
+
           set({
             user: {
               id: user.id,
@@ -158,7 +152,7 @@ export const useAuthStore = create<AuthState>()(
             },
             loading: false,
             token: null,
-            isAuthenticated: false 
+            isAuthenticated: false
           });
         } catch (error) {
           set({ loading: false });
