@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { TranslationKey } from "../../i18n";
 import { es } from "../../i18n/translations/es";
+import { TranslationKey } from '../../i18n/types';
 
 // Helper type to extract placeholder keys from a translation string
 type PlaceholderKeys<T extends string> = T extends `${string}{${infer K}}${infer Rest}`
@@ -9,8 +9,11 @@ type PlaceholderKeys<T extends string> = T extends `${string}{${infer K}}${infer
 
 // Type to get the translation string for a given key
 type TranslationFor<K extends TranslationKey> =
-  K extends keyof typeof es ? (typeof es)[K]
-  : string;
+  K extends keyof typeof es
+    ? (typeof es)[K] extends string
+      ? (typeof es)[K]
+      : never
+    : never;
 
 interface PostulationStatusFormProps {
   sentCV: boolean;
