@@ -1,54 +1,54 @@
 import React from 'react';
 import { BarChart2, Calendar, Search, FileText, XCircle, Bell, User } from 'lucide-react';
-import { TranslationKey } from '@/i18n';
+import { TranslationKey } from '../../../i18n/types';
 
 interface BenefitsSectionProps {
   translate: (key: TranslationKey) => string;
 }
 
-const beneficiosCon = [
-  {
-    icon: <BarChart2 className="w-6 h-6 text-indigo-500" />, // Seguimiento
-    title: 'Seguimiento detallado del estado de cada postulación',
-    subtitle: 'Efectividad: 95%',
-    percent: 95,
-  },
-  {
-    icon: <Calendar className="w-6 h-6 text-indigo-500" />, // Organización
-    title: 'Organización cronológica de entrevistas y fechas importantes',
-    subtitle: 'Efectividad: 90%',
-    percent: 90,
-  },
-  {
-    icon: <Search className="w-6 h-6 text-indigo-500" />, // Búsqueda
-    title: 'Búsqueda centralizada de toda la información relevante',
-    subtitle: 'Efectividad: 88%',
-    percent: 88,
-  },
-];
+const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
+  const beneficiosCon = [
+    {
+      icon: <BarChart2 className="w-6 h-6 text-indigo-500" />, // Seguimiento
+      title: translate('landing.benefits.withPostulate.title1'),
+      subtitle: translate('landing.benefits.withPostulate.subtitle1'),
+      percent: 95,
+    },
+    {
+      icon: <Calendar className="w-6 h-6 text-indigo-500" />, // Organización
+      title: translate('landing.benefits.withPostulate.title2'),
+      subtitle: translate('landing.benefits.withPostulate.subtitle2'),
+      percent: 90,
+    },
+    {
+      icon: <Search className="w-6 h-6 text-indigo-500" />, // Búsqueda
+      title: translate('landing.benefits.withPostulate.title3'),
+      subtitle: translate('landing.benefits.withPostulate.subtitle3'),
+      percent: 88,
+    },
+  ];
 
-const problemasSin = [
-  {
-    icon: <FileText className="w-6 h-6 text-rose-400" />,
-    title: 'Información dispersa en múltiples plataformas y documentos',
-    subtitle: 'Nivel de caos: 85%',
-    percent: 85,
-  },
-  {
-    icon: <Bell className="w-6 h-6 text-rose-400" />,
-    title: 'Recordatorios perdidos y fechas límite olvidadas',
-    subtitle: 'Nivel de caos: 90%',
-    percent: 90,
-  },
-  {
-    icon: <User className="w-6 h-6 text-rose-400" />,
-    title: 'Contactos y seguimientos desorganizados',
-    subtitle: 'Nivel de caos: 80%',
-    percent: 80,
-  },
-];
+  const problemasSin = [
+    {
+      icon: <FileText className="w-6 h-6 text-rose-400" />,
+      title: translate('landing.benefits.withoutPostulate.title1'),
+      subtitle: translate('landing.benefits.withoutPostulate.subtitle1'),
+      percent: 85,
+    },
+    {
+      icon: <Bell className="w-6 h-6 text-rose-400" />,
+      title: translate('landing.benefits.withoutPostulate.title2'),
+      subtitle: translate('landing.benefits.withoutPostulate.subtitle2'),
+      percent: 90,
+    },
+    {
+      icon: <User className="w-6 h-6 text-rose-400" />,
+      title: translate('landing.benefits.withoutPostulate.title3'),
+      subtitle: translate('landing.benefits.withoutPostulate.subtitle3'),
+      percent: 80,
+    },
+  ];
 
-const BenefitsSection: React.FC<BenefitsSectionProps> = () => {
   return (
     <section className="py-20 bg-transparent">
       <div className="container mx-auto px-4 flex flex-col lg:flex-row gap-8 justify-center items-center">
@@ -59,8 +59,8 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = () => {
               <BarChart2 className="w-8 h-8" />
             </div>
             <div>
-              <h3 className="text-2xl font-extrabold text-gray-900">Con Postulate</h3>
-              <span className="text-indigo-600 font-semibold text-base leading-tight">Organización profesional</span>
+              <h3 className="text-2xl font-extrabold text-gray-900">{translate('landing.benefits.withPostulate.title')}</h3>
+              <span className="text-indigo-600 font-semibold text-base leading-tight">{translate('landing.benefits.withPostulate.subtitle')}</span>
             </div>
           </div>
           <ul className="flex flex-col gap-5 mt-2">
@@ -78,7 +78,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = () => {
             <div className="flex items-center justify-between mb-1">
               <span className="text-indigo-700 font-semibold text-sm flex items-center gap-1">
                 <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01" /></svg>
-                Nivel de Efectividad
+                {translate('landing.benefits.withPostulate.effectiveness')}
               </span>
               <span className="text-indigo-700 font-bold text-lg">95%</span>
             </div>
@@ -94,8 +94,8 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = () => {
               <XCircle className="w-8 h-8" />
             </div>
             <div>
-              <h3 className="text-2xl font-extrabold text-gray-900">Sin Postulate</h3>
-              <span className="text-rose-500 font-semibold text-base leading-tight">Zona problemática</span>
+              <h3 className="text-2xl font-extrabold text-gray-900">{translate('landing.benefits.withoutPostulate.title')}</h3>
+              <span className="text-rose-500 font-semibold text-base leading-tight">{translate('landing.benefits.withoutPostulate.subtitle')}</span>
             </div>
           </div>
           <ul className="flex flex-col gap-5 mt-2">
@@ -113,7 +113,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = () => {
             <div className="flex items-center justify-between mb-1">
               <span className="text-rose-600 font-semibold text-sm flex items-center gap-1">
                 <svg className="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01" /></svg>
-                Nivel de Desorden
+                {translate('landing.benefits.withoutPostulate.disorder')}
               </span>
               <span className="text-rose-600 font-bold text-lg">30%</span>
             </div>

@@ -310,4 +310,23 @@ export const en = {
   // Checkboxes
   'checkboxes.sentCV': 'CV Sent',
   'checkboxes.sentEmail': 'Email Sent',
+
+  'landing.benefits.withPostulate.title': 'With Postulate',
+  'landing.benefits.withPostulate.subtitle': 'Optimize your job search',
+  'landing.benefits.withPostulate.title1': 'Efficient tracking',
+  'landing.benefits.withPostulate.subtitle1': 'Keep track of all your applications',
+  'landing.benefits.withPostulate.title2': 'Total organization',
+  'landing.benefits.withPostulate.subtitle2': 'Centralize your job information',
+  'landing.benefits.withPostulate.title3': 'Quick search',
+  'landing.benefits.withPostulate.subtitle3': 'Find opportunities easily',
+  'landing.benefits.withPostulate.effectiveness': 'Effectiveness',
+  'landing.benefits.withoutPostulate.title': 'Without Postulate',
+  'landing.benefits.withoutPostulate.subtitle': 'Disorder and lost opportunities',
+  'landing.benefits.withoutPostulate.title1': 'Disorganization',
+  'landing.benefits.withoutPostulate.subtitle1': 'Hard to track applications',
+  'landing.benefits.withoutPostulate.title2': 'Scattered information',
+  'landing.benefits.withoutPostulate.subtitle2': 'Data in multiple platforms',
+  'landing.benefits.withoutPostulate.title3': 'Missed opportunities',
+  'landing.benefits.withoutPostulate.subtitle3': 'You can\'t find what you need',
+  'landing.benefits.withoutPostulate.disorder': 'Disorder',
 } as const;
