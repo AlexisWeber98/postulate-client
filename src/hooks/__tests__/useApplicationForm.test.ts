@@ -2,7 +2,6 @@
 import { renderHook, act } from '@testing-library/react';
 import { useApplicationForm } from '../useApplicationForm';
 import { usePostulationsStore } from '../../store';
-import { PostulationStatus } from '../../types/interface/postulations/postulation';
 import { useParams } from 'react-router-dom';
 
 // Mock de useNavigate
@@ -39,8 +38,8 @@ describe('useApplicationForm', () => {
     act(() => {
       result.current.handleFieldChange('company', 'Empresa Test');
       result.current.handleFieldChange('position', 'Desarrollador');
-      result.current.setStatus('applied' as PostulationStatus);
-      result.current.setDate('2024-03-20');
+      result.current.handleFieldChange('status', 'applied');
+      result.current.handleFieldChange('date', '2024-03-20');
     });
 
     // Simular envío del formulario
@@ -65,16 +64,16 @@ describe('useApplicationForm', () => {
       company: 'Empresa Test',
       position: 'Desarrollador',
       status: 'applied',
-      date: '2024-03-20',
-      url: '',
-      notes: '',
+      applicationDate: '2024-03-20',
+      link: '',
+      description: '',
       recruiterContact: '',
       sentCV: true,
       sentEmail: true,
     });
 
     // Verificar que se navegó a la página principal
-    expect(mockNavigate).toHaveBeenCalledWith('/');
+    expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
   });
 
   it('debería actualizar una postulación existente correctamente', async () => {
@@ -87,8 +86,8 @@ describe('useApplicationForm', () => {
     act(() => {
       result.current.handleFieldChange('company', 'Empresa Actualizada');
       result.current.handleFieldChange('position', 'Desarrollador Senior');
-      result.current.setStatus('interview' as PostulationStatus);
-      result.current.setDate('2024-03-21');
+      result.current.handleFieldChange('status', 'interview');
+      result.current.handleFieldChange('date', '2024-03-21');
     });
 
     // Simular envío del formulario
@@ -113,16 +112,16 @@ describe('useApplicationForm', () => {
       company: 'Empresa Actualizada',
       position: 'Desarrollador Senior',
       status: 'interview',
-      date: '2024-03-21',
-      url: '',
-      notes: '',
+      applicationDate: '2024-03-21',
+      link: '',
+      description: '',
       recruiterContact: '',
       sentCV: true,
       sentEmail: true,
     });
 
     // Verificar que se navegó a la página principal
-    expect(mockNavigate).toHaveBeenCalledWith('/');
+    expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
   });
 
   it('debería mostrar el modal de duplicado cuando se intenta crear una postulación duplicada', async () => {
@@ -134,8 +133,8 @@ describe('useApplicationForm', () => {
     act(() => {
       result.current.handleFieldChange('company', 'Empresa Duplicada');
       result.current.handleFieldChange('position', 'Puesto Duplicado');
-      result.current.setStatus('applied' as PostulationStatus);
-      result.current.setDate('2024-03-20');
+      result.current.handleFieldChange('status', 'applied');
+      result.current.handleFieldChange('date', '2024-03-20');
     });
 
     // Simular envío del formulario
@@ -197,7 +196,7 @@ describe('useApplicationForm', () => {
     act(() => {
       result.current.handleFieldChange('company', 'Empresa Test');
       result.current.handleFieldChange('position', 'Desarrollador');
-      result.current.setStatus('interview' as PostulationStatus);
+      result.current.handleFieldChange('status', 'interview');
     });
 
     // Resetear el formulario
@@ -211,3 +210,4 @@ describe('useApplicationForm', () => {
     expect(result.current.formData.status).toBe('applied');
   });
 });
+

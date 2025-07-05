@@ -5,7 +5,7 @@ import { PostulationStatus, STATUS_LABELS } from "../types/index";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { DateHelpers } from "../lib/helpers";
-import FieldWrapper from "../components/molecules/FieldWrapper/FieldWrapper"; // Importación añadida
+import FieldWrapper from "../components/molecules/FieldWrapper/FieldWrapper";
 
 import PostulationStatusForm from "../components/forms/PostulationStatus";
 import DuplicateModal from "../components/forms/DuplicateModal";
@@ -26,19 +26,13 @@ const ApplicationForm: React.FC = () => {
     resetForm,
     setShowDuplicateModal,
     handleContinueAnyway,
-    setStatus,
-    setDate,
-    setNotes,
-    setRecruiterContact,
-    setSentCV,
-    setSentEmail,
   } = useApplicationForm();
 
   useEffect(() => {
     if (!formData.date) {
-      setDate(DateHelpers.getCurrentDateISO());
+      handleFieldChange('date', DateHelpers.getCurrentDateISO());
     }
-  }, [formData.date, setDate]);
+  }, [formData.date, handleFieldChange]);
 
   return (
     <motion.div
@@ -93,7 +87,7 @@ const ApplicationForm: React.FC = () => {
                 id="company"
                 value={formData.company}
                 onChange={(e) => handleFieldChange('company', e.target.value)}
-                onBlur={(e) => handleFieldBlur('company', e.target.value)}
+                onBlur={() => handleFieldBlur('company')}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.company?.isValid && isBlurred.company ? 'ring-2 ring-red-400' : ''}`}
                 placeholder={translate('dashboard.companyPlaceholder')}
                 required
@@ -115,7 +109,7 @@ const ApplicationForm: React.FC = () => {
                 id="position"
                 value={formData.position}
                 onChange={(e) => handleFieldChange('position', e.target.value)}
-                onBlur={(e) => handleFieldBlur('position', e.target.value)}
+                onBlur={() => handleFieldBlur('position')}
                 className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.position?.isValid && isBlurred.position ? 'ring-2 ring-red-400' : ''}`}
                 placeholder={translate('dashboard.positionPlaceholder')}
                 required
@@ -131,7 +125,7 @@ const ApplicationForm: React.FC = () => {
               <select
                 id="status"
                 value={formData.status}
-                onChange={(e) => setStatus(e.target.value as PostulationStatus)}
+                onChange={(e) => handleFieldChange('status', e.target.value as PostulationStatus)}
                 className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base"
                 required
               >
@@ -151,7 +145,7 @@ const ApplicationForm: React.FC = () => {
                 type="date"
                 id="date"
                 value={formData.date}
-                onChange={(e) => setDate(e.target.value)}
+                onChange={(e) => handleFieldChange('date', e.target.value)}
                 className={`w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base ${errors.date ? 'ring-2 ring-red-400' : ''}`}
                 required
               />
@@ -173,7 +167,7 @@ const ApplicationForm: React.FC = () => {
                   id="url"
                   value={formData.url}
                   onChange={(e) => handleFieldChange('url', e.target.value)}
-                  onBlur={(e) => handleFieldBlur('url', e.target.value)}
+                  onBlur={() => handleFieldBlur('url')}
                   className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.url?.isValid && isBlurred.url ? 'ring-2 ring-red-400' : ''}`}
                   placeholder={translate('dashboard.referenceUrlPlaceholder')}
                 />
@@ -187,7 +181,7 @@ const ApplicationForm: React.FC = () => {
               <textarea
                 id="notes"
                 value={formData.notes}
-                onChange={(e) => setNotes(e.target.value)}
+                onChange={(e) => handleFieldChange('notes', e.target.value)}
                 rows={3}
                 className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
                 placeholder={translate('dashboard.notesPlaceholder')}
@@ -202,7 +196,7 @@ const ApplicationForm: React.FC = () => {
                 type="text"
                 id="recruiterContact"
                 value={formData.recruiterContact}
-                onChange={(e) => setRecruiterContact(e.target.value)}
+                onChange={(e) => handleFieldChange('recruiterContact', e.target.value)}
                 placeholder={translate('dashboard.recruiterContactPlaceholder')}
                 className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
               />
@@ -213,10 +207,10 @@ const ApplicationForm: React.FC = () => {
 
             <div className="lg:col-span-2">
               <PostulationStatusForm
-                sentCV={formData.sentCV}
-                sentEmail={formData.sentEmail}
-                onSendCvChange={setSentCV}
-                onSendEmailChange={setSentEmail}
+                sentCV={formData.sentCV || false}
+                sentEmail={formData.sentEmail || false}
+                onSendCvChange={(checked) => handleFieldChange('sentCV', checked)}
+                onSendEmailChange={(checked) => handleFieldChange('sentEmail', checked)}
                 translate={translate}
               />
             </div>

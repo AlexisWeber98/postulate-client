@@ -163,7 +163,6 @@ try {
 
       const commitResult = spawnSync('git', ['commit', '-m', commitMessage], { stdio: 'pipe' });
       if (commitResult.status !== 0) {
-        console.error(`${lang.error}: ${commitResult.stderr.toString()}`);
         process.exit(1);
       }
     } else {
@@ -172,6 +171,5 @@ try {
   });
 } catch (error) {
   const safeLang = getLanguage();
-  console.error(`${safeLang.error}:`, error.message);
   process.exit(1);
 }
