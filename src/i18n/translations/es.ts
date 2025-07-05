@@ -159,13 +159,17 @@ export const es = {
   'footer.rights': 'Todos los derechos reservados.',
   'footer.copyright': '© {year} Postulate. Todos los derechos reservados.',
 
-  'landing.hero.title': '¡Estamos construyendo algo grande!',
+  'landing.hero.title': 'Tu Próximo Empleo Comienza Aquí: Gestiona tus Postulaciones sin Estrés.',
   'landing.hero.subtitle': 'Anótate en la lista de espera y sé el primero en enterarte cuando lancemos nuestra plataforma.',
-  'landing.intro.title': 'Introducción',
+  'landing.intro.title': '¿Qué puedes lograr con Postulate?',
   'landing.intro.card1': 'Seguimiento de Postulaciones',
   'landing.intro.card2': 'Búsqueda Eficiente',
   'landing.intro.card3': 'Gestión de Documentos',
   'landing.intro.card4': 'Oportunidades Laborales',
+  'landing.intro.card1.description': 'Mantén un registro organizado de todas tus aplicaciones.',
+  'landing.intro.card2.description': 'Encuentra rápidamente las oportunidades que realmente te interesan.',
+  'landing.intro.card3.description': 'Centraliza y accede fácilmente a tus CVs, cartas y más.',
+  'landing.intro.card4.description': 'Descubre nuevas vacantes y expande tus horizontes profesionales.',
   'landing.howItWorks.title': '¿Cómo Funciona?',
   'landing.howItWorks.step1.title': 'Crea tu cuenta',
   'landing.howItWorks.step1.description': 'Regístrate y comienza a gestionar tus postulaciones',
@@ -174,7 +178,7 @@ export const es = {
   'landing.howItWorks.step3.title': 'Sigue tu progreso',
   'landing.howItWorks.step3.description': 'Visualiza estadísticas y métricas de tu búsqueda',
   'landing.features.title': 'Características',
-  'landing.benefits.title': 'Beneficios',
+
   'landing.trust.title': '¿Por qué Confiar en Nosotros?',
   'landing.cta.title': '¿Quieres ser de los primeros en probar nuestra plataforma?',
   'landing.cta.description': 'El producto está en desarrollo. Anótate en la lista de espera y te avisaremos cuando esté disponible.',
@@ -210,7 +214,7 @@ export const es = {
   'card3.title': 'Búsqueda Eficiente',
   'card3.desc': 'Encuentra rápidamente las postulaciones que necesitas',
   'features.title': 'Características',
-  'features.altTitle': '¿Por qué elegir Postulate?',
+
   'benefits.title': '¿Por qué usar Postulate?',
   'benefits.after.title': 'Con Postulate',
   'benefits.after.point1': 'Organiza todas tus postulaciones en un solo lugar',
@@ -256,7 +260,6 @@ export const es = {
   'profile.placeholders.name': 'Tu nombre',
   'profile.placeholders.email': 'tu@email.com',
   'profile.validation.formInvalid': 'Por favor corrige los campos resaltados',
-  'profile.errors.updateFail': 'Ocurrió un error al actualizar el perfil',
   'profile.messages.updated': '¡Perfil actualizado correctamente!',
   'profile.description': 'Actualiza tu información personal para mantener tu perfil al día.',
   'common.saving': 'Guardando...',
@@ -273,19 +276,16 @@ export const es = {
   'notes.placeholder': 'Añade cualquier información relevante sobre esta postulación',
   'common.cancel': 'Cancelar',
   'dashboard.urlPlaceholder': 'URL de la oferta',
-  'profile.errors': {
-    uploadFailed:
-      'No se pudo subir la imagen. Por favor, verifica tu conexión e intenta nuevamente.',
-    imageTooLarge:
-      'La imagen es demasiado grande. El tamaño máximo permitido es 10MB. Por favor, selecciona una imagen más pequeña.',
-    invalidImageType:
-      'Tipo de imagen no válido. Solo se permiten imágenes en formato JPG, PNG, GIF o WEBP.',
-    updateFail: 'Error al actualizar el perfil. Por favor, intenta nuevamente.',
-    uploadError: 'Error al subir la imagen. Por favor, intenta nuevamente más tarde.',
-    uploadTimeout: 'La subida de la imagen está tardando demasiado. Por favor, intenta nuevamente.',
-    uploadNetworkError:
-      'Error de conexión al subir la imagen. Por favor, verifica tu conexión a internet.',
-  },
+  'profile.errors.uploadFailed': 'No se pudo subir la imagen. Por favor, verifica tu conexión e intenta nuevamente.',
+  'landing.benefits.title': '¿Por qué usar Postulate?',
+  'profile.errors.imageTooLarge':
+    'La imagen es demasiado grande. El tamaño máximo permitido es 10MB. Por favor, selecciona una imagen más pequeña.',
+  'profile.errors.invalidImageType':
+    'Tipo de imagen no válido. Solo se permiten imágenes en formato JPG, PNG, GIF o WEBP.',
+  'profile.errors.uploadError': 'Error al subir la imagen. Por favor, intenta nuevamente más tarde.',
+  'profile.errors.uploadTimeout': 'La subida de la imagen está tardando demasiado. Por favor, intenta nuevamente.',
+  'profile.errors.uploadNetworkError':
+    'Error de conexión al subir la imagen. Por favor, verifica tu conexión a internet.',
   'carousel.feature1.title': 'Creador de CV',
   'carousel.feature1.desc': 'Crea currículums profesionales adaptados para tus postulaciones',
   'carousel.feature2.title': 'Seguimiento de Postulaciones',
@@ -349,4 +349,5 @@ export const es = {
   // Checkboxes
   'checkboxes.sentCV': 'CV Enviado',
   'checkboxes.sentEmail': 'Email Enviado',
+  'profile.errors.updateFail': 'Error al actualizar el perfil. Por favor, intenta nuevamente.',
 } as const;

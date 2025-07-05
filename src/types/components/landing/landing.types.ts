@@ -1,4 +1,4 @@
-import { TranslationKey } from '../../../i18n';
+import { TranslationKey } from '../../../i18n/types';
 
 export interface LandingSectionProps {
   translate: (key: TranslationKey) => string;
