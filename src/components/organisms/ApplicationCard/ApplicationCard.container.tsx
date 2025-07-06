@@ -63,7 +63,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
 
       toast.success(translate('dashboard.actions.updateSuccess'));
       closeEditModal();
-    } catch (error) {
+    } catch {
       toast.error(translate('dashboard.actions.updateError'));
     } finally {
       setIsLoading(false);

@@ -1,6 +1,6 @@
 import React from "react"
 import { CheckCircle2, BarChart2, Search } from "lucide-react"
-import { TranslationKey } from "../../../i18n";
+import { TranslationKey } from '../../../i18n/types';
 import { FeatureCard } from "../../../types/components/cards/FeatureCard.interface";
 import ThreeCardFocusCarousel from "../../../shared/components/ThreeCardFocusCarousel";
 

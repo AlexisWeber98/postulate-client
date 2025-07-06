@@ -14,7 +14,7 @@ const getUserIdFromToken = () => {
     const decodedPayload = JSON.parse(atob(payload));
 
     return decodedPayload.id || decodedPayload.userId;
-  } catch (error) {
+  } catch (_error) {
     return null;
   }
 };

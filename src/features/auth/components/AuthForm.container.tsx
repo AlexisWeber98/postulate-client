@@ -4,7 +4,7 @@ import { AuthForm } from './AuthForm.ui';
 import { useAuthStore } from '../../../store/auth/authStore';
 import { useNavigate } from 'react-router-dom';
 import { useLanguageStore } from '../../../store/language/languageStore';
-import { TranslationKey } from '../../../i18n';
+import { TranslationKey } from '../../../i18n/types';
 
 const loginSchema = z.object({
   email: z.string().email('Correo inválido'),

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TranslationKey } from '@/i18n';
+import { TranslationKey } from '../../../i18n/types';
 
 interface TrustSectionProps {
   translate: (key: TranslationKey) => string;

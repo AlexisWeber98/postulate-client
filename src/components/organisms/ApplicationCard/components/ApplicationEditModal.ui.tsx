@@ -73,7 +73,6 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
     const result = newPostulationSchema.safeParse(formData);
 
     if (!result.success) {
-      console.error('[ApplicationEditModal] Validation errors:', result.error.errors);
       // Optionally, display validation errors to the user
       return;
     }

@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
-import { TranslationKey } from '../../../i18n';
 import { useLanguageStore } from '../../../store/language/languageStore';
+import { TranslationKey } from '../../../i18n/types';
 
 interface ApplicationFormHeaderProps {
   id?: string;
-  t: (key: TranslationKey) => string;
 }
 
 export const ApplicationFormHeader: React.FC<ApplicationFormHeaderProps> = ({ id }) => {

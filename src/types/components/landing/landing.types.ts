@@ -1,4 +1,4 @@
-import { TranslationKey } from '../../../i18n';
+import { TranslationKey } from '../../../i18n/types';
 
 export interface LandingSectionProps {
   translate: (key: TranslationKey) => string;
@@ -7,6 +7,7 @@ export interface LandingSectionProps {
 export interface CardProps {
   icon: React.ReactNode;
   text: string;
+  description?: string;
   image: string;
 }
 
