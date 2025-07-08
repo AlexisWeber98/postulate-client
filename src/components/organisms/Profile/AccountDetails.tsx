@@ -1,6 +1,7 @@
 import React from 'react';
 import { User, Mail } from 'lucide-react';
 import { Input } from '../../ui/input';
+import { useLanguageStore } from '../../../store';
 
 interface AccountDetailsProps {
   userName: string;
@@ -15,6 +16,7 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
   email,
   setEmail,
 }) => {
+  const { translate } = useLanguageStore();
   return (
     <>
       {/* Tip profesional Detalles de Cuenta */}
@@ -25,8 +27,8 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
           </svg>
         </span>
         <div>
-          <span className="font-bold text-orange-800">Tip profesional</span>
-          <p className="text-orange-700 text-sm">Usa un correo electrónico profesional y un nombre de usuario que refleje tu identidad profesional.</p>
+          <span className="font-bold text-orange-800">{translate('profile.tips.professional.title')}</span>
+          <p className="text-orange-700 text-sm">{translate('profile.tips.account.description')}</p>
         </div>
       </div>
 
@@ -34,27 +36,27 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
         <div className="w-full flex flex-col gap-6">
           <div>
             <label className="flex items-center gap-2 font-semibold text-white/90 mb-2" htmlFor="userName">
-              <User className="w-5 h-5 text-blue-400" /> Nombre de Usuario
+              <User className="w-5 h-5 text-blue-400" /> {translate('profile.fields.userName')}
             </label>
             <Input
               type="text"
               id="userName"
               value={userName}
               onChange={e => setUserName(e.target.value)}
-              placeholder="Tu nombre de usuario único"
+              placeholder={translate('profile.placeholders.userName')}
               className="bg-white"
             />
           </div>
           <div>
             <label className="flex items-center gap-2 font-semibold text-white/90 mb-2" htmlFor="email">
-              <Mail className="w-5 h-5 text-blue-400" /> Correo Electrónico
+              <Mail className="w-5 h-5 text-blue-400" /> {translate('profile.fields.email')}
             </label>
             <Input
               type="email"
               id="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="ejemplo@correo.com"
+              placeholder={translate('placeholder.email')}
               className="bg-white"
             />
           </div>

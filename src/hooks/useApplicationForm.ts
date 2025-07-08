@@ -120,10 +120,31 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Forzar que todos los campos se marquen como "blurred" para mostrar errores
+    const allFields = ['company', 'position', 'status', 'date', 'url', 'notes', 'recruiterContact', 'sentCV', 'sentEmail'] as const;
+    setIsBlurred(prev => {
+      const newBlurred = { ...prev };
+      allFields.forEach(field => {
+        newBlurred[field] = true;
+      });
+      return newBlurred;
+    });
+
     if (!validateForm()) {
       setIsSubmitting(false);
+      // Agregar un error general para que el usuario sepa que hay problemas
+      setErrors(prev => ({
+        ...prev,
+        general: 'Por favor, completa todos los campos obligatorios marcados con *'
+      }));
       return;
     }
+
+    // Limpiar error general si la validación pasa
+    setErrors(prev => {
+      const { general, ...rest } = prev;
+      return rest;
+    });
 
     try {
       if (!user || !user.id) {

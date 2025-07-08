@@ -206,19 +206,19 @@ const EditProfile: React.FC = () => {
               className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'personal' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
               onClick={() => setActiveTab('personal')}
             >
-              Información Personal
+              {translate('profile.tabs.personal')}
             </button>
             <button
               className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'account' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
               onClick={() => setActiveTab('account')}
             >
-              Detalles de Cuenta
+              {translate('profile.tabs.account')}
             </button>
             <button
               className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'documents' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
               onClick={() => setActiveTab('documents')}
             >
-              Documentos
+              {translate('profile.tabs.documents')}
             </button>
           </div>
 

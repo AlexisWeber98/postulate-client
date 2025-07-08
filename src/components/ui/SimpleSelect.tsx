@@ -7,7 +7,7 @@ const SimpleSelect: React.FC<SimpleSelectProps> = ({
   value,
   onChange,
   options,
-  placeholder = "Seleccionar..."
+  placeholder = "Select..."
 }) => {
   return (
     <div className="w-full">

@@ -59,7 +59,7 @@ const PasoOferta: React.FC<PasoOfertaProps> = ({
           <div className="flex items-center gap-2 mb-2">
             <input
               type="url"
-              placeholder="https://www.linkedin.com/jobs/view/..."
+              placeholder={translate('placeholder.jobUrl')}
               value={enlace}
               onChange={e => setEnlace(e.target.value)}
               className="flex-1 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-3 text-base font-normal text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition placeholder-gray-400 font-sans outline-none"
