@@ -6,19 +6,15 @@ const getUserIdFromToken = () => {
   try {
     const token = useAuthStore.getState().token;
 
-
     if (!token) {
-      console.error('[DEBUG] No se encontró token en el auth store');
       return null;
     }
 
     const [, payload] = token.split('.');
     const decodedPayload = JSON.parse(atob(payload));
 
-
     return decodedPayload.id || decodedPayload.userId;
-  } catch (error) {
-    console.error('[DEBUG] Error al decodificar el token:', error);
+  } catch (_error) {
     return null;
   }
 };
@@ -26,19 +22,13 @@ const getUserIdFromToken = () => {
 // Interceptor para validar datos de postulación antes de enviar
 export const postulationRequestInterceptor = {
   onFulfilled: (config: InternalAxiosRequestConfig) => {
-
-
-
     if (
       config.url?.includes('/postulations') &&
       (config.method === 'post' || config.method === 'patch')
     ) {
-
-
       const userId = getUserIdFromToken();
 
       if (!userId) {
-
         return Promise.reject(new Error('No se encontró el ID del usuario en el token'));
       }
 
@@ -63,7 +53,6 @@ export const postulationRequestInterceptor = {
           postulationId: data.postulationId,
         };
 
-
         config.data = JSON.stringify(formattedData);
       } else {
         // Para POST, mantener el formato original
@@ -80,28 +69,22 @@ export const postulationRequestInterceptor = {
           userId,
         };
 
-
         config.data = JSON.stringify(formattedData);
       }
-
-
 
       // Agregar el ID en la URL para el PATCH
       if (config.method === 'patch' && data.id) {
         config.url = `${config.url}/${data.id}`;
-
       }
     }
 
     const token = useAuthStore.getState().token;
     if (token) {
-
       config.headers = {
         ...(config.headers as Record<string, string>),
         Authorization: `Bearer ${token}`,
       } as AxiosRequestHeaders;
     }
-
 
     if (config.method === 'delete') {
       // No specific action needed for delete requests in this interceptor
@@ -109,7 +92,6 @@ export const postulationRequestInterceptor = {
     return config;
   },
   onRejected: (error: AxiosError) => {
-
     return Promise.reject(error);
   },
 };
@@ -117,11 +99,9 @@ export const postulationRequestInterceptor = {
 // Interceptor para transformar la respuesta de postulaciones
 export const postulationResponseInterceptor = {
   onFulfilled: (response: AxiosResponse) => {
-
     return response;
   },
   onRejected: (error: AxiosError) => {
-
     return Promise.reject(error);
   },
 };

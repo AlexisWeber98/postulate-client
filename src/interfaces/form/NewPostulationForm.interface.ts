@@ -1,4 +1,4 @@
-import { ApplicationStatus } from '../postulations/application-status';
+import { PostulationStatus } from '../postulations/postulation';
 
 /** Tipo para representar fechas en formato ISO string */
 export type ISODateString = string;
@@ -6,7 +6,7 @@ export type ISODateString = string;
 export interface NewPostulationFormValues {
   company: string;
   position: string;
-  status: ApplicationStatus;
+  status: PostulationStatus;
   applicationDate: ISODateString;
   referenceUrl?: string;
   notes?: string;

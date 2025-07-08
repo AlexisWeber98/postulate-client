@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { UserPlus, ClipboardList, BarChart2 } from 'lucide-react';
-import { TranslationKey } from '@/i18n';
+import { TranslationKey } from '../../../i18n/types';
 import { Box, Card, Inset, Text } from '@radix-ui/themes';
 
 interface HowItWorksSectionProps {

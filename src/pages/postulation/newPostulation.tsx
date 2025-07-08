@@ -4,29 +4,8 @@ import { postulationsApi } from '../../api/postulations';
 import { usePostulationsStore, useLanguageStore, useAuthStore } from '../../store';
 import { NewPostulationFormValues } from '../../types';
 import {
-  PostulationStatus,
   PostulationState,
 } from '../../types/interface/postulations/postulation';
-import { ApplicationStatus } from '../../interfaces/postulations/application-status';
-
-
-
-// Mapeo entre ApplicationStatus y PostulationStatus
-const mapApplicationToPostulationStatus = (status: ApplicationStatus): PostulationStatus => {
-
-  switch (status) {
-    case ApplicationStatus.PENDING:
-      return 'applied';
-    case ApplicationStatus.REVIEWING:
-      return 'interview';
-    case ApplicationStatus.APPROVED:
-      return 'accepted';
-    case ApplicationStatus.REJECTED:
-      return 'rejected';
-    default:
-      return 'applied';
-  }
-};
 
 const NuevaPostulacionPage: React.FC = () => {
   const { translate } = useLanguageStore();
@@ -37,8 +16,6 @@ const NuevaPostulacionPage: React.FC = () => {
   const addPostulation = usePostulationsStore((state: PostulationState) => state.addPostulation);
 
   const handleSubmit = async (values: NewPostulationFormValues) => {
-
-
     if (!user?.id) {
       setFormError(translate('errorMessage') || 'No se encontró el ID del usuario.');
       return;
@@ -61,12 +38,10 @@ const NuevaPostulacionPage: React.FC = () => {
         sentEmail,
       } = values;
 
-      const mappedStatus = mapApplicationToPostulationStatus(status as ApplicationStatus);
-
       await postulationsApi.create({
         company,
         position,
-        status: mappedStatus,
+        status,
         applicationDate,
         link,
         description,
@@ -75,33 +50,28 @@ const NuevaPostulacionPage: React.FC = () => {
         userId: user.id,
       });
 
-
-
       const newPostulation = {
         company,
         position,
-        status: mappedStatus,
+        status,
         applicationDate,
         link,
         description,
         recruiterContact,
-        sendCv: sentCV,
-        sendEmail: sentEmail,
+        sentCV,
+        sentEmail,
         userId: user.id,
       };
-
 
       addPostulation(newPostulation);
 
       setSuccess(true);
 
     } catch (_error) {
-
       console.error(_error);
       setFormError(translate('errorMessage') || 'An error occurred while saving the application.');
     } finally {
       setLoading(false);
-
     }
   };
 

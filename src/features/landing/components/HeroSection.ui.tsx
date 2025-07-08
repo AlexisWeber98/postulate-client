@@ -33,7 +33,7 @@ const HeroSection: React.FC = () => {
           >
             {translate('Postulate')}
           </motion.h1>
-          
+
           {/* Subtítulo SEO optimizado */}
           <motion.h2
             className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white font-bold mb-4 sm:mb-6 drop-shadow-lg text-center md:text-left"
@@ -41,9 +41,9 @@ const HeroSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
           >
-            Gestor de Postulaciones Laborales
+            {translate('hero.subtitle')}
           </motion.h2>
-          
+
           <motion.div
             className="text-base sm:text-lg md:text-xl lg:text-2xl text-white font-semibold max-w-2xl mb-6 sm:mb-10 text-center md:text-left drop-shadow-lg flex flex-wrap items-center justify-center md:justify-start"
             initial={{ opacity: 0, y: 20 }}
@@ -59,7 +59,7 @@ const HeroSection: React.FC = () => {
               <span className="text-white">{translate('hero.subtitle.rest')}</span>
             </div>
           </motion.div>
-          
+
           {/* Descripción adicional para SEO */}
           <motion.p
             className="text-sm sm:text-base md:text-lg text-white/90 max-w-xl mb-6 sm:mb-8 text-center md:text-left drop-shadow-md"
@@ -67,10 +67,9 @@ const HeroSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25, ease: 'easeOut' }}
           >
-            Postulate es la plataforma definitiva que te ayuda a gestionar todas tus postulaciones laborales en un solo lugar. 
-            Con Postulate, organiza tu búsqueda de trabajo de manera eficiente y encuentra tu próximo empleo.
+            {translate('hero.description')}
           </motion.p>
-          
+
           <motion.div
             className="flex flex-col sm:flex-row justify-center md:justify-start gap-4 sm:gap-6 w-full sm:w-auto"
             initial={{ opacity: 0, y: 20 }}

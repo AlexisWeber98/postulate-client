@@ -13,11 +13,13 @@ export const en = {
 
   // Hero
   'hero.title': 'Manage your job applications',
+  'hero.subtitle': 'Job Application Manager',
   'hero.subtitle.rest': 'your job search',
   'hero.organize': 'Organize',
   'hero.track': 'track',
   'hero.optimize': 'optimize',
   'hero.cta.button': 'Get Started',
+  'hero.description': 'Postulate is the ultimate platform that helps you manage all your job applications in one place. With Postulate, organise your job search efficiently and find your next role.',
 
   // Auth
   'auth.createAccount': 'Create your account',
@@ -155,6 +157,7 @@ export const en = {
   'landing.intro.card3': 'Document Management',
   'landing.intro.card4': 'Job Opportunities',
   'landing.howItWorks.title': 'How It Works?',
+  'landing.benefits.mainTitle': 'Postulate: Transform Your Job Search',
   'landing.howItWorks.step1.title': 'Create your account',
   'landing.howItWorks.step1.description': 'Sign up and start managing your applications',
   'landing.howItWorks.step2.title': 'Add your applications',
@@ -310,4 +313,91 @@ export const en = {
   // Checkboxes
   'checkboxes.sentCV': 'CV Sent',
   'checkboxes.sentEmail': 'Email Sent',
+
+  'landing.benefits.withPostulate.title': 'With Postulate',
+  'landing.benefits.withPostulate.subtitle': 'Optimize your job search',
+  'landing.benefits.withPostulate.title1': 'Efficient tracking',
+  'landing.benefits.withPostulate.subtitle1': 'Keep track of all your applications',
+  'landing.benefits.withPostulate.title2': 'Total organization',
+  'landing.benefits.withPostulate.subtitle2': 'Centralize your job information',
+  'landing.benefits.withPostulate.title3': 'Quick search',
+  'landing.benefits.withPostulate.subtitle3': 'Find opportunities easily',
+  'landing.benefits.withPostulate.effectiveness': 'Effectiveness',
+  'landing.benefits.withoutPostulate.title': 'Without Postulate',
+  'landing.benefits.withoutPostulate.subtitle': 'Disorder and lost opportunities',
+  'landing.benefits.withoutPostulate.title1': 'Disorganization',
+  'landing.benefits.withoutPostulate.subtitle1': 'Hard to track applications',
+  'landing.benefits.withoutPostulate.title2': 'Scattered information',
+  'landing.benefits.withoutPostulate.subtitle2': 'Data in multiple platforms',
+  'landing.benefits.withoutPostulate.title3': 'Missed opportunities',
+  'landing.benefits.withoutPostulate.subtitle3': 'You can\'t find what you need',
+  'landing.benefits.withoutPostulate.disorder': 'Disorder',
+
+  // Tooltips
+  'tooltip.company': 'Enter the company name where you applied',
+  'tooltip.position': 'Enter the job title you applied for',
+  'tooltip.url': 'Enter the URL of the job posting or company page',
+  'tooltip.fullName': 'Enter your full name',
+  'tooltip.lastName': 'Enter your last name',
+  'tooltip.userName': 'Enter your username',
+  'tooltip.password': 'Enter your password (minimum 6 characters)',
+  'tooltip.about': 'Tell us about yourself, your interests, professional experience...',
+  'tooltip.website': 'Add your website or portfolio (optional)',
+  'tooltip.location': 'City, Country',
+
+  // Placeholders
+  'placeholder.email': 'your@email.com',
+  'placeholder.name': 'Your name',
+  'placeholder.lastName': 'Your last name',
+  'placeholder.userName': 'Your unique username',
+  'placeholder.password': 'Your password',
+  'placeholder.about': 'Tell us about yourself, your interests, professional experience...',
+  'placeholder.website': 'https://yourwebsite.com',
+  'placeholder.location': 'City, Country',
+  'placeholder.waitlistEmail': 'Your email',
+  'placeholder.jobUrl': 'https://www.linkedin.com/jobs/view/...',
+  'placeholder.selectStatus': 'Select a status',
+
+  // Common
+  'common.anterior': 'Previous',
+  'common.siguiente': 'Next',
+  'common.ver': 'View',
+  'common.editar': 'Edit',
+  'common.eliminar': 'Delete',
+
+  // Waitlist
+  'waitlist.title': 'Leave us your email',
+  'waitlist.success': 'You have joined the waitlist! You will receive updates soon.',
+  'waitlist.error': 'There was an error sending your email. Please try again.',
+  'waitlist.submit': 'Join the waitlist',
+  'waitlist.sending': 'Sending...',
+  'waitlist.disclaimer': 'We will only contact you to inform you about the launch and important updates. No spam!',
+
+  // Profile tabs
+  'profile.tabs.personal': 'Personal Information',
+  'profile.tabs.account': 'Account Details',
+  'profile.tabs.documents': 'Documents',
+
+  // Profile tips
+  'profile.tips.professional.title': 'Pro tip',
+  'profile.tips.account.description': 'Use a professional email and username that reflects your professional identity.',
+  'profile.tips.documents.description': 'Make sure your documents are up to date and in standard formats like PDF for better compatibility.',
+
+  // Profile fields
+  'profile.fields.userName': 'Username',
+  'profile.placeholders.userName': 'Your unique username',
+
+  // Documents section
+  'profile.documents.cv.title': 'Curriculum Vitae',
+  'profile.documents.cv.description': 'Upload your CV in PDF, DOCX or TXT format',
+  'profile.documents.cv.button': 'Upload CV',
+  'profile.documents.coverLetter.title': 'Cover Letter',
+  'profile.documents.coverLetter.description': 'Upload your letter in PDF or DOCX format',
+  'profile.documents.coverLetter.button': 'Upload Letter',
+  'profile.documents.other.title': 'Other Documents',
+  'profile.documents.other.description': 'Certificates, diplomas and more',
+  'profile.documents.other.button': 'Upload Documents',
+
+  // Profile tips for different sections
+  'profile.tips.personal.description': 'For better results, make sure to complete all your personal information with accurate and up-to-date details.',
 } as const;

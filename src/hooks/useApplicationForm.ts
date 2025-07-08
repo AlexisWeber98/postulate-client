@@ -2,38 +2,26 @@ import { useState, useCallback, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { usePostulationsStore } from '../store';
 import { useAuthStore } from '../store/auth/authStore';
-import { PostulationStatus } from '../types/index';
-import { ValidationHelpers, DateHelpers } from '../lib/helpers';
+import { DateHelpers } from '../lib/helpers';
+import { z } from 'zod';
+import { newPostulationSchema } from '../features/postulation/domain/validation';
+
+
+type FormData = z.infer<typeof newPostulationSchema>;
 
 interface UseApplicationFormReturn {
-  formData: {
-    company: string;
-    position: string;
-    status: PostulationStatus;
-    date: string;
-    url: string;
-    notes: string;
-    recruiterContact: string;
-    sentCV: boolean;
-    sentEmail: boolean;
-  };
+  formData: FormData;
   fieldStatus: Record<string, { isValid: boolean; message?: string }>;
   isBlurred: Record<string, boolean>;
   errors: Record<string, string>;
   isSubmitting: boolean;
   showDuplicateModal: boolean;
-  handleFieldChange: (name: string, value: string) => void;
-  handleFieldBlur: (name: string, value: string) => void;
+  handleFieldChange: (name: keyof FormData, value: string | boolean) => void;
+  handleFieldBlur: (name: keyof FormData) => void;
   handleSubmit: (e: React.FormEvent) => Promise<void>;
   resetForm: () => void;
   setShowDuplicateModal: (show: boolean) => void;
   handleContinueAnyway: () => void;
-  setStatus: (status: PostulationStatus) => void;
-  setDate: (date: string) => void;
-  setNotes: (notes: string) => void;
-  setRecruiterContact: (contact: string) => void;
-  setSentCV: (send: boolean) => void;
-  setSentEmail: (send: boolean) => void;
   validateForm: () => boolean;
 }
 
@@ -43,15 +31,17 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
   const { addPostulation, updatePostulation, checkDuplicate } = usePostulationsStore();
   const { user } = useAuthStore();
 
-  const [company, setCompany] = useState('');
-  const [position, setPosition] = useState('');
-  const [status, setStatus] = useState<PostulationStatus>('applied');
-  const [date, setDate] = useState('');
-  const [url, setUrl] = useState('');
-  const [sentCV, setSentCV] = useState(true);
-  const [sentEmail, setSentEmail] = useState(true);
-  const [notes, setNotes] = useState('');
-  const [recruiterContact, setRecruiterContact] = useState('');
+  const [formData, setFormData] = useState<FormData>({
+    company: '',
+    position: '',
+    status: 'applied',
+    date: DateHelpers.getCurrentDateISO(),
+    url: '',
+    notes: '',
+    recruiterContact: '',
+    sentCV: true,
+    sentEmail: true,
+  });
 
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -62,156 +52,121 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
   >({});
   const [isBlurred, setIsBlurred] = useState<Record<string, boolean>>({});
 
-  const validateField = useCallback((name: string, value: string) => {
-    switch (name) {
-      case 'company':
-        return {
-          isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value)
-            ? 'dashboard.validation.companyRequired'
-            : undefined,
-        };
-      case 'position':
-        return {
-          isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value)
-            ? 'dashboard.validation.positionRequired'
-            : undefined,
-        };
-      case 'url':
-        return {
-          isValid: !value || ValidationHelpers.isValidUrl(value),
-          message:
-            value && !ValidationHelpers.isValidUrl(value)
-              ? 'dashboard.validation.urlInvalid'
-              : undefined,
-        };
-      case 'date':
-        return {
-          isValid: ValidationHelpers.hasContent(value),
-          message: !ValidationHelpers.hasContent(value)
-            ? 'dashboard.validation.dateRequired'
-            : undefined,
-        };
-      default:
-        return { isValid: true };
-    }
-  }, []);
-
-  const handleFieldChange = useCallback(
-    (name: string, value: string) => {
-      switch (name) {
-        case 'company':
-          setCompany(value);
-          break;
-        case 'position':
-          setPosition(value);
-          break;
-        case 'url':
-          setUrl(value);
-          break;
-      }
-      setFieldStatus(prev => ({ ...prev, [name]: validateField(name, value) }));
-    },
-    [validateField]
-  );
-
-  const handleFieldBlur = useCallback(
-    (name: string, value: string) => {
-      setIsBlurred(prev => ({ ...prev, [name]: true }));
-      setFieldStatus(prev => ({ ...prev, [name]: validateField(name, value) }));
-    },
-    [validateField]
-  );
-
-  useEffect(() => {
-    const initialValidation = {
-      company: validateField('company', company),
-      position: validateField('position', position),
-      date: validateField('date', date),
-      url: validateField('url', url),
-    };
-
-    const hasChanges = Object.keys(initialValidation).some(key => {
-      const typedKey = key as keyof typeof initialValidation;
-      return JSON.stringify(initialValidation[typedKey]) !== JSON.stringify(fieldStatus[typedKey]);
-    });
-
-    if (hasChanges) {
-      setFieldStatus(initialValidation);
-    }
-  }, [company, position, date, url, validateField, fieldStatus]);
-
   const validateForm = useCallback(() => {
+    const result = newPostulationSchema.safeParse(formData);
     const newErrors: Record<string, string> = {};
     const newFieldStatus: Record<string, { isValid: boolean; message?: string }> = {};
 
-    newFieldStatus.company = validateField('company', company);
-    newFieldStatus.position = validateField('position', position);
-    newFieldStatus.date = validateField('date', date);
-    newFieldStatus.url = validateField('url', url);
-
-    if (!newFieldStatus.company.isValid) {
-      newErrors.company = newFieldStatus.company.message || 'La empresa es requerida';
-    }
-    if (!newFieldStatus.position.isValid) {
-      newErrors.position = newFieldStatus.position.message || 'El puesto es requerido';
-    }
-    if (!newFieldStatus.date.isValid) {
-      newErrors.date = newFieldStatus.date.message || 'La fecha es requerida';
-    }
-    if (!newFieldStatus.url.isValid) {
-      newErrors.url = newFieldStatus.url.message || 'La URL debe ser válida';
+    if (!result.success) {
+      result.error.errors.forEach((err) => {
+        const fieldName = err.path[0] as keyof FormData;
+        newErrors[fieldName] = err.message;
+        newFieldStatus[fieldName] = { isValid: false, message: err.message };
+      });
     }
 
-    const hasErrors = Object.keys(newErrors).length > 0;
-    const hasStatusChanges = Object.keys(newFieldStatus).some(
-      key => JSON.stringify(newFieldStatus[key]) !== JSON.stringify(fieldStatus[key])
-    );
+    // Set valid status for fields that are not in newErrors
+    Object.keys(formData).forEach((key) => {
+      if (!newErrors[key]) {
+        newFieldStatus[key] = { isValid: true };
+      }
+    });
 
-    if (hasErrors || hasStatusChanges) {
-      setErrors(newErrors);
-      setFieldStatus(newFieldStatus);
-    }
+    setErrors(newErrors);
+    setFieldStatus(newFieldStatus);
 
-    return !hasErrors;
-  }, [company, position, date, url, validateField, fieldStatus]);
+    return result.success;
+  }, [formData]);
+
+  const handleFieldChange = useCallback(
+    (name: keyof FormData, value: string | boolean) => {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+      // Re-validate the specific field immediately
+      const fieldValidation = newPostulationSchema.safeParse({ ...formData, [name]: value });
+      if (fieldValidation.success) {
+        setFieldStatus((prev) => ({ ...prev, [name]: { isValid: true } }));
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors[name];
+          return newErrors;
+        });
+      } else {
+        const errorForField = fieldValidation.error.errors.find((err) => err.path[0] === name);
+        if (errorForField) {
+          setFieldStatus((prev) => ({
+            ...prev,
+            [name]: { isValid: false, message: errorForField.message },
+          }));
+          setErrors((prev) => ({ ...prev, [name]: errorForField.message }));
+        }
+      }
+    },
+    [formData]
+  );
+
+  const handleFieldBlur = useCallback((name: keyof FormData) => {
+    setIsBlurred((prev) => ({ ...prev, [name]: true }));
+    // Trigger full form validation on blur to update all field statuses
+    validateForm();
+  }, [validateForm]);
+
+  useEffect(() => {
+    // Initial validation when component mounts or formData changes (e.g., on edit load)
+    validateForm();
+  }, [formData.company, formData.position, formData.date, formData.url, validateForm]);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Forzar que todos los campos se marquen como "blurred" para mostrar errores
+    const allFields = ['company', 'position', 'status', 'date', 'url', 'notes', 'recruiterContact', 'sentCV', 'sentEmail'] as const;
+    setIsBlurred(prev => {
+      const newBlurred = { ...prev };
+      allFields.forEach(field => {
+        newBlurred[field] = true;
+      });
+      return newBlurred;
+    });
 
     if (!validateForm()) {
-
       setIsSubmitting(false);
+      // Agregar un error general para que el usuario sepa que hay problemas
+      setErrors(prev => ({
+        ...prev,
+        general: 'Por favor, completa todos los campos obligatorios marcados con *'
+      }));
       return;
     }
+
+    // Limpiar error general si la validación pasa
+    setErrors(prev => {
+      const { general, ...rest } = prev;
+      return rest;
+    });
 
     try {
       if (!user || !user.id) {
         throw new Error('Usuario no autenticado');
       }
 
-      if (!id && checkDuplicate(company, position)) {
-
+      if (!id && checkDuplicate(formData.company, formData.position)) {
         setShowDuplicateModal(true);
         setIsSubmitting(false);
         return;
       }
 
-      const formattedDate = date ? date : DateHelpers.getCurrentDateISO();
-
       const payload = {
-        company,
-        position,
-        status,
-        applicationDate: formattedDate,
-        link: url || '',
-        description: notes || '',
-        recruiterContact: recruiterContact || '',
-        sendCv: sentCV,
-        sendEmail: sentEmail,
+        company: formData.company,
+        position: formData.position,
+        status: formData.status,
+        applicationDate: formData.date,
+        link: formData.url || '',
+        description: formData.notes || '',
+        recruiterContact: formData.recruiterContact || '',
+        sendCv: formData.sentCV,
+        sendEmail: formData.sentEmail,
         userId: user.id,
       };
 
@@ -231,15 +186,17 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
   };
 
   const resetForm = useCallback(() => {
-    setCompany('');
-    setPosition('');
-    setStatus('applied');
-    setDate(DateHelpers.getCurrentDateISO());
-    setUrl('');
-    setNotes('');
-    setRecruiterContact('');
-    setSentCV(true);
-    setSentEmail(true);
+    setFormData({
+      company: '',
+      position: '',
+      status: 'applied',
+      date: DateHelpers.getCurrentDateISO(),
+      url: '',
+      notes: '',
+      recruiterContact: '',
+      sentCV: true,
+      sentEmail: true,
+    });
     setErrors({});
     setFieldStatus({});
     setIsBlurred({});
@@ -251,46 +208,28 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     }
     setShowDuplicateModal(false);
     addPostulation({
-      company,
-      position,
-      status,
-      applicationDate: date,
-      link: url,
-      description: notes,
-      recruiterContact,
-      sendCv: sentCV,
-      sendEmail: sentEmail,
+      company: formData.company,
+      position: formData.position,
+      status: formData.status,
+      applicationDate: formData.date,
+      link: formData.url,
+      description: formData.notes,
+      recruiterContact: formData.recruiterContact,
+      sendCv: formData.sentCV,
+      sendEmail: formData.sentEmail,
       userId: user.id,
     });
     setIsSubmitting(false);
     navigate('/');
   }, [
-    company,
-    position,
-    status,
-    date,
-    url,
-    notes,
-    recruiterContact,
-    sentCV,
-    sentEmail,
+    formData,
     addPostulation,
     navigate,
     user,
   ]);
 
   return {
-    formData: {
-      company,
-      position,
-      status,
-      date,
-      url,
-      notes,
-      recruiterContact,
-      sentCV,
-      sentEmail,
-    },
+    formData,
     fieldStatus,
     isBlurred,
     errors,
@@ -302,12 +241,6 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     resetForm,
     setShowDuplicateModal,
     handleContinueAnyway,
-    setStatus,
-    setDate,
-    setNotes,
-    setRecruiterContact,
-    setSentCV,
-    setSentEmail,
     validateForm,
   };
 };

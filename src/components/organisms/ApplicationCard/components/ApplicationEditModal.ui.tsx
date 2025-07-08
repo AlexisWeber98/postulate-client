@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Modal from '../../../molecules/Modal';
 import { STATUS_LABELS, Postulation, PostulationStatus } from '../../../../types/interface/postulations/postulation';
 import StyledModalContainer from "../../../shared/components/StyledModalContainer/StyledModalContainer.ui";
@@ -10,26 +10,47 @@ import {
   SelectItem
 } from '../../../ui/select';
 import { ApplicationEditModalUIProps } from '../../../../interfaces/components/organisms/ApplicationCard/ApplicationEditModalUI.interface';
+import { newPostulationSchema } from '../../../../features/postulation/domain/validation';
+import { z } from 'zod';
+import { useLanguageStore } from '../../../../store';
+
+type FormData = z.infer<typeof newPostulationSchema>;
 
 const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   application,
   isOpen,
   onClose,
   onSave,
-
   isLoading
 }) => {
-  const [formData, setFormData] = React.useState<Partial<Postulation>>({
-    status: application?.status || 'applied',
+  const { translate } = useLanguageStore();
+  const [formData, setFormData] = React.useState<FormData>({
     company: application?.company || '',
     position: application?.position || '',
-    applicationDate: application?.applicationDate || '',
-    link: application?.link || '',
-    description: application?.description || '',
+    status: application?.status || 'applied',
+    date: application?.applicationDate || '', // Mapped from applicationDate to date
+    url: application?.link || '', // Mapped from link to url
+    notes: application?.description || '', // Mapped from description to notes
     recruiterContact: application?.recruiterContact || '',
-    sendCv: application?.sendCv || false,
-    sendEmail: application?.sendEmail || false
+    sentCV: application?.sendCv || false,
+    sentEmail: application?.sendEmail || false
   });
+
+  useEffect(() => {
+    if (application) {
+      setFormData({
+        company: application.company,
+        position: application.position,
+        status: application.status,
+        date: application.applicationDate,
+        url: application.link || '',
+        notes: application.description || '',
+        recruiterContact: application.recruiterContact || '',
+        sentCV: application.sendCv || false,
+        sentEmail: application.sendEmail || false,
+      });
+    }
+  }, [application]);
 
   if (!application) return null;
 
@@ -51,24 +72,25 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validación básica de campos requeridos
-    if (!formData.company || !formData.position || !formData.applicationDate) {
-      console.error('[ApplicationEditModal] Campos requeridos faltantes:', formData);
+    const result = newPostulationSchema.safeParse(formData);
+
+    if (!result.success) {
+      // Optionally, display validation errors to the user
       return;
     }
 
     const updatedApplication: Postulation = {
       id: application.id,
       userId: application.userId,
-      company: formData.company!,
-      position: formData.position!,
-      status: formData.status!,
-      applicationDate: formData.applicationDate!,
-      link: formData.link || '',
-      description: formData.description || '',
-      recruiterContact: formData.recruiterContact || '',
-      sendCv: formData.sendCv || false,
-      sendEmail: formData.sendEmail || false,
+      company: result.data.company,
+      position: result.data.position,
+      status: result.data.status,
+      applicationDate: result.data.date,
+      link: result.data.url,
+      description: result.data.notes,
+      recruiterContact: result.data.recruiterContact,
+      sendCv: result.data.sentCV,
+      sendEmail: result.data.sentEmail,
       createdAt: application.createdAt,
       updatedAt: new Date().toISOString()
     };
@@ -135,7 +157,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
                 <SelectTrigger
                   className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
                 >
-                  <SelectValue placeholder="Selecciona un estado" />
+                  <SelectValue placeholder={translate('placeholder.selectStatus')} />
                 </SelectTrigger>
                 <SelectContent>
                   {Object.entries(STATUS_LABELS).map(([key, label]) => (
@@ -154,8 +176,8 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               <label className="block text-white/90 text-xs mb-0.5">Fecha *</label>
               <input
                 type="date"
-                name="applicationDate"
-                value={formData.applicationDate}
+                name="date"
+                value={formData.date}
                 onChange={handleInputChange}
                 required
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
@@ -166,8 +188,8 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               <label className="block text-white/90 text-xs mb-0.5">URL</label>
               <input
                 type="url"
-                name="link"
-                value={formData.link}
+                name="url"
+                value={formData.url}
                 onChange={handleInputChange}
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
               />
@@ -187,8 +209,8 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
             <div>
               <label className="block text-white/90 text-xs mb-0.5">Notas</label>
               <textarea
-                name="description"
-                value={formData.description}
+                name="notes"
+                value={formData.notes}
                 onChange={handleInputChange}
                 rows={2}
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
@@ -199,8 +221,8 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               <div className="flex items-center space-x-1.5">
                 <input
                   type="checkbox"
-                  name="sendCv"
-                  checked={formData.sendCv}
+                  name="sentCV"
+                  checked={formData.sentCV}
                   onChange={handleInputChange}
                   className="w-3.5 h-3.5 text-blue-600 bg-white/10 border-white/20 rounded focus:ring-blue-500"
                 />
@@ -209,8 +231,8 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
               <div className="flex items-center space-x-1.5">
                 <input
                   type="checkbox"
-                  name="sendEmail"
-                  checked={formData.sendEmail}
+                  name="sentEmail"
+                  checked={formData.sentEmail}
                   onChange={handleInputChange}
                   className="w-3.5 h-3.5 text-blue-600 bg-white/10 border-white/20 rounded focus:ring-blue-500"
                 />

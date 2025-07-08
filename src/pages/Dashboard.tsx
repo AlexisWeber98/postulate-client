@@ -48,7 +48,6 @@ const Dashboard: React.FC = () => {
     try {
       await getAllPostulations();
     } catch (err) {
-      console.error('❌ Dashboard: Error al cargar postulaciones:', err);
       localHandleError(err as Error, translate('dashboard.errorMessage'));
     }
   }, [getAllPostulations, localHandleError, translate]);

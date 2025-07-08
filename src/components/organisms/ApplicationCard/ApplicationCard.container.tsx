@@ -43,7 +43,6 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   };
 
   const handleSave = async (updatedApplication: Postulation) => {
-
     setIsLoading(true);
     try {
       const updateData = {
@@ -59,17 +58,12 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
         userId: updatedApplication.userId
       };
 
-
-
-
-
       await postulationsApi.update(updatedApplication.id, updateData);
       updatePostulation(updatedApplication.id, updatedApplication);
 
       toast.success(translate('dashboard.actions.updateSuccess'));
       closeEditModal();
-    } catch (error) {
-      console.error('[ApplicationCard] Error al actualizar la postulación:', error);
+    } catch {
       toast.error(translate('dashboard.actions.updateError'));
     } finally {
       setIsLoading(false);
@@ -77,9 +71,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   };
 
   const handleDelete = async () => {
-
     if (!window.confirm(translate('dashboard.actions.deleteConfirm'))) {
-
       return;
     }
 
@@ -91,7 +83,6 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
       closeEditModal();
       closeDetailModal();
     } catch (error) {
-      console.error('[ApplicationCard] ❌ Error al eliminar la postulación 😓', error);
       if (isAxiosError(error)) {
         const axiosError = error as import('axios').AxiosError<ErrorResponse>;
         toast.error(axiosError.response?.data?.message || translate('dashboard.actions.deleteError'));

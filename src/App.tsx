@@ -47,12 +47,7 @@ const App: React.FC = () => {
     root.classList.add(theme);
   }, [theme]);
 
-  // Log the authentication state for debugging
-  useEffect(() => {
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('Authentication state changed. User:', user);
-    }
-  }, [user]);
+
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200" role="main">

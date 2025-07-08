@@ -16,14 +16,13 @@ export function AuthBackground({ imagePath, children }: AuthBackgroundProps) {
     }
 
     const img = new window.Image();
-    
+
     const handleLoad = () => {
       setImageLoaded(true);
       setImageError(false);
     };
 
     const handleError = () => {
-      console.error('Error al cargar la imagen');
       setImageLoaded(false);
       setImageError(true);
     };

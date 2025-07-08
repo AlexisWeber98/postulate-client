@@ -1,4 +1,5 @@
-import { Language, TranslationKey } from '../../../i18n';
+import { Language } from '../../../i18n';
+import { TranslationKey } from '../../../i18n/types';
 import { es } from '../../../i18n/translations/es';
 
 export interface LanguageState {

@@ -10,7 +10,6 @@ export const useErrorHandler = (options: ErrorHandlerOptions = {}) => {
 
   const handleError = useCallback((error: Error, message?: string) => {
     const errorMessage = message || options.defaultMessage || 'Ha ocurrido un error';
-    console.error(errorMessage, error);
     setError(errorMessage);
 
     if (options.onError) {

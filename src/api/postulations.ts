@@ -61,24 +61,16 @@ export const postulationsApi = {
   getById: (id: string) => postulationsClient.get<ApiResponse<Postulation>>(`${ENDPOINT}/${id}`),
 
   getByUserId: async (userId: string): Promise<ApiResponse<PostulationsResponse>> => {
-    try {
-
-      const response = await postulationsClient.get<ApiResponse<PostulationsResponse>>(
-        `${ENDPOINT}/user/${userId}`
-      );
-
-      return response.data;
-    } catch (error) {
-      console.error('❌ PostulationsApi: Error al obtener postulaciones:', error);
-      throw error;
-    }
+    const response = await postulationsClient.get<ApiResponse<PostulationsResponse>>(
+      `${ENDPOINT}/user/${userId}`
+    );
+    return response.data;
   },
 
   create: (data: CreatePostulationRequest) =>
     postulationsClient.post<ApiResponse<Postulation>>(ENDPOINT, data),
 
   update: (id: string, data: UpdatePostulationRequest) => {
-
     return postulationsClient.patch<ApiResponse<Postulation>>(`${ENDPOINT}/${id}`, {
       data: {
         company: data.company,
@@ -96,8 +88,7 @@ export const postulationsApi = {
     });
   },
 
-   delete: (id: string) => {
-
-     return postulationsClient.delete<void>(`${ENDPOINT}`, { data: { id } });
-   },
+  delete: (id: string) => {
+    return postulationsClient.delete<void>(`${ENDPOINT}`, { data: { id } });
+  },
 };

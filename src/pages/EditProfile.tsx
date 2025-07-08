@@ -19,7 +19,7 @@ const EditProfile: React.FC = () => {
   const [email, setEmail] = useState(user?.email || '');
   const [lastName, setLastName] = useState(user?.lastName || '');
   const [userName, setUserName] = useState(user?.userName || '');
-  
+
   const [previewUrl, setPreviewUrl] = useState<string>(user?.profileImage || '');
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -131,7 +131,7 @@ const EditProfile: React.FC = () => {
     try {
       const imageUrl = await CloudinaryService.uploadImage(file);
       setPreviewUrl(imageUrl);
-      
+
     } catch (error) {
       console.error('Error al subir la imagen:', error);
       if (error instanceof Error) {
@@ -206,19 +206,19 @@ const EditProfile: React.FC = () => {
               className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'personal' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
               onClick={() => setActiveTab('personal')}
             >
-              Información Personal
+              {translate('profile.tabs.personal')}
             </button>
             <button
               className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'account' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
               onClick={() => setActiveTab('account')}
             >
-              Detalles de Cuenta
+              {translate('profile.tabs.account')}
             </button>
             <button
               className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'documents' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
               onClick={() => setActiveTab('documents')}
             >
-              Documentos
+              {translate('profile.tabs.documents')}
             </button>
           </div>
 
