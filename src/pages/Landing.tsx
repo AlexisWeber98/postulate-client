@@ -50,7 +50,7 @@ const Landing: React.FC = () => {
           <div className="border-b border-white/70 mb-10" />
         </div>
 
-        <motion.div id="how-it-works" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="relative w-full py-20">
+        <motion.div id="how-it-works" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="relative w-full py-12 sm:py-16 md:py-20">
           <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&q=80)' }}>
             <div className="absolute inset-0 bg-black/60" />
           </div>
@@ -63,7 +63,7 @@ const Landing: React.FC = () => {
           <FeaturesSectionContainer translate={translate} />
         </motion.div>
 
-        <motion.div id="benefits" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="relative w-full py-20">
+        <motion.div id="benefits" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="relative w-full py-12 sm:py-16 md:py-20">
           <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=80)' }}>
             <div className="absolute inset-0 bg-black/60" />
           </div>
