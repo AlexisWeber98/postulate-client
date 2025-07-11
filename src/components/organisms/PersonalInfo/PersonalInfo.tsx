@@ -71,8 +71,8 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
           </svg>
         </span>
         <div>
-          <span className="font-bold text-yellow-800">Tip profesional</span>
-          <p className="text-yellow-700 text-sm">Para mejores resultados, asegúrate de completar toda tu información personal con detalles precisos y actualizados.</p>
+          <span className="font-bold text-yellow-800">{translate('profile.tips.professional.title')}</span>
+          <p className="text-yellow-700 text-sm">{translate('profile.tips.personal.description')}</p>
         </div>
       </div>
 

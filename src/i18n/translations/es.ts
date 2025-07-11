@@ -371,4 +371,69 @@ export const es = {
   'landing.benefits.withoutPostulate.title3': 'Oportunidades perdidas',
   'landing.benefits.withoutPostulate.subtitle3': 'No encuentras lo que buscas',
   'landing.benefits.withoutPostulate.disorder': 'Desorden',
+
+  // Tooltips adicionales
+  'tooltip.fullName': 'Ingresa tu nombre completo',
+  'tooltip.lastName': 'Ingresa tu apellido',
+  'tooltip.userName': 'Ingresa tu nombre de usuario',
+  'tooltip.password': 'Ingresa tu contraseña (mínimo 6 caracteres)',
+  'tooltip.about': 'Cuéntanos sobre ti, tus intereses, experiencia profesional...',
+  'tooltip.website': 'Agrega tu sitio web o portafolio (opcional)',
+  'tooltip.location': 'Ciudad, País',
+
+  // Placeholders
+  'placeholder.email': 'tu@email.com',
+  'placeholder.name': 'Tu nombre',
+  'placeholder.lastName': 'Tu apellido',
+  'placeholder.userName': 'Tu nombre de usuario único',
+  'placeholder.password': 'Tu contraseña',
+  'placeholder.about': 'Cuéntanos sobre ti, tus intereses, experiencia profesional...',
+  'placeholder.website': 'https://tuwebsite.com',
+  'placeholder.location': 'Ciudad, País',
+  'placeholder.waitlistEmail': 'Tu email',
+  'placeholder.jobUrl': 'https://www.linkedin.com/jobs/view/...',
+  'placeholder.selectStatus': 'Selecciona un estado',
+
+  // Common
+  'common.anterior': 'Anterior',
+  'common.siguiente': 'Siguiente',
+  'common.ver': 'Ver',
+  'common.editar': 'Editar',
+  'common.eliminar': 'Eliminar',
+
+  // Waitlist
+  'waitlist.title': 'Déjanos tu mail',
+  'waitlist.success': '¡Te has unido a la waitlist! Pronto recibirás novedades.',
+  'waitlist.error': 'Hubo un error al enviar tu email. Intenta de nuevo.',
+  'waitlist.submit': 'Anotarme en la lista de espera',
+  'waitlist.sending': 'Enviando...',
+  'waitlist.disclaimer': 'Solo te contactaremos para avisarte sobre el lanzamiento y novedades importantes. ¡No spam!',
+
+  // Profile tabs
+  'profile.tabs.personal': 'Información Personal',
+  'profile.tabs.account': 'Detalles de Cuenta',
+  'profile.tabs.documents': 'Documentos',
+
+  // Profile tips
+  'profile.tips.professional.title': 'Tip profesional',
+  'profile.tips.account.description': 'Usa un correo electrónico profesional y un nombre de usuario que refleje tu identidad profesional.',
+  'profile.tips.documents.description': 'Asegúrate de que tus documentos estén actualizados y en formatos estándar como PDF para mejor compatibilidad.',
+
+  // Profile fields
+  'profile.fields.userName': 'Nombre de Usuario',
+  'profile.placeholders.userName': 'Tu nombre de usuario único',
+
+  // Documents section
+  'profile.documents.cv.title': 'Currículum Vitae',
+  'profile.documents.cv.description': 'Sube tu CV en formato PDF, DOCX o TXT',
+  'profile.documents.cv.button': 'Subir CV',
+  'profile.documents.coverLetter.title': 'Carta de Presentación',
+  'profile.documents.coverLetter.description': 'Sube tu carta en formato PDF o DOCX',
+  'profile.documents.coverLetter.button': 'Subir Carta',
+  'profile.documents.other.title': 'Otros Documentos',
+  'profile.documents.other.description': 'Certificados, diplomas y más',
+  'profile.documents.other.button': 'Subir Documentos',
+
+  // Profile tips for different sections
+  'profile.tips.personal.description': 'Para mejores resultados, asegúrate de completar toda tu información personal con detalles precisos y actualizados.',
 } as const;

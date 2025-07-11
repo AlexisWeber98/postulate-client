@@ -12,7 +12,7 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDele
     <div className="relative bg-gradient-to-r from-blue-500 to-violet-500 rounded-2xl sm:rounded-3xl shadow-xl p-0 overflow-hidden backdrop-blur-md border border-blue-400/20 max-w-full sm:max-w-xs mx-auto" style={{ boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)' }}>
       {/* Avatar - más pequeño en móvil */}
       <div className="flex justify-center items-center pt-4 sm:pt-6">
-        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-tr from-blue-400 to-blue-700 flex items-center justify-center text-white text-2xl sm:text-3xl md:text-4xl font-bold shadow-lg border-2 sm:border-4 border-blue-300/40">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-tr from-blue-400 to-blue-700 flex items-center justify-center text-white text-xl sm:text-2xl md:text-3xl font-bold shadow-lg border-2 sm:border-4 border-blue-300/40">
           {initials}
         </div>
       </div>
@@ -24,30 +24,30 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDele
       </div>
       {/* Stats - más compacto en móvil */}
       <div className="flex flex-col sm:flex-row justify-center gap-1 sm:gap-2 mt-3 sm:mt-6 mb-2 px-3 sm:px-4">
-        <div className="bg-white/10 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1 sm:py-2 text-center text-sm text-white">
-          <div className="font-bold text-sm sm:text-xs lg:text-xs">{new Date(applicationDate).toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', { day: '2-digit', month: 'short', year: '2-digit' })}</div>
-          <div className="opacity-70 text-sm">{translate('dashboard.date')}</div>
+        <div className="bg-white/10 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1 sm:py-2 text-center text-xs text-white">
+          <div className="font-bold text-xs sm:text-xs lg:text-xs">{new Date(applicationDate).toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', { day: '2-digit', month: 'short', year: '2-digit' })}</div>
+          <div className="opacity-70 text-xs">{translate('dashboard.date')}</div>
         </div>
-        <div className="bg-white/10 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1 sm:py-2 text-center text-sm text-white">
-          <div className="font-bold text-sm sm:text-xs lg:text-xs truncate">{position}</div>
-          <div className="opacity-70 text-sm">{translate('dashboard.position')}</div>
+        <div className="bg-white/10 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1 sm:py-2 text-center text-xs text-white">
+          <div className="font-bold text-xs sm:text-xs lg:text-xs truncate">{position}</div>
+          <div className="opacity-70 text-xs">{translate('dashboard.position')}</div>
         </div>
-        <div className="bg-white/10 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1 sm:py-2 text-center text-sm text-white">
-          <div className="font-bold text-sm sm:text-xs lg:text-xs truncate">{company}</div>
-          <div className="opacity-70 text-sm">{translate('dashboard.company')}</div>
+        <div className="bg-white/10 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1 sm:py-2 text-center text-xs text-white">
+          <div className="font-bold text-xs sm:text-xs lg:text-xs truncate">{company}</div>
+          <div className="opacity-70 text-xs">{translate('dashboard.company')}</div>
         </div>
       </div>
       {/* Badges de envío de CV y Email - más compacto */}
       {(sendCv || sendEmail) && (
         <div className="flex justify-center gap-1 sm:gap-2 mb-2 px-3 sm:px-4">
           {sendCv && (
-            <span key={`cv-badge-${application.id}`} className="flex items-center gap-1 bg-blue-100 text-blue-700 text-sm font-medium px-1 sm:px-2 py-1 rounded-full">
+            <span key={`cv-badge-${application.id}`} className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-1 sm:px-2 py-1 rounded-full">
               <svg className="w-3 h-3 sm:w-4 sm:h-4 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               <span className="hidden sm:inline">{translate('dashboard.sentCV')}</span>
             </span>
           )}
           {sendEmail && (
-            <span key={`email-badge-${application.id}`} className="flex items-center gap-1 bg-blue-100 text-blue-700 text-sm font-medium px-1 sm:px-2 py-1 rounded-full">
+            <span key={`email-badge-${application.id}`} className="flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-1 sm:px-2 py-1 rounded-full">
               <svg className="w-3 h-3 sm:w-4 sm:h-4 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               <span className="hidden sm:inline">{translate('dashboard.sentEmail')}</span>
             </span>
@@ -55,18 +55,18 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDele
         </div>
       )}
       {/* Descripción/notas - más compacto */}
-      <div className="px-3 sm:px-6 py-1 sm:py-2 text-white/90 text-sm sm:text-base lg:text-xs min-h-[32px] sm:min-h-[48px]">
+      <div className="px-3 sm:px-6 py-1 sm:py-2 text-white/90 text-xs sm:text-sm lg:text-xs min-h-[32px] sm:min-h-[48px]">
         {description ? (
           <div className="line-clamp-2 sm:line-clamp-3">{description}</div>
         ) : (
-          <span className="italic text-blue-200 flex items-center gap-1 sm:gap-2 text-sm sm:text-base lg:text-xs">
+          <span className="italic text-blue-200 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-xs">
             <svg className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01" /></svg>
             {translate('dashboard.notes.none') || 'Sin notas aún'}
           </span>
         )}
       </div>
       {/* URL - oculto en móvil para ahorrar espacio */}
-      <div className="hidden sm:block px-6 pb-2 text-blue-200 text-sm truncate">
+      <div className="hidden sm:block px-6 pb-2 text-blue-200 text-xs truncate">
         {link ? (
           <a href={link} target="_blank" rel="noopener noreferrer" className="underline">{link}</a>
         ) : (
@@ -85,7 +85,7 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDele
       <div className="flex justify-center items-center gap-1 sm:gap-2 md:gap-3 py-2 sm:py-3">
         <button
           onClick={onViewDetail}
-          className="flex items-center justify-center bg-pink-500 hover:bg-pink-600 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg sm:rounded-xl shadow-2xl text-base sm:text-base lg:text-xs transition-all duration-200 group relative"
+          className="flex items-center justify-center bg-pink-500 hover:bg-pink-600 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg sm:rounded-xl shadow-2xl text-sm sm:text-sm lg:text-xs transition-all duration-200 group relative"
           style={{ boxShadow: '0 12px 40px 0 rgba(236, 72, 153, 0.45), 0 6px 16px 0 rgba(236, 72, 153, 0.35)' }}
           title={translate('dashboard.actions.view')}
         >
@@ -96,7 +96,7 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDele
         </button>
         <button
           onClick={onEdit}
-          className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg sm:rounded-xl shadow-2xl text-base sm:text-base lg:text-xs transition-all duration-200 group relative"
+          className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg sm:rounded-xl shadow-2xl text-sm sm:text-sm lg:text-xs transition-all duration-200 group relative"
           style={{ boxShadow: '0 12px 40px 0 rgba(59, 130, 246, 0.45), 0 6px 16px 0 rgba(59, 130, 246, 0.35)' }}
           title={translate('dashboard.actions.edit')}
         >
@@ -109,7 +109,7 @@ export const ApplicationCardGlass = ({ application, onViewDetail, onEdit, onDele
         </button>
         <button
           onClick={onDelete}
-          className="flex items-center justify-center bg-red-500 hover:bg-red-600 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg sm:rounded-xl shadow-2xl text-base sm:text-base lg:text-xs transition-all duration-200 group relative"
+          className="flex items-center justify-center bg-red-500 hover:bg-red-600 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg sm:rounded-xl shadow-2xl text-sm sm:text-sm lg:text-xs transition-all duration-200 group relative"
           style={{ boxShadow: '0 12px 40px 0 rgba(239, 68, 68, 0.45), 0 6px 16px 0 rgba(239, 68, 68, 0.35)' }}
           title={translate('dashboard.actions.delete')}
         >

@@ -12,6 +12,7 @@ import {
 import { ApplicationEditModalUIProps } from '../../../../interfaces/components/organisms/ApplicationCard/ApplicationEditModalUI.interface';
 import { newPostulationSchema } from '../../../../features/postulation/domain/validation';
 import { z } from 'zod';
+import { useLanguageStore } from '../../../../store';
 
 type FormData = z.infer<typeof newPostulationSchema>;
 
@@ -22,6 +23,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   onSave,
   isLoading
 }) => {
+  const { translate } = useLanguageStore();
   const [formData, setFormData] = React.useState<FormData>({
     company: application?.company || '',
     position: application?.position || '',
@@ -155,7 +157,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
                 <SelectTrigger
                   className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
                 >
-                  <SelectValue placeholder="Selecciona un estado" />
+                  <SelectValue placeholder={translate('placeholder.selectStatus')} />
                 </SelectTrigger>
                 <SelectContent>
                   {Object.entries(STATUS_LABELS).map(([key, label]) => (

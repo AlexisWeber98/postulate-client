@@ -32,8 +32,8 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ translate }) => {
   ];
 
   return (
-    <div className="text-center py-24 md:py-32 min-h-[600px]">
-      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+    <div className="text-center py-12 sm:py-16 md:py-24 min-h-[400px] sm:min-h-[500px]">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-center mb-8 sm:mb-12 md:mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
         {translate('landing.howItWorks.title')}
       </h2>
       <div className="w-full max-w-6xl mx-auto px-2 lg:px-0">
@@ -50,7 +50,7 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ translate }) => {
                         display: 'block',
                         objectFit: 'cover',
                         width: '100%',
-                        height: 140,
+                        height: 120,
                         backgroundColor: 'var(--gray-5)',
                         borderTopLeftRadius: '1.5rem',
                         borderTopRightRadius: '1.5rem',
@@ -67,8 +67,8 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ translate }) => {
                     </div>
                   </Inset>
                 </div>
-                <div className="flex flex-col items-center px-4 pb-8 pt-6">
-                  <Text as="div" size="5" className="font-semibold text-gray-100 mb-4 drop-shadow-sm">{step.title}</Text>
+                <div className="flex flex-col items-center px-3 sm:px-4 pb-6 sm:pb-8 pt-4 sm:pt-6">
+                  <Text as="div" size="5" className="font-semibold text-gray-100 mb-3 sm:mb-4 drop-shadow-sm">{step.title}</Text>
                   <Text as="p" size="3" className="text-gray-100 drop-shadow-sm" style={{paddingBottom: '0.5rem'}}>{step.description}</Text>
                 </div>
               </Card>

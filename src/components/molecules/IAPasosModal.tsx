@@ -5,6 +5,7 @@ import { Badge } from '../ui/badge';
 import { PasswordToggle } from '../ui/PasswordToggle';
 import { useNavigate } from 'react-router-dom';
 import { useThemeStore } from '../../store/theme/themeStore';
+import { useLanguageStore } from '../../store';
 
 interface IAPasosModalProps {
   isOpen: boolean;
@@ -205,6 +206,7 @@ const pasos = [
 ];
 
 const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
+  const { translate } = useLanguageStore();
   const [step, setStep] = useState(0);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -276,7 +278,7 @@ const IAPasosModal: React.FC<IAPasosModalProps> = ({ isOpen, onClose }) => {
             <PasswordToggle
               value={password}
               onChange={setPassword}
-              placeholder="Contraseña"
+              placeholder={translate('placeholder.password')}
               error={error}
               inputClassName="text-center"
             />

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Briefcase, FileText, Upload } from 'lucide-react';
 import IAPasosModal from '../../molecules/IAPasosModal';
 import { useNavigate } from 'react-router-dom';
+import { useLanguageStore } from '../../../store';
 
 const Documents: React.FC = () => {
+  const { translate } = useLanguageStore();
   const [isIAModalOpen, setIsIAModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -28,8 +30,8 @@ const Documents: React.FC = () => {
           </svg>
         </span>
         <div>
-          <span className="font-bold text-orange-800">Tip profesional</span>
-          <p className="text-orange-700 text-sm">Asegúrate de que tus documentos estén actualizados y en formatos estándar como PDF para mejor compatibilidad.</p>
+          <span className="font-bold text-orange-800">{translate('profile.tips.professional.title')}</span>
+          <p className="text-orange-700 text-sm">{translate('profile.tips.documents.description')}</p>
         </div>
       </div>
 
@@ -40,12 +42,12 @@ const Documents: React.FC = () => {
           <div className="bg-violet-400 rounded-full p-4 mb-2">
             <Briefcase className="w-10 h-10 text-white" />
           </div>
-          <h3 className="text-xl font-bold text-white text-center">Currículum Vitae</h3>
-          <p className="text-white/80 text-center">Sube tu CV en formato PDF, DOCX o TXT</p>
+          <h3 className="text-xl font-bold text-white text-center">{translate('profile.documents.cv.title')}</h3>
+          <p className="text-white/80 text-center">{translate('profile.documents.cv.description')}</p>
           <button
             className="mt-4 w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold text-base shadow transition"
           >
-            <Upload className="w-5 h-5" /> Subir CV
+            <Upload className="w-5 h-5" /> {translate('profile.documents.cv.button')}
           </button>
         </div>
 
@@ -54,12 +56,12 @@ const Documents: React.FC = () => {
           <div className="bg-violet-400 rounded-full p-4 mb-2">
             <FileText className="w-10 h-10 text-white" />
           </div>
-          <h3 className="text-xl font-bold text-white text-center">Carta de Presentación</h3>
-          <p className="text-white/80 text-center">Sube tu carta en formato PDF o DOCX</p>
+          <h3 className="text-xl font-bold text-white text-center">{translate('profile.documents.coverLetter.title')}</h3>
+          <p className="text-white/80 text-center">{translate('profile.documents.coverLetter.description')}</p>
           <button
             className="mt-4 w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold text-base shadow transition"
           >
-            <Upload className="w-5 h-5" /> Subir Carta
+            <Upload className="w-5 h-5" /> {translate('profile.documents.coverLetter.button')}
           </button>
         </div>
 
@@ -68,12 +70,12 @@ const Documents: React.FC = () => {
           <div className="bg-blue-500 rounded-full p-4 mb-2">
             <FileText className="w-10 h-10 text-white" />
           </div>
-          <h3 className="text-xl font-bold text-white text-center">Otros Documentos</h3>
-          <p className="text-white/80 text-center">Certificados, diplomas y más</p>
+          <h3 className="text-xl font-bold text-white text-center">{translate('profile.documents.other.title')}</h3>
+          <p className="text-white/80 text-center">{translate('profile.documents.other.description')}</p>
           <button
             className="mt-4 w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold text-base shadow transition"
           >
-            <Upload className="w-5 h-5" /> Subir Documentos
+            <Upload className="w-5 h-5" /> {translate('profile.documents.other.button')}
           </button>
         </div>
       </div>

@@ -78,7 +78,7 @@ const ApplicationForm: React.FC = () => {
               name="company"
               label={translate('dashboard.company')}
               required
-              tooltip="Ingresa el nombre de la empresa donde te postulaste"
+              tooltip={translate('tooltip.company')}
               isBlurred={isBlurred.company}
               fieldStatus={fieldStatus.company}
             >
@@ -100,7 +100,7 @@ const ApplicationForm: React.FC = () => {
               name="position"
               label={translate('dashboard.position')}
               required
-              tooltip="Ingresa el título del puesto al que te postulaste"
+              tooltip={translate('tooltip.position')}
               isBlurred={isBlurred.position}
               fieldStatus={fieldStatus.position}
             >
@@ -126,7 +126,8 @@ const ApplicationForm: React.FC = () => {
                 id="status"
                 value={formData.status}
                 onChange={(e) => handleFieldChange('status', e.target.value as PostulationStatus)}
-                className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base"
+                onBlur={() => handleFieldBlur('status')}
+                className={`w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base ${!fieldStatus.status?.isValid && isBlurred.status ? 'ring-2 ring-red-400' : ''}`}
                 required
               >
                 {Object.entries(STATUS_LABELS).map(([value, label]) => (
@@ -146,7 +147,8 @@ const ApplicationForm: React.FC = () => {
                 id="date"
                 value={formData.date}
                 onChange={(e) => handleFieldChange('date', e.target.value)}
-                className={`w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base ${errors.date ? 'ring-2 ring-red-400' : ''}`}
+                onBlur={() => handleFieldBlur('date')}
+                className={`w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base ${!fieldStatus.date?.isValid && isBlurred.date ? 'ring-2 ring-red-400' : ''}`}
                 required
               />
               {errors.date && (
@@ -158,7 +160,7 @@ const ApplicationForm: React.FC = () => {
               <FieldWrapper
                 name="url"
                 label={translate('referenceUrl')}
-                tooltip="Ingresa la URL de la publicación o la página de la empresa"
+                tooltip={translate('tooltip.url')}
                 isBlurred={isBlurred.url}
                 fieldStatus={fieldStatus.url}
               >
@@ -215,6 +217,19 @@ const ApplicationForm: React.FC = () => {
               />
             </div>
           </div>
+
+          {/* Mensaje de error general */}
+          {errors.general && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+            >
+              <p className="text-red-600 dark:text-red-400 text-sm font-medium">
+                {errors.general}
+              </p>
+            </motion.div>
+          )}
 
           <motion.div
             initial={{ y: 20, opacity: 0 }}
