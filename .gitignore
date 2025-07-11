@@ -22,4 +22,4 @@ package-lock.json
 .cursor*
 
 # Gemini Agents
-.gemini/agents/
+.gemini
