@@ -1,6 +1,6 @@
-import { AlertCircle } from "lucide-react";
-import Modal from "../molecules/Modal";
-import { useLanguageStore } from "../../store";
+import { AlertCircle } from 'lucide-react';
+import Modal from '../molecules/Modal';
+import { useLanguageStore } from '../../store';
 
 interface DuplicateModalProps {
   isOpen: boolean;
@@ -15,16 +15,12 @@ const DuplicateModal: React.FC<DuplicateModalProps> = ({
   onClose,
   onContinue,
   company,
-  position
+  position,
 }) => {
-  const translate = useLanguageStore(state=>state.translate);
+  const translate = useLanguageStore(state => state.translate);
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={translate('applicationForm.duplicateTitle')}
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title={translate('applicationForm.duplicateTitle')}>
       <div className="flex items-start p-4">
         <div className="flex-shrink-0">
           <AlertCircle className="h-6 w-6 text-yellow-500" aria-hidden="true" />

@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { es } from "../../i18n/translations/es";
+import { motion } from 'framer-motion';
+import { es } from '../../i18n/translations/es';
 import { TranslationKey } from '../../i18n/types';
 
 // Helper type to extract placeholder keys from a translation string
@@ -8,12 +8,11 @@ type PlaceholderKeys<T extends string> = T extends `${string}{${infer K}}${infer
   : never;
 
 // Type to get the translation string for a given key
-type TranslationFor<K extends TranslationKey> =
-  K extends keyof typeof es
-    ? (typeof es)[K] extends string
-      ? (typeof es)[K]
-      : never
-    : never;
+type TranslationFor<K extends TranslationKey> = K extends keyof typeof es
+  ? (typeof es)[K] extends string
+    ? (typeof es)[K]
+    : never
+  : never;
 
 interface PostulationStatusFormProps {
   sentCV: boolean;
@@ -31,7 +30,7 @@ const PostulationStatusForm: React.FC<PostulationStatusFormProps> = ({
   sentEmail,
   onSendCvChange,
   onSendEmailChange,
-  translate
+  translate,
 }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -47,10 +46,13 @@ const PostulationStatusForm: React.FC<PostulationStatusFormProps> = ({
           type="checkbox"
           id="sentCV"
           checked={sentCV}
-          onChange={(e) => onSendCvChange(e.target.checked)}
+          onChange={e => onSendCvChange(e.target.checked)}
           className="accent-blue-500 w-4 h-4 sm:w-5 sm:h-5 rounded"
         />
-        <label htmlFor="sentCV" className="text-sm sm:text-base text-gray-700 dark:text-white/90 cursor-pointer">
+        <label
+          htmlFor="sentCV"
+          className="text-sm sm:text-base text-gray-700 dark:text-white/90 cursor-pointer"
+        >
           {translate('dashboard.sentCV')}
         </label>
       </div>
@@ -59,10 +61,13 @@ const PostulationStatusForm: React.FC<PostulationStatusFormProps> = ({
           type="checkbox"
           id="sentEmail"
           checked={sentEmail}
-          onChange={(e) => onSendEmailChange(e.target.checked)}
+          onChange={e => onSendEmailChange(e.target.checked)}
           className="accent-blue-500 w-4 h-4 sm:w-5 sm:h-5 rounded"
         />
-        <label htmlFor="sentEmail" className="text-sm sm:text-base text-gray-700 dark:text-white/90 cursor-pointer">
+        <label
+          htmlFor="sentEmail"
+          className="text-sm sm:text-base text-gray-700 dark:text-white/90 cursor-pointer"
+        >
           {translate('dashboard.sentEmail')}
         </label>
       </div>
