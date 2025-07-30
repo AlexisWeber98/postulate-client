@@ -60,10 +60,10 @@ const TrustSection: React.FC<TrustSectionProps> = ({ translate }) => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 * idx }}
-            className="w-full"
+            className="w-full h-full"
           >
             <div
-              className={`flex flex-col items-center justify-start border border-transparent shadow-2xl rounded-3xl min-h-[18rem] sm:min-h-[20rem] md:min-h-[22rem] py-6 sm:py-8 px-4 sm:px-6 bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 transition-transform duration-300 hover:scale-105`}
+              className={`flex flex-col items-center justify-start border border-transparent shadow-2xl rounded-3xl min-h-[18rem] sm:min-h-[20rem] md:min-h-[22rem] py-6 sm:py-8 px-4 sm:px-6 bg-gradient-to-r from-blue-500 to-violet-500 dark:from-blue-400 dark:to-violet-400 transition-transform duration-300 hover:scale-105 h-full`}
             >
               {card.icon}
               <span className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white text-center leading-tight tracking-tight drop-shadow-lg select-none w-full mb-2">
