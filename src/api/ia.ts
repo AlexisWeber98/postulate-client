@@ -13,12 +13,6 @@ interface IaApiResponse {
   };
 }
 
-interface IaErrorResponse {
-  message: string;
-  status: number;
-  code: string;
-}
-
 // Interfaz para los datos de la solicitud a la API de IA (ejemplo)
 interface IaRequestData {
   prompt: string;
@@ -31,8 +25,7 @@ export const iaApi = {
    * @param data - Los datos para la solicitud de generación de IA.
    * @returns Una promesa que resuelve con la respuesta generada por la IA.
    */
-  generateResponse: (data: IaRequestData) =>
-    httpClient.post<IaApiResponse>('/ia', data),
+  generateResponse: (data: IaRequestData) => httpClient.post<IaApiResponse>('/ia', data),
 
   // Puedes añadir más métodos aquí para otras funcionalidades de IA
   // Por ejemplo: analyzeOffer: (data: OfferAnalysisRequest) => httpClient.post<IaApiResponse>('/ia/analyze', data),

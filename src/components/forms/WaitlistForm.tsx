@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { isValidEmail } from '../../lib/helpers/validation.helpers';
 import { useLanguageStore } from '../../store';
-
-// Remove these constants and handle email sending through your backend API
+import { whitelistApi } from '../../api';
 
 const WaitlistForm: React.FC = () => {
   const { translate } = useLanguageStore();
@@ -23,22 +22,16 @@ const WaitlistForm: React.FC = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await whitelistApi.addEmailToWhitelist({ email });
 
-      if (response.ok) {
+      if (response.statusResponse === 'Ok') {
         setSuccess(translate('waitlist.success'));
         setEmail('');
       } else {
         setError(translate('waitlist.error'));
       }
-      // eslint-disable-next-line unused-imports/no-unused-vars
-    } catch (_err) {
+    } catch (err) {
+      console.error('Error al añadir email a la whitelist:', err);
       setError(translate('auth.error.network'));
     } finally {
       setLoading(false);

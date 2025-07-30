@@ -5,3 +5,4 @@ export { client } from './client';
 export { postulationsApi } from './postulations';
 export { authApi } from './auth';
 export { iaApi } from './ia';
+export { whitelistApi } from './whitelist';
