@@ -37,6 +37,7 @@ const WaitlistForm: React.FC = () => {
       } else {
         setError(translate('waitlist.error'));
       }
+      // eslint-disable-next-line unused-imports/no-unused-vars
     } catch (_err) {
       setError(translate('auth.error.network'));
     } finally {
@@ -44,9 +45,14 @@ const WaitlistForm: React.FC = () => {
     }
   };
 
-    return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 mt-8 max-w-md mx-auto bg-white/80 dark:bg-gray-900/80 p-6 rounded-2xl shadow-lg">
-      <h4 className="text-2xl font-bold text-gray-800 dark:text-white mb-2 text-center">{translate('waitlist.title')}</h4>
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-center gap-4 mt-8 max-w-md mx-auto bg-white/80 dark:bg-gray-900/80 p-6 rounded-2xl shadow-lg"
+    >
+      <h4 className="text-2xl font-bold text-gray-800 dark:text-white mb-2 text-center">
+        {translate('waitlist.title')}
+      </h4>
       <input
         type="email"
         placeholder={translate('placeholder.waitlistEmail')}
