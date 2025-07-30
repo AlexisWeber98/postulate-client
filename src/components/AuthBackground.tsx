@@ -1,9 +1,5 @@
-import React, { useState, useEffect } from 'react';
-
-interface AuthBackgroundProps {
-  imagePath: string;
-  children: React.ReactNode;
-}
+import { useState, useEffect } from 'react';
+import { AuthBackgroundProps } from '../interfaces/components/AuthBackground.interface';
 
 export function AuthBackground({ imagePath, children }: AuthBackgroundProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -45,13 +41,11 @@ export function AuthBackground({ imagePath, children }: AuthBackgroundProps) {
           className="auth-background-image absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500"
           style={{
             backgroundImage: `url(${imagePath})`,
-            opacity: imageLoaded ? 1 : 0
+            opacity: imageLoaded ? 1 : 0,
           }}
         />
       )}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }
