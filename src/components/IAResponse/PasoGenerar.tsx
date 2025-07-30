@@ -3,12 +3,12 @@ import React from 'react';
 type PasoGenerarProps = {
   translate: (...args: unknown[]) => string;
   respuesta: string;
-  respuestaEjemplo: string;
+  
   setRespuesta: (val: string) => void;
   setLoading: (val: boolean) => void;
   onBack: () => void;
 };
-const PasoGenerar: React.FC<PasoGenerarProps> = ({ translate, respuesta, respuestaEjemplo, setRespuesta, setLoading, onBack }) => (
+const PasoGenerar: React.FC<PasoGenerarProps> = ({ translate, respuesta, setRespuesta, setLoading, onBack }) => (
   <>
     <div className="w-full max-w-4xl mx-auto bg-gradient-to-r from-blue-500 to-violet-500 rounded-2xl shadow-2xl p-6 mb-8 flex flex-col gap-2">
       <div className="flex items-center gap-3 mb-1">
@@ -29,7 +29,7 @@ const PasoGenerar: React.FC<PasoGenerarProps> = ({ translate, respuesta, respues
         <button
           className="flex items-center gap-2 px-5 py-2 rounded-xl font-semibold text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow hover:bg-gray-50 dark:hover:bg-gray-700 transition"
           onClick={() => {
-            navigator.clipboard.writeText(respuesta || respuestaEjemplo);
+            navigator.clipboard.writeText(respuesta);
           }}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="2"/><rect x="3" y="3" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="2"/></svg>
@@ -38,7 +38,7 @@ const PasoGenerar: React.FC<PasoGenerarProps> = ({ translate, respuesta, respues
         <button
           className="flex items-center gap-2 px-5 py-2 rounded-xl font-semibold text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow hover:bg-gray-50 dark:hover:bg-gray-700 transition"
           onClick={() => {
-            const blob = new Blob([respuesta || respuestaEjemplo], { type: 'text/plain' });
+            const blob = new Blob([respuesta], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -54,7 +54,7 @@ const PasoGenerar: React.FC<PasoGenerarProps> = ({ translate, respuesta, respues
     </div>
     <div className="w-full max-w-4xl mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 mb-8">
       <pre className="whitespace-pre-wrap break-words text-gray-900 dark:text-white text-base font-sans" style={{ background: 'none', border: 'none', margin: 0, padding: 0 }}>
-{respuesta || respuestaEjemplo}
+{respuesta}
       </pre>
     </div>
     <div className="w-full max-w-4xl mx-auto flex flex-col md:flex-row justify-between gap-4">
@@ -71,7 +71,7 @@ const PasoGenerar: React.FC<PasoGenerarProps> = ({ translate, respuesta, respues
         onClick={() => {
           setLoading(true);
           setTimeout(() => {
-            setRespuesta((respuesta || respuestaEjemplo) + '\n(Rechequeado)');
+            setRespuesta(respuesta + '\n(Rechequeado)');
             setLoading(false);
           }, 1200);
         }}

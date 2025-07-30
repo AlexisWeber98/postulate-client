@@ -7,7 +7,7 @@ import PasoTipoTono from '../../components/IAResponse/PasoTipoTono';
 import PasoGenerar from '../../components/IAResponse/PasoGenerar';
 import { useIAResponseGenerator } from '../../hooks/useIAResponseGenerator';
 
-const respuestaEjemplo = `PERFIL PROFESIONAL\nDesarrollador Frontend con más de 4 años de experiencia especializado en React, TypeScript y Next.js. Experto en la creación de interfaces de usuario intuitivas y componentes reutilizables. Sólidos conocimientos en sistemas de diseño y optimización de rendimiento web.\n\nHABILIDADES DESTACADAS\n• Desarrollo avanzado con React y TypeScript\n• Experiencia comprobada con Next.js\n• Implementación de sistemas de diseño\n• Optimización de interfaces de usuario\n• Control de versiones con Git\n• Metodologías ágiles`;
+
 
 const IAResponseGenerator: React.FC = () => {
   const { translate } = useLanguageStore();
@@ -110,7 +110,6 @@ const IAResponseGenerator: React.FC = () => {
           <PasoGenerar
             translate={translate as unknown as (...args: unknown[]) => string}
             respuesta={respuesta}
-            respuestaEjemplo={respuestaEjemplo}
             setRespuesta={setRespuesta}
             setLoading={setLoading}
             onBack={() => setPaso(0)}
