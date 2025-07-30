@@ -1,3 +1,4 @@
+import { iaApi } from '../../api';
 import React from 'react';
 import { useLanguageStore } from '../../store/language/languageStore';
 import { Sparkles } from 'lucide-react';
@@ -77,12 +78,20 @@ const IAResponseGenerator: React.FC = () => {
             handleFileChange={handleFileChange}
             handleDrag={handleDrag}
             handleDrop={handleDrop}
-            onNext={() => {
+            onNext={async () => {
               setAnalizando(true);
-              setTimeout(() => {
-                setAnalizando(false);
+              try {
+                // Asumiendo que 'enlace' es el prompt para la IA
+                const response = await iaApi.generateResponse({ prompt: enlace });
+                setRespuesta(response.result.iaResponse.iaText);
                 setPaso(1);
-              }, 1200);
+              } catch (error) {
+                console.error('Error al generar respuesta de IA:', error);
+                // Aquí podrías mostrar un mensaje de error al usuario
+                alert('Error al generar respuesta de IA. Por favor, intenta de nuevo.');
+              } finally {
+                setAnalizando(false);
+              }
             }}
           />
         )}
