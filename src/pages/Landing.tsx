@@ -81,10 +81,7 @@ const Landing: React.FC = () => {
         </motion.div>
         {showWaitlistModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-6 relative max-w-lg w-full mx-4">
-              <button onClick={handleCloseWaitlist} className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-white text-2xl font-bold">&times;</button>
-              <WaitlistForm />
-            </div>
+            <WaitlistForm onClose={handleCloseWaitlist} />
           </div>
         )}
       </main>
