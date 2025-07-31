@@ -16,7 +16,7 @@ export type {
   CardProps,
 
   // Organisms
-  ApplicationCardProps
+  ApplicationCardProps,
 };
 
 export * from './atoms/ButtonProps.interface';
