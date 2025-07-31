@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import Modal from '../../../molecules/Modal';
-import { STATUS_LABELS, Postulation, PostulationStatus } from '../../../../types/interface/postulations/postulation';
-import StyledModalContainer from "../../../shared/components/StyledModalContainer/StyledModalContainer.ui";
 import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem
-} from '../../../ui/select';
+  STATUS_LABELS,
+  Postulation,
+  PostulationStatus,
+} from '../../../../types/interface/postulations/postulation';
+import StyledModalContainer from '../../../shared/components/StyledModalContainer/StyledModalContainer.ui';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../../../ui/select';
 import { ApplicationEditModalUIProps } from '../../../../interfaces/components/organisms/ApplicationCard/ApplicationEditModalUI.interface';
 import { newPostulationSchema } from '../../../../features/postulation/domain/validation';
 import { z } from 'zod';
@@ -21,7 +19,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
   isOpen,
   onClose,
   onSave,
-  isLoading
+  isLoading,
 }) => {
   const { translate } = useLanguageStore();
   const [formData, setFormData] = React.useState<FormData>({
@@ -33,7 +31,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
     notes: application?.description || '', // Mapped from description to notes
     recruiterContact: application?.recruiterContact || '',
     sentCV: application?.sendCv || false,
-    sentEmail: application?.sendEmail || false
+    sentEmail: application?.sendEmail || false,
   });
 
   useEffect(() => {
@@ -58,14 +56,14 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
     const { name, value, type } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
   const handleStatusChange = (value: string) => {
     setFormData(prev => ({
       ...prev,
-      status: value as PostulationStatus
+      status: value as PostulationStatus,
     }));
   };
 
@@ -92,7 +90,7 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
       sendCv: result.data.sentCV,
       sendEmail: result.data.sentEmail,
       createdAt: application.createdAt,
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
 
     onSave(updatedApplication);
@@ -109,15 +107,33 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
             className="absolute top-2 right-2 bg-white/20 hover:bg-white/40 text-white rounded-full p-1.5 shadow-lg transition-all"
             aria-label="Cerrar"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
 
           {/* Avatar más pequeño */}
           <div className="flex justify-center items-center mb-3">
             <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-blue-400 to-blue-700 flex items-center justify-center text-white text-2xl font-bold shadow-lg border-2 border-blue-300/40">
-              {formData.company ? formData.company.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) : 'NA'}
+              {formData.company
+                ? formData.company
+                    .split(' ')
+                    .map(w => w[0])
+                    .join('')
+                    .toUpperCase()
+                    .slice(0, 2)
+                : 'NA'}
             </div>
           </div>
 
@@ -154,17 +170,12 @@ const ApplicationEditModalUI: React.FC<ApplicationEditModalUIProps> = ({
                 onValueChange={handleStatusChange}
                 defaultValue={formData.status}
               >
-                <SelectTrigger
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
-                >
+                <SelectTrigger className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500">
                   <SelectValue placeholder={translate('placeholder.selectStatus')} />
                 </SelectTrigger>
                 <SelectContent>
                   {Object.entries(STATUS_LABELS).map(([key, label]) => (
-                    <SelectItem
-                      key={key}
-                      value={key}
-                    >
+                    <SelectItem key={key} value={key}>
                       {label}
                     </SelectItem>
                   ))}
