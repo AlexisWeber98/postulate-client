@@ -3,9 +3,7 @@ import NewPostulationFormContainer from '../../features/postulation/components/N
 import { postulationsApi } from '../../api/postulations';
 import { usePostulationsStore, useLanguageStore, useAuthStore } from '../../store';
 import { NewPostulationFormValues } from '../../types';
-import {
-  PostulationState,
-} from '../../types/interface/postulations/postulation';
+import { PostulationState } from '../../types/interface/postulations/postulation';
 
 const NuevaPostulacionPage: React.FC = () => {
   const { translate } = useLanguageStore();
@@ -66,7 +64,6 @@ const NuevaPostulacionPage: React.FC = () => {
       addPostulation(newPostulation);
 
       setSuccess(true);
-
     } catch (_error) {
       console.error(_error);
       setFormError(translate('errorMessage') || 'An error occurred while saving the application.');

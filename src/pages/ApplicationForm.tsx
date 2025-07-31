@@ -1,15 +1,15 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useLanguageStore } from "../store";
-import { PostulationStatus, STATUS_LABELS } from "../types/index";
-import { ArrowLeft } from "lucide-react";
-import { motion } from "framer-motion";
-import { DateHelpers } from "../lib/helpers";
-import FieldWrapper from "../components/molecules/FieldWrapper/FieldWrapper";
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useLanguageStore } from '../store';
+import { PostulationStatus, STATUS_LABELS } from '../types/index';
+import { ArrowLeft } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { DateHelpers } from '../lib/helpers';
+import FieldWrapper from '../components/molecules/FieldWrapper/FieldWrapper';
 
-import PostulationStatusForm from "../components/forms/PostulationStatus";
-import DuplicateModal from "../components/forms/DuplicateModal";
-import { useApplicationForm } from "../hooks/useApplicationForm";
+import PostulationStatusForm from '../components/forms/PostulationStatus';
+import DuplicateModal from '../components/forms/DuplicateModal';
+import { useApplicationForm } from '../hooks/useApplicationForm';
 
 const ApplicationForm: React.FC = () => {
   const { translate } = useLanguageStore();
@@ -86,9 +86,11 @@ const ApplicationForm: React.FC = () => {
                 type="text"
                 id="company"
                 value={formData.company}
-                onChange={(e) => handleFieldChange('company', e.target.value)}
+                onChange={e => handleFieldChange('company', e.target.value)}
                 onBlur={() => handleFieldBlur('company')}
-                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.company?.isValid && isBlurred.company ? 'ring-2 ring-red-400' : ''}`}
+                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${
+                  !fieldStatus.company?.isValid && isBlurred.company ? 'ring-2 ring-red-400' : ''
+                }`}
                 placeholder={translate('dashboard.companyPlaceholder')}
                 required
                 aria-invalid={!fieldStatus.company?.isValid}
@@ -108,9 +110,11 @@ const ApplicationForm: React.FC = () => {
                 type="text"
                 id="position"
                 value={formData.position}
-                onChange={(e) => handleFieldChange('position', e.target.value)}
+                onChange={e => handleFieldChange('position', e.target.value)}
                 onBlur={() => handleFieldBlur('position')}
-                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.position?.isValid && isBlurred.position ? 'ring-2 ring-red-400' : ''}`}
+                className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${
+                  !fieldStatus.position?.isValid && isBlurred.position ? 'ring-2 ring-red-400' : ''
+                }`}
                 placeholder={translate('dashboard.positionPlaceholder')}
                 required
                 aria-invalid={!fieldStatus.position?.isValid}
@@ -119,15 +123,20 @@ const ApplicationForm: React.FC = () => {
             </FieldWrapper>
 
             <div className="space-y-1">
-              <label htmlFor="status" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+              <label
+                htmlFor="status"
+                className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow"
+              >
                 {translate('status')} *
               </label>
               <select
                 id="status"
                 value={formData.status}
-                onChange={(e) => handleFieldChange('status', e.target.value as PostulationStatus)}
+                onChange={e => handleFieldChange('status', e.target.value as PostulationStatus)}
                 onBlur={() => handleFieldBlur('status')}
-                className={`w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base ${!fieldStatus.status?.isValid && isBlurred.status ? 'ring-2 ring-red-400' : ''}`}
+                className={`w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base ${
+                  !fieldStatus.status?.isValid && isBlurred.status ? 'ring-2 ring-red-400' : ''
+                }`}
                 required
               >
                 {Object.entries(STATUS_LABELS).map(([value, label]) => (
@@ -139,16 +148,21 @@ const ApplicationForm: React.FC = () => {
             </div>
 
             <div className="space-y-1">
-              <label htmlFor="date" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+              <label
+                htmlFor="date"
+                className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow"
+              >
                 {translate('dashboard.date')} *
               </label>
               <input
                 type="date"
                 id="date"
                 value={formData.date}
-                onChange={(e) => handleFieldChange('date', e.target.value)}
+                onChange={e => handleFieldChange('date', e.target.value)}
                 onBlur={() => handleFieldBlur('date')}
-                className={`w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base ${!fieldStatus.date?.isValid && isBlurred.date ? 'ring-2 ring-red-400' : ''}`}
+                className={`w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 shadow-inner appearance-none text-sm sm:text-base ${
+                  !fieldStatus.date?.isValid && isBlurred.date ? 'ring-2 ring-red-400' : ''
+                }`}
                 required
               />
               {errors.date && (
@@ -168,22 +182,27 @@ const ApplicationForm: React.FC = () => {
                   type="url"
                   id="url"
                   value={formData.url}
-                  onChange={(e) => handleFieldChange('url', e.target.value)}
+                  onChange={e => handleFieldChange('url', e.target.value)}
                   onBlur={() => handleFieldBlur('url')}
-                  className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${!fieldStatus.url?.isValid && isBlurred.url ? 'ring-2 ring-red-400' : ''}`}
+                  className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 text-sm sm:text-base ${
+                    !fieldStatus.url?.isValid && isBlurred.url ? 'ring-2 ring-red-400' : ''
+                  }`}
                   placeholder={translate('dashboard.referenceUrlPlaceholder')}
                 />
               </FieldWrapper>
             </div>
 
             <div className="lg:col-span-2 space-y-1">
-              <label htmlFor="notes" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+              <label
+                htmlFor="notes"
+                className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow"
+              >
                 {translate('notes')}
               </label>
               <textarea
                 id="notes"
                 value={formData.notes}
-                onChange={(e) => handleFieldChange('notes', e.target.value)}
+                onChange={e => handleFieldChange('notes', e.target.value)}
                 rows={3}
                 className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
                 placeholder={translate('dashboard.notesPlaceholder')}
@@ -191,14 +210,17 @@ const ApplicationForm: React.FC = () => {
             </div>
 
             <div className="col-span-1 lg:col-span-2 space-y-1">
-              <label htmlFor="recruiterContact" className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow">
+              <label
+                htmlFor="recruiterContact"
+                className="block text-sm sm:text-base font-semibold text-gray-700 dark:text-white mb-1 drop-shadow"
+              >
                 {translate('recruiterContact')}
               </label>
               <input
                 type="text"
                 id="recruiterContact"
                 value={formData.recruiterContact}
-                onChange={(e) => handleFieldChange('recruiterContact', e.target.value)}
+                onChange={e => handleFieldChange('recruiterContact', e.target.value)}
                 placeholder={translate('dashboard.recruiterContactPlaceholder')}
                 className="w-full bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 border-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-blue-100/60 shadow-inner appearance-none text-sm sm:text-base"
               />
@@ -211,8 +233,8 @@ const ApplicationForm: React.FC = () => {
               <PostulationStatusForm
                 sentCV={formData.sentCV || false}
                 sentEmail={formData.sentEmail || false}
-                onSendCvChange={(checked) => handleFieldChange('sentCV', checked)}
-                onSendEmailChange={(checked) => handleFieldChange('sentEmail', checked)}
+                onSendCvChange={checked => handleFieldChange('sentCV', checked)}
+                onSendEmailChange={checked => handleFieldChange('sentEmail', checked)}
                 translate={translate}
               />
             </div>
@@ -225,9 +247,7 @@ const ApplicationForm: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
             >
-              <p className="text-red-600 dark:text-red-400 text-sm font-medium">
-                {errors.general}
-              </p>
+              <p className="text-red-600 dark:text-red-400 text-sm font-medium">{errors.general}</p>
             </motion.div>
           )}
 
