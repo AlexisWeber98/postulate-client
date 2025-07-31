@@ -15,7 +15,7 @@ export const getStatusLabel = (status: string): string => {
     technical: 'Prueba Técnica',
     offer: 'Oferta',
     rejected: 'Rechazado',
-    accepted: 'Aceptado'
+    accepted: 'Aceptado',
   };
   return statusLabels[status] || status;
 };
@@ -32,7 +32,7 @@ export const getStatusBackgroundColor = (status: string): string => {
     technical: 'bg-orange-100',
     offer: 'bg-teal-100',
     rejected: 'bg-red-100',
-    accepted: 'bg-green-100'
+    accepted: 'bg-green-100',
   };
   return statusColors[status] || 'bg-gray-100';
 };
@@ -49,7 +49,7 @@ export const getStatusTextColor = (status: string): string => {
     technical: 'text-orange-700',
     offer: 'text-teal-700',
     rejected: 'text-red-700',
-    accepted: 'text-green-700'
+    accepted: 'text-green-700',
   };
   return statusTextColors[status] || 'text-gray-700';
 };

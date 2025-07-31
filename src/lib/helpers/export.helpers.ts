@@ -22,6 +22,6 @@ export const createExportsWithAlias = (modules: Record<string, unknown>) => {
     ...Object.entries(modules).reduce((acc, [key, value]) => {
       acc[`${key}Module`] = value;
       return acc;
-    }, {} as Record<string, unknown>)
+    }, {} as Record<string, unknown>),
   };
 };
