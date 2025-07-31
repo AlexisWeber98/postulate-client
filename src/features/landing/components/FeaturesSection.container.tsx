@@ -1,8 +1,8 @@
-import React from "react"
-import { CheckCircle2, BarChart2, Search } from "lucide-react"
+import React from 'react';
+import { CheckCircle2, BarChart2, Search } from 'lucide-react';
 import { TranslationKey } from '../../../i18n/types';
-import { FeatureCard } from "../../../types/components/cards/FeatureCard.interface";
-import ThreeCardFocusCarousel from "../../../shared/components/ThreeCardFocusCarousel";
+import { FeatureCard } from '../../../types/components/cards/FeatureCard.interface';
+import ThreeCardFocusCarousel from '../../../shared/components/ThreeCardFocusCarousel';
 
 interface FeaturesSectionProps {
   translate: (key: TranslationKey) => string;
@@ -37,10 +37,11 @@ const FeaturesSectionContainer: React.FC<FeaturesSectionProps> = ({ translate })
       title: translate('card3.title'),
       desc: translate('card3.desc'),
     },
-  ]
-  const sectionTitle = translate('features.title') && translate('features.title') !== 'features.title'
-    ? translate('features.title')
-    : translate('landing.features.altTitle' as TranslationKey)
+  ];
+  const sectionTitle =
+    translate('features.title') && translate('features.title') !== 'features.title'
+      ? translate('features.title')
+      : translate('landing.features.altTitle' as TranslationKey);
   return (
     <section className="py-12 md:py-20 flex flex-col items-center px-4 sm:px-6 md:px-8">
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
@@ -53,7 +54,7 @@ const FeaturesSectionContainer: React.FC<FeaturesSectionProps> = ({ translate })
         cardHeight={300}
       />
     </section>
-  )
-}
+  );
+};
 
-export default FeaturesSectionContainer
+export default FeaturesSectionContainer;

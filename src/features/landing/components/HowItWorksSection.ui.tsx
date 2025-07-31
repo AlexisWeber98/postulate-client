@@ -15,19 +15,22 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ translate }) => {
       icon: <UserPlus className="w-8 h-8" />,
       title: translate('landing.howItWorks.step1.title'),
       description: translate('landing.howItWorks.step1.description'),
-      image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80',
+      image:
+        'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80',
     },
     {
       icon: <ClipboardList className="w-8 h-8" />,
       title: translate('landing.howItWorks.step2.title'),
       description: translate('landing.howItWorks.step2.description'),
-      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80',
+      image:
+        'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80',
     },
     {
       icon: <BarChart2 className="w-8 h-8" />,
       title: translate('landing.howItWorks.step3.title'),
       description: translate('landing.howItWorks.step3.description'),
-      image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80',
+      image:
+        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80',
     },
   ];
 
@@ -39,8 +42,14 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ translate }) => {
       <div className="w-full max-w-6xl mx-auto px-2 lg:px-0">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
           {steps.map((step, idx) => (
-            <Box key={idx} className="w-full shadow-2xl rounded-3xl bg-gradient-to-r from-blue-600 to-violet-600 text-white p-0 flex flex-col items-center text-center transition-transform hover:-translate-y-1">
-              <Card size="2" style={{ background: 'transparent', boxShadow: 'none', width: '100%' }}>
+            <Box
+              key={idx}
+              className="w-full shadow-2xl rounded-3xl bg-gradient-to-r from-blue-600 to-violet-600 text-white p-0 flex flex-col items-center text-center transition-transform hover:-translate-y-1"
+            >
+              <Card
+                size="2"
+                style={{ background: 'transparent', boxShadow: 'none', width: '100%' }}
+              >
                 <div className="relative">
                   <Inset clip="padding-box" side="top" pb="current">
                     <img
@@ -68,8 +77,21 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ translate }) => {
                   </Inset>
                 </div>
                 <div className="flex flex-col items-center px-3 sm:px-4 pb-6 sm:pb-8 pt-4 sm:pt-6">
-                  <Text as="div" size="5" className="font-semibold text-gray-100 mb-3 sm:mb-4 drop-shadow-sm">{step.title}</Text>
-                  <Text as="p" size="3" className="text-gray-100 drop-shadow-sm" style={{paddingBottom: '0.5rem'}}>{step.description}</Text>
+                  <Text
+                    as="div"
+                    size="5"
+                    className="font-semibold text-gray-100 mb-3 sm:mb-4 drop-shadow-sm"
+                  >
+                    {step.title}
+                  </Text>
+                  <Text
+                    as="p"
+                    size="3"
+                    className="text-gray-100 drop-shadow-sm"
+                    style={{ paddingBottom: '0.5rem' }}
+                  >
+                    {step.description}
+                  </Text>
                 </div>
               </Card>
             </Box>

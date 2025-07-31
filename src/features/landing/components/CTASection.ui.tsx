@@ -7,11 +7,10 @@ interface CTASectionExtendedProps extends CTASectionProps {
   onJoinWaitlist: () => void;
 }
 
-const CTASection: React.FC<CTASectionExtendedProps> = ({translate, onJoinWaitlist}) => {
-
+const CTASection: React.FC<CTASectionExtendedProps> = ({ translate, onJoinWaitlist }) => {
   const fadeInUpVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    visible: { opacity: 1, y: 0 },
   };
 
   return (
@@ -19,7 +18,10 @@ const CTASection: React.FC<CTASectionExtendedProps> = ({translate, onJoinWaitlis
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url(${import.meta.env.VITE_CTA_BACKGROUND_IMAGE || 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop'})`
+          backgroundImage: `url(${
+            import.meta.env.VITE_CTA_BACKGROUND_IMAGE ||
+            'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop'
+          })`,
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
@@ -33,16 +35,16 @@ const CTASection: React.FC<CTASectionExtendedProps> = ({translate, onJoinWaitlis
           viewport={{ once: true }}
           className="mt-8 sm:mt-12 md:mt-16 text-center mb-8 sm:mb-12 md:mb-16 lg:mb-32"
         >
-<motion.h3
-  variants={fadeInUpVariants}
-  initial="hidden"
-  whileInView="visible"
-  transition={{ duration: 0.8, delay: 0.2 }}
-  viewport={{ once: true }}
-  className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-center mb-8 sm:mb-10 md:mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-lg"
->
-  {translate('landing.cta.title')}
-</motion.h3>
+          <motion.h3
+            variants={fadeInUpVariants}
+            initial="hidden"
+            whileInView="visible"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-center mb-8 sm:mb-10 md:mb-14 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-lg"
+          >
+            {translate('landing.cta.title')}
+          </motion.h3>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -65,11 +67,14 @@ const CTASection: React.FC<CTASectionExtendedProps> = ({translate, onJoinWaitlis
               aria-label="Únete a nuestra lista de espera"
               style={{
                 boxShadow: '0 4px 24px 0 rgba(80, 112, 255, 0.15)',
-                backdropFilter: 'blur(8px)'
+                backdropFilter: 'blur(8px)',
               }}
             >
               Únete a nuestra lista de espera
-              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-white transform transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+              <ArrowRight
+                className="h-4 w-4 sm:h-5 sm:w-5 text-white transform transition-transform duration-300 group-hover:translate-x-1"
+                aria-hidden="true"
+              />
             </button>
           </motion.div>
         </motion.div>
