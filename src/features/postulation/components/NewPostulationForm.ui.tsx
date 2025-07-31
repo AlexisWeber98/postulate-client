@@ -45,13 +45,11 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   loading,
   error,
 }) => {
-
   const translate = useLanguageStore(state => state.translate);
   const [isOpen, setIsOpen] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
   const handleSelectChange = (status: PostulationStatus) => {
-
     onStatusChange(status);
     setIsOpen(false);
   };
@@ -83,17 +81,14 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-
     onChange(e);
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
     onCheckboxChange(e);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
-
     onSubmit(e);
   };
 
@@ -161,7 +156,9 @@ const NewPostulationFormUI: React.FC<UIProps> = ({
                 {values.status ? STATUS_LABELS[values.status] : translate('selectStatus')}
               </span>
               <ChevronDown
-                className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform ${
+                  isOpen ? 'rotate-180' : ''
+                }`}
               />
             </button>
             {isOpen && (
