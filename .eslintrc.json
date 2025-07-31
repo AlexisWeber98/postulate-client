@@ -20,12 +20,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "sonarjs",
-    "import"
-  ],
+  "plugins": ["react", "@typescript-eslint", "sonarjs", "import"],
   "rules": {
     "@typescript-eslint/no-unused-expressions": "off",
     "sonarjs/cognitive-complexity": ["error", 15],
@@ -35,14 +30,7 @@
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ],
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc",

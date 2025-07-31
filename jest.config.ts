@@ -5,11 +5,11 @@ const config: Config = {
   testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-    '\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   transform: {
-    '^.+\.(ts|tsx)$': 'ts-jest',
+    '^.+.(ts|tsx)$': 'ts-jest',
   },
 };
 

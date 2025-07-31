@@ -17,7 +17,7 @@ dist
 *.sln
 *.sw?
 bun.lock
-package-lock.json
+package-lock.jsonZ
 
 .cursor*
 
