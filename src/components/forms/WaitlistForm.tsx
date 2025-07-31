@@ -47,7 +47,12 @@ const WaitlistForm: React.FC<WaitlistFormProps> = ({ onClose }) => {
       onSubmit={handleSubmit}
       className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-6 relative max-w-lg w-full mx-4 flex flex-col items-center gap-4"
     >
-      <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-white text-2xl font-bold">&times;</button>
+      <button
+        onClick={onClose}
+        className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-white text-2xl font-bold"
+      >
+        &times;
+      </button>
       <h4 className="text-2xl font-bold text-gray-800 dark:text-white mb-2 text-center">
         {translate('waitlist.title')}
       </h4>
