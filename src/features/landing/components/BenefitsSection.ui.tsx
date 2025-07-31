@@ -52,7 +52,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
   };
 
   return (
@@ -76,8 +76,12 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
               <BarChart2 className="w-8 h-8" />
             </div>
             <div>
-              <h3 className="text-2xl font-extrabold text-gray-900">{translate('landing.benefits.withPostulate.title')}</h3>
-              <span className="text-indigo-600 font-semibold text-base leading-tight">{translate('landing.benefits.withPostulate.subtitle')}</span>
+              <h3 className="text-2xl font-extrabold text-gray-900">
+                {translate('landing.benefits.withPostulate.title')}
+              </h3>
+              <span className="text-indigo-600 font-semibold text-base leading-tight">
+                {translate('landing.benefits.withPostulate.subtitle')}
+              </span>
             </div>
           </div>
           <ul className="flex flex-col gap-5 mt-2">
@@ -85,7 +89,9 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
               <li key={idx} className="flex items-start gap-4">
                 <div className="bg-indigo-100 rounded-lg p-2 mt-1">{item.icon}</div>
                 <div>
-                  <div className="font-medium text-gray-900 text-base leading-tight">{item.title}</div>
+                  <div className="font-medium text-gray-900 text-base leading-tight">
+                    {item.title}
+                  </div>
                   <div className="text-indigo-500 text-sm font-semibold mt-1">{item.subtitle}</div>
                 </div>
               </li>
@@ -94,13 +100,24 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
           <div className="mt-6">
             <div className="flex items-center justify-between mb-1">
               <span className="text-indigo-700 font-semibold text-sm flex items-center gap-1">
-                <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01" /></svg>
+                <svg
+                  className="w-4 h-4 text-indigo-500"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M13 16h-1v-4h-1m1-4h.01" />
+                </svg>
                 {translate('landing.benefits.withPostulate.effectiveness')}
               </span>
               <span className="text-indigo-700 font-bold text-lg">95%</span>
             </div>
             <div className="w-full h-3 bg-indigo-100 rounded-full overflow-hidden">
-              <div className="h-3 bg-indigo-500 rounded-full transition-all duration-500" style={{ width: '95%' }} />
+              <div
+                className="h-3 bg-indigo-500 rounded-full transition-all duration-500"
+                style={{ width: '95%' }}
+              />
             </div>
           </div>
         </motion.div>
@@ -117,8 +134,12 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
               <XCircle className="w-8 h-8" />
             </div>
             <div>
-              <h3 className="text-2xl font-extrabold text-gray-900">{translate('landing.benefits.withoutPostulate.title')}</h3>
-              <span className="text-rose-500 font-semibold text-base leading-tight">{translate('landing.benefits.withoutPostulate.subtitle')}</span>
+              <h3 className="text-2xl font-extrabold text-gray-900">
+                {translate('landing.benefits.withoutPostulate.title')}
+              </h3>
+              <span className="text-rose-500 font-semibold text-base leading-tight">
+                {translate('landing.benefits.withoutPostulate.subtitle')}
+              </span>
             </div>
           </div>
           <ul className="flex flex-col gap-5 mt-2">
@@ -126,7 +147,9 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
               <li key={idx} className="flex items-start gap-4">
                 <div className="bg-rose-100 rounded-lg p-2 mt-1">{item.icon}</div>
                 <div>
-                  <div className="font-medium text-gray-900 text-base leading-tight">{item.title}</div>
+                  <div className="font-medium text-gray-900 text-base leading-tight">
+                    {item.title}
+                  </div>
                   <div className="text-rose-500 text-sm font-semibold mt-1">{item.subtitle}</div>
                 </div>
               </li>
@@ -135,17 +158,28 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ translate }) => {
           <div className="mt-6">
             <div className="flex items-center justify-between mb-1">
               <span className="text-rose-600 font-semibold text-sm flex items-center gap-1">
-                <svg className="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01" /></svg>
+                <svg
+                  className="w-4 h-4 text-rose-500"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M13 16h-1v-4h-1m1-4h.01" />
+                </svg>
                 {translate('landing.benefits.withoutPostulate.disorder')}
               </span>
               <span className="text-rose-600 font-bold text-lg">30%</span>
             </div>
             <div className="w-full h-3 bg-rose-100 rounded-full overflow-hidden">
-              <div className="h-3 bg-rose-500 rounded-full transition-all duration-500" style={{ width: '30%' }} />
+              <div
+                className="h-3 bg-rose-500 rounded-full transition-all duration-500"
+                style={{ width: '30%' }}
+              />
             </div>
           </div>
         </motion.div>
-   </div>
+      </div>
     </section>
   );
 };
