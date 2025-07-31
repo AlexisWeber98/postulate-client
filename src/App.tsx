@@ -34,7 +34,6 @@ const App: React.FC = () => {
   const { user, initialize } = useAuthStore();
   const { theme } = useThemeStore();
 
-
   // Inicializar el store de autenticación al cargar la app
   useEffect(() => {
     initialize();
@@ -47,10 +46,11 @@ const App: React.FC = () => {
     root.classList.add(theme);
   }, [theme]);
 
-
-
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200" role="main">
+    <main
+      className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200"
+      role="main"
+    >
       <Toaster position="top-right" />
       <Router>
         <AuthRedirect />
@@ -59,21 +59,30 @@ const App: React.FC = () => {
             <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
             <Route path="/landing" element={<Landing />} />
             <Route element={<AuthLayout />}>
-              <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
-              <Route path="/register" element={user ? <Navigate to="/dashboard" replace /> : <Register />} />
+              <Route
+                path="/login"
+                element={user ? <Navigate to="/dashboard" replace /> : <Login />}
+              />
+              <Route
+                path="/register"
+                element={user ? <Navigate to="/dashboard" replace /> : <Register />}
+              />
             </Route>
-            <Route path="/dashboard" element={
-              <PrivateRoute>
-                <Layout />
-              </PrivateRoute>
-            }>
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Layout />
+                </PrivateRoute>
+              }
+            >
               <Route index element={<Dashboard />} />
               <Route path="add" element={<ApplicationForm />} />
               <Route path="edit/:id" element={<ApplicationForm />} />
               <Route path="profile" element={<EditProfile />} />
               <Route path="ia-response" element={<IAResponseGenerator />} />
             </Route>
-            <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />
+            <Route path="*" element={<Navigate to={user ? '/dashboard' : '/'} replace />} />
           </Routes>
         </Suspense>
       </Router>
