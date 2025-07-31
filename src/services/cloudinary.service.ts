@@ -1,4 +1,8 @@
-import { CLOUDINARY_CONFIG, CLOUDINARY_UPLOAD_URL, CLOUDINARY_DEFAULTS } from '../config/cloudinary.config';
+import {
+  CLOUDINARY_CONFIG,
+  CLOUDINARY_UPLOAD_URL,
+  CLOUDINARY_DEFAULTS,
+} from '../config/cloudinary.config';
 import { compressImage } from '../lib/helpers/image.helpers';
 
 export class CloudinaryService {
@@ -20,8 +24,6 @@ export class CloudinaryService {
         formData.append(key, value.toString());
       });
 
-
-
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 segundos de timeout
 
@@ -29,7 +31,7 @@ export class CloudinaryService {
         const response = await fetch(CLOUDINARY_UPLOAD_URL, {
           method: 'POST',
           body: formData,
-          signal: controller.signal
+          signal: controller.signal,
         });
 
         clearTimeout(timeoutId);
@@ -39,7 +41,7 @@ export class CloudinaryService {
           console.error('Cloudinary Upload Error:', {
             status: response.status,
             statusText: response.statusText,
-            errorData
+            errorData,
           });
 
           if (response.status === 401) {
