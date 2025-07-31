@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { X } from 'lucide-react';
 
@@ -23,23 +22,23 @@ const ActionModal: React.FC<ActionModalProps> = ({
   confirmText = 'Confirmar',
   cancelText = 'Cancelar',
   variant = 'default',
-  icon
+  icon,
 }) => {
   if (!isOpen) return null;
 
   const variantStyles = {
     default: {
       confirm: 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',
-      icon: 'text-blue-400'
+      icon: 'text-blue-400',
     },
     warning: {
       confirm: 'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500',
-      icon: 'text-yellow-400'
+      icon: 'text-yellow-400',
     },
     danger: {
       confirm: 'bg-red-600 hover:bg-red-700 focus:ring-red-500',
-      icon: 'text-red-400'
-    }
+      icon: 'text-red-400',
+    },
   };
 
   const styles = variantStyles[variant];
@@ -47,7 +46,10 @@ const ActionModal: React.FC<ActionModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex min-h-screen items-center justify-center p-4 text-center sm:p-0">
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={onClose} />
+        <div
+          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+          onClick={onClose}
+        />
 
         <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
           <div className="absolute right-0 top-0 pr-4 pt-4">
@@ -63,7 +65,9 @@ const ActionModal: React.FC<ActionModalProps> = ({
 
           <div className="sm:flex sm:items-start">
             {icon && (
-              <div className={`mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10 ${styles.icon}`}>
+              <div
+                className={`mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10 ${styles.icon}`}
+              >
                 {icon}
               </div>
             )}
