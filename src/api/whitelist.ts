@@ -1,21 +1,5 @@
 import { httpClient } from './client';
-
-interface WhitelistRequest {
-  email: string;
-}
-
-interface WhitelistData {
-  id: string;
-  email: string;
-  registeredAt: string;
-}
-
-interface WhitelistResponse {
-  statusResponse: string;
-  result: {
-    data: WhitelistData;
-  };
-}
+import { WhitelistRequest, WhitelistResponse } from '../interfaces/whitelist.interface';
 
 export const whitelistApi = {
   addEmailToWhitelist: (data: WhitelistRequest) =>
