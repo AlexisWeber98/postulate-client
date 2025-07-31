@@ -19,7 +19,8 @@ export const en = {
   'hero.track': 'track',
   'hero.optimize': 'optimize',
   'hero.cta.button': 'Get Started',
-  'hero.description': 'Postulate is the ultimate platform that helps you manage all your job applications in one place. With Postulate, organise your job search efficiently and find your next role.',
+  'hero.description':
+    'Postulate is the ultimate platform that helps you manage all your job applications in one place. With Postulate, organise your job search efficiently and find your next role.',
 
   // Auth
   'auth.createAccount': 'Create your account',
@@ -270,7 +271,8 @@ export const en = {
   'ia.step1.title': 'Step 1: Enter the job offer',
   'ia.step1.subtitle': 'Enter a link or upload an image of the job offer',
   'ia.tip.title': 'Pro tip',
-  'ia.tip.text': 'For best results, make sure the job offer contains detailed information about requirements and responsibilities.',
+  'ia.tip.text':
+    'For best results, make sure the job offer contains detailed information about requirements and responsibilities.',
   'ia.tab.link': 'Link',
   'ia.tab.image': 'Image',
   'ia.link.help': 'Enter the full link to the job offer (LinkedIn, Indeed, etc.)',
@@ -308,7 +310,8 @@ export const en = {
   'ia.tone.informal': 'Informal',
   'ia.tone.creativo': 'Creative',
   'ia.header.title': 'AI Response Generation',
-  'ia.header.subtitle': 'Generate personalized responses for your job applications with the power of artificial intelligence',
+  'ia.header.subtitle':
+    'Generate personalized responses for your job applications with the power of artificial intelligence',
 
   // Checkboxes
   'checkboxes.sentCV': 'CV Sent',
@@ -330,7 +333,7 @@ export const en = {
   'landing.benefits.withoutPostulate.title2': 'Scattered information',
   'landing.benefits.withoutPostulate.subtitle2': 'Data in multiple platforms',
   'landing.benefits.withoutPostulate.title3': 'Missed opportunities',
-  'landing.benefits.withoutPostulate.subtitle3': 'You can\'t find what you need',
+  'landing.benefits.withoutPostulate.subtitle3': "You can't find what you need",
   'landing.benefits.withoutPostulate.disorder': 'Disorder',
 
   // Tooltips
@@ -371,7 +374,8 @@ export const en = {
   'waitlist.error': 'There was an error sending your email. Please try again.',
   'waitlist.submit': 'Join the waitlist',
   'waitlist.sending': 'Sending...',
-  'waitlist.disclaimer': 'We will only contact you to inform you about the launch and important updates. No spam!',
+  'waitlist.disclaimer':
+    'We will only contact you to inform you about the launch and important updates. No spam!',
 
   // Profile tabs
   'profile.tabs.personal': 'Personal Information',
@@ -380,8 +384,10 @@ export const en = {
 
   // Profile tips
   'profile.tips.professional.title': 'Pro tip',
-  'profile.tips.account.description': 'Use a professional email and username that reflects your professional identity.',
-  'profile.tips.documents.description': 'Make sure your documents are up to date and in standard formats like PDF for better compatibility.',
+  'profile.tips.account.description':
+    'Use a professional email and username that reflects your professional identity.',
+  'profile.tips.documents.description':
+    'Make sure your documents are up to date and in standard formats like PDF for better compatibility.',
 
   // Profile fields
   'profile.fields.userName': 'Username',
@@ -399,5 +405,6 @@ export const en = {
   'profile.documents.other.button': 'Upload Documents',
 
   // Profile tips for different sections
-  'profile.tips.personal.description': 'For better results, make sure to complete all your personal information with accurate and up-to-date details.',
+  'profile.tips.personal.description':
+    'For better results, make sure to complete all your personal information with accurate and up-to-date details.',
 } as const;

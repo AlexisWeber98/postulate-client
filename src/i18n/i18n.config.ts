@@ -8,21 +8,18 @@ import type { InitOptions } from 'i18next';
 const config: InitOptions = {
   resources: {
     es: {
-      translation: es
+      translation: es,
     },
     en: {
-      translation: en
-    }
+      translation: en,
+    },
   },
   fallbackLng: 'es',
   interpolation: {
-    escapeValue: false
-  }
+    escapeValue: false,
+  },
 };
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init(config);
+i18n.use(LanguageDetector).use(initReactI18next).init(config);
 
 export default i18n;
