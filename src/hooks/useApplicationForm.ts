@@ -6,7 +6,6 @@ import { DateHelpers } from '../lib/helpers';
 import { z } from 'zod';
 import { newPostulationSchema } from '../features/postulation/domain/validation';
 
-
 type FormData = z.infer<typeof newPostulationSchema>;
 
 interface UseApplicationFormReturn {
@@ -58,7 +57,7 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     const newFieldStatus: Record<string, { isValid: boolean; message?: string }> = {};
 
     if (!result.success) {
-      result.error.errors.forEach((err) => {
+      result.error.errors.forEach(err => {
         const fieldName = err.path[0] as keyof FormData;
         newErrors[fieldName] = err.message;
         newFieldStatus[fieldName] = { isValid: false, message: err.message };
@@ -66,7 +65,7 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     }
 
     // Set valid status for fields that are not in newErrors
-    Object.keys(formData).forEach((key) => {
+    Object.keys(formData).forEach(key => {
       if (!newErrors[key]) {
         newFieldStatus[key] = { isValid: true };
       }
@@ -80,48 +79,60 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
 
   const handleFieldChange = useCallback(
     (name: keyof FormData, value: string | boolean) => {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+      setFormData(prev => ({ ...prev, [name]: value }));
       // Re-validate the specific field immediately
       const fieldValidation = newPostulationSchema.safeParse({ ...formData, [name]: value });
       if (fieldValidation.success) {
-        setFieldStatus((prev) => ({ ...prev, [name]: { isValid: true } }));
-        setErrors((prev) => {
+        setFieldStatus(prev => ({ ...prev, [name]: { isValid: true } }));
+        setErrors(prev => {
           const newErrors = { ...prev };
           delete newErrors[name];
           return newErrors;
         });
       } else {
-        const errorForField = fieldValidation.error.errors.find((err) => err.path[0] === name);
+        const errorForField = fieldValidation.error.errors.find(err => err.path[0] === name);
         if (errorForField) {
-          setFieldStatus((prev) => ({
+          setFieldStatus(prev => ({
             ...prev,
             [name]: { isValid: false, message: errorForField.message },
           }));
-          setErrors((prev) => ({ ...prev, [name]: errorForField.message }));
+          setErrors(prev => ({ ...prev, [name]: errorForField.message }));
         }
       }
     },
     [formData]
   );
 
-  const handleFieldBlur = useCallback((name: keyof FormData) => {
-    setIsBlurred((prev) => ({ ...prev, [name]: true }));
-    // Trigger full form validation on blur to update all field statuses
-    validateForm();
-  }, [validateForm]);
+  const handleFieldBlur = useCallback(
+    (name: keyof FormData) => {
+      setIsBlurred(prev => ({ ...prev, [name]: true }));
+      // Trigger full form validation on blur to update all field statuses
+      validateForm();
+    },
+    [validateForm]
+  );
 
   useEffect(() => {
     // Initial validation when component mounts or formData changes (e.g., on edit load)
     validateForm();
   }, [formData.company, formData.position, formData.date, formData.url, validateForm]);
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     // Forzar que todos los campos se marquen como "blurred" para mostrar errores
-    const allFields = ['company', 'position', 'status', 'date', 'url', 'notes', 'recruiterContact', 'sentCV', 'sentEmail'] as const;
+    const allFields = [
+      'company',
+      'position',
+      'status',
+      'date',
+      'url',
+      'notes',
+      'recruiterContact',
+      'sentCV',
+      'sentEmail',
+    ] as const;
     setIsBlurred(prev => {
       const newBlurred = { ...prev };
       allFields.forEach(field => {
@@ -135,7 +146,7 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
       // Agregar un error general para que el usuario sepa que hay problemas
       setErrors(prev => ({
         ...prev,
-        general: 'Por favor, completa todos los campos obligatorios marcados con *'
+        general: 'Por favor, completa todos los campos obligatorios marcados con *',
       }));
       return;
     }
@@ -221,12 +232,7 @@ export const useApplicationForm = (): UseApplicationFormReturn => {
     });
     setIsSubmitting(false);
     navigate('/');
-  }, [
-    formData,
-    addPostulation,
-    navigate,
-    user,
-  ]);
+  }, [formData, addPostulation, navigate, user]);
 
   return {
     formData,
