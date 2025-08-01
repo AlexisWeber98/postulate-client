@@ -50,8 +50,21 @@ const Landing: React.FC = () => {
           <div className="border-b border-white/70 mb-10" />
         </div>
 
-        <motion.div id="how-it-works" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="relative w-full py-12 sm:py-16 md:py-20">
-          <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&q=80)' }}>
+        <motion.div
+          id="how-it-works"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="relative w-full py-12 sm:py-16 md:py-20"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage:
+                'url(https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&q=80)',
+            }}
+          >
             <div className="absolute inset-0 bg-black/60" />
           </div>
           <div className="relative z-10 container mx-auto px-4 sm:px-8">
@@ -59,12 +72,32 @@ const Landing: React.FC = () => {
           </div>
         </motion.div>
 
-        <motion.div id="features" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }} className="container mx-auto px-4 sm:px-8">
+        <motion.div
+          id="features"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="container mx-auto px-4 sm:px-8"
+        >
           <FeaturesSectionContainer translate={translate} />
         </motion.div>
 
-        <motion.div id="benefits" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="relative w-full py-12 sm:py-16 md:py-20">
-          <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=80)' }}>
+        <motion.div
+          id="benefits"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="relative w-full py-12 sm:py-16 md:py-20"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage:
+                'url(https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=80)',
+            }}
+          >
             <div className="absolute inset-0 bg-black/60" />
           </div>
           <div className="relative z-10 container mx-auto px-4 sm:px-8">
@@ -72,19 +105,29 @@ const Landing: React.FC = () => {
           </div>
         </motion.div>
 
-        <motion.div id="trust" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.3 }} className="container mx-auto px-4 sm:px-8">
+        <motion.div
+          id="trust"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="container mx-auto px-4 sm:px-8"
+        >
           <TrustSection translate={translate} />
         </motion.div>
 
-        <motion.div id="cta" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.4 }}>
+        <motion.div
+          id="cta"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+        >
           <CTASection translate={translate} onJoinWaitlist={handleOpenWaitlist} />
         </motion.div>
         {showWaitlistModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-6 relative max-w-lg w-full mx-4">
-              <button onClick={handleCloseWaitlist} className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-white text-2xl font-bold">&times;</button>
-              <WaitlistForm />
-            </div>
+            <WaitlistForm onClose={handleCloseWaitlist} />
           </div>
         )}
       </main>

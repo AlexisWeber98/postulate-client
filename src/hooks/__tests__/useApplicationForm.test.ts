@@ -210,4 +210,3 @@ describe('useApplicationForm', () => {
     expect(result.current.formData.status).toBe('applied');
   });
 });
-

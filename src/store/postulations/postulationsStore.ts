@@ -15,12 +15,8 @@ export const usePostulationsStore = create<PostulationState>()(
       addPostulation: async (
         newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>
       ) => {
-
-
         try {
           set({ loading: true });
-
-
 
           // Asegurarnos que la fecha está en el formato correcto
           const postulationData = {
@@ -76,8 +72,6 @@ export const usePostulationsStore = create<PostulationState>()(
       },
 
       updatePostulation: async (id: string, updatedFields: Partial<Postulation>) => {
-
-
         try {
           set({ loading: true });
 
@@ -92,10 +86,7 @@ export const usePostulationsStore = create<PostulationState>()(
             throw new Error(`Campos requeridos faltantes: ${missingFields.join(', ')}`);
           }
 
-
-
-           await postulationsApi.update(id, updatedFields);
-
+          await postulationsApi.update(id, updatedFields);
 
           // Obtener el token para el userId
           const token = useAuthStore.getState().token;
@@ -113,7 +104,6 @@ export const usePostulationsStore = create<PostulationState>()(
 
           // Actualizar el estado completo
           const allPostulationsResponse = await postulationsApi.getByUserId(userId);
-
 
           if (
             allPostulationsResponse?.result?.data &&
@@ -135,7 +125,6 @@ export const usePostulationsStore = create<PostulationState>()(
             set({ loading: false });
           }
         } catch (error) {
-
           if (axios.isAxiosError(error)) {
             console.error('📝 [PostulationsStore] Detalles del error:', {
               status: error.response?.status,
@@ -173,52 +162,49 @@ export const usePostulationsStore = create<PostulationState>()(
         }
       },
 
-   deletePostulation: async (id: string) => {
-  try {
-    set({ loading: true });
-    const postulationId = id;
+      deletePostulation: async (id: string) => {
+        try {
+          set({ loading: true });
+          const postulationId = id;
 
-    const getResponse = await postulationsApi.getById(postulationId);
+          const getResponse = await postulationsApi.getById(postulationId);
 
-    if (getResponse.status === 200 && getResponse.data?.result) {
+          if (getResponse.status === 200 && getResponse.data?.result) {
+            await postulationsApi.delete(postulationId);
 
-       await postulationsApi.delete(postulationId);
-
-      // Actualizar estado local
-      set((state: PostulationState) => ({
-        postulations: state.postulations.filter(p => p.id !== postulationId),
-        loading: false,
-      }));
-    } else {
-      console.warn("⚠️ No se encontró la postulación para eliminar.");
-      set({ loading: false });
-    }
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.status === 404) {
-        console.error("❌ Postulación no encontrada (404). Ya fue eliminada o el ID no es válido.");
-      } else {
-        console.error("❌ Error al intentar eliminar la postulación:", error.message);
-      }
-    } else {
-      console.error("❌ Error inesperado:", error);
-    }
-    set({ loading: false });
-  }
-},
+            // Actualizar estado local
+            set((state: PostulationState) => ({
+              postulations: state.postulations.filter(p => p.id !== postulationId),
+              loading: false,
+            }));
+          } else {
+            console.warn('⚠️ No se encontró la postulación para eliminar.');
+            set({ loading: false });
+          }
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            if (error.response?.status === 404) {
+              console.error(
+                '❌ Postulación no encontrada (404). Ya fue eliminada o el ID no es válido.'
+              );
+            } else {
+              console.error('❌ Error al intentar eliminar la postulación:', error.message);
+            }
+          } else {
+            console.error('❌ Error inesperado:', error);
+          }
+          set({ loading: false });
+        }
+      },
       getPostulation: (id: string) => {
-
         const postulation = get().postulations.find((app: Postulation) => app.id === id);
 
         return postulation;
       },
 
       checkDuplicate: (company: string, position: string) => {
-
-
         // Validar que los parámetros no sean undefined o vacíos
         if (!company || !position) {
-
           return false;
         }
 
@@ -232,7 +218,6 @@ export const usePostulationsStore = create<PostulationState>()(
       },
 
       getAllPostulations: async () => {
-
         try {
           const token = useAuthStore.getState().token;
 
@@ -257,7 +242,6 @@ export const usePostulationsStore = create<PostulationState>()(
 
           // Verificar que la respuesta tiene la estructura esperada
           if (response?.data?.result?.data && Array.isArray(response.data.result.data)) {
-
             set({
               postulations: response.data.result.data,
               loading: false,

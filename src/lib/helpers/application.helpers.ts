@@ -39,7 +39,12 @@ export const getUniqueSortedValues = (
           uniqueValues.add(String(value));
         } else {
           // Optionally handle other types or log a warning
-          console.warn(`⚠️ getUniqueSortedValues: Value for key '${String(key)}' is not a string, number, or boolean:`, value);
+          console.warn(
+            `⚠️ getUniqueSortedValues: Value for key '${String(
+              key
+            )}' is not a string, number, or boolean:`,
+            value
+          );
         }
       }
     });
@@ -79,7 +84,8 @@ export const filterApplications = (
     if (!app) return false;
 
     const searchTermLower = searchTerm.toLowerCase();
-    const searchMatch = searchTerm === '' ||
+    const searchMatch =
+      searchTerm === '' ||
       (app.company?.toLowerCase().includes(searchTermLower) ?? false) ||
       (app.position?.toLowerCase().includes(searchTermLower) ?? false) ||
       (app.description?.toLowerCase().includes(searchTermLower) ?? false);
@@ -111,11 +117,17 @@ export const paginateApplications = (
     return [];
   }
   if (typeof currentPage !== 'number' || currentPage < 1) {
-    console.warn(`⚠️ paginateApplications: currentPage must be a positive number. Received:`, currentPage);
+    console.warn(
+      `⚠️ paginateApplications: currentPage must be a positive number. Received:`,
+      currentPage
+    );
     return []; // Or handle as appropriate, e.g., default to page 1
   }
   if (typeof itemsPerPage !== 'number' || itemsPerPage <= 0) {
-    console.warn(`⚠️ paginateApplications: itemsPerPage must be a positive number. Received:`, itemsPerPage);
+    console.warn(
+      `⚠️ paginateApplications: itemsPerPage must be a positive number. Received:`,
+      itemsPerPage
+    );
     return []; // Or handle as appropriate, e.g., return all items or a default number
   }
 

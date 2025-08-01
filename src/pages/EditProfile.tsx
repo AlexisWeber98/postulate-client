@@ -3,7 +3,6 @@ import { useAuthStore } from '../store/auth/authStore';
 import { isValidEmail, hasContent } from '../lib/helpers/validation.helpers';
 import { motion } from 'framer-motion';
 import { useLanguageStore } from '../store';
-import Footer from '../components/organisms/Footer';
 import { CloudinaryService } from '../services/cloudinary.service';
 import PersonalInfo from '../components/organisms/PersonalInfo/PersonalInfo';
 import AccountDetails from '../components/organisms/Profile/AccountDetails';
@@ -131,7 +130,6 @@ const EditProfile: React.FC = () => {
     try {
       const imageUrl = await CloudinaryService.uploadImage(file);
       setPreviewUrl(imageUrl);
-
     } catch (error) {
       console.error('Error al subir la imagen:', error);
       if (error instanceof Error) {
@@ -165,7 +163,7 @@ const EditProfile: React.FC = () => {
         lastName,
         email,
         userName,
-        ...(previewUrl && { imageUrl: previewUrl })
+        ...(previewUrl && { imageUrl: previewUrl }),
       });
 
       setSuccess(true);
@@ -203,19 +201,31 @@ const EditProfile: React.FC = () => {
           {/* Tabs funcionales */}
           <div className="flex w-full max-w-2xl mb-6 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 shadow-lg">
             <button
-              className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'personal' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
+              className={`flex-1 py-3 text-center font-bold transition-all ${
+                activeTab === 'personal'
+                  ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner'
+                  : 'text-gray-400 bg-transparent'
+              }`}
               onClick={() => setActiveTab('personal')}
             >
               {translate('profile.tabs.personal')}
             </button>
             <button
-              className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'account' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
+              className={`flex-1 py-3 text-center font-bold transition-all ${
+                activeTab === 'account'
+                  ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner'
+                  : 'text-gray-400 bg-transparent'
+              }`}
               onClick={() => setActiveTab('account')}
             >
               {translate('profile.tabs.account')}
             </button>
             <button
-              className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'documents' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
+              className={`flex-1 py-3 text-center font-bold transition-all ${
+                activeTab === 'documents'
+                  ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner'
+                  : 'text-gray-400 bg-transparent'
+              }`}
               onClick={() => setActiveTab('documents')}
             >
               {translate('profile.tabs.documents')}
@@ -269,7 +279,6 @@ const EditProfile: React.FC = () => {
           </div>
         </div>
       </motion.div>
-      <Footer />
     </div>
   );
 };

@@ -6,7 +6,10 @@ import Footer from '../organisms/Footer';
 
 const Layout: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200" role="application">
+    <div
+      className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200"
+      role="application"
+    >
       <header role="banner" className="sticky top-0 z-50">
         <Navbar />
       </header>

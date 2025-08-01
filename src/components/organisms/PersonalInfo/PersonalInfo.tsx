@@ -67,12 +67,21 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
       <div className="flex items-center w-full max-w-2xl mb-8 p-4 rounded-xl bg-yellow-50 border-l-4 border-yellow-400 shadow gap-3">
         <span className="bg-yellow-400 text-white rounded-full p-2 flex items-center justify-center">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
         </span>
         <div>
-          <span className="font-bold text-yellow-800">{translate('profile.tips.professional.title')}</span>
-          <p className="text-yellow-700 text-sm">{translate('profile.tips.personal.description')}</p>
+          <span className="font-bold text-yellow-800">
+            {translate('profile.tips.professional.title')}
+          </span>
+          <p className="text-yellow-700 text-sm">
+            {translate('profile.tips.personal.description')}
+          </p>
         </div>
       </div>
 
@@ -114,10 +123,22 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
               className="mt-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg w-full max-w-xs"
             >
               <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
-                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="w-4 h-4 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
-                <p className="text-sm font-medium text-center">{translate(error as TranslationKey)}</p>
+                <p className="text-sm font-medium text-center">
+                  {translate(error as TranslationKey)}
+                </p>
               </div>
             </motion.div>
           )}
@@ -128,10 +149,22 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
               className="mt-2 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg w-full max-w-xs"
             >
               <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
-                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                <svg
+                  className="w-4 h-4 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
-                <p className="text-sm font-medium text-center">{translate('profile.success' as TranslationKey)}</p>
+                <p className="text-sm font-medium text-center">
+                  {translate('profile.success' as TranslationKey)}
+                </p>
               </div>
             </motion.div>
           )}

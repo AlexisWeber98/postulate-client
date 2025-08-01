@@ -4,7 +4,7 @@ import { Briefcase } from 'lucide-react';
 import { useLanguageStore } from '../../store';
 
 const Footer: React.FC = () => {
-  const translate  = useLanguageStore(state=> state.translate);
+  const translate = useLanguageStore(state => state.translate);
   const currentYear = new Date().getFullYear();
 
   return (
@@ -15,7 +15,9 @@ const Footer: React.FC = () => {
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-              <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">Postulate</span>
+              <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                Postulate
+              </span>
             </Link>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
               {translate('footer.description')}
@@ -24,15 +26,23 @@ const Footer: React.FC = () => {
 
           {/* Enlaces rápidos */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{translate('footer.quickLinks')}</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              {translate('footer.quickLinks')}
+            </h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/login" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                      {translate('footer.login')}
+                <Link
+                  to="/login"
+                  className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  {translate('footer.login')}
                 </Link>
               </li>
               <li>
-                <Link to="/register" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                <Link
+                  to="/register"
+                  className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
                   {translate('footer.register')}
                 </Link>
               </li>
@@ -41,14 +51,12 @@ const Footer: React.FC = () => {
 
           {/* Contacto */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{translate('footer.contact')}</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              {translate('footer.contact')}
+            </h3>
             <ul className="space-y-2">
-              <li className="text-gray-600 dark:text-gray-300">
-                {translate('footer.email')}
-              </li>
-              <li className="text-gray-600 dark:text-gray-300">
-                {translate('footer.phone')}
-              </li>
+              <li className="text-gray-600 dark:text-gray-300">{translate('footer.email')}</li>
+              <li className="text-gray-600 dark:text-gray-300">{translate('footer.phone')}</li>
             </ul>
           </div>
         </div>

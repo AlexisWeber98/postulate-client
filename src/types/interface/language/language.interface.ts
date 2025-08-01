@@ -18,6 +18,4 @@ type PlaceholderKeys<T extends string> = T extends `${string}{${infer K}}${infer
   : never;
 
 // Type to get the translation string for a given key
-type TranslationFor<K extends TranslationKey> =
-  K extends keyof typeof es ? (typeof es)[K]
-  : string;
+type TranslationFor<K extends TranslationKey> = K extends keyof typeof es ? (typeof es)[K] : string;

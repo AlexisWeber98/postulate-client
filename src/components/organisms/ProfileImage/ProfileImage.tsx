@@ -17,7 +17,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({
   isUploading,
   onImageUpload,
   onError,
-  userName
+  userName,
 }) => {
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

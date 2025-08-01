@@ -3,8 +3,6 @@ import { Eye, EyeOff } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { PasswordToggleProps } from '../../types/components/ui/PasswordToggle.interface';
 
-
-
 export const PasswordToggle = ({
   value,
   onChange,
@@ -38,7 +36,7 @@ export const PasswordToggle = ({
           id={name}
           type={showPassword ? 'text' : 'password'}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value)}
           placeholder={placeholder}
           name={name}
           required={required}
@@ -61,11 +59,7 @@ export const PasswordToggle = ({
             buttonClassName
           )}
         >
-          {showPassword ? (
-            <EyeOff className="w-5 h-5" />
-          ) : (
-            <Eye className="w-5 h-5" />
-          )}
+          {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
         </button>
       </div>
       {(error || helperText) && (

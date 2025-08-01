@@ -22,7 +22,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const translate = useLanguageStore(state=>state.translate);
+  const translate = useLanguageStore(state => state.translate);
 
   const { updatePostulation, deletePostulation } = usePostulationsStore();
 
@@ -55,7 +55,7 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
         sendCv: updatedApplication.sendCv,
         sendEmail: updatedApplication.sendEmail,
         recruiterContact: updatedApplication.recruiterContact,
-        userId: updatedApplication.userId
+        userId: updatedApplication.userId,
       };
 
       await postulationsApi.update(updatedApplication.id, updateData);
@@ -85,7 +85,9 @@ const ApplicationCardContainer: React.FC<ApplicationCardProps> = ({ application 
     } catch (error) {
       if (isAxiosError(error)) {
         const axiosError = error as import('axios').AxiosError<ErrorResponse>;
-        toast.error(axiosError.response?.data?.message || translate('dashboard.actions.deleteError'));
+        toast.error(
+          axiosError.response?.data?.message || translate('dashboard.actions.deleteError')
+        );
       } else {
         toast.error(translate('dashboard.actions.deleteError'));
       }

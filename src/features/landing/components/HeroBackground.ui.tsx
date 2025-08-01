@@ -16,7 +16,7 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({
   useEffect(() => {
     // Verificar si la imagen ya está en caché
     const img = new window.Image();
-    
+
     const handleLoad = () => {
       setImageLoaded(true);
       setImageError(false);
@@ -48,7 +48,7 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({
             className="hero-background absolute inset-0 bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
             style={{
               opacity: imageLoaded ? 0 : 1,
-              transition: 'opacity 0.3s ease-in-out'
+              transition: 'opacity 0.3s ease-in-out',
             }}
           />
           {/* Imagen real con prioridad de carga */}
@@ -58,14 +58,12 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({
               backgroundImage: `url(${imageUrl})`,
               opacity: imageLoaded ? 1 : 0,
               transition: 'opacity 0.3s ease-in-out',
-              willChange: 'opacity'
+              willChange: 'opacity',
             }}
           />
         </>
       )}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 };

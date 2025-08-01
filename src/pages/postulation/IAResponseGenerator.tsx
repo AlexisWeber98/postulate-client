@@ -1,3 +1,4 @@
+import { iaApi } from '../../api';
 import React from 'react';
 import { useLanguageStore } from '../../store/language/languageStore';
 import { Sparkles } from 'lucide-react';
@@ -5,8 +6,6 @@ import PasoOferta from '../../components/IAResponse/PasoOferta';
 import PasoTipoTono from '../../components/IAResponse/PasoTipoTono';
 import PasoGenerar from '../../components/IAResponse/PasoGenerar';
 import { useIAResponseGenerator } from '../../hooks/useIAResponseGenerator';
-
-const respuestaEjemplo = `PERFIL PROFESIONAL\nDesarrollador Frontend con más de 4 años de experiencia especializado en React, TypeScript y Next.js. Experto en la creación de interfaces de usuario intuitivas y componentes reutilizables. Sólidos conocimientos en sistemas de diseño y optimización de rendimiento web.\n\nHABILIDADES DESTACADAS\n• Desarrollo avanzado con React y TypeScript\n• Experiencia comprobada con Next.js\n• Implementación de sistemas de diseño\n• Optimización de interfaces de usuario\n• Control de versiones con Git\n• Metodologías ágiles`;
 
 const IAResponseGenerator: React.FC = () => {
   const { translate } = useLanguageStore();
@@ -38,14 +37,22 @@ const IAResponseGenerator: React.FC = () => {
   const progreso = [25, 60, 100][paso];
 
   return (
-    <div className={`min-h-screen w-full flex flex-col bg-gradient-to-br from-blue-50 via-violet-50 to-white dark:from-gray-900 dark:via-gray-950 dark:to-gray-900`}>
+    <div
+      className={`min-h-screen w-full flex flex-col bg-gradient-to-br from-blue-50 via-violet-50 to-white dark:from-gray-900 dark:via-gray-950 dark:to-gray-900`}
+    >
       {/* Contenido principal flexible */}
       <div className="flex-1 flex flex-col items-center justify-start w-full py-10 px-2">
         <div className="bg-gradient-to-r from-blue-500 to-violet-500 rounded-full p-4 mb-4 shadow-lg">
           <Sparkles className="text-white" size={40} />
         </div>
-        <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 text-transparent bg-clip-text mb-2 text-center">{'Generación de respuesta IA'}</h1>
-        <p className="text-lg text-gray-700 dark:text-gray-200 text-center max-w-xl mb-2">{'Genera respuestas personalizadas para tus postulaciones laborales con el poder de la inteligencia artificial'}</p>
+        <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-500 to-violet-500 text-transparent bg-clip-text mb-2 text-center">
+          {'Generación de respuesta IA'}
+        </h1>
+        <p className="text-lg text-gray-700 dark:text-gray-200 text-center max-w-xl mb-2">
+          {
+            'Genera respuestas personalizadas para tus postulaciones laborales con el poder de la inteligencia artificial'
+          }
+        </p>
         {/* Barra de progreso */}
         <div className="w-full max-w-xl flex flex-col items-center mt-2">
           <div className="flex justify-between w-full text-xs text-gray-500 dark:text-gray-300 mb-1">
@@ -77,12 +84,20 @@ const IAResponseGenerator: React.FC = () => {
             handleFileChange={handleFileChange}
             handleDrag={handleDrag}
             handleDrop={handleDrop}
-            onNext={() => {
+            onNext={async () => {
               setAnalizando(true);
-              setTimeout(() => {
-                setAnalizando(false);
+              try {
+                // Asumiendo que 'enlace' es el prompt para la IA
+                const response = await iaApi.generateResponse({ prompt: enlace });
+                setRespuesta(response.result.iaResponse.iaText);
                 setPaso(1);
-              }, 1200);
+              } catch (error) {
+                console.error('Error al generar respuesta de IA:', error);
+                // Aquí podrías mostrar un mensaje de error al usuario
+                alert('Error al generar respuesta de IA. Por favor, intenta de nuevo.');
+              } finally {
+                setAnalizando(false);
+              }
             }}
           />
         )}
@@ -101,7 +116,6 @@ const IAResponseGenerator: React.FC = () => {
           <PasoGenerar
             translate={translate as unknown as (...args: unknown[]) => string}
             respuesta={respuesta}
-            respuestaEjemplo={respuestaEjemplo}
             setRespuesta={setRespuesta}
             setLoading={setLoading}
             onBack={() => setPaso(0)}

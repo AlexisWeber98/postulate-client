@@ -50,7 +50,7 @@ export const useApplicationFilters = (initialApplications: Postulation[] = []) =
   const handleSetSearchTerm = (value: string) => {
     setSearchTerm(value);
     setCurrentPage(1); // Reset page when search term changes
-  }
+  };
 
   const companies = useMemo(
     () =>
@@ -81,12 +81,26 @@ export const useApplicationFilters = (initialApplications: Postulation[] = []) =
       if (!Array.isArray(initialApplications)) {
         return [];
       }
-      return filterApplications(initialApplications, searchTerm, statusFilter, companyFilter, positionFilter);
+      return filterApplications(
+        initialApplications,
+        searchTerm,
+        statusFilter,
+        companyFilter,
+        positionFilter
+      );
     } catch (err) {
       handleError(err as Error, translate('dashboard.errorFilterApplications'));
       return [];
     }
-  }, [initialApplications, searchTerm, statusFilter, companyFilter, positionFilter, handleError, translate]);
+  }, [
+    initialApplications,
+    searchTerm,
+    statusFilter,
+    companyFilter,
+    positionFilter,
+    handleError,
+    translate,
+  ]);
 
   const totalPages = useMemo(() => {
     return Math.ceil(filteredApplications.length / ITEMS_PER_PAGE);

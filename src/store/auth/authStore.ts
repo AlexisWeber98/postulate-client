@@ -1,9 +1,9 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { AuthState, User, ApiError } from "../../types/auth/auth.interface";
-import { jwtDecode, type JwtPayload } from "jwt-decode";
-import { authApi } from "../../api";
-import { AxiosError } from "axios";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { AuthState, User, ApiError } from '../../types/auth/auth.interface';
+import { jwtDecode, type JwtPayload } from 'jwt-decode';
+import { authApi } from '../../api';
+import { AxiosError } from 'axios';
 
 const isTokenExpired = (token: string): boolean => {
   try {
@@ -50,13 +50,13 @@ export const useAuthStore = create<AuthState>()(
               id: decoded.id,
               name: decoded.name,
               lastName: decoded.lastName || decoded.lastname,
-              userName: decoded.userName || decoded["username"] || decoded["user_name"],
+              userName: decoded.userName || decoded['username'] || decoded['user_name'],
               email: decoded.email,
             },
           });
           return true;
         } catch (error) {
-          console.error("Error al decodificar token:", error);
+          console.error('Error al decodificar token:', error);
           set({ isAuthenticated: false, user: null, token: null });
           return false;
         }
@@ -71,7 +71,6 @@ export const useAuthStore = create<AuthState>()(
           const token = response.result;
           const decoded = jwtDecode<JwtPayload & User>(token);
 
-
           set({
             token: token,
             loading: false,
@@ -80,14 +79,13 @@ export const useAuthStore = create<AuthState>()(
               id: decoded.id,
               name: decoded.name,
               lastName: decoded.lastName || decoded.lastname,
-              userName: decoded.userName || decoded["username"] || decoded["user_name"],
+              userName: decoded.userName || decoded['username'] || decoded['user_name'],
               email: decoded.email,
             },
           });
         } catch (error) {
           set({ loading: false });
-          console.error("Error en signIn:", error);
-
+          console.error('Error en signIn:', error);
 
           if (error instanceof AxiosError) {
             if (error.message.includes('timeout')) {
@@ -100,7 +98,7 @@ export const useAuthStore = create<AuthState>()(
               if (backendMessage) {
                 throw new Error(backendMessage);
               }
-              throw new Error("Credenciales incorrectas");
+              throw new Error('Credenciales incorrectas');
             }
 
             throw error;
@@ -109,15 +107,14 @@ export const useAuthStore = create<AuthState>()(
           const apiError = error as ApiError;
 
           if (apiError.response?.status === 401) {
-
             const backendMessage = getErrorMessage(apiError.response.data?.message);
             if (backendMessage) {
               throw new Error(backendMessage);
             }
-            throw new Error("Credenciales incorrectas");
+            throw new Error('Credenciales incorrectas');
           }
           throw new Error(
-            getErrorMessage(apiError.response?.data?.message) || "Error en la autenticación"
+            getErrorMessage(apiError.response?.data?.message) || 'Error en la autenticación'
           );
         }
       },
@@ -127,7 +124,7 @@ export const useAuthStore = create<AuthState>()(
         password: string,
         name: string,
         userName: string,
-        lastName: string,
+        lastName: string
       ) => {
         set({ loading: true });
 
@@ -147,30 +144,29 @@ export const useAuthStore = create<AuthState>()(
               id: user.id,
               name: user.name,
               email: user.email,
-              lastName: user.lastName || "",
-              userName: user.userName || "",
+              lastName: user.lastName || '',
+              userName: user.userName || '',
             },
             loading: false,
             token: null,
-            isAuthenticated: false
+            isAuthenticated: false,
           });
         } catch (error) {
           set({ loading: false });
-          console.error("Error en signUp:", error);
+          console.error('Error en signUp:', error);
           const apiError = error as ApiError;
           if (apiError.response?.status === 409) {
             throw new Error(
-              getErrorMessage(apiError.response.data.message) || "El usuario ya existe"
+              getErrorMessage(apiError.response.data.message) || 'El usuario ya existe'
             );
           }
           throw new Error(
-            getErrorMessage(apiError.response?.data?.message) || "Error en el registro"
+            getErrorMessage(apiError.response?.data?.message) || 'Error en el registro'
           );
         }
       },
 
       signOut: () => {
-
         set({
           user: null,
           token: null,
@@ -179,8 +175,13 @@ export const useAuthStore = create<AuthState>()(
         });
       },
 
-      updateUser: async (data: { name?: string; email?: string; lastName?: string; userName?: string; imageUrl?: string }) => {
-
+      updateUser: async (data: {
+        name?: string;
+        email?: string;
+        lastName?: string;
+        userName?: string;
+        imageUrl?: string;
+      }) => {
         try {
           const userId = get().user?.id;
           if (!userId) {
@@ -195,16 +196,16 @@ export const useAuthStore = create<AuthState>()(
 
           const response = await authApi.updateProfile(userId, dataToSend);
 
-          set((state) => ({
+          set(state => ({
             user: state.user ? { ...state.user, ...response.result.user } : null,
           }));
           return response;
         } catch (error) {
-          console.error("[updateUser] Error al actualizar usuario:", error);
+          console.error('[updateUser] Error al actualizar usuario:', error);
           if (error && typeof error === 'object' && 'response' in error) {
             // Mostrar el mensaje de error del backend si existe
             // @ts-expect-error: Backend response type is not fully defined
-            console.error("[updateUser] Detalle del error del backend:", error.response?.data);
+            console.error('[updateUser] Detalle del error del backend:', error.response?.data);
           }
           throw error;
         }
@@ -221,7 +222,7 @@ export const useAuthStore = create<AuthState>()(
               id: decoded.id,
               name: decoded.name,
               lastName: decoded.lastName || decoded.lastname,
-              userName: decoded.userName || decoded["username"] || decoded["user_name"],
+              userName: decoded.userName || decoded['username'] || decoded['user_name'],
               email: decoded.email,
             },
             loading: false,
@@ -229,12 +230,11 @@ export const useAuthStore = create<AuthState>()(
         } else {
           set({ loading: false });
         }
-
       },
     }),
     {
-      name: "auth-storage",
-      partialize: (state) => ({ token: state.token, user: state.user }),
-    },
-  ),
+      name: 'auth-storage',
+      partialize: state => ({ token: state.token, user: state.user }),
+    }
+  )
 );

@@ -19,7 +19,8 @@ export const es = {
   'hero.track': 'sigue',
   'hero.optimize': 'optimiza',
   'hero.cta.button': 'Comenzar Ahora',
-  'hero.description': 'Postulate es la plataforma definitiva que te ayuda a gestionar todas tus postulaciones laborales en un solo lugar. Con Postulate, organiza tu búsqueda de trabajo de manera eficiente y encuentra tu próximo empleo.',
+  'hero.description':
+    'Postulate es la plataforma definitiva que te ayuda a gestionar todas tus postulaciones laborales en un solo lugar. Con Postulate, organiza tu búsqueda de trabajo de manera eficiente y encuentra tu próximo empleo.',
 
   // Auth
   'auth.createAccount': 'Crea tu cuenta',
@@ -162,16 +163,19 @@ export const es = {
   'footer.copyright': '© {year} Postulate. Todos los derechos reservados.',
 
   'landing.hero.title': 'Tu Próximo Empleo Comienza Aquí: Gestiona tus Postulaciones sin Estrés.',
-  'landing.hero.subtitle': 'Anótate en la lista de espera y sé el primero en enterarte cuando lancemos nuestra plataforma.',
+  'landing.hero.subtitle':
+    'Anótate en la lista de espera y sé el primero en enterarte cuando lancemos nuestra plataforma.',
   'landing.intro.title': '¿Qué puedes lograr con Postulate?',
   'landing.intro.card1': 'Seguimiento de Postulaciones',
   'landing.intro.card2': 'Búsqueda Eficiente',
   'landing.intro.card3': 'Gestión de Documentos',
   'landing.intro.card4': 'Oportunidades Laborales',
   'landing.intro.card1.description': 'Mantén un registro organizado de todas tus aplicaciones.',
-  'landing.intro.card2.description': 'Encuentra rápidamente las oportunidades que realmente te interesan.',
+  'landing.intro.card2.description':
+    'Encuentra rápidamente las oportunidades que realmente te interesan.',
   'landing.intro.card3.description': 'Centraliza y accede fácilmente a tus CVs, cartas y más.',
-  'landing.intro.card4.description': 'Descubre nuevas vacantes y expande tus horizontes profesionales.',
+  'landing.intro.card4.description':
+    'Descubre nuevas vacantes y expande tus horizontes profesionales.',
   'landing.howItWorks.title': '¿Cómo Funciona?',
   'landing.benefits.mainTitle': 'Postulate: Transforma tu Búsqueda de Empleo',
   'landing.howItWorks.step1.title': 'Crea tu cuenta',
@@ -184,7 +188,8 @@ export const es = {
 
   'landing.trust.title': '¿Por qué Confiar en Nosotros?',
   'landing.cta.title': '¿Quieres ser de los primeros en probar nuestra plataforma?',
-  'landing.cta.description': 'El producto está en desarrollo. Anótate en la lista de espera y te avisaremos cuando esté disponible.',
+  'landing.cta.description':
+    'El producto está en desarrollo. Anótate en la lista de espera y te avisaremos cuando esté disponible.',
   'landing.cta.button': 'Únete a la lista de espera',
   successMessage: '¡Postulación creada exitosamente!',
   errorMessage: 'Ocurrió un error al guardar la postulación.',
@@ -279,14 +284,17 @@ export const es = {
   'notes.placeholder': 'Añade cualquier información relevante sobre esta postulación',
   'common.cancel': 'Cancelar',
   'dashboard.urlPlaceholder': 'URL de la oferta',
-  'profile.errors.uploadFailed': 'No se pudo subir la imagen. Por favor, verifica tu conexión e intenta nuevamente.',
+  'profile.errors.uploadFailed':
+    'No se pudo subir la imagen. Por favor, verifica tu conexión e intenta nuevamente.',
   'landing.benefits.title': '¿Por qué usar Postulate?',
   'profile.errors.imageTooLarge':
     'La imagen es demasiado grande. El tamaño máximo permitido es 10MB. Por favor, selecciona una imagen más pequeña.',
   'profile.errors.invalidImageType':
     'Tipo de imagen no válido. Solo se permiten imágenes en formato JPG, PNG, GIF o WEBP.',
-  'profile.errors.uploadError': 'Error al subir la imagen. Por favor, intenta nuevamente más tarde.',
-  'profile.errors.uploadTimeout': 'La subida de la imagen está tardando demasiado. Por favor, intenta nuevamente.',
+  'profile.errors.uploadError':
+    'Error al subir la imagen. Por favor, intenta nuevamente más tarde.',
+  'profile.errors.uploadTimeout':
+    'La subida de la imagen está tardando demasiado. Por favor, intenta nuevamente.',
   'profile.errors.uploadNetworkError':
     'Error de conexión al subir la imagen. Por favor, verifica tu conexión a internet.',
   'carousel.feature1.title': 'Creador de CV',
@@ -304,7 +312,8 @@ export const es = {
   'ia.step1.title': 'Paso 1: Ingresa la oferta de trabajo',
   'ia.step1.subtitle': 'Ingresa un enlace o sube una imagen de la oferta laboral',
   'ia.tip.title': 'Tip profesional',
-  'ia.tip.text': 'Para mejores resultados, asegúrate de que la oferta de trabajo contenga información detallada sobre requisitos y responsabilidades.',
+  'ia.tip.text':
+    'Para mejores resultados, asegúrate de que la oferta de trabajo contenga información detallada sobre requisitos y responsabilidades.',
   'ia.tab.link': 'Enlace',
   'ia.tab.image': 'Imagen',
   'ia.link.help': 'Ingresa el enlace completo a la oferta de trabajo (LinkedIn, Indeed, etc.)',
@@ -342,7 +351,8 @@ export const es = {
   'ia.tone.informal': 'Informal',
   'ia.tone.creativo': 'Creativo',
   'ia.header.title': 'Generación de respuesta IA',
-  'ia.header.subtitle': 'Genera respuestas personalizadas para tus postulaciones laborales con el poder de la inteligencia artificial',
+  'ia.header.subtitle':
+    'Genera respuestas personalizadas para tus postulaciones laborales con el poder de la inteligencia artificial',
 
   // Paginación
   'pagination.previousPage': 'Página anterior',
@@ -407,7 +417,8 @@ export const es = {
   'waitlist.error': 'Hubo un error al enviar tu email. Intenta de nuevo.',
   'waitlist.submit': 'Anotarme en la lista de espera',
   'waitlist.sending': 'Enviando...',
-  'waitlist.disclaimer': 'Solo te contactaremos para avisarte sobre el lanzamiento y novedades importantes. ¡No spam!',
+  'waitlist.disclaimer':
+    'Solo te contactaremos para avisarte sobre el lanzamiento y novedades importantes. ¡No spam!',
 
   // Profile tabs
   'profile.tabs.personal': 'Información Personal',
@@ -416,8 +427,10 @@ export const es = {
 
   // Profile tips
   'profile.tips.professional.title': 'Tip profesional',
-  'profile.tips.account.description': 'Usa un correo electrónico profesional y un nombre de usuario que refleje tu identidad profesional.',
-  'profile.tips.documents.description': 'Asegúrate de que tus documentos estén actualizados y en formatos estándar como PDF para mejor compatibilidad.',
+  'profile.tips.account.description':
+    'Usa un correo electrónico profesional y un nombre de usuario que refleje tu identidad profesional.',
+  'profile.tips.documents.description':
+    'Asegúrate de que tus documentos estén actualizados y en formatos estándar como PDF para mejor compatibilidad.',
 
   // Profile fields
   'profile.fields.userName': 'Nombre de Usuario',
@@ -435,5 +448,6 @@ export const es = {
   'profile.documents.other.button': 'Subir Documentos',
 
   // Profile tips for different sections
-  'profile.tips.personal.description': 'Para mejores resultados, asegúrate de completar toda tu información personal con detalles precisos y actualizados.',
+  'profile.tips.personal.description':
+    'Para mejores resultados, asegúrate de completar toda tu información personal con detalles precisos y actualizados.',
 } as const;

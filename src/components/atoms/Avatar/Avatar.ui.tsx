@@ -1,5 +1,5 @@
-import { AvatarProps } from "../../../interfaces/components/atoms/Avatar.interface";
-import { cn } from "../../../lib/utils";
+import { AvatarProps } from '../../../interfaces/components/atoms/Avatar.interface';
+import { cn } from '../../../lib/utils';
 
 export const Avatar = ({ src, alt, fallback, className }: AvatarProps) => {
   return (
@@ -10,10 +10,10 @@ export const Avatar = ({ src, alt, fallback, className }: AvatarProps) => {
         <img
           src={src}
           alt={alt}
-          className={cn("h-full w-full object-cover", className)}
+          className={cn('h-full w-full object-cover', className)}
           loading="lazy"
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = "none";
+          onError={e => {
+            (e.target as HTMLImageElement).style.display = 'none';
           }}
         />
       ) : (

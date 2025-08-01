@@ -1,4 +1,9 @@
-export const compressImage = async (file: File, maxWidth = 800, maxHeight = 800, quality = 0.8): Promise<File> => {
+export const compressImage = async (
+  file: File,
+  maxWidth = 800,
+  maxHeight = 800,
+  quality = 0.8
+): Promise<File> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.src = URL.createObjectURL(file);
@@ -34,7 +39,7 @@ export const compressImage = async (file: File, maxWidth = 800, maxHeight = 800,
 
       // Convertir a blob con calidad reducida
       canvas.toBlob(
-        (blob) => {
+        blob => {
           if (!blob) {
             reject(new Error('Error al comprimir la imagen'));
             return;

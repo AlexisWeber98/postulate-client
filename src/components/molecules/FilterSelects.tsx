@@ -29,7 +29,7 @@ const statusOptions: PostulationStatus[] = [
   'technical',
   'offer',
   'rejected',
-  'accepted'
+  'accepted',
 ];
 
 const FilterSelects: React.FC<FilterSelectsProps> = ({
@@ -51,13 +51,13 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
   const handleCompanyChange = (value: string) => {
     // Si el valor es "all" (proveniente del SelectItem "Todos"), se establece el filtro a ""
     // De lo contrario, se usa el valor de la compañía seleccionada.
-    setCompanyFilter(value === "all" ? "" : value);
+    setCompanyFilter(value === 'all' ? '' : value);
   };
 
   const handlePositionChange = (value: string) => {
     // Si el valor es "all" (proveniente del SelectItem "Todos"), se establece el filtro a ""
     // De lo contrario, se usa el valor de la posición seleccionada.
-    setPositionFilter(value === "all" ? "" : value);
+    setPositionFilter(value === 'all' ? '' : value);
   };
 
   const getBadgeCounter = useCallback((items: string[]) => {
@@ -67,8 +67,8 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
   // Para los FilterDropdown, si el filtro actual es "", pasamos "all" como valor
   // para que el SelectItem "Todos" aparezca seleccionado.
   // Si el filtro tiene un valor, ese es el que se pasa.
-  const companyDropdownValue = companyFilter === "" ? "all" : companyFilter;
-  const positionDropdownValue = positionFilter === "" ? "all" : positionFilter;
+  const companyDropdownValue = companyFilter === '' ? 'all' : companyFilter;
+  const positionDropdownValue = positionFilter === '' ? 'all' : positionFilter;
 
   const statusTranslations: Record<PostulationStatus, string> = {
     applied: translate('dashboard.filters.statusApplied'),
@@ -78,7 +78,6 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
     rejected: translate('dashboard.filters.statusRejected'),
     accepted: translate('dashboard.filters.statusAccepted'),
   };
-
 
   return (
     <div className="flex flex-col md:flex-row gap-4">
@@ -94,7 +93,7 @@ const FilterSelects: React.FC<FilterSelectsProps> = ({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{translate('dashboard.filters.all')}</SelectItem>
-            {statusOptions.map((status) => (
+            {statusOptions.map(status => (
               <SelectItem key={status} value={status}>
                 {statusTranslations[status] || status}
               </SelectItem>
