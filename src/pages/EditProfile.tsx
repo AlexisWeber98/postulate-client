@@ -3,7 +3,6 @@ import { useAuthStore } from '../store/auth/authStore';
 import { isValidEmail, hasContent } from '../lib/helpers/validation.helpers';
 import { motion } from 'framer-motion';
 import { useLanguageStore } from '../store';
-import Footer from '../components/organisms/Footer';
 import { CloudinaryService } from '../services/cloudinary.service';
 import PersonalInfo from '../components/organisms/PersonalInfo/PersonalInfo';
 import AccountDetails from '../components/organisms/Profile/AccountDetails';
@@ -280,7 +279,6 @@ const EditProfile: React.FC = () => {
           </div>
         </div>
       </motion.div>
-      <Footer />
     </div>
   );
 };
