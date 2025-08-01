@@ -21,12 +21,7 @@ import * as PostulationsStore from './postulations/postulationsStore';
 import * as LanguageStore from './language/languageStore';
 import * as ThemeStore from './theme/themeStore';
 // Exportar los grupos completos
-export {
-  AuthStore,
-  PostulationsStore,
-  LanguageStore,
-  ThemeStore,
-};
+export { AuthStore, PostulationsStore, LanguageStore, ThemeStore };
 
 // You can also export types if needed here
 
@@ -35,4 +30,3 @@ export type { Postulation, PostulationState } from '../types/interface/postulati
 export type { AuthState } from '../types/auth/auth.interface';
 export type { LanguageState } from '../types/interface/language/language.interface';
 export type { ThemeState } from './theme/themeStore';
-

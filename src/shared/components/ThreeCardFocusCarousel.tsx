@@ -1,12 +1,15 @@
-"use client"
+'use client';
 
 /* import type React from "react" */
 
-import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight/* , FileText, BarChart2, Calendar, Users, Brain */ } from "lucide-react"
-import { motion, useMotionValue, useTransform } from "framer-motion"
+import { useState, useEffect } from 'react';
+import {
+  ChevronLeft,
+  ChevronRight /* , FileText, BarChart2, Calendar, Users, Brain */,
+} from 'lucide-react';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 /* import { useLanguageStore } from '../../store/language/languageStore' */
-import { ThreeCardFocusCarouselProps } from "../../types/components/cards/ThreeCardFocusCarouselProps.interface"
+import { ThreeCardFocusCarouselProps } from '../../types/components/cards/ThreeCardFocusCarouselProps.interface';
 
 /* interface Feature {
   id: number
@@ -15,14 +18,16 @@ import { ThreeCardFocusCarouselProps } from "../../types/components/cards/ThreeC
   description: string
 } */
 
-export default function ThreeCardFocusCarousel({ features/* , cardClassName, cardWidth, cardHeight */ }: ThreeCardFocusCarouselProps) {
-  const [activeIndex, setActiveIndex] = useState(1)
-  const [autoplay, setAutoplay] = useState(true)
-  const [/* direction */, setDirection] = useState(0)
-  const [isHovered, setIsHovered] = useState(false)
+export default function ThreeCardFocusCarousel({
+  features /* , cardClassName, cardWidth, cardHeight */,
+}: ThreeCardFocusCarouselProps) {
+  const [activeIndex, setActiveIndex] = useState(1);
+  const [autoplay, setAutoplay] = useState(true);
+  const [, /* direction */ setDirection] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
   /* const { translate } = useLanguageStore() */
 
@@ -32,10 +37,10 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
       x: -280,
       scale: 0.85,
       opacity: 0.7,
-      filter: "blur(1.5px)",
+      filter: 'blur(1.5px)',
       zIndex: 1,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 300,
         damping: 25,
         duration: 0.6,
@@ -45,10 +50,10 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
       x: 0,
       scale: 1,
       opacity: 1,
-      filter: "blur(0px)",
+      filter: 'blur(0px)',
       zIndex: 10,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 300,
         damping: 25,
         duration: 0.6,
@@ -58,10 +63,10 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
       x: 280,
       scale: 0.85,
       opacity: 0.7,
-      filter: "blur(1.5px)",
+      filter: 'blur(1.5px)',
       zIndex: 1,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 300,
         damping: 25,
         duration: 0.6,
@@ -72,10 +77,10 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
       x: -500,
       scale: 0.7,
       opacity: 0,
-      filter: "blur(3px)",
+      filter: 'blur(3px)',
       zIndex: 0,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 400,
         damping: 30,
         duration: 0.4,
@@ -85,10 +90,10 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
       x: 500,
       scale: 0.7,
       opacity: 0,
-      filter: "blur(3px)",
+      filter: 'blur(3px)',
       zIndex: 0,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 400,
         damping: 30,
         duration: 0.4,
@@ -98,17 +103,17 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
       x: -500,
       scale: 0.7,
       opacity: 0,
-      filter: "blur(3px)",
+      filter: 'blur(3px)',
       zIndex: 0,
     },
     enterRight: {
       x: 500,
       scale: 0.7,
       opacity: 0,
-      filter: "blur(3px)",
+      filter: 'blur(3px)',
       zIndex: 0,
     },
-  }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -119,8 +124,7 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
         delayChildren: 0.2,
       },
     },
-  }
-
+  };
 
   const buttonVariants = {
     hidden: {
@@ -131,16 +135,16 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
       scale: 1,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 200,
         damping: 15,
       },
     },
     hover: {
       scale: 1.1,
-      boxShadow: "0 10px 25px rgba(90, 123, 207, 0.3)",
+      boxShadow: '0 10px 25px rgba(90, 123, 207, 0.3)',
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 400,
         damping: 10,
       },
@@ -148,74 +152,74 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
     tap: {
       scale: 0.95,
     },
-  }
+  };
 
   const indicatorVariants = {
     inactive: {
       scale: 1,
-      backgroundColor: "#233d85",
+      backgroundColor: '#233d85',
     },
     active: {
       scale: 1.2,
-      backgroundColor: "#5a7bcf",
+      backgroundColor: '#5a7bcf',
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 300,
         damping: 20,
       },
     },
-  }
+  };
 
   // Auto-rotate carousel
   useEffect(() => {
-    if (!autoplay || isHovered) return
+    if (!autoplay || isHovered) return;
 
     const interval = setInterval(() => {
-      setDirection(1)
-      setActiveIndex((prev) => (prev + 1) % features.length)
-    }, 6000)
+      setDirection(1);
+      setActiveIndex(prev => (prev + 1) % features.length);
+    }, 6000);
 
-    return () => clearInterval(interval)
-  }, [autoplay, isHovered, features.length])
+    return () => clearInterval(interval);
+  }, [autoplay, isHovered, features.length]);
 
   const handlePrev = () => {
-    setAutoplay(false)
-    setDirection(-1)
-    setActiveIndex((prev) => (prev - 1 + features.length) % features.length)
-  }
+    setAutoplay(false);
+    setDirection(-1);
+    setActiveIndex(prev => (prev - 1 + features.length) % features.length);
+  };
 
   const handleNext = () => {
-    setAutoplay(false)
-    setDirection(1)
-    setActiveIndex((prev) => (prev + 1) % features.length)
-  }
+    setAutoplay(false);
+    setDirection(1);
+    setActiveIndex(prev => (prev + 1) % features.length);
+  };
 
   const handleIndicatorClick = (index: number) => {
-    setAutoplay(false)
-    setDirection(index > activeIndex ? 1 : -1)
-    setActiveIndex(index)
-  }
+    setAutoplay(false);
+    setDirection(index > activeIndex ? 1 : -1);
+    setActiveIndex(index);
+  };
 
   // Get visible cards
   const getVisibleFeatures = () => {
-    const prev = (activeIndex - 1 + features.length) % features.length
-    const next = (activeIndex + 1) % features.length
-    return { prev, current: activeIndex, next }
-  }
+    const prev = (activeIndex - 1 + features.length) % features.length;
+    const next = (activeIndex + 1) % features.length;
+    return { prev, current: activeIndex, next };
+  };
 
-  const { prev, current, next } = getVisibleFeatures()
+  const { prev, current, next } = getVisibleFeatures();
 
   // Mouse parallax effect
-  const rotateX = useTransform(mouseY, [-300, 300], [5, -5])
-  const rotateY = useTransform(mouseX, [-300, 300], [-5, 5])
+  const rotateX = useTransform(mouseY, [-300, 300], [5, -5]);
+  const rotateY = useTransform(mouseX, [-300, 300], [-5, 5]);
 
   // Get card position based on its role
   const getCardPosition = (cardIndex: number) => {
-    if (cardIndex === current) return "centerPosition"
-    if (cardIndex === prev) return "leftPosition"
-    if (cardIndex === next) return "rightPosition"
-    return "exitLeft" // Hidden cards
-  }
+    if (cardIndex === current) return 'centerPosition';
+    if (cardIndex === prev) return 'leftPosition';
+    if (cardIndex === next) return 'rightPosition';
+    return 'exitLeft'; // Hidden cards
+  };
 
   return (
     <motion.div
@@ -223,17 +227,15 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      onMouseMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect()
-        mouseX.set(e.clientX - rect.left - rect.width / 2)
-        mouseY.set(e.clientY - rect.top - rect.height / 2)
+      onMouseMove={e => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        mouseX.set(e.clientX - rect.left - rect.width / 2);
+        mouseY.set(e.clientY - rect.top - rect.height / 2);
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="max-w-6xl mx-auto">
-
-
         <div className="relative flex items-center justify-center min-h-[350px]">
           {/* Navigation buttons */}
           <motion.button
@@ -251,15 +253,17 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
           <div className="relative w-full max-w-4xl flex items-center justify-center z-0">
             {/* Render all cards with their positions */}
             {features.map((feature, index) => {
-              const position = getCardPosition(index)
-              const isCenter = index === current
+              const position = getCardPosition(index);
+              const isCenter = index === current;
 
               return (
                 <motion.div
                   key={index}
-                  className={`absolute w-96 p-10 rounded-3xl text-white shadow-2xl cursor-pointer bg-gradient-to-r from-blue-500 to-violet-500 flex items-center justify-center text-center min-h-[340px] h-full${isCenter ? ' isolate' : ''}`}
+                  className={`absolute w-96 p-10 rounded-3xl text-white shadow-2xl cursor-pointer bg-gradient-to-r from-blue-500 to-violet-500 flex items-center justify-center text-center min-h-[340px] h-full${
+                    isCenter ? ' isolate' : ''
+                  }`}
                   style={{
-                    zIndex: isCenter && isHovered ? 30 : (isCenter ? 10 : 1),
+                    zIndex: isCenter && isHovered ? 30 : isCenter ? 10 : 1,
                     rotateX: isCenter ? rotateX : 0,
                     rotateY: isCenter ? rotateY : 0,
                   }}
@@ -268,22 +272,22 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
                   onMouseEnter={() => isCenter && setIsHovered(true)}
                   onMouseLeave={() => isCenter && setIsHovered(false)}
                   onClick={() => {
-                    if (index === prev) handlePrev()
-                    if (index === next) handleNext()
+                    if (index === prev) handlePrev();
+                    if (index === next) handleNext();
                   }}
                   whileHover={
                     !isCenter
                       ? {
-                          filter: "blur(0.5px)",
+                          filter: 'blur(0.5px)',
                           opacity: 0.85,
                           scale: 0.9,
                           transition: { duration: 0.2 },
                         }
                       : {
                           scale: 1.05,
-                          boxShadow: "0 25px 50px rgba(90, 123, 207, 0.4)",
+                          boxShadow: '0 25px 50px rgba(90, 123, 207, 0.4)',
                           transition: {
-                            type: "spring",
+                            type: 'spring',
                             stiffness: 300,
                             damping: 20,
                           },
@@ -309,7 +313,7 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
                     <p className="text-base leading-relaxed w-full text-center">{feature.desc}</p>
                   </div>
                 </motion.div>
-              )
+              );
             })}
           </div>
 
@@ -333,14 +337,14 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
               onClick={() => handleIndicatorClick(index)}
               className="relative w-4 h-4 flex items-center justify-center"
               variants={indicatorVariants}
-              animate={index === activeIndex ? "active" : "inactive"}
+              animate={index === activeIndex ? 'active' : 'inactive'}
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
               aria-label={`Go to feature ${index + 1}`}
             >
               <div
                 className={`w-4 h-4 rounded-full aspect-square transition-all duration-300 ${
-                  index === activeIndex ? "bg-[#5a7bcf]" : "bg-[#233d85]"
+                  index === activeIndex ? 'bg-[#5a7bcf]' : 'bg-[#233d85]'
                 }`}
               />
               {index === activeIndex && (
@@ -351,7 +355,7 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
                   transition={{
                     repeat: Number.POSITIVE_INFINITY,
                     duration: 2,
-                    ease: "easeOut",
+                    ease: 'easeOut',
                   }}
                 />
               )}
@@ -366,10 +370,10 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
         >
           <motion.div
             className="h-full bg-gradient-to-r from-[#5a7bcf] to-[#ff7eb3] rounded-full"
-            initial={{ width: "0%" }}
+            initial={{ width: '0%' }}
             animate={{ width: `${((activeIndex + 1) / features.length) * 100}%` }}
             transition={{
-              type: "spring",
+              type: 'spring',
               stiffness: 100,
               damping: 20,
             }}
@@ -377,5 +381,5 @@ export default function ThreeCardFocusCarousel({ features/* , cardClassName, car
         </motion.div>
       </div>
     </motion.div>
-  )
+  );
 }

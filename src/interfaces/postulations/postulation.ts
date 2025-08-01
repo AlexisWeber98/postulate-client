@@ -1,5 +1,10 @@
-export type PostulationStatus = 'applied' | 'interview' | 'technical' | 'offer' | 'rejected' | 'accepted';
-
+export type PostulationStatus =
+  | 'applied'
+  | 'interview'
+  | 'technical'
+  | 'offer'
+  | 'rejected'
+  | 'accepted';
 
 // Add translation keys to use with the i18n system instead
 export const STATUS_TRANSLATION_KEYS: Record<PostulationStatus, string> = {
@@ -8,7 +13,7 @@ export const STATUS_TRANSLATION_KEYS: Record<PostulationStatus, string> = {
   technical: 'dashboard.stats.status.technical',
   offer: 'dashboard.stats.status.offer',
   rejected: 'dashboard.stats.status.rejected',
-  accepted: 'dashboard.stats.status.accepted'
+  accepted: 'dashboard.stats.status.accepted',
 };
 export interface Postulation {
   /** Unique identifier for the postulation */
@@ -40,15 +45,16 @@ export interface Postulation {
 export interface PostulationState {
   postulations: Postulation[];
   loading: boolean;
- error: string | null;
- addPostulation: (newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>) => Promise<string>;
- updatePostulation: (id: string, updatedFields: Partial<Postulation>) => Promise<void>;
- deletePostulation: (id: string) => Promise<void>;
- getPostulation: (id: string) => Postulation | undefined;
+  error: string | null;
+  addPostulation: (
+    newPostulation: Omit<Postulation, 'id' | 'createdAt' | 'updatedAt'>
+  ) => Promise<string>;
+  updatePostulation: (id: string, updatedFields: Partial<Postulation>) => Promise<void>;
+  deletePostulation: (id: string) => Promise<void>;
+  getPostulation: (id: string) => Postulation | undefined;
   checkDuplicate: (company: string, position: string) => boolean;
- clearError: () => void;
+  clearError: () => void;
 }
-
 
 export const getStatusColors = (status: PostulationStatus, isDarkMode: boolean): string => {
   const colors = {
@@ -57,7 +63,7 @@ export const getStatusColors = (status: PostulationStatus, isDarkMode: boolean):
     technical: isDarkMode ? 'bg-yellow-900 text-yellow-100' : 'bg-yellow-100 text-yellow-800',
     offer: isDarkMode ? 'bg-green-900 text-green-100' : 'bg-green-100 text-green-800',
     rejected: isDarkMode ? 'bg-red-900 text-red-100' : 'bg-red-100 text-red-800',
-    accepted: isDarkMode ? 'bg-green-900 text-green-100' : 'bg-green-100 text-green-800'
+    accepted: isDarkMode ? 'bg-green-900 text-green-100' : 'bg-green-100 text-green-800',
   };
 
   return colors[status];

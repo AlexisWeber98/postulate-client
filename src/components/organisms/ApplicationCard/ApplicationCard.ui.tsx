@@ -36,14 +36,14 @@ export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
   isLoading,
 }) => {
   const { company, position, status, description } = application;
-  const translate = useLanguageStore(state=>state.translate);
+  const translate = useLanguageStore(state => state.translate);
 
   const bgColor = APP_COLORS.cardColors[status as keyof typeof APP_COLORS.cardColors] || 'white';
   const statusClassName = StatusHelpers.getStatusClasses(status);
 
   return (
     <>
-       <Card bgColor={bgColor} rounded="full">
+      <Card bgColor={bgColor} rounded="full">
         <article className="p-6">
           <div className="flex items-start mb-4">
             <div
@@ -58,7 +58,11 @@ export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
               <p className="text-gray-700">{position}</p>
             </div>
             <div>
-              <span className={`${statusClassName} px-3 py-1 rounded-full text-sm font-medium`} role="status" aria-label={`Estado: ${getStatusLabel(status)}`}>
+              <span
+                className={`${statusClassName} px-3 py-1 rounded-full text-sm font-medium`}
+                role="status"
+                aria-label={`Estado: ${getStatusLabel(status)}`}
+              >
                 {getStatusLabel(status)}
               </span>
             </div>
@@ -69,9 +73,7 @@ export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
             <time dateTime={application.createdAt}>{`Aplicado: ${formattedDate}`}</time>
           </div>
 
-          {description && (
-            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{description}</p>
-          )}
+          {description && <p className="text-gray-600 text-sm mb-4 line-clamp-2">{description}</p>}
         </article>
 
         <div className="border-t border-gray-100 bg-white/60 backdrop-blur-sm px-6 py-3 flex justify-end">
@@ -94,12 +96,13 @@ export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
         </div>
       </Card>
 
-      <Modal
-        isOpen={isDeleteModalOpen}
-        onClose={closeDeleteModal}
-        title="Confirmar Eliminación"
-      >
-        <div className="space-y-4" role="dialog" aria-labelledby="delete-modal-title" aria-describedby="delete-modal-description">
+      <Modal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} title="Confirmar Eliminación">
+        <div
+          className="space-y-4"
+          role="dialog"
+          aria-labelledby="delete-modal-title"
+          aria-describedby="delete-modal-description"
+        >
           <div className="flex items-start">
             <div className="flex-shrink-0 mt-0.5">
               <AlertTriangle className="h-6 w-6 text-red-500" aria-hidden="true" />
@@ -110,7 +113,8 @@ export const ApplicationCardUI: React.FC<ApplicationCardUIProps> = ({
               </h3>
               <p id="delete-modal-description" className="mt-2 text-sm text-gray-600">
                 Esta acción no se puede deshacer. Se eliminará permanentemente la postulación para
-                <span className="font-semibold"> {company}</span> como <span className="font-semibold">{position}</span>.
+                <span className="font-semibold"> {company}</span> como{' '}
+                <span className="font-semibold">{position}</span>.
               </p>
             </div>
           </div>

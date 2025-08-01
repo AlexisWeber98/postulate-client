@@ -1,5 +1,5 @@
-import { AxiosError, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from "axios";
-import { useAuthStore } from "../../store/auth/authStore";
+import { AxiosError, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { useAuthStore } from '../../store/auth/authStore';
 
 // Interceptor para agregar el token de autenticación
 export const requestInterceptor = {
@@ -7,7 +7,7 @@ export const requestInterceptor = {
     const token = useAuthStore.getState().token;
     if (token) {
       config.headers = {
-        ...config.headers as Record<string, string>,
+        ...(config.headers as Record<string, string>),
         Authorization: `Bearer ${token}`,
       } as AxiosRequestHeaders;
     }
@@ -15,7 +15,7 @@ export const requestInterceptor = {
   },
   onRejected: (error: AxiosError) => {
     return Promise.reject(error);
-  }
+  },
 };
 
 // Interceptor para manejar errores de autenticación
@@ -35,9 +35,9 @@ export const responseInterceptor = {
         useAuthStore.getState().signOut();
         // Emitir un evento personalizado para la redirección
         window.dispatchEvent(new CustomEvent('auth:unauthorized'));
-        window.location.href = "/login";
+        window.location.href = '/login';
       }
     }
     return Promise.reject(error);
-  }
+  },
 };

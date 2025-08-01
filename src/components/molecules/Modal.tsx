@@ -14,17 +14,23 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [contentId] = useState(() => `modal-content-${Math.random().toString(36).substr(2, 9)}`);
 
-  const handleEscape = useCallback((event: KeyboardEvent) => {
-    if (event.key === 'Escape') onClose();
-  }, [onClose]);
+  const handleEscape = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    },
+    [onClose]
+  );
 
-  const handleClickOutside = useCallback((event: MouseEvent) => {
-    // Verificar si el clic fue en el overlay (el div con fondo negro)
-    const target = event.target as HTMLElement;
-    if (target.classList.contains('bg-black/30')) {
-      onClose();
-    }
-  }, [onClose]);
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      // Verificar si el clic fue en el overlay (el div con fondo negro)
+      const target = event.target as HTMLElement;
+      if (target.classList.contains('bg-black/30')) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   // Focus management
   useEffect(() => {

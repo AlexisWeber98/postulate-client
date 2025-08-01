@@ -16,9 +16,4 @@ import * as Organisms from './organisms';
 import * as Templates from './templates';
 
 // Exportar los grupos completos
-export {
-  Atoms,
-  Molecules,
-  Organisms,
-  Templates
-};
+export { Atoms, Molecules, Organisms, Templates };

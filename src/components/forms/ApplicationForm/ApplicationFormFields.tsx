@@ -23,8 +23,6 @@ interface ApplicationFormFieldsProps {
 
 //const translate = useLanguageStore((state: { translate: (key: TranslationKey) => string }) => state.translate);
 
-
-
 export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
   formData,
   fieldStatus,
@@ -49,7 +47,9 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
           value={formData.company}
           onChange={e => onFieldChange('company', e.target.value)}
           onBlur={e => onFieldBlur('company', e.target.value)}
-          className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.company?.isValid && isBlurred.company ? 'ring-2 ring-red-400' : ''}`}
+          className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${
+            !fieldStatus.company?.isValid && isBlurred.company ? 'ring-2 ring-red-400' : ''
+          }`}
           placeholder={translate('dashboard.companyPlaceholder')}
           required
           aria-invalid={!fieldStatus.company?.isValid}
@@ -71,7 +71,9 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
           value={formData.position}
           onChange={e => onFieldChange('position', e.target.value)}
           onBlur={e => onFieldBlur('position', e.target.value)}
-          className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.position?.isValid && isBlurred.position ? 'ring-2 ring-red-400' : ''}`}
+          className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${
+            !fieldStatus.position?.isValid && isBlurred.position ? 'ring-2 ring-red-400' : ''
+          }`}
           placeholder={translate('dashboard.positionPlaceholder')}
           required
           aria-invalid={!fieldStatus.position?.isValid}
@@ -132,7 +134,9 @@ export const ApplicationFormFields: React.FC<ApplicationFormFieldsProps> = ({
             value={formData.url}
             onChange={e => onFieldChange('url', e.target.value)}
             onBlur={e => onFieldBlur('url', e.target.value)}
-            className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${!fieldStatus.url?.isValid && isBlurred.url ? 'ring-2 ring-red-400' : ''}`}
+            className={`w-full bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700/50 focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-blue-100/40 shadow-inner appearance-none transition-all duration-200 pr-10 ${
+              !fieldStatus.url?.isValid && isBlurred.url ? 'ring-2 ring-red-400' : ''
+            }`}
             placeholder={translate('dashboard.referenceUrlPlaceholder')}
           />
         </FieldWrapper>

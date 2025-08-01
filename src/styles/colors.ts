@@ -20,11 +20,11 @@ export const APP_COLORS = {
 
   // Colores de tarjetas por estado
   cardColors: {
-    applied: '#e6f2ff',     // Azul claro pastel
-    interview: '#f3e6ff',   // Lila pastel
-    technical: '#fff2e6',   // Naranja pastel
-    offer: '#e6fff2',       // Verde menta pastel
-    rejected: '#ffe6e6',    // Rojo pastel
-    accepted: '#e6ffef'     // Verde pastel
-  }
+    applied: '#e6f2ff', // Azul claro pastel
+    interview: '#f3e6ff', // Lila pastel
+    technical: '#fff2e6', // Naranja pastel
+    offer: '#e6fff2', // Verde menta pastel
+    rejected: '#ffe6e6', // Rojo pastel
+    accepted: '#e6ffef', // Verde pastel
+  },
 };

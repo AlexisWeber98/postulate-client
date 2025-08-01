@@ -1,33 +1,19 @@
-import { requestInterceptor, responseInterceptor } from "./interceptors/auth.interceptors";
-import axios ,{ AxiosInstance, AxiosRequestConfig } from "axios";
-import { API_URL, API_KEY } from "./apiAxios";
-
-
-
-
-
+import { requestInterceptor, responseInterceptor } from './interceptors/auth.interceptors';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { API_URL, API_KEY } from './apiAxios';
 
 export const client: AxiosInstance = axios.create({
   baseURL: API_URL,
   headers: {
-    'Content-Type': 'application/json' ,
+    'Content-Type': 'application/json',
     ...(API_KEY ? { 'x-api-key': API_KEY } : {}),
-
-  }
+  },
 });
 
-
-
 // Agregar interceptores base
-client.interceptors.request.use(
-  requestInterceptor.onFulfilled,
-  requestInterceptor.onRejected
-);
+client.interceptors.request.use(requestInterceptor.onFulfilled, requestInterceptor.onRejected);
 
-client.interceptors.response.use(
-  responseInterceptor.onFulfilled,
-  responseInterceptor.onRejected
-);
+client.interceptors.response.use(responseInterceptor.onFulfilled, responseInterceptor.onRejected);
 
 // Cliente HTTP con métodos tipados
 export const httpClient = {

@@ -23,9 +23,7 @@ const ApplicationStats: React.FC = () => {
   const translate = useLanguageStore(state => state.translate);
 
   // Log para verificar los datos recibidos
-  useEffect(() => {
-
-  }, [postulations]);
+  useEffect(() => {}, [postulations]);
 
   // Total count
   const totalApplications = useMemo(() => {
@@ -57,13 +55,10 @@ const ApplicationStats: React.FC = () => {
 
     const companyCount = postulations
       .filter((app: Postulation) => app && app.company)
-      .reduce(
-        (acc: Record<string, number>, app: Postulation) => {
-          acc[app.company] = (acc[app.company] || 0) + 1;
-          return acc;
-        },
-        {} as Record<string, number>
-      );
+      .reduce((acc: Record<string, number>, app: Postulation) => {
+        acc[app.company] = (acc[app.company] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
 
     let topCompany = { name: '', count: 0 };
     (Object.entries(companyCount) as [string, number][]).forEach(([company, count]) => {
@@ -107,13 +102,10 @@ const ApplicationStats: React.FC = () => {
 
     const statusCount = postulations
       .filter((app: Postulation) => app && app.status)
-      .reduce(
-        (acc: Record<string, number>, app: Postulation) => {
-          acc[app.status] = (acc[app.status] || 0) + 1;
-          return acc;
-        },
-        {} as Record<string, number>
-      );
+      .reduce((acc: Record<string, number>, app: Postulation) => {
+        acc[app.status] = (acc[app.status] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
 
     return {
       applied: statusCount['applied'] || 0,
@@ -135,9 +127,13 @@ const ApplicationStats: React.FC = () => {
   };
 
   // Log para verificar los cálculos
-  useEffect(() => {
-
-  }, [totalApplications, activeApplications, topCompany, recentApplications, applicationsByStatus]);
+  useEffect(() => {}, [
+    totalApplications,
+    activeApplications,
+    topCompany,
+    recentApplications,
+    applicationsByStatus,
+  ]);
 
   return (
     <div className="w-full ">
@@ -156,7 +152,9 @@ const ApplicationStats: React.FC = () => {
               <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.totalApplications')}
               </p>
-              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">{totalApplications}</p>
+              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">
+                {totalApplications}
+              </p>
             </div>
             <div className="flex-shrink-0 w-8 h-8 sm:w-8 sm:h-8 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80 ml-2">
               <PieChart className="w-4 h-4 sm:w-4 sm:h-4 lg:w-7 lg:h-7 text-blue-500" />
@@ -169,7 +167,9 @@ const ApplicationStats: React.FC = () => {
               <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.activeApplications')}
               </p>
-              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">{activeApplications}</p>
+              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">
+                {activeApplications}
+              </p>
             </div>
             <div className="flex-shrink-0 w-8 h-8 sm:w-8 sm:h-8 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80 ml-2">
               <Activity className="w-4 h-4 sm:w-4 sm:h-4 lg:w-7 lg:h-7 text-green-500" />
@@ -182,7 +182,9 @@ const ApplicationStats: React.FC = () => {
               <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.topCompany')}
               </p>
-              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white truncate">{topCompany.name || '-'}</p>
+              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white truncate">
+                {topCompany.name || '-'}
+              </p>
             </div>
             <div className="flex-shrink-0 w-8 h-8 sm:w-8 sm:h-8 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80 ml-2">
               <Users className="w-4 h-4 sm:w-4 sm:h-4 lg:w-7 lg:h-7 text-pink-500" />
@@ -195,7 +197,9 @@ const ApplicationStats: React.FC = () => {
               <p className="text-xs sm:text-xs lg:text-base text-white font-medium mb-1">
                 {translate('stats.recentApplications')}
               </p>
-              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">{recentApplications}</p>
+              <p className="text-lg sm:text-lg lg:text-2xl font-bold text-white">
+                {recentApplications}
+              </p>
             </div>
             <div className="flex-shrink-0 w-8 h-8 sm:w-8 sm:h-8 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/80 ml-2">
               <Calendar className="w-4 h-4 sm:w-4 sm:h-4 lg:w-7 lg:h-7 text-orange-500" />

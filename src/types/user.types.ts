@@ -5,7 +5,6 @@ export interface User {
   lastName?: string;
   userName?: string;
   profileImage?: string;
-
 }
 
 export type UpdateUserData = Partial<Omit<User, 'id'>>;

@@ -26,9 +26,9 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   positionFilter,
   setPositionFilter,
   companies,
-  positions
+  positions,
 }) => {
-  const  translate  = useLanguageStore(state=>state.translate);
+  const translate = useLanguageStore(state => state.translate);
 
   const statusOptions: { value: PostulationStatus | 'all'; label: string }[] = [
     { value: 'all', label: translate('dashboard.filters.status') },
@@ -37,7 +37,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
     { value: 'technical', label: translate('dashboard.stats.status.technical') },
     { value: 'offer', label: translate('dashboard.stats.status.offer') },
     { value: 'rejected', label: translate('dashboard.stats.status.rejected') },
-    { value: 'accepted', label: translate('dashboard.stats.status.accepted') }
+    { value: 'accepted', label: translate('dashboard.stats.status.accepted') },
   ];
 
   return (
@@ -50,7 +50,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         <input
           type="text"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={e => setSearchTerm(e.target.value)}
           placeholder={translate('dashboard.filters.search')}
           className="block w-full pl-8 sm:pl-10 pr-8 sm:pr-10 py-2 sm:py-3 rounded-xl sm:rounded-2xl border border-blue-200 bg-white/80 shadow-lg sm:shadow-xl focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 placeholder-gray-600 transition-all duration-200 hover:shadow-xl sm:hover:shadow-2xl text-sm sm:text-base"
         />
@@ -70,7 +70,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         <div className="relative w-full">
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as PostulationStatus | 'all')}
+            onChange={e => setStatusFilter(e.target.value as PostulationStatus | 'all')}
             className="appearance-none block w-full pl-3 sm:pl-4 pr-8 sm:pr-10 py-2 sm:py-3 rounded-xl sm:rounded-2xl border border-gray-200 bg-white/80 shadow-md sm:shadow-lg focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-lg sm:hover:shadow-xl cursor-pointer text-sm sm:text-base"
           >
             {statusOptions.map(option => (
@@ -80,7 +80,19 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             ))}
           </select>
           <span className="pointer-events-none absolute inset-y-0 right-2 sm:right-3 flex items-center text-gray-400">
-            <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+            <svg
+              className="h-4 w-4 sm:h-5 sm:w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
           </span>
         </div>
 
@@ -88,10 +100,12 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         <div className="relative w-full">
           <select
             value={companyFilter}
-            onChange={(e) => setCompanyFilter(e.target.value)}
+            onChange={e => setCompanyFilter(e.target.value)}
             className="appearance-none block w-full pl-3 sm:pl-4 pr-8 sm:pr-10 py-2 sm:py-3 rounded-xl sm:rounded-2xl border border-gray-200 bg-white/80 shadow-md sm:shadow-lg focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-lg sm:hover:shadow-xl cursor-pointer text-sm sm:text-base"
           >
-            <option key="default-company" value="">{translate('dashboard.filters.selectCompany')}</option>
+            <option key="default-company" value="">
+              {translate('dashboard.filters.selectCompany')}
+            </option>
             {companies.map((company, index) => (
               <option key={`company-${company}-${index}`} value={company}>
                 {company}
@@ -99,7 +113,19 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             ))}
           </select>
           <span className="pointer-events-none absolute inset-y-0 right-2 sm:right-3 flex items-center text-gray-400">
-            <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+            <svg
+              className="h-4 w-4 sm:h-5 sm:w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
           </span>
         </div>
 
@@ -107,10 +133,12 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         <div className="relative w-full">
           <select
             value={positionFilter}
-            onChange={(e) => setPositionFilter(e.target.value)}
+            onChange={e => setPositionFilter(e.target.value)}
             className="appearance-none block w-full pl-3 sm:pl-4 pr-8 sm:pr-10 py-2 sm:py-3 rounded-xl sm:rounded-2xl border border-gray-200 bg-white/80 shadow-md sm:shadow-lg focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-blue-300 focus:border-blue-400 text-gray-800 transition-all duration-200 hover:shadow-lg sm:hover:shadow-xl cursor-pointer text-sm sm:text-base"
           >
-            <option key="default-position" value="">{translate('dashboard.filters.selectPosition')}</option>
+            <option key="default-position" value="">
+              {translate('dashboard.filters.selectPosition')}
+            </option>
             {positions.map((position, index) => (
               <option key={`position-${position}-${index}`} value={position}>
                 {position}
@@ -118,7 +146,19 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             ))}
           </select>
           <span className="pointer-events-none absolute inset-y-0 right-2 sm:right-3 flex items-center text-gray-400">
-            <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+            <svg
+              className="h-4 w-4 sm:h-5 sm:w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
           </span>
         </div>
 

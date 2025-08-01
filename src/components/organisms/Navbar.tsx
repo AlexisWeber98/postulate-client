@@ -51,11 +51,20 @@ const Navbar: React.FC = () => {
   // Navbar para usuario autenticado (incluyendo landing page)
   if (user) {
     return (
-      <header className="sticky top-0 z-50 w-full shadow-lg bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md transition-colors duration-200" role="banner">
+      <header
+        className="sticky top-0 z-50 w-full shadow-lg bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md transition-colors duration-200"
+        role="banner"
+      >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/landing" className="flex items-center gap-2 select-none" aria-label="Ir a la página principal">
+          <Link
+            to="/landing"
+            className="flex items-center gap-2 select-none"
+            aria-label="Ir a la página principal"
+          >
             <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" aria-hidden="true" />
-            <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">{translate('Postulate')}</span>
+            <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+              {translate('Postulate')}
+            </span>
           </Link>
 
           {/* Menú móvil */}
@@ -77,7 +86,12 @@ const Navbar: React.FC = () => {
 
               {/* Menú móvil desplegable */}
               {mobileMenuOpen && (
-                <nav id="mobile-menu" className="absolute top-full left-0 right-0 bg-white dark:bg-gray-800 shadow-lg py-4 px-6 space-y-4" role="navigation" aria-label="Menú principal">
+                <nav
+                  id="mobile-menu"
+                  className="absolute top-full left-0 right-0 bg-white dark:bg-gray-800 shadow-lg py-4 px-6 space-y-4"
+                  role="navigation"
+                  aria-label="Menú principal"
+                >
                   <Link
                     to="/dashboard"
                     className="block w-full text-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600"
@@ -94,19 +108,29 @@ const Navbar: React.FC = () => {
                   </Link>
                   <button
                     className="block w-full text-center px-6 py-3 rounded-xl text-gray-800 dark:text-gray-100 hover:bg-blue-50 dark:hover:bg-gray-700"
-                    onClick={() => { setIaModalOpen(true); setMobileMenuOpen(false); }}
+                    onClick={() => {
+                      setIaModalOpen(true);
+                      setMobileMenuOpen(false);
+                    }}
                     aria-label="Abrir generador de respuestas IA"
                   >
                     IA Respuesta
                   </button>
                   <button
-                    onClick={() => { setMobileMenuOpen(false); handleSignOut(); }}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      handleSignOut();
+                    }}
                     className="block w-full text-center px-6 py-3 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900"
                     aria-label="Cerrar sesión"
                   >
                     {translate('auth.signOut')}
                   </button>
-                  <div className="flex items-center gap-4" role="toolbar" aria-label="Configuración">
+                  <div
+                    className="flex items-center gap-4"
+                    role="toolbar"
+                    aria-label="Configuración"
+                  >
                     <ThemeToggle />
                     <LanguageSelector />
                   </div>
@@ -132,7 +156,7 @@ const Navbar: React.FC = () => {
                 <div className="relative" ref={avatarRef}>
                   <button
                     className="focus:outline-none"
-                    onClick={() => setMenuOpen((open) => !open)}
+                    onClick={() => setMenuOpen(open => !open)}
                     aria-haspopup="true"
                     aria-expanded={menuOpen}
                     aria-label="Menú de usuario"
@@ -145,7 +169,11 @@ const Navbar: React.FC = () => {
                     />
                   </button>
                   {menuOpen && (
-                    <nav className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded-xl shadow-lg py-2 z-50 animate-fade-in" role="menu" aria-label="Menú de usuario">
+                    <nav
+                      className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded-xl shadow-lg py-2 z-50 animate-fade-in"
+                      role="menu"
+                      aria-label="Menú de usuario"
+                    >
                       <Link
                         to="/dashboard/profile"
                         className="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-blue-100 dark:hover:bg-gray-700 rounded transition"
@@ -156,13 +184,19 @@ const Navbar: React.FC = () => {
                       </Link>
                       <button
                         className="block w-full text-left px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-blue-100 dark:hover:bg-gray-700 rounded transition"
-                        onClick={() => { setMenuOpen(false); setIaModalOpen(true); }}
+                        onClick={() => {
+                          setMenuOpen(false);
+                          setIaModalOpen(true);
+                        }}
                         role="menuitem"
                       >
                         IA Respuesta
                       </button>
                       <button
-                        onClick={() => { setMenuOpen(false); handleSignOut(); }}
+                        onClick={() => {
+                          setMenuOpen(false);
+                          handleSignOut();
+                        }}
                         className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900 rounded transition"
                         role="menuitem"
                       >
@@ -186,11 +220,20 @@ const Navbar: React.FC = () => {
 
   // Navbar para usuario no autenticado
   return (
-    <header className="sticky top-0 z-50 w-full shadow-lg bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md transition-colors duration-200" role="banner">
+    <header
+      className="sticky top-0 z-50 w-full shadow-lg bg-gradient-to-br from-blue-400 via-blue-200 to-violet-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md transition-colors duration-200"
+      role="banner"
+    >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link to="/landing" className="flex items-center gap-2 select-none" aria-label="Ir a la página principal">
+        <Link
+          to="/landing"
+          className="flex items-center gap-2 select-none"
+          aria-label="Ir a la página principal"
+        >
           <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" aria-hidden="true" />
-          <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">{translate('Postulate')}</span>
+          <span className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+            {translate('Postulate')}
+          </span>
         </Link>
 
         {/* Menú móvil */}
@@ -212,7 +255,12 @@ const Navbar: React.FC = () => {
 
             {/* Menú móvil desplegable */}
             {mobileMenuOpen && (
-              <nav id="mobile-menu" className="absolute top-full left-0 right-0 bg-white dark:bg-gray-800 shadow-lg py-4 px-6 space-y-4" role="navigation" aria-label="Menú principal">
+              <nav
+                id="mobile-menu"
+                className="absolute top-full left-0 right-0 bg-white dark:bg-gray-800 shadow-lg py-4 px-6 space-y-4"
+                role="navigation"
+                aria-label="Menú principal"
+              >
                 <Link
                   to="/login"
                   className="block w-full text-center px-6 py-3 rounded-xl shadow-xl text-white font-semibold text-base transition bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600"

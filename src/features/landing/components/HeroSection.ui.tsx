@@ -6,12 +6,14 @@ import { useLanguageStore } from '../../../store';
 
 function highlightImportant(text: string) {
   return (
-    <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent font-extrabold">{text}</span>
+    <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent font-extrabold">
+      {text}
+    </span>
   );
 }
 
 const HeroSection: React.FC = () => {
-  const translate = useLanguageStore(state=>state.translate);
+  const translate = useLanguageStore(state => state.translate);
   return (
     <section className="relative min-h-[calc(100vh-0px)] flex items-center justify-center pt-8 sm:pt-12 md:pt-16 pb-8 sm:pb-12 md:pb-16 px-4 sm:px-6">
       <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-2 md:gap-2 text-center md:text-left relative z-10">

@@ -5,7 +5,10 @@ interface LoadingIndicatorProps {
   message?: string;
 }
 
-const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({ fullScreen = false, message = 'Cargando...' }) => {
+const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
+  fullScreen = false,
+  message = 'Cargando...',
+}) => {
   if (fullScreen) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50">

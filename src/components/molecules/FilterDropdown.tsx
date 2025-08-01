@@ -32,24 +32,26 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
     <div className="w-full md:w-64">
       <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
         {icon}
-        <span>{label} {badgeCounter}</span>
+        <span>
+          {label} {badgeCounter}
+        </span>
       </div>
-      <Select
-        value={value}
-        onValueChange={onValueChange}
-        defaultValue="all"
-      >
+      <Select value={value} onValueChange={onValueChange} defaultValue="all">
         <SelectTrigger className="w-full">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">{placeholder}</SelectItem>
           {options && options.length > 0 ? (
-            options.map((option) => (
-              <SelectItem key={option} value={option}>{option}</SelectItem>
+            options.map(option => (
+              <SelectItem key={option} value={option}>
+                {option}
+              </SelectItem>
             ))
           ) : (
-            <SelectItem value="all" disabled>{noOptionsMessage}</SelectItem>
+            <SelectItem value="all" disabled>
+              {noOptionsMessage}
+            </SelectItem>
           )}
         </SelectContent>
       </Select>

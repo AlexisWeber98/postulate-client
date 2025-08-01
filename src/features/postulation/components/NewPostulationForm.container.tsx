@@ -16,20 +16,26 @@ const defaultValues: NewPostulationFormValues = {
   sentEmail: false,
 };
 
-const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initialValues, onSubmit, loading, error }) => {
+const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({
+  initialValues,
+  onSubmit,
+  loading,
+  error,
+}) => {
   const [values, setValues] = useState<NewPostulationFormValues>({
     ...defaultValues,
     ...initialValues,
   });
   const [errors, setErrors] = useState<Partial<Record<keyof NewPostulationFormValues, string>>>({});
-  const [touched, setTouched] = useState<Partial<Record<keyof NewPostulationFormValues, boolean>>>({});
+  const [touched, setTouched] = useState<Partial<Record<keyof NewPostulationFormValues, boolean>>>(
+    {}
+  );
 
   const validate = useCallback(() => {
-
     const result = newPostulationSchema.safeParse(values);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof NewPostulationFormValues, string>> = {};
-      result.error.errors.forEach((err) => {
+      result.error.errors.forEach(err => {
         const field = err.path[0] as keyof NewPostulationFormValues;
         fieldErrors[field] = err.message;
       });
@@ -42,8 +48,6 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
     return true;
   }, [values]);
 
-
-
   // Efecto para revalidar en tiempo real cuando values cambie y haya campos tocados
   useEffect(() => {
     if (Object.keys(touched).length > 0) {
@@ -51,33 +55,31 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
     }
   }, [values, touched, validate]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
 
-    setValues((prev) => ({ ...prev, [name]: value }));
-    setTouched((prev) => ({ ...prev, [name]: true }));
+    setValues(prev => ({ ...prev, [name]: value }));
+    setTouched(prev => ({ ...prev, [name]: true }));
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
 
-    setValues((prev) => ({ ...prev, [name]: checked }));
-    setTouched((prev) => ({ ...prev, [name]: true }));
+    setValues(prev => ({ ...prev, [name]: checked }));
+    setTouched(prev => ({ ...prev, [name]: true }));
   };
 
   const handleStatusChange = (status: PostulationStatus) => {
-
-    setValues((prev) => ({ ...prev, status }));
-    setTouched((prev) => ({ ...prev, status: true }));
+    setValues(prev => ({ ...prev, status }));
+    setTouched(prev => ({ ...prev, status: true }));
   };
-
-  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validate()) {
-
       onSubmit(values);
     } else {
       // Validation failed, errors are already set by validate()
@@ -85,7 +87,6 @@ const NewPostulationFormContainer: React.FC<NewPostulationFormProps> = ({ initia
   };
 
   const resetForm = () => {
-
     setValues(defaultValues);
     setErrors({});
     setTouched({});

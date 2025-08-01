@@ -1,0 +1,33 @@
+name: Generate Changelog
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required to fetch all history for changelog generation
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a Node.js version compatible with your project
+
+      - name: Install conventional-changelog-cli
+        run: npm install -g conventional-changelog-cli
+
+      - name: Generate Changelog
+        run: conventional-changelog -p angular -i CHANGELOG.md -s -r 0
+
+      - name: Commit and Push Changelog
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'docs: Update CHANGELOG.md'
+          file_pattern: 'CHANGELOG.md'

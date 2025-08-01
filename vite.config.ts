@@ -10,12 +10,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
-    }
+      '@': path.resolve(__dirname, './src'),
+    },
   },
   build: {
     rollupOptions: {
-      external: ['/_vercel/insights/script.js']
-    }
-  }
+      external: ['/_vercel/insights/script.js'],
+    },
+  },
 });

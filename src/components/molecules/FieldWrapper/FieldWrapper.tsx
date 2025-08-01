@@ -1,6 +1,6 @@
 import React from 'react';
 import { Info, CheckCircle2, XCircle } from 'lucide-react';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from 'framer-motion';
 import { FieldWrapperProps } from '../../../interfaces/components/molecules/FieldWrapper.interface';
 
 const FieldWrapper: React.FC<FieldWrapperProps> = ({
@@ -10,14 +10,20 @@ const FieldWrapper: React.FC<FieldWrapperProps> = ({
   children,
   tooltip,
   isBlurred,
-  fieldStatus
+  fieldStatus,
 }) => (
   <div className="relative">
-    <label htmlFor={name} className="text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2">
+    <label
+      htmlFor={name}
+      className="text-base font-semibold text-gray-700 dark:text-white mb-2 drop-shadow flex items-center gap-2"
+    >
       {label} {required && <span className="text-red-500">*</span>}
       {tooltip && (
         <div className="group relative inline-block">
-          <Info className="h-4 w-4 text-blue-500 dark:text-blue-400 cursor-help" aria-hidden="true" />
+          <Info
+            className="h-4 w-4 text-blue-500 dark:text-blue-400 cursor-help"
+            aria-hidden="true"
+          />
           <button
             type="button"
             className="sr-only focus:not-sr-only focus:absolute focus:z-10"
@@ -37,9 +43,8 @@ const FieldWrapper: React.FC<FieldWrapperProps> = ({
           <div
             id={`${name}-tooltip`}
             role="tooltip"
-         
             className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-4 py-2 bg-gray-800/95 dark:bg-gray-900/95 text-white text-sm font-semibold rounded-xl opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200 w-56 shadow-2xl border border-blue-400 z-50 pointer-events-none"
-            aria-hidden="true" 
+            aria-hidden="true"
           >
             {tooltip}
           </div>
@@ -71,7 +76,7 @@ const FieldWrapper: React.FC<FieldWrapperProps> = ({
       {isBlurred && fieldStatus?.message && (
         <motion.p
           initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
+          animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.2 }}
           className="mt-2 text-sm text-red-500 dark:text-red-400 overflow-hidden"

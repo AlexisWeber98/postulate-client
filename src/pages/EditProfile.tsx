@@ -131,7 +131,6 @@ const EditProfile: React.FC = () => {
     try {
       const imageUrl = await CloudinaryService.uploadImage(file);
       setPreviewUrl(imageUrl);
-
     } catch (error) {
       console.error('Error al subir la imagen:', error);
       if (error instanceof Error) {
@@ -165,7 +164,7 @@ const EditProfile: React.FC = () => {
         lastName,
         email,
         userName,
-        ...(previewUrl && { imageUrl: previewUrl })
+        ...(previewUrl && { imageUrl: previewUrl }),
       });
 
       setSuccess(true);
@@ -203,19 +202,31 @@ const EditProfile: React.FC = () => {
           {/* Tabs funcionales */}
           <div className="flex w-full max-w-2xl mb-6 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 shadow-lg">
             <button
-              className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'personal' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
+              className={`flex-1 py-3 text-center font-bold transition-all ${
+                activeTab === 'personal'
+                  ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner'
+                  : 'text-gray-400 bg-transparent'
+              }`}
               onClick={() => setActiveTab('personal')}
             >
               {translate('profile.tabs.personal')}
             </button>
             <button
-              className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'account' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
+              className={`flex-1 py-3 text-center font-bold transition-all ${
+                activeTab === 'account'
+                  ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner'
+                  : 'text-gray-400 bg-transparent'
+              }`}
               onClick={() => setActiveTab('account')}
             >
               {translate('profile.tabs.account')}
             </button>
             <button
-              className={`flex-1 py-3 text-center font-bold transition-all ${activeTab === 'documents' ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner' : 'text-gray-400 bg-transparent'}`}
+              className={`flex-1 py-3 text-center font-bold transition-all ${
+                activeTab === 'documents'
+                  ? 'text-blue-600 bg-white dark:bg-gray-900 shadow-inner'
+                  : 'text-gray-400 bg-transparent'
+              }`}
               onClick={() => setActiveTab('documents')}
             >
               {translate('profile.tabs.documents')}

@@ -13,7 +13,7 @@ export const isValidUrl = (url: string): boolean => {
     new URL(url);
     return true;
   } catch (error) {
-    console.error("Error validando URL:", error);
+    console.error('Error validando URL:', error);
     return false;
   }
 };
