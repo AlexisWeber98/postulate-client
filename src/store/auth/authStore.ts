@@ -129,7 +129,7 @@ export const useAuthStore = create<AuthState>()(
         set({ loading: true });
 
         try {
-          const response = await authApi.register({
+          await authApi.register({
             email,
             name,
             userName,
@@ -137,18 +137,11 @@ export const useAuthStore = create<AuthState>()(
             password,
           });
 
-          const user = response.result;
-
+          // NO guardar nada en el store - el usuario debe hacer login manualmente
           set({
-            user: {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              lastName: user.lastName || '',
-              userName: user.userName || '',
-            },
-            loading: false,
+            user: null,
             token: null,
+            loading: false,
             isAuthenticated: false,
           });
         } catch (error) {
