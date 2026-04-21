@@ -251,8 +251,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                 {isLoading
                   ? translate('common.loading')
                   : type === 'login'
-                  ? translate('auth.login')
-                  : translate('auth.register')}
+                    ? translate('auth.login')
+                    : translate('auth.register')}
               </button>
             </div>
 
@@ -281,7 +281,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             </div>
 
             <Link
-              to="/landing"
+              to="/login"
               className="inline-flex items-center justify-center px-4 py-2 rounded-lg text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 font-medium transition-all duration-200 hover:scale-105"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
